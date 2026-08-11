@@ -18,7 +18,6 @@ import hero3d from "@/assets/hero-3d.jpg";
 import hero2d from "@/assets/hero-2d.jpg";
 import projHvac from "@/assets/proj-hvac.jpg";
 import projTermice from "@/assets/proj-termice.jpg";
-import projElectrice from "@/assets/proj-electrice.jpg";
 import projSectiune from "@/assets/proj-sectiune.jpg";
 import projSheet from "@/assets/proj-sheet.jpg";
 
