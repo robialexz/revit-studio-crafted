@@ -302,6 +302,7 @@ function Home() {
                   href={waHref}
                   target="_blank"
                   rel="noreferrer noopener"
+                  onClick={() => track("whatsapp_click", { source: "homepage" })}
                   className="tech-label border border-foreground px-6 py-4 transition-colors hover:bg-foreground hover:text-background"
                 >
                   Scrie pe WhatsApp
@@ -656,6 +657,7 @@ function Home() {
                 </p>
                 <a
                   href="#estimare"
+                  onClick={() => track("pricing_cta_click")}
                   className="tech-label mt-8 inline-block border border-foreground bg-foreground px-6 py-4 text-background transition-colors hover:border-primary hover:bg-primary"
                 >
                   Cere preț pentru proiectul tău
@@ -756,6 +758,7 @@ function Home() {
                 href={waHref}
                 target="_blank"
                 rel="noreferrer noopener"
+                onClick={() => track("whatsapp_click", { source: "homepage" })}
                 className="tech-label mt-8 inline-block border border-foreground px-6 py-4 transition-colors hover:bg-foreground hover:text-background"
               >
                 Trimite proiectul pe WhatsApp
@@ -793,6 +796,7 @@ function Home() {
                   href={waHref}
                   target="_blank"
                   rel="noreferrer noopener"
+                  onClick={() => track("whatsapp_click", { source: "homepage" })}
                   className="tech-label border border-graphite-foreground/40 px-6 py-4 transition-colors hover:bg-graphite-foreground hover:text-graphite"
                 >
                   Trimite proiectul pe WhatsApp
