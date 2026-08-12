@@ -464,13 +464,14 @@ function Home() {
             <div className="mt-12 grid gap-px bg-border-strong md:grid-cols-2 lg:grid-cols-3">
               {services.map((s) => {
                 const Icon = s.icon;
+                const to = serviceHref[s.title];
                 return (
                   <article
                     key={s.n}
-                    className={`bg-sheet p-6 md:p-8 ${
+                    className={`p-6 md:p-8 ${
                       s.featured
-                        ? "md:col-span-2 lg:col-span-2 lg:row-span-2 bg-graphite text-graphite-foreground"
-                        : ""
+                        ? "bg-graphite text-graphite-foreground md:col-span-2 lg:col-span-2 lg:row-span-2"
+                        : "bg-sheet"
                     }`}
                   >
                     <div className="flex items-start justify-between">
@@ -490,8 +491,18 @@ function Home() {
                         s.featured ? "text-4xl md:text-5xl" : "text-2xl md:text-3xl"
                       }`}
                     >
-                      {s.title}
+                      {to ? (
+                        <Link
+                          to={to}
+                          className="underline-offset-4 transition-colors hover:text-primary hover:underline"
+                        >
+                          {s.title}
+                        </Link>
+                      ) : (
+                        s.title
+                      )}
                     </h3>
+
                     <p
                       className={`mt-3 max-w-md text-sm leading-relaxed ${
                         s.featured ? "text-graphite-foreground/75 md:text-base" : "text-muted-foreground"
