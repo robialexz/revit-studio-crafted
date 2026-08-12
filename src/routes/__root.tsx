@@ -97,7 +97,32 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
     ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          name: site.businessName,
+          inLanguage: "ro-RO",
+          ...(site.siteUrl ? { url: site.siteUrl } : {}),
+        }),
+      },
+      // Analytics: activ doar când GA_MEASUREMENT_ID este completat în site-config.
+      ...(site.gaMeasurementId
+        ? [
+            {
+              src: `https://www.googletagmanager.com/gtag/js?id=${site.gaMeasurementId}`,
+              async: true,
+            },
+            {
+              children: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','${site.gaMeasurementId}');`,
+            },
+          ]
+        : []),
+    ],
   }),
+
 
   shellComponent: RootShell,
   component: RootComponent,
