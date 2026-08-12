@@ -14,6 +14,9 @@ import { Footer } from "@/components/site/Footer";
 import { QuoteForm } from "@/components/site/QuoteForm";
 import { MobileCta } from "@/components/site/MobileCta";
 import { site, disclaimer, whatsappLink, defaultWhatsappMessage } from "@/lib/site-config";
+import type { ServicePath } from "@/components/site/ServicePage";
+import { track } from "@/lib/analytics";
+
 import hero3d from "@/assets/hero-3d.jpg";
 import hero2d from "@/assets/hero-2d.jpg";
 import projHvac from "@/assets/proj-hvac.jpg";
@@ -63,6 +66,16 @@ export const Route = createFileRoute("/")({
 });
 
 const capabilities = ["Revit MEP", "BIM 3D", "HVAC", "Termice", "Electrice", "RVT", "DWG", "PDF"];
+
+/** Linkuri interne crawlabile de la blocurile de servicii către paginile dedicate. */
+const serviceHref: Record<string, ServicePath | undefined> = {
+  "Revit MEP & Modelare BIM": "/revit-mep",
+  "Instalații HVAC": "/hvac",
+  "Instalații termice": "/instalatii-termice",
+  "Instalații electrice": "/instalatii-electrice",
+  "AutoCAD / DWG": "/autocad-dwg",
+};
+
 
 const services = [
   {
@@ -289,6 +302,7 @@ function Home() {
                   href={waHref}
                   target="_blank"
                   rel="noreferrer noopener"
+                  onClick={() => track("whatsapp_click", { source: "homepage" })}
                   className="tech-label border border-foreground px-6 py-4 transition-colors hover:bg-foreground hover:text-background"
                 >
                   Scrie pe WhatsApp
@@ -464,13 +478,14 @@ function Home() {
             <div className="mt-12 grid gap-px bg-border-strong md:grid-cols-2 lg:grid-cols-3">
               {services.map((s) => {
                 const Icon = s.icon;
+                const to = serviceHref[s.title];
                 return (
                   <article
                     key={s.n}
-                    className={`bg-sheet p-6 md:p-8 ${
+                    className={`p-6 md:p-8 ${
                       s.featured
-                        ? "md:col-span-2 lg:col-span-2 lg:row-span-2 bg-graphite text-graphite-foreground"
-                        : ""
+                        ? "bg-graphite text-graphite-foreground md:col-span-2 lg:col-span-2 lg:row-span-2"
+                        : "bg-sheet"
                     }`}
                   >
                     <div className="flex items-start justify-between">
@@ -490,8 +505,18 @@ function Home() {
                         s.featured ? "text-4xl md:text-5xl" : "text-2xl md:text-3xl"
                       }`}
                     >
-                      {s.title}
+                      {to ? (
+                        <Link
+                          to={to}
+                          className="underline-offset-4 transition-colors hover:text-primary hover:underline"
+                        >
+                          {s.title}
+                        </Link>
+                      ) : (
+                        s.title
+                      )}
                     </h3>
+
                     <p
                       className={`mt-3 max-w-md text-sm leading-relaxed ${
                         s.featured ? "text-graphite-foreground/75 md:text-base" : "text-muted-foreground"
@@ -632,6 +657,7 @@ function Home() {
                 </p>
                 <a
                   href="#estimare"
+                  onClick={() => track("pricing_cta_click")}
                   className="tech-label mt-8 inline-block border border-foreground bg-foreground px-6 py-4 text-background transition-colors hover:border-primary hover:bg-primary"
                 >
                   Cere preț pentru proiectul tău
@@ -732,6 +758,7 @@ function Home() {
                 href={waHref}
                 target="_blank"
                 rel="noreferrer noopener"
+                onClick={() => track("whatsapp_click", { source: "homepage" })}
                 className="tech-label mt-8 inline-block border border-foreground px-6 py-4 transition-colors hover:bg-foreground hover:text-background"
               >
                 Trimite proiectul pe WhatsApp
@@ -769,6 +796,7 @@ function Home() {
                   href={waHref}
                   target="_blank"
                   rel="noreferrer noopener"
+                  onClick={() => track("whatsapp_click", { source: "homepage" })}
                   className="tech-label border border-graphite-foreground/40 px-6 py-4 transition-colors hover:bg-graphite-foreground hover:text-graphite"
                 >
                   Trimite proiectul pe WhatsApp

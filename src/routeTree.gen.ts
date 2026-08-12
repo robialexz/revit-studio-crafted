@@ -10,11 +10,43 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AutocadDwgRouteImport } from './routes/autocad-dwg'
+import { Route as HvacRouteImport } from './routes/hvac'
+import { Route as InstalatiiElectriceRouteImport } from './routes/instalatii-electrice'
+import { Route as InstalatiiTermiceRouteImport } from './routes/instalatii-termice'
+import { Route as ModelareRevitRouteImport } from './routes/modelare-revit'
 import { Route as PortofoliuRouteImport } from './routes/portofoliu'
+import { Route as RevitMepRouteImport } from './routes/revit-mep'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AutocadDwgRoute = AutocadDwgRouteImport.update({
+  id: '/autocad-dwg',
+  path: '/autocad-dwg',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HvacRoute = HvacRouteImport.update({
+  id: '/hvac',
+  path: '/hvac',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InstalatiiElectriceRoute = InstalatiiElectriceRouteImport.update({
+  id: '/instalatii-electrice',
+  path: '/instalatii-electrice',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InstalatiiTermiceRoute = InstalatiiTermiceRouteImport.update({
+  id: '/instalatii-termice',
+  path: '/instalatii-termice',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ModelareRevitRoute = ModelareRevitRouteImport.update({
+  id: '/modelare-revit',
+  path: '/modelare-revit',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PortofoliuRoute = PortofoliuRouteImport.update({
@@ -22,31 +54,97 @@ const PortofoliuRoute = PortofoliuRouteImport.update({
   path: '/portofoliu',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RevitMepRoute = RevitMepRouteImport.update({
+  id: '/revit-mep',
+  path: '/revit-mep',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/autocad-dwg': typeof AutocadDwgRoute
+  '/hvac': typeof HvacRoute
+  '/instalatii-electrice': typeof InstalatiiElectriceRoute
+  '/instalatii-termice': typeof InstalatiiTermiceRoute
+  '/modelare-revit': typeof ModelareRevitRoute
   '/portofoliu': typeof PortofoliuRoute
+  '/revit-mep': typeof RevitMepRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/autocad-dwg': typeof AutocadDwgRoute
+  '/hvac': typeof HvacRoute
+  '/instalatii-electrice': typeof InstalatiiElectriceRoute
+  '/instalatii-termice': typeof InstalatiiTermiceRoute
+  '/modelare-revit': typeof ModelareRevitRoute
   '/portofoliu': typeof PortofoliuRoute
+  '/revit-mep': typeof RevitMepRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/autocad-dwg': typeof AutocadDwgRoute
+  '/hvac': typeof HvacRoute
+  '/instalatii-electrice': typeof InstalatiiElectriceRoute
+  '/instalatii-termice': typeof InstalatiiTermiceRoute
+  '/modelare-revit': typeof ModelareRevitRoute
   '/portofoliu': typeof PortofoliuRoute
+  '/revit-mep': typeof RevitMepRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/portofoliu'
+  fullPaths:
+    | '/'
+    | '/autocad-dwg'
+    | '/hvac'
+    | '/instalatii-electrice'
+    | '/instalatii-termice'
+    | '/modelare-revit'
+    | '/portofoliu'
+    | '/revit-mep'
+    | '/sitemap.xml'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/portofoliu'
-  id: '__root__' | '/' | '/portofoliu'
+  to:
+    | '/'
+    | '/autocad-dwg'
+    | '/hvac'
+    | '/instalatii-electrice'
+    | '/instalatii-termice'
+    | '/modelare-revit'
+    | '/portofoliu'
+    | '/revit-mep'
+    | '/sitemap.xml'
+  id:
+    | '__root__'
+    | '/'
+    | '/autocad-dwg'
+    | '/hvac'
+    | '/instalatii-electrice'
+    | '/instalatii-termice'
+    | '/modelare-revit'
+    | '/portofoliu'
+    | '/revit-mep'
+    | '/sitemap.xml'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AutocadDwgRoute: typeof AutocadDwgRoute
+  HvacRoute: typeof HvacRoute
+  InstalatiiElectriceRoute: typeof InstalatiiElectriceRoute
+  InstalatiiTermiceRoute: typeof InstalatiiTermiceRoute
+  ModelareRevitRoute: typeof ModelareRevitRoute
   PortofoliuRoute: typeof PortofoliuRoute
+  RevitMepRoute: typeof RevitMepRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -58,6 +156,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/autocad-dwg': {
+      id: '/autocad-dwg'
+      path: '/autocad-dwg'
+      fullPath: '/autocad-dwg'
+      preLoaderRoute: typeof AutocadDwgRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hvac': {
+      id: '/hvac'
+      path: '/hvac'
+      fullPath: '/hvac'
+      preLoaderRoute: typeof HvacRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/instalatii-electrice': {
+      id: '/instalatii-electrice'
+      path: '/instalatii-electrice'
+      fullPath: '/instalatii-electrice'
+      preLoaderRoute: typeof InstalatiiElectriceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/instalatii-termice': {
+      id: '/instalatii-termice'
+      path: '/instalatii-termice'
+      fullPath: '/instalatii-termice'
+      preLoaderRoute: typeof InstalatiiTermiceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/modelare-revit': {
+      id: '/modelare-revit'
+      path: '/modelare-revit'
+      fullPath: '/modelare-revit'
+      preLoaderRoute: typeof ModelareRevitRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/portofoliu': {
       id: '/portofoliu'
       path: '/portofoliu'
@@ -65,13 +198,44 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PortofoliuRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/revit-mep': {
+      id: '/revit-mep'
+      path: '/revit-mep'
+      fullPath: '/revit-mep'
+      preLoaderRoute: typeof RevitMepRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AutocadDwgRoute: AutocadDwgRoute,
+  HvacRoute: HvacRoute,
+  InstalatiiElectriceRoute: InstalatiiElectriceRoute,
+  InstalatiiTermiceRoute: InstalatiiTermiceRoute,
+  ModelareRevitRoute: ModelareRevitRoute,
   PortofoliuRoute: PortofoliuRoute,
+  RevitMepRoute: RevitMepRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
