@@ -14,6 +14,9 @@ import { Footer } from "@/components/site/Footer";
 import { QuoteForm } from "@/components/site/QuoteForm";
 import { MobileCta } from "@/components/site/MobileCta";
 import { site, disclaimer, whatsappLink, defaultWhatsappMessage } from "@/lib/site-config";
+import type { ServicePath } from "@/components/site/ServicePage";
+import { track } from "@/lib/analytics";
+
 import hero3d from "@/assets/hero-3d.jpg";
 import hero2d from "@/assets/hero-2d.jpg";
 import projHvac from "@/assets/proj-hvac.jpg";
