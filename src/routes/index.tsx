@@ -64,6 +64,16 @@ export const Route = createFileRoute("/")({
 
 const capabilities = ["Revit MEP", "BIM 3D", "HVAC", "Termice", "Electrice", "RVT", "DWG", "PDF"];
 
+/** Linkuri interne crawlabile de la blocurile de servicii către paginile dedicate. */
+const serviceHref: Record<string, ServicePath | undefined> = {
+  "Revit MEP & Modelare BIM": "/revit-mep",
+  "Instalații HVAC": "/hvac",
+  "Instalații termice": "/instalatii-termice",
+  "Instalații electrice": "/instalatii-electrice",
+  "AutoCAD / DWG": "/autocad-dwg",
+};
+
+
 const services = [
   {
     n: "01",
