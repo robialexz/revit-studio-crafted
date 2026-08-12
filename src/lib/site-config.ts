@@ -1,5 +1,6 @@
 /**
  * Configurare centralizată — înlocuiește valorile de mai jos cu datele reale.
+ * Toate placeholder-ele site-ului trăiesc AICI, nu în componente.
  */
 export const site = {
   businessName: "[BUSINESS_NAME]",
@@ -8,7 +9,17 @@ export const site = {
   whatsappNumber: "[WHATSAPP_NUMBER]", // ex: 40712345678 (doar cifre, cu prefix de țară)
   phone: "[PHONE_NUMBER]",
   email: "[EMAIL]",
-  domain: "[DOMAIN]",
+  /**
+   * Domeniul final, fără slash la final (ex: "https://exemplu.ro").
+   * Lăsat gol => canonical / og:url relative și sitemap generat din originea cererii.
+   */
+  siteUrl: "",
+  /** Adresa care primește notificările de lead nou. Gol => notificarea e sărită. */
+  leadNotificationEmail: "",
+  /** ex: "G-XXXXXXXXXX". Gol => analytics dezactivat, site-ul funcționează normal. */
+  gaMeasurementId: "",
+  /** Etichete „imagine demonstrativă” — pune pe false când ai capturi reale. */
+  showDemoImageLabels: true,
   social: {
     linkedin: "[SOCIAL_LINK_LINKEDIN]",
     instagram: "[SOCIAL_LINK_INSTAGRAM]",
@@ -21,6 +32,12 @@ export function whatsappLink(message: string): string {
   const text = encodeURIComponent(message);
   if (!digits) return `https://wa.me/?text=${text}`;
   return `https://wa.me/${digits}?text=${text}`;
+}
+
+/** URL absolut când domeniul e configurat, altfel cale relativă. */
+export function canonicalUrl(path: string): string {
+  const clean = path.startsWith("/") ? path : `/${path}`;
+  return site.siteUrl ? `${site.siteUrl}${clean}` : clean;
 }
 
 export const defaultWhatsappMessage =
