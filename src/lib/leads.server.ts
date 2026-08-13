@@ -14,12 +14,9 @@ export type LeadRecord = {
   utm_source: string | null;
   utm_medium: string | null;
   utm_campaign: string | null;
+  utm_content: string | null;
+  utm_term: string | null;
 };
-
-function row(label: string, value: string | null | undefined) {
-  const v = value && value.trim() ? value : "—";
-  return `<tr><td style="padding:6px 12px 6px 0;color:#6b7280;font-size:12px;white-space:nowrap;vertical-align:top">${label}</td><td style="padding:6px 0;font-size:14px;color:#111827;vertical-align:top">${escapeHtml(v)}</td></tr>`;
-}
 
 function escapeHtml(value: string) {
   return value
@@ -27,6 +24,11 @@ function escapeHtml(value: string) {
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;");
+}
+
+function row(label: string, value: string | null | undefined) {
+  const v = value && value.trim() ? value : "—";
+  return `<tr><td style="padding:6px 12px 6px 0;color:#6b7280;font-size:12px;white-space:nowrap;vertical-align:top">${label}</td><td style="padding:6px 0;font-size:14px;color:#111827;vertical-align:top;word-break:break-word">${escapeHtml(v)}</td></tr>`;
 }
 
 export function buildLeadEmail(lead: LeadRecord) {
@@ -54,6 +56,8 @@ export function buildLeadEmail(lead: LeadRecord) {
         ${row("Sursă", lead.utm_source)}
         ${row("UTM medium", lead.utm_medium)}
         ${row("UTM campaign", lead.utm_campaign)}
+        ${row("UTM content", lead.utm_content)}
+        ${row("UTM term", lead.utm_term)}
         ${row("Referrer", lead.referrer)}
         ${row("Landing page", lead.page_path)}
         ${row("Data și ora", data)}
@@ -76,6 +80,8 @@ export function buildLeadEmail(lead: LeadRecord) {
     `Sursă: ${lead.utm_source || "—"}`,
     `UTM medium: ${lead.utm_medium || "—"}`,
     `UTM campaign: ${lead.utm_campaign || "—"}`,
+    `UTM content: ${lead.utm_content || "—"}`,
+    `UTM term: ${lead.utm_term || "—"}`,
     `Referrer: ${lead.referrer || "—"}`,
     `Landing page: ${lead.page_path || "—"}`,
   ].join("\n");

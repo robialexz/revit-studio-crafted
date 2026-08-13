@@ -1,26 +1,15 @@
 import { createServerFn } from "@tanstack/react-start";
-import { z } from "zod";
 
-const leadSchema = z.object({
-  name: z.string().trim().min(2).max(120),
-  phone: z.string().trim().min(6).max(40),
-  email: z.string().trim().email().max(160).or(z.literal("")).optional(),
-  project_type: z.string().trim().max(120).optional(),
-  available_files: z.array(z.string().trim().max(60)).max(20).default([]),
-  approximate_sheet_count: z.string().trim().max(60).optional(),
-  deadline: z.string().trim().max(120).optional(),
-  description: z.string().trim().max(4000).optional(),
-  page_path: z.string().trim().max(500).optional(),
-  referrer: z.string().trim().max(500).optional(),
-  utm_source: z.string().trim().max(200).optional(),
-  utm_medium: z.string().trim().max(200).optional(),
-  utm_campaign: z.string().trim().max(200).optional(),
-  utm_content: z.string().trim().max(200).optional(),
-  utm_term: z.string().trim().max(200).optional(),
-  website: z.string().trim().max(200).optional(),
-});
+import { leadSchema } from "./lead-schema";
 
-export type LeadInput = z.infer<typeof leadSchema>;
+/**
+ * Fereastră de idempotență: un submit identic (același nume + telefon +
+ * aceeași pagină) în acest interval returnează lead-ul existent în loc
+ * să creeze un rând duplicat. Suficient de scurtă pentru a nu bloca
+ * utilizatori reali care revin, suficient de lungă pentru dublu-click
+ * și reîncercări de rețea.
+ */
+const DUPLICATE_WINDOW_MS = 10 * 60 * 1000;
 
 export const submitLead = createServerFn({ method: "POST" })
   .validator((data: unknown) => leadSchema.parse(data))
@@ -28,11 +17,32 @@ export const submitLead = createServerFn({ method: "POST" })
     // Câmp honeypot ascuns vizitatorilor: bot-ii îl completează, oamenii nu.
     // Pretindem succes fără a salva nimic.
     if (data.website) {
-      return { id: "accepted" };
+      return { id: "accepted", duplicate: false };
     }
 
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { sendLeadNotification } = await import("./leads.server");
+
+    // Idempotență server-side: returnează rândul existent fără un al doilea insert.
+    try {
+      const recentQuery = supabaseAdmin
+        .from("leads")
+        .select("id")
+        .eq("phone", data.phone)
+        .eq("name", data.name)
+        .gte("created_at", new Date(Date.now() - DUPLICATE_WINDOW_MS).toISOString())
+        .limit(1);
+
+      const { data: existing, error: lookupError } = data.page_path
+        ? await recentQuery.eq("page_path", data.page_path)
+        : await recentQuery;
+
+      if (!lookupError && existing && existing.length > 0 && existing[0]?.id) {
+        return { id: existing[0].id, duplicate: true };
+      }
+    } catch {
+      // Un eșec al verificării nu trebuie să blocheze salvarea lead-ului.
+    }
 
     const payload = {
       name: data.name,
@@ -63,7 +73,8 @@ export const submitLead = createServerFn({ method: "POST" })
       throw new Error("Cererea nu a putut fi salvată. Încearcă din nou.");
     }
 
+    // Lead-ul este deja salvat; notificarea nu poate pune în pericol salvarea.
     await sendLeadNotification(inserted as never);
 
-    return { id: inserted.id as string };
+    return { id: inserted.id as string, duplicate: false };
   });

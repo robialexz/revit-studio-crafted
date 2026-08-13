@@ -1,5 +1,5 @@
 /** Configurare publică centralizată; valorile lipsă nu apar în interfață. */
-const publicEnv = import.meta.env;
+const publicEnv = import.meta.env ?? {};
 
 function envValue(name: string): string {
   const value = publicEnv[name];

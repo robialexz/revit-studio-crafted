@@ -44,15 +44,31 @@ function withSecurityHeaders(response: Response, request: Request): Response {
   });
 }
 
-function redirectWwwHost(request: Request): Response | undefined {
-  const url = new URL(request.url);
-  if (url.hostname.toLowerCase() !== `www.${canonicalHostname}`) return undefined;
+/**
+ * Returnează URL-ul țintă de redirect www→apex (cu path și query păstrate),
+ * sau undefined când host-ul nu este varianta www a domeniului canonical.
+ * Pură, pentru testare; robustă și în spatele proxy-urilor (folosește
+ * antetul Host, nu doar request.url).
+ */
+export function redirectToApexUrl(
+  requestUrl: string,
+  hostHeader: string | null,
+  canonicalHost: string,
+): string | undefined {
+  const url = new URL(requestUrl);
+  const host = ((hostHeader ?? url.host).split(":")[0] ?? "").toLowerCase();
+  if (host !== `www.${canonicalHost}`) return undefined;
+  url.hostname = canonicalHost;
+  return url.toString();
+}
 
-  url.hostname = canonicalHostname;
+function redirectWwwHost(request: Request): Response | undefined {
+  const target = redirectToApexUrl(request.url, request.headers.get("host"), canonicalHostname);
+  if (!target) return undefined;
   return new Response(null, {
     status: 301,
     headers: {
-      Location: url.toString(),
+      Location: target,
       "Cache-Control": "public, max-age=3600",
     },
   });
