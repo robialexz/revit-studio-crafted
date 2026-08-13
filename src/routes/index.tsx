@@ -16,7 +16,7 @@ import {
   formatPhoneDisplay,
 } from "@/lib/site-config";
 import type { ServicePath } from "@/components/site/ServicePage";
-import { track } from "@/lib/analytics";
+import { track, trackConversion } from "@/lib/analytics";
 
 import hero3d from "@/assets/hero-3d.jpg";
 import hero2d from "@/assets/hero-2d.jpg";
@@ -321,7 +321,10 @@ function Home() {
                     href={waHref || undefined}
                     target="_blank"
                     rel="noreferrer noopener"
-                    onClick={() => track("whatsapp_click", { source: "homepage" })}
+                    onClick={() => {
+                      track("whatsapp_click", { source: "homepage" });
+                      trackConversion("whatsapp_click", { source: "homepage" });
+                    }}
                     className="tech-label border border-foreground px-6 py-4 transition-colors hover:bg-foreground hover:text-background"
                   >
                     Scrie pe WhatsApp
@@ -794,7 +797,10 @@ function Home() {
                   href={waHref || undefined}
                   target="_blank"
                   rel="noreferrer noopener"
-                  onClick={() => track("whatsapp_click", { source: "homepage" })}
+                  onClick={() => {
+                    track("whatsapp_click", { source: "homepage" });
+                    trackConversion("whatsapp_click", { source: "homepage" });
+                  }}
                   className="tech-label mt-8 inline-block border border-foreground px-6 py-4 transition-colors hover:bg-foreground hover:text-background"
                 >
                   Trimite proiectul pe WhatsApp
@@ -843,7 +849,10 @@ function Home() {
                     href={waHref || undefined}
                     target="_blank"
                     rel="noreferrer noopener"
-                    onClick={() => track("whatsapp_click", { source: "homepage" })}
+                    onClick={() => {
+                      track("whatsapp_click", { source: "homepage" });
+                      trackConversion("whatsapp_click", { source: "homepage" });
+                    }}
                     className="tech-label border border-graphite-foreground/40 px-6 py-4 transition-colors hover:bg-graphite-foreground hover:text-graphite"
                   >
                     Trimite proiectul pe WhatsApp

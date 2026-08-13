@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { hasWhatsapp, whatsappLink } from "@/lib/site-config";
 import { getAttribution } from "@/lib/attribution";
-import { track, trackOnce } from "@/lib/analytics";
+import { track, trackOnce, trackConversion } from "@/lib/analytics";
 import { submitLead } from "@/lib/leads.functions";
 
 const tipuri = [
@@ -133,6 +133,9 @@ export function QuoteForm() {
       submissionIdRef.current = undefined;
       setSent(true);
       track("quote_submit", { project_type: tip });
+      // Conversia principală se trage DOAR după ce serverul a confirmat
+      // salvarea lead-ului (nu la click pe buton).
+      trackConversion("lead_form_success", { project_type: tip });
     } catch (error) {
       // Tokenul rămâne neschimbat: un retry al aceleiași trimiteri este
       // idempotent pe server (nu creează un al doilea rând).
@@ -164,7 +167,10 @@ export function QuoteForm() {
               href={whatsappLink(message) || undefined}
               target="_blank"
               rel="noreferrer noopener"
-              onClick={() => track("whatsapp_click", { source: "quote_success" })}
+              onClick={() => {
+                track("whatsapp_click", { source: "quote_success" });
+                trackConversion("whatsapp_click", { source: "quote_success" });
+              }}
               className="tech-label mt-8 inline-block border border-foreground bg-foreground px-6 py-4 text-background transition-colors hover:border-primary hover:bg-primary"
             >
               Continuă pe WhatsApp

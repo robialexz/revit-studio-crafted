@@ -81,6 +81,15 @@ export function Footer() {
                   Informații legale
                 </Link>
               </li>
+              <li>
+                <button
+                  type="button"
+                  onClick={() => window.dispatchEvent(new Event("nod:open-consent"))}
+                  className="hover:text-primary"
+                >
+                  Preferințe cookies
+                </button>
+              </li>
             </ul>
           </nav>
 

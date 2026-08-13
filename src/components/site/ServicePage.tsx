@@ -13,7 +13,7 @@ import {
   hasEmail,
   formatPhoneDisplay,
 } from "@/lib/site-config";
-import { track } from "@/lib/analytics";
+import { track, trackConversion } from "@/lib/analytics";
 
 export type ServicePath =
   | "/revit-mep"
@@ -121,7 +121,10 @@ export function ServicePage({
                   href={waHref || undefined}
                   target="_blank"
                   rel="noreferrer noopener"
-                  onClick={() => track("whatsapp_click", { source: label })}
+                  onClick={() => {
+                    track("whatsapp_click", { source: label });
+                    trackConversion("whatsapp_click", { source: label });
+                  }}
                   className="tech-label border border-foreground px-6 py-4 transition-colors hover:bg-foreground hover:text-background"
                 >
                   Scrie pe WhatsApp

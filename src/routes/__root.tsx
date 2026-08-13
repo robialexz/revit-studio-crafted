@@ -12,7 +12,9 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { captureAttribution } from "../lib/attribution";
-import { site, canonicalUrl, hasSiteUrl } from "../lib/site-config";
+import { site, canonicalUrl, hasSiteUrl, hasTracking } from "../lib/site-config";
+import { consentModeBootstrapScript } from "../lib/consent";
+import { ConsentBanner } from "../components/site/ConsentBanner";
 
 function NotFoundComponent() {
   return (
@@ -119,16 +121,25 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           ...(site.siteUrl ? { url: site.siteUrl } : {}),
         }),
       },
-      // Analytics: activ doar când GA_MEASUREMENT_ID este completat în site-config.
-      ...(site.gaMeasurementId
+      // Tracking (GA4 + Google Ads) — doar când este configurat. Consent Mode v2:
+      // starea implicită de consimțământ este trimisă ÎNAINTE de gtag.js, astfel
+      // încât fără consimțământ nu se setează cookie-uri analytics/ads.
+      ...(hasTracking
         ? [
             {
-              src: `https://www.googletagmanager.com/gtag/js?id=${site.gaMeasurementId}`,
-              async: true,
+              children: consentModeBootstrapScript(),
             },
             {
-              children: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','${site.gaMeasurementId}');`,
+              src: `https://www.googletagmanager.com/gtag/js?id=${site.gaMeasurementId || site.adsConversionId}`,
+              async: true,
             },
+            ...(site.gaMeasurementId
+              ? [
+                  {
+                    children: `gtag('js',new Date());gtag('config','${site.gaMeasurementId}');`,
+                  },
+                ]
+              : []),
           ]
         : []),
     ],
@@ -165,6 +176,7 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
+      <ConsentBanner />
     </QueryClientProvider>
   );
 }

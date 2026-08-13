@@ -22,7 +22,11 @@ export const site = {
   siteUrl: configuredSiteUrl || "https://nodbim.com",
   /** ex: "G-XXXXXXXXXX". Gol => analytics dezactivat. */
   gaMeasurementId: envValue("VITE_GA_MEASUREMENT_ID"),
-  /** Etichete „imagine demonstrativă” — pune pe false când ai capturi reale. */
+  /** Google Ads: ID-ul de conversie (AW-xxxxxxx). */
+  adsConversionId: envValue("VITE_GOOGLE_ADS_CONVERSION_ID"),
+  /** Google Ads: eticheta conversiei principale (lead_form_success). */
+  adsConversionLabel: envValue("VITE_GOOGLE_ADS_CONVERSION_LABEL"),
+  /** Etichete „imagine demonstrativă" — pune pe false când ai capturi reale. */
   showDemoImageLabels: true,
 } as const;
 
@@ -38,6 +42,7 @@ const digits = site.whatsappNumber.replace(/\D/g, "");
 export const hasWhatsapp = isConfigured(site.whatsappNumber) && digits.length >= 8;
 export const hasEmail = isConfigured(site.email);
 export const hasSiteUrl = isConfigured(site.siteUrl);
+export const hasTracking = Boolean(site.gaMeasurementId || site.adsConversionId);
 export const canonicalHostname = new URL(site.siteUrl).hostname;
 
 export function whatsappLink(message: string): string {

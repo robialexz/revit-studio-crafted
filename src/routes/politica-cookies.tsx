@@ -4,7 +4,7 @@ import { canonicalUrl } from "@/lib/site-config";
 
 const title = "Politica de cookies — NOD BIM";
 const description =
-  "Politica de cookies NOD BIM: site-ul folosește doar stocare strict necesară funcționării; nu sunt utilizate cookie-uri de marketing sau de analiză fără consimțământ.";
+  "Politica de cookies NOD BIM: stocare strict necesară + consimțământ explicit pentru statistici anonime și măsurarea reclamelor, prin banner de consimțământ și Google Consent Mode.";
 const url = canonicalUrl("/politica-cookies");
 
 export const Route = createFileRoute("/politica-cookies")({
@@ -29,32 +29,37 @@ function CookiesPage() {
     <LegalPage
       label="Cookies"
       h1="Politica de cookies"
-      intro="Transparență totală: la momentul publicării acestei versiuni, site-ul nu folosește cookie-uri de marketing, publicitate sau analiză."
+      intro="Site-ul folosește stocare strict necesară pentru funcționare și, doar cu consimțământul tău explicit, cookie-uri de statistică anonimă și de măsurare a reclamelor."
       updatedAt="13.08.2026"
       sections={[
         {
-          title: "Ce este un cookie",
+          title: "Stocare strict necesară (fără consimțământ)",
           body: [
-            "Un cookie este un mic fișier stocat de browser pe dispozitivul tău atunci când vizitezi un site. Cookie-urile pot fi strict necesare (esențiale pentru funcționare) sau neesențiale (marketing, analiză, preferințe).",
+            "Funcționarea formularului de estimare folosește sessionStorage pentru reținerea, pe durata sesiunii, a contextului formularului și a parametrilor de atribuire UTM (lead_attribution_v1). Dacă te-ai autentifica vreodată, browserul ar stoca local sesiunea de autentificare. Aceste mecanisme sunt indispensabile pentru serviciul solicitat și nu necesită consimțământ.",
+            "Alegerea ta privind cookie-urile se păstrează local în browser (nod_consent_v1), pentru a nu-ți afișa bannerul la fiecare vizită.",
           ],
         },
         {
-          title: "Ce folosește acest site astăzi",
+          title: "Cookie-uri neesențiale — doar cu consimțământ",
           body: [
-            "Site-ul folosește exclusiv stocare locală strict necesară funcționării formularului de estimare: sessionStorage (reține pe durata sesiunii contextul formularului și parametrii de atribuire UTM pentru ca solicitarea ta să ajungă corect) și, doar dacă te autentifici vreodată, stocarea locală a sesiunii de autentificare. Aceste mecanisme sunt indispensabile pentru funcționarea cerută de tine și nu necesită consimțământ.",
-            "Nu sunt setate cookie-uri de analiză (ex. Google Analytics), publicitate sau remarketing. Nu există banner de consimțământ tocmai pentru că nu există cookie-uri neesențiale.",
+            "Dacă activezi „Accept toate”, putem folosi: cookie-uri de statistică anonimă (Google Analytics 4) pentru a înțelege cum este folosit site-ul și cookie-uri de măsurare a reclamelor (Google Ads) pentru a ști dacă reclamele noastre își ating scopul. Acestea nu sunt activate fără alegerea ta prealabilă.",
+            "Site-ul implementează Google Consent Mode v2: până când alegi, toate categoriile (analytics, publicitate, personalizare) rămân „denied” — nu se setează cookie-uri de analiză sau publicitate. Alegerea ta este transmisă serviciilor Google și poate fi schimbată oricând.",
           ],
         },
         {
-          title: "Ce se întâmplă dacă activăm analiza sau publicitatea",
+          title: "Categoriile de consimțământ",
           body: [
-            "Dacă în viitor activăm instrumente de analiză (ex. Google Analytics 4) sau publicitate (ex. Google Ads), acestea vor fi activate doar după ce obții consimțământul tău prealabil, printr-un mecanism de consimțământ afișat pe site. Această politică va fi actualizată înainte de orice astfel de activare, cu lista exactă a cookie-urilor și scopurile acestora.",
+            "• ad_storage — stocarea cookie-urilor de publicitate;",
+            "• ad_user_data — transmiterea datelor despre utilizator către serviciile de publicitate;",
+            "• ad_personalization — personalizarea reclamelor;",
+            "• analytics_storage — stocarea cookie-urilor de statistică.",
+            "Bannerul afișat pe site îți permite să accepți toate categoriile sau doar pe cele strict necesare.",
           ],
         },
         {
-          title: "Cum poți controla cookie-urile",
+          title: "Cum îți schimbi alegerea",
           body: [
-            "Poți șterge oricând stocarea locală din setările browserului („Ștergeți datele site-urilor”) sau poți naviga în mod privat. Pentru mai multe informații despre cookie-uri în general, consultă ghidul autorității de protecție a datelor (www.dataprotection.ro).",
+            "Poți reafirma sau schimba alegerea oricând din linkul „Preferințe cookies” din subsolul site-ului (redeschide bannerul) sau ștergând datele site-ului din setările browserului. Pentru detalii generale despre cookie-uri, consultă ghidul ANSPDCP (www.dataprotection.ro).",
           ],
         },
       ]}

@@ -103,7 +103,7 @@ function PrivacyPage() {
         {
           title: "Cookie-uri și stocare locală",
           body: [
-            "Site-ul folosește doar stocare strict necesară funcționării (sessionStorage pentru reținerea contextului formularului). Nu folosim cookie-uri de marketing sau de analiză fără consimțământul tău. Detalii complete în Politica de cookies.",
+            "Site-ul folosește stocare strict necesară funcționării (sessionStorage pentru reținerea contextului formularului). Cookie-urile de statistică anonimă (Google Analytics 4) și de măsurare a reclamelor (Google Ads) sunt activate doar cu consimțământul tău explicit, prin bannerul de pe site (Google Consent Mode). Detalii complete în Politica de cookies.",
           ],
         },
         {

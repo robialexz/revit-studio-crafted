@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { MobileCta } from "@/components/site/MobileCta";
+import { trackConversion } from "@/lib/analytics";
 import {
   site,
   canonicalUrl,
@@ -72,7 +73,11 @@ function ContactPage() {
                 {hasWhatsapp && (
                   <li className="flex flex-wrap items-baseline gap-x-4 gap-y-1 border-b border-border pb-4">
                     <span className="tech-label w-28 shrink-0 text-muted-foreground">Telefon</span>
-                    <a href={`tel:+${site.whatsappNumber}`} className="hover:text-primary">
+                    <a
+                      href={`tel:+${site.whatsappNumber}`}
+                      onClick={() => trackConversion("phone_click")}
+                      className="hover:text-primary"
+                    >
                       {phoneDisplay}
                     </a>
                   </li>
@@ -84,6 +89,7 @@ function ContactPage() {
                       href={waHref}
                       target="_blank"
                       rel="noreferrer noopener"
+                      onClick={() => trackConversion("whatsapp_click", { source: "contact" })}
                       className="hover:text-primary"
                     >
                       {phoneDisplay}
@@ -93,7 +99,11 @@ function ContactPage() {
                 {hasEmail && (
                   <li className="flex flex-wrap items-baseline gap-x-4 gap-y-1 border-b border-border pb-4">
                     <span className="tech-label w-28 shrink-0 text-muted-foreground">Email</span>
-                    <a href={`mailto:${site.email}`} className="hover:text-primary">
+                    <a
+                      href={`mailto:${site.email}`}
+                      onClick={() => trackConversion("email_click")}
+                      className="hover:text-primary"
+                    >
                       {site.email}
                     </a>
                   </li>
