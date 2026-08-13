@@ -29,6 +29,7 @@ const SECRET_NAMES = [
   "SUPABASE_SERVICE_ROLE_KEY",
   "RESEND_API_KEY",
   "LEAD_NOTIFICATION_EMAIL",
+  "CRON_SECRET",
 ];
 
 const SECRET_VALUES = [
@@ -36,6 +37,7 @@ const SECRET_VALUES = [
   process.env["SUPABASE_SERVICE_ROLE_KEY"],
   process.env["RESEND_API_KEY"],
   process.env["LEAD_NOTIFICATION_FROM"],
+  process.env["CRON_SECRET"],
 ].filter((v): v is string => !!v);
 
 describe("bundle client — fără secrete", () => {

@@ -1,9 +1,16 @@
 import { describe, expect, spyOn, test } from "bun:test";
 
-import { buildLeadEmail, sendLeadNotification, type LeadRecord } from "../src/lib/leads.server";
+import {
+  buildLeadEmail,
+  resendIdempotencyKey,
+  sanitizeSubjectPart,
+  sendLeadNotification,
+  type LeadRecord,
+} from "../src/lib/leads.server";
 
 const lead: LeadRecord = {
   id: "lead-test-1",
+  submission_id: "sub-0000-0000-4000-8000-000000000001",
   created_at: "2026-08-13T10:00:00+03:00",
   name: "Ion <Popescu>",
   phone: "0722123456",
@@ -22,7 +29,7 @@ const lead: LeadRecord = {
   utm_term: "revit mep",
 };
 
-function withEnv(vars: Record<string, string | undefined>, fn: () => Promise<void> | void) {
+async function withEnv(vars: Record<string, string | undefined>, fn: () => Promise<void> | void) {
   const saved: Record<string, string | undefined> = {};
   for (const [key, value] of Object.entries(vars)) {
     saved[key] = process.env[key];
@@ -30,7 +37,8 @@ function withEnv(vars: Record<string, string | undefined>, fn: () => Promise<voi
     else process.env[key] = value;
   }
   try {
-    return fn();
+    // AWAIT: mediul trebuie să rămână setat pe toată durata callback-ului.
+    await fn();
   } finally {
     for (const [key, value] of Object.entries(saved)) {
       if (value === undefined) delete process.env[key];
@@ -97,6 +105,41 @@ describe("buildLeadEmail", () => {
   });
 });
 
+describe("sanitizeSubjectPart", () => {
+  test("elimină CR/LF și caracterele de control", () => {
+    expect(sanitizeSubjectPart("Ion\r\nPopescu")).toBe("Ion Popescu");
+    expect(sanitizeSubjectPart("Ion\u0000Popescu")).toBe("Ion Popescu");
+    expect(sanitizeSubjectPart("Line1\nLine2\rLine3\u0007")).toBe("Line1 Line2 Line3");
+  });
+
+  test("normalizează spațiile albe", () => {
+    expect(sanitizeSubjectPart("  Ion    Popescu  ")).toBe("Ion Popescu");
+    expect(sanitizeSubjectPart("HVAC\t\tVentilare")).toBe("HVAC Ventilare");
+  });
+
+  test("trunchiază la 60 de caractere", () => {
+    const long = "x".repeat(200);
+    expect(sanitizeSubjectPart(long)).toHaveLength(60);
+  });
+
+  test("valoare goală => șir gol", () => {
+    expect(sanitizeSubjectPart(null)).toBe("");
+    expect(sanitizeSubjectPart("")).toBe("");
+  });
+
+  test("subiectul emailului nu conține niciodată CR/LF", () => {
+    const { subject } = buildLeadEmail({
+      ...lead,
+      name: "Ion\r\nBcc: cineva@evil.com",
+      project_type: "HVAC\nX",
+    });
+    expect(subject).not.toContain("\n");
+    expect(subject).not.toContain("\r");
+    // CR/LF sunt eliminați: un singur rând, iar textul rămas e inofensiv.
+    expect(subject).toBe("🔥 Lead nou — HVAC X — Ion Bcc: cineva@evil.com");
+  });
+});
+
 describe("sendLeadNotification", () => {
   test("fără configurare completă => false, fără a arunca (lead-ul rămâne salvat)", async () => {
     await withEnv(
@@ -148,6 +191,8 @@ describe("sendLeadNotification", () => {
           expect(fetchSpy).toHaveBeenCalledTimes(1);
           const [url, init] = fetchSpy.mock.calls[0] as unknown as [string, RequestInit];
           expect(url).toBe("https://api.resend.com/emails");
+          const headers = init.headers as Record<string, string>;
+          expect(headers["Idempotency-Key"]).toBe(`lead-notification/${lead.submission_id}`);
           const body = JSON.parse(String(init.body));
           expect(body.from).toBe("NOD BIM <leads@example.com>");
           expect(body.to).toEqual(["owner@example.com"]);
@@ -159,6 +204,44 @@ describe("sendLeadNotification", () => {
     } finally {
       fetchSpy.mockRestore();
     }
+  });
+
+  test("trimiteri repetate folosesc EXACT aceeași cheie de idempotență Resend", async () => {
+    const fetchSpy = spyOn(globalThis, "fetch").mockResolvedValue(
+      new Response("{}", { status: 200 }),
+    );
+    try {
+      await withEnv(
+        {
+          RESEND_API_KEY: "re_test_key",
+          LEAD_NOTIFICATION_EMAIL: "owner@example.com",
+          LEAD_NOTIFICATION_FROM: "NOD BIM <leads@example.com>",
+        },
+        async () => {
+          await sendLeadNotification(lead);
+          await sendLeadNotification(lead);
+          await sendLeadNotification(lead);
+
+          const keys = fetchSpy.mock.calls.map(
+            ([, init]) =>
+              ((init as RequestInit).headers as Record<string, string>)["Idempotency-Key"],
+          );
+          expect(keys).toEqual([
+            `lead-notification/${lead.submission_id}`,
+            `lead-notification/${lead.submission_id}`,
+            `lead-notification/${lead.submission_id}`,
+          ]);
+        },
+      );
+    } finally {
+      fetchSpy.mockRestore();
+    }
+  });
+
+  test("lead fără submission_id => cheie deterministă pe baza lead.id", () => {
+    expect(resendIdempotencyKey({ ...lead, submission_id: null })).toBe(
+      `lead-notification/${lead.id}`,
+    );
   });
 
   test("Resend răspunde cu eroare => false, fără a arunca", async () => {

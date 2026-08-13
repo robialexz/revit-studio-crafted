@@ -7,6 +7,7 @@ import {
   type LeadRecordForNotification,
   type LeadSupabaseLike,
 } from "../src/lib/leads.functions";
+import { resendIdempotencyKey } from "../src/lib/leads.server";
 import type { LeadInput } from "../src/lib/lead-schema";
 
 /**
@@ -58,6 +59,8 @@ function createMemorySupabase(options: { withoutNewColumns?: boolean } = {}) {
           const row: Record<string, unknown> = {
             id: crypto.randomUUID(),
             created_at: new Date().toISOString(),
+            notification_status: "pending",
+            notification_attempts: 0,
             ...payload,
           };
           rows.push(row);
@@ -67,29 +70,19 @@ function createMemorySupabase(options: { withoutNewColumns?: boolean } = {}) {
           };
         },
         select: (columns) => {
-          const chain = {
+          void columns;
+          return {
             eq: (column: string, value: unknown) => {
               if (column === "submission_id" && typeof value === "string") {
                 const row = bySubmissionId.get(value);
                 return {
-                  single: async () =>
-                    row
-                      ? {
-                          data: {
-                            id: row["id"],
-                            notification_status: row["notification_status"] ?? "pending",
-                          },
-                          error: null,
-                        }
-                      : notFound(),
+                  single: async () => (row ? { data: row, error: null } : notFound()),
                 };
               }
               return { single: async () => notFound() };
             },
             single: async () => notFound(),
           };
-          void columns;
-          return chain;
         },
         update: (payload) => ({
           eq: async (column, value) => {
@@ -134,6 +127,7 @@ const baseLead = (overrides: Partial<LeadInput> = {}): LeadInput => ({
   project_type: "Revit MEP",
   available_files: ["DWG"],
   description: "Modelare HVAC",
+  submission_id: crypto.randomUUID(),
   ...overrides,
 });
 
@@ -196,6 +190,30 @@ describe("handleSubmitLead — idempotență", () => {
     expect(results.filter((r) => r.duplicate).length).toBe(2);
   });
 
+  test("cereri concurente care ajung amândouă la email folosesc aceeași cheie Resend", async () => {
+    const store = createMemorySupabase();
+    const seenKeys: string[] = [];
+    const deps = makeDeps(store, async (lead) => {
+      seenKeys.push(resendIdempotencyKey(lead as never));
+      // Prima notificare eșuează, astfel încât a doua cerere (duplicat)
+      // să ajungă și ea la stratul de email.
+      return seenKeys.length === 1 ? "failed" : "sent";
+    });
+    const input = baseLead({ submission_id: "aaaa1111-aaaa-4aaa-8aaa-aaaaaaaaaaaa" });
+
+    const [first, second] = await Promise.all([
+      handleSubmitLead(input, deps),
+      handleSubmitLead(input, deps),
+    ]);
+
+    expect(store.count()).toBe(1);
+    expect(first.id).toBe(second.id);
+    expect(seenKeys.length).toBeGreaterThanOrEqual(2);
+    // Aceeași cheie deterministă per lead, la fiecare încercare.
+    expect(new Set(seenKeys).size).toBe(1);
+    expect(seenKeys[0]).toBe("lead-notification/aaaa1111-aaaa-4aaa-8aaa-aaaaaaaaaaaa");
+  });
+
   test("honeypot completat => succes fals, fără rând în baza de date", async () => {
     const store = createMemorySupabase();
     const deps = makeDeps(store);
@@ -226,15 +244,21 @@ describe("handleSubmitLead — notificare și retry", () => {
     expect(row?.["notification_status"]).toBe("failed");
   });
 
-  test("retry după eșec Resend => același lead, notificare reîncercată, status 'sent'", async () => {
+  test("retry după eșec Resend => același lead, notificare reîncercată cu DATE COMPLETE", async () => {
     const store = createMemorySupabase();
     let attempts = 0;
-    const deps = makeDeps(store, async () => {
+    const seenLeads: LeadRecordForNotification[] = [];
+    const deps = makeDeps(store, async (lead) => {
       attempts += 1;
+      seenLeads.push(lead);
       // Prima încercare pică, a doua reușește.
       return attempts === 1 ? "failed" : "sent";
     });
-    const input = baseLead({ submission_id: "ffffffff-ffff-4fff-8fff-ffffffffffff" });
+    const input = baseLead({
+      submission_id: "ffffffff-ffff-4fff-8fff-ffffffffffff",
+      project_type: "HVAC",
+      deadline: "1 septembrie",
+    });
 
     const first = await handleSubmitLead(input, deps);
     expect(first.duplicate).toBe(false);
@@ -245,6 +269,20 @@ describe("handleSubmitLead — notificare și retry", () => {
     expect(retry.id).toBe(first.id);
     expect(attempts).toBe(2);
     expect(store.count()).toBe(1);
+
+    // Emailul de retry conține datele COMPLETE originale, nu doar id+status.
+    const retryLead = seenLeads[1];
+    expect(retryLead).toBeDefined();
+    expect(retryLead?.name).toBe("Ion Popescu");
+    expect(retryLead?.phone).toBe("0722123456");
+    expect(retryLead?.project_type).toBe("HVAC");
+    expect(retryLead?.deadline).toBe("1 septembrie");
+    expect(retryLead?.description).toBe("Modelare HVAC");
+    expect(retryLead?.submission_id).toBe("ffffffff-ffff-4fff-8fff-ffffffffffff");
+
+    // Aceeași cheie de idempotență Resend la ambele încercări.
+    const keys = seenLeads.map((l) => resendIdempotencyKey(l as never));
+    expect(new Set(keys).size).toBe(1);
 
     const row = store.getBySubmissionId("ffffffff-ffff-4fff-8fff-ffffffffffff");
     expect(row?.["notification_status"]).toBe("sent");
@@ -269,6 +307,7 @@ describe("handleSubmitLead — notificare și retry", () => {
 
   test("eroare DB neașteptată => eroare sigură pentru utilizator, fără detalii", async () => {
     const store = createMemorySupabase();
+    void store;
     const broken: LeadSupabaseLike = {
       from: () => ({
         insert: () => ({

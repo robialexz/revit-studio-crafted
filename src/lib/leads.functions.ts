@@ -47,6 +47,7 @@ export interface LeadDeps {
 
 export interface LeadRecordForNotification {
   id: string;
+  submission_id: string | null;
   created_at: string;
   name: string;
   phone: string;
@@ -63,6 +64,8 @@ export interface LeadRecordForNotification {
   utm_campaign: string | null;
   utm_content: string | null;
   utm_term: string | null;
+  notification_status?: string | null;
+  notification_attempts?: number | null;
 }
 
 export interface SubmitLeadResult {
@@ -105,7 +108,11 @@ async function findLeadBySubmissionId(
 ): Promise<LeadRecordForNotification | undefined> {
   const { data, error } = await supabase
     .from("leads")
-    .select("id, notification_status")
+    // Complet, nu doar id + status: retry-ul notificării are nevoie de toate
+    // datele lead-ului pentru a reconstrui emailul integral.
+    .select(
+      "id, submission_id, created_at, name, phone, email, project_type, available_files, approximate_sheet_count, deadline, description, page_path, referrer, utm_source, utm_medium, utm_campaign, utm_content, utm_term, notification_status, notification_attempts",
+    )
     .eq("submission_id", submissionId)
     .single();
 
@@ -183,9 +190,9 @@ export async function handleSubmitLead(data: LeadInput, deps: LeadDeps): Promise
     if (data.submission_id) {
       const existing = await findLeadBySubmissionId(deps.supabase, data.submission_id);
       if (existing) {
-        // Retry al notificării, dacă prima încercare nu a fost trimisă.
-        const status = (existing as { notification_status?: string }).notification_status;
-        if (status !== "sent") {
+        // Retry al notificării cu datele COMPLETE ale lead-ului existent,
+        // dacă prima încercare nu a fost trimisă.
+        if (existing.notification_status !== "sent") {
           await notifyAndRecord(deps, existing);
         }
         return { id: existing.id, duplicate: true };

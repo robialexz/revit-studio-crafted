@@ -18,6 +18,9 @@ export type Database = {
           email: string | null;
           id: string;
           name: string;
+          notification_attempts: number;
+          notification_last_attempt_at: string | null;
+          notification_sent_at: string | null;
           notification_status: string;
           page_path: string | null;
           phone: string;
@@ -40,6 +43,9 @@ export type Database = {
           email?: string | null;
           id?: string;
           name: string;
+          notification_attempts?: number;
+          notification_last_attempt_at?: string | null;
+          notification_sent_at?: string | null;
           notification_status?: string;
           page_path?: string | null;
           phone: string;
@@ -62,6 +68,9 @@ export type Database = {
           email?: string | null;
           id?: string;
           name?: string;
+          notification_attempts?: number;
+          notification_last_attempt_at?: string | null;
+          notification_sent_at?: string | null;
           page_path?: string | null;
           phone?: string;
           project_type?: string | null;

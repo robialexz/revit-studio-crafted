@@ -39,10 +39,10 @@ export const leadSchema = z.object({
   website: z.string().trim().max(200).optional(),
   /**
    * Token de idempotență generat client-side pentru fiecare încercare de
-   * trimitere distinctă. Retry-urile aceleiași trimiteri refolosesc tokenul;
-   * o anchetă editată primește un token nou.
+   * trimitere distinctă. OBLIGATORIU: cererile directe fără UUID valid sunt
+   * respinse la validare, nu doar la nivel de bază de date.
    */
-  submission_id: z.string().trim().uuid().optional(),
+  submission_id: z.string().trim().uuid(),
 });
 
 export type LeadInput = z.infer<typeof leadSchema>;
