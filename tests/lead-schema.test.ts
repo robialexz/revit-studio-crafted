@@ -37,6 +37,46 @@ describe("leadSchema", () => {
     expect(() => leadSchema.parse({ name: "Ana", phone: "123" })).toThrow();
   });
 
+  test("respinge telefoane fără cifre (doar simboluri)", () => {
+    expect(() => leadSchema.parse({ name: "Ana", phone: "!!!!!!" })).toThrow();
+    expect(() => leadSchema.parse({ name: "Ana", phone: "---" })).toThrow();
+  });
+
+  test("respinge telefoane doar cu litere", () => {
+    expect(() => leadSchema.parse({ name: "Ana", phone: "abcdefg" })).toThrow();
+    expect(() => leadSchema.parse({ name: "Ana", phone: "0722abcde" })).toThrow();
+  });
+
+  test("acceptă telefon românesc simplu", () => {
+    const parsed = leadSchema.parse({ name: "Ana", phone: "0722123456" });
+    expect(parsed.phone).toBe("0722123456");
+  });
+
+  test("acceptă telefon românesc cu spații și cratime", () => {
+    const parsed = leadSchema.parse({ name: "Ana", phone: "0722 123 456" });
+    expect(parsed.phone).toBe("0722 123 456");
+  });
+
+  test("acceptă telefon internațional cu prefix +", () => {
+    expect(() => leadSchema.parse({ name: "Ana", phone: "+40722123456" })).not.toThrow();
+    expect(() => leadSchema.parse({ name: "Ana", phone: "+44 7911 123456" })).not.toThrow();
+  });
+
+  test("acceptă submission_id uuid valid", () => {
+    const parsed = leadSchema.parse({
+      name: "Ana",
+      phone: "0722123456",
+      submission_id: "123e4567-e89b-42d3-a456-426614174000",
+    });
+    expect(parsed.submission_id).toBe("123e4567-e89b-42d3-a456-426614174000");
+  });
+
+  test("respinge submission_id invalid", () => {
+    expect(() =>
+      leadSchema.parse({ name: "Ana", phone: "0722123456", submission_id: "abc" }),
+    ).toThrow();
+  });
+
   test("respinge email invalid", () => {
     expect(() =>
       leadSchema.parse({ name: "Ana", phone: "0722123456", email: "nu-e-email" }),

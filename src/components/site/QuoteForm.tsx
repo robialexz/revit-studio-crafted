@@ -23,6 +23,12 @@ type Errors = Partial<Record<"name" | "phone" | "email" | "form", string>>;
 export function QuoteForm() {
   const send = useServerFn(submitLead);
   const honeypotRef = useRef<HTMLInputElement>(null);
+  // Token de idempotență: generat la prima încercare de trimitere, refolosit
+  // la retry-uri ale aceleiași trimiteri (dublu-click / rețea), regenerat
+  // după succes sau după ce utilizatorul editează conținutul unei trimiteri
+  // eșuate (anchetă nouă => lead nou).
+  const submissionIdRef = useRef<string | undefined>(undefined);
+  const attemptedRef = useRef(false);
 
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -41,7 +47,28 @@ export function QuoteForm() {
   const toggleFile = (f: string) =>
     setFiles((prev) => (prev.includes(f) ? prev.filter((x) => x !== f) : [...prev, f]));
 
-  const started = () => trackOnce("quote_start");
+  /** Orice editare după o încercare eșuată = anchetă nouă, token nou. */
+  const changed = () => {
+    trackOnce("quote_start");
+    if (attemptedRef.current && !submittedRef.current) {
+      submissionIdRef.current = undefined;
+    }
+  };
+
+  function makeSubmissionId(): string {
+    if (!submissionIdRef.current) {
+      if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") {
+        submissionIdRef.current = crypto.randomUUID();
+      } else {
+        submissionIdRef.current = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
+          const r = (Math.random() * 16) | 0;
+          const v = c === "x" ? r : (r & 0x3) | 0x8;
+          return v.toString(16);
+        });
+      }
+    }
+    return submissionIdRef.current;
+  }
 
   const message = [
     `Salut! Aș avea nevoie de ajutor pentru un proiect Revit MEP.`,
@@ -63,7 +90,8 @@ export function QuoteForm() {
   function validate(): boolean {
     const next: Errors = {};
     if (name.trim().length < 2) next.name = "Completează numele.";
-    if (phone.replace(/\D/g, "").length < 6) next.phone = "Completează un număr de telefon valid.";
+    const cleanedPhone = phone.replace(/[\s().-]/g, "");
+    if (!/^\+?\d{6,15}$/.test(cleanedPhone)) next.phone = "Completează un număr de telefon valid.";
     if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim()))
       next.email = "Adresa de email nu pare validă.";
     setErrors(next);
@@ -81,6 +109,7 @@ export function QuoteForm() {
     }
     if (!validate()) return;
 
+    attemptedRef.current = true;
     setSubmitting(true);
     setErrors({});
     try {
@@ -97,12 +126,16 @@ export function QuoteForm() {
           description: detalii.trim(),
           ...attribution,
           website: honeypotRef.current?.value ?? "",
+          submission_id: makeSubmissionId(),
         },
       });
       submittedRef.current = true;
+      submissionIdRef.current = undefined;
       setSent(true);
       track("quote_submit", { project_type: tip });
     } catch (error) {
+      // Tokenul rămâne neschimbat: un retry al aceleiași trimiteri este
+      // idempotent pe server (nu creează un al doilea rând).
       console.error(error);
       setErrors({
         form: hasWhatsapp
@@ -171,7 +204,7 @@ export function QuoteForm() {
               id="lead-name"
               value={name}
               onChange={(e) => {
-                started();
+                changed();
                 setName(e.target.value);
               }}
               autoComplete="name"
@@ -195,7 +228,7 @@ export function QuoteForm() {
               inputMode="tel"
               value={phone}
               onChange={(e) => {
-                started();
+                changed();
                 setPhone(e.target.value);
               }}
               autoComplete="tel"
@@ -218,7 +251,7 @@ export function QuoteForm() {
               type="email"
               value={email}
               onChange={(e) => {
-                started();
+                changed();
                 setEmail(e.target.value);
               }}
               autoComplete="email"
@@ -243,7 +276,7 @@ export function QuoteForm() {
               key={t}
               type="button"
               onClick={() => {
-                started();
+                changed();
                 setTip(t);
               }}
               aria-pressed={tip === t}
@@ -267,7 +300,7 @@ export function QuoteForm() {
               key={f}
               type="button"
               onClick={() => {
-                started();
+                changed();
                 toggleFile(f);
               }}
               aria-pressed={files.includes(f)}
@@ -292,7 +325,7 @@ export function QuoteForm() {
             id="planse"
             value={planse}
             onChange={(e) => {
-              started();
+              changed();
               setPlanse(e.target.value);
             }}
             placeholder="ex: 5"
@@ -307,7 +340,7 @@ export function QuoteForm() {
             id="termen"
             value={termen}
             onChange={(e) => {
-              started();
+              changed();
               setTermen(e.target.value);
             }}
             placeholder="ex: 20 august"
@@ -325,7 +358,7 @@ export function QuoteForm() {
           rows={4}
           value={detalii}
           onChange={(e) => {
-            started();
+            changed();
             setDetalii(e.target.value);
           }}
           placeholder="Ce trebuie modelat / desenat, discipline, nivel de detaliu."

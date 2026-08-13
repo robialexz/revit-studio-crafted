@@ -89,17 +89,32 @@ export function buildLeadEmail(lead: LeadRecord) {
   return { subject, html, text };
 }
 
-/** Trimite notificarea de lead nou. Nu aruncă niciodată — lead-ul e deja salvat. */
-export async function sendLeadNotification(lead: LeadRecord): Promise<void> {
+/**
+ * Trimite notificarea de lead nou.
+ * Nu aruncă niciodată — lead-ul este deja salvat; returnează true doar
+ * când emailul a fost acceptat de Resend. Fără configurare completă
+ * (cheie + destinatar + expeditor de producție) notificarea este sărită
+ * cu un log explicit, fără a expune vreodată cheia.
+ */
+export async function sendLeadNotification(lead: LeadRecord): Promise<boolean> {
   const apiKey = process.env["RESEND_API_KEY"];
   const to = process.env["LEAD_NOTIFICATION_EMAIL"];
-  const from = process.env["LEAD_NOTIFICATION_FROM"] || "onboarding@resend.dev";
+  const from = process.env["LEAD_NOTIFICATION_FROM"];
 
   if (!apiKey || !to) {
     console.warn(
       "[leads] Notificare email sărită: lipsește RESEND_API_KEY sau LEAD_NOTIFICATION_EMAIL.",
     );
-    return;
+    return false;
+  }
+
+  if (!from) {
+    // În producție expeditorul este obligatoriu; nu trimitem niciodată
+    // de pe onboarding@resend.dev în producție.
+    console.error(
+      "[leads] Configurare incompletă: LEAD_NOTIFICATION_FROM lipsește. Lead-ul rămâne salvat, dar notificarea nu a fost trimisă.",
+    );
+    return false;
   }
 
   try {
@@ -116,8 +131,13 @@ export async function sendLeadNotification(lead: LeadRecord): Promise<void> {
         reply_to: lead.email || undefined,
       }),
     });
-    if (!res.ok) console.error("[leads] Resend a răspuns cu eroare:", res.status, await res.text());
+    if (!res.ok) {
+      console.error("[leads] Resend a răspuns cu eroare:", res.status, await res.text());
+      return false;
+    }
+    return true;
   } catch (error) {
     console.error("[leads] Trimiterea notificării a eșuat:", error);
+    return false;
   }
 }

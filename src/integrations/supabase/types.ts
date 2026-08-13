@@ -18,11 +18,13 @@ export type Database = {
           email: string | null;
           id: string;
           name: string;
+          notification_status: string;
           page_path: string | null;
           phone: string;
           project_type: string | null;
           referrer: string | null;
           status: string;
+          submission_id: string | null;
           utm_campaign: string | null;
           utm_content: string | null;
           utm_medium: string | null;
@@ -38,11 +40,13 @@ export type Database = {
           email?: string | null;
           id?: string;
           name: string;
+          notification_status?: string;
           page_path?: string | null;
           phone: string;
           project_type?: string | null;
           referrer?: string | null;
           status?: string;
+          submission_id?: string | null;
           utm_campaign?: string | null;
           utm_content?: string | null;
           utm_medium?: string | null;
@@ -63,6 +67,7 @@ export type Database = {
           project_type?: string | null;
           referrer?: string | null;
           status?: string;
+          submission_id?: string | null;
           utm_campaign?: string | null;
           utm_content?: string | null;
           utm_medium?: string | null;
