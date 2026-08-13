@@ -29,7 +29,7 @@ export function Header() {
       }`}
     >
       <div className="mx-auto flex max-w-[1400px] items-center justify-between gap-6 px-5 py-3 md:px-8">
-        <Link to="/" className="group flex flex-col leading-none" aria-label="Acasă">
+        <Link to="/" className="group flex flex-col leading-none">
           <span className="font-display text-xl font-semibold uppercase tracking-tight md:text-2xl">
             {site.businessName}
           </span>

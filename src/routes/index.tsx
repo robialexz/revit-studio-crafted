@@ -387,7 +387,7 @@ function Home() {
                       <li>Vederi, secțiuni și sheet-uri organizate</li>
                       <li>Export coordonat RVT / DWG / PDF</li>
                     </ul>
-                    <p className="tech-label mt-4 text-graphite-foreground/45">Rev. 00</p>
+                    <p className="tech-label mt-4 text-graphite-foreground/60">Rev. 00</p>
                   </div>
                 </div>
               </figure>
@@ -512,7 +512,7 @@ function Home() {
                     }`}
                   >
                     <div className="flex items-start justify-between">
-                      <span className={`tech-label ${s.featured ? "text-primary" : "text-mep"}`}>
+                      <span className={`tech-label ${s.featured ? "text-accent" : "text-mep"}`}>
                         {s.n}
                       </span>
                       <Icon
@@ -619,7 +619,7 @@ function Home() {
             />
             <div className="relative">
               <div className="flex items-baseline gap-4">
-                <span className="tech-label text-primary">04</span>
+                <span className="tech-label text-accent">04</span>
                 <span className="tech-label text-graphite-foreground/50">Proces</span>
                 <span className="h-px flex-1 bg-graphite-foreground/20" />
               </div>
@@ -629,12 +629,12 @@ function Home() {
               <ol className="mt-12 grid gap-px bg-graphite-foreground/15 md:grid-cols-2 lg:grid-cols-4">
                 {process.map((p) => (
                   <li key={p.n} className="bg-graphite p-6 md:p-8">
-                    <span className="tech-label text-primary">{p.n}</span>
+                    <span className="tech-label text-accent">{p.n}</span>
                     <h3 className="mt-5 text-2xl uppercase">{p.title}</h3>
                     <p className="mt-3 text-sm leading-relaxed text-graphite-foreground/75">
                       {p.body}
                     </p>
-                    <p className="tech-label mt-6 text-graphite-foreground/45">{p.meta}</p>
+                    <p className="tech-label mt-6 text-graphite-foreground/60">{p.meta}</p>
                   </li>
                 ))}
               </ol>

@@ -26,7 +26,7 @@ export function Footer() {
           </div>
 
           <nav className="md:col-span-3" aria-label="Navigație footer">
-            <p className="tech-label text-graphite-foreground/45">Site</p>
+            <p className="tech-label text-graphite-foreground/60">Site</p>
             <ul className="mt-4 space-y-2.5 text-sm">
               <li>
                 <a href="/#servicii" className="hover:text-primary">
@@ -59,7 +59,7 @@ export function Footer() {
                 </Link>
               </li>
             </ul>
-            <p className="tech-label mt-8 text-graphite-foreground/45">Legal</p>
+            <p className="tech-label mt-8 text-graphite-foreground/60">Legal</p>
             <ul className="mt-4 space-y-2.5 text-sm">
               <li>
                 <Link to="/politica-de-confidentialitate" className="hover:text-primary">
@@ -95,7 +95,7 @@ export function Footer() {
 
           {(hasWhatsapp || hasEmail) && (
             <div className="md:col-span-4">
-              <p className="tech-label text-graphite-foreground/45">Contact</p>
+              <p className="tech-label text-graphite-foreground/60">Contact</p>
               <ul className="mt-4 space-y-2.5 text-sm">
                 {hasWhatsapp && (
                   <li>
@@ -125,10 +125,10 @@ export function Footer() {
         </div>
 
         <div className="mt-14 flex flex-col gap-3 border-t border-graphite-foreground/15 pt-6 md:flex-row md:items-center md:justify-between">
-          <p className="tech-label text-graphite-foreground/45">
+          <p className="tech-label text-graphite-foreground/60">
             © {new Date().getFullYear()} {site.businessName}
           </p>
-          <p className="tech-label text-graphite-foreground/45">RVT · DWG · PDF</p>
+          <p className="tech-label text-graphite-foreground/60">RVT · DWG · PDF</p>
         </div>
       </div>
     </footer>

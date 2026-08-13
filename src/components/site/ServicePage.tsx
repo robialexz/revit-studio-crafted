@@ -196,7 +196,7 @@ export function ServicePage({
               </div>
 
               <div className="mt-10 border border-border-strong bg-graphite p-6 text-graphite-foreground md:p-8">
-                <p className="tech-label text-primary">Livrabile</p>
+                <p className="tech-label text-accent">Livrabile</p>
                 <ul className="mt-5 space-y-2 text-sm text-graphite-foreground/85">
                   {deliverables.map((d) => (
                     <li key={d} className="border-b border-graphite-foreground/15 pb-2">

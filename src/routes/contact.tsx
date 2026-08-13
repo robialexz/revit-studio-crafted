@@ -141,7 +141,7 @@ function ContactPage() {
 
             <div className="lg:col-span-5">
               <div className="border border-border-strong bg-graphite p-6 text-graphite-foreground md:p-8">
-                <p className="tech-label text-primary">Servicii</p>
+                <p className="tech-label text-accent">Servicii</p>
                 <ul className="mt-5 space-y-2 text-sm text-graphite-foreground/85">
                   {[
                     "Modelare Revit MEP & BIM",
