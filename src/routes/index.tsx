@@ -13,6 +13,7 @@ import {
   hasEmail,
   hasSiteUrl,
   canonicalUrl,
+  formatPhoneDisplay,
 } from "@/lib/site-config";
 import type { ServicePath } from "@/components/site/ServicePage";
 import { track } from "@/lib/analytics";
@@ -802,7 +803,11 @@ function Home() {
               {(hasWhatsapp || hasEmail) && (
                 <div className="mt-10 border-t border-border-strong pt-6">
                   <p className="tech-label text-muted-foreground">Contact</p>
-                  {hasWhatsapp && <p className="mt-3 text-sm">WhatsApp: {site.whatsappNumber}</p>}
+                  {hasWhatsapp && (
+                    <p className="mt-3 text-sm">
+                      WhatsApp: {formatPhoneDisplay(site.whatsappNumber)}
+                    </p>
+                  )}
                   {hasEmail && <p className="text-sm">Email: {site.email}</p>}
                 </div>
               )}

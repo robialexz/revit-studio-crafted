@@ -11,14 +11,19 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AutocadDwgRouteImport } from './routes/autocad-dwg'
+import { Route as ContactRouteImport } from './routes/contact'
 import { Route as HvacRouteImport } from './routes/hvac'
+import { Route as InformatiiLegaleRouteImport } from './routes/informatii-legale'
 import { Route as InstalatiiElectriceRouteImport } from './routes/instalatii-electrice'
 import { Route as InstalatiiTermiceRouteImport } from './routes/instalatii-termice'
 import { Route as ModelareRevitRouteImport } from './routes/modelare-revit'
+import { Route as PoliticaCookiesRouteImport } from './routes/politica-cookies'
+import { Route as PoliticaDeConfidentialitateRouteImport } from './routes/politica-de-confidentialitate'
 import { Route as PortofoliuRouteImport } from './routes/portofoliu'
 import { Route as RevitMepRouteImport } from './routes/revit-mep'
 import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as TermeniSiConditiiRouteImport } from './routes/termeni-si-conditii'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -30,9 +35,19 @@ const AutocadDwgRoute = AutocadDwgRouteImport.update({
   path: '/autocad-dwg',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const HvacRoute = HvacRouteImport.update({
   id: '/hvac',
   path: '/hvac',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InformatiiLegaleRoute = InformatiiLegaleRouteImport.update({
+  id: '/informatii-legale',
+  path: '/informatii-legale',
   getParentRoute: () => rootRouteImport,
 } as any)
 const InstalatiiElectriceRoute = InstalatiiElectriceRouteImport.update({
@@ -50,6 +65,17 @@ const ModelareRevitRoute = ModelareRevitRouteImport.update({
   path: '/modelare-revit',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PoliticaCookiesRoute = PoliticaCookiesRouteImport.update({
+  id: '/politica-cookies',
+  path: '/politica-cookies',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PoliticaDeConfidentialitateRoute =
+  PoliticaDeConfidentialitateRouteImport.update({
+    id: '/politica-de-confidentialitate',
+    path: '/politica-de-confidentialitate',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const PortofoliuRoute = PortofoliuRouteImport.update({
   id: '/portofoliu',
   path: '/portofoliu',
@@ -70,94 +96,134 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TermeniSiConditiiRoute = TermeniSiConditiiRouteImport.update({
+  id: '/termeni-si-conditii',
+  path: '/termeni-si-conditii',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/autocad-dwg': typeof AutocadDwgRoute
+  '/contact': typeof ContactRoute
   '/hvac': typeof HvacRoute
+  '/informatii-legale': typeof InformatiiLegaleRoute
   '/instalatii-electrice': typeof InstalatiiElectriceRoute
   '/instalatii-termice': typeof InstalatiiTermiceRoute
   '/modelare-revit': typeof ModelareRevitRoute
+  '/politica-cookies': typeof PoliticaCookiesRoute
+  '/politica-de-confidentialitate': typeof PoliticaDeConfidentialitateRoute
   '/portofoliu': typeof PortofoliuRoute
   '/revit-mep': typeof RevitMepRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/termeni-si-conditii': typeof TermeniSiConditiiRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/autocad-dwg': typeof AutocadDwgRoute
+  '/contact': typeof ContactRoute
   '/hvac': typeof HvacRoute
+  '/informatii-legale': typeof InformatiiLegaleRoute
   '/instalatii-electrice': typeof InstalatiiElectriceRoute
   '/instalatii-termice': typeof InstalatiiTermiceRoute
   '/modelare-revit': typeof ModelareRevitRoute
+  '/politica-cookies': typeof PoliticaCookiesRoute
+  '/politica-de-confidentialitate': typeof PoliticaDeConfidentialitateRoute
   '/portofoliu': typeof PortofoliuRoute
   '/revit-mep': typeof RevitMepRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/termeni-si-conditii': typeof TermeniSiConditiiRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/autocad-dwg': typeof AutocadDwgRoute
+  '/contact': typeof ContactRoute
   '/hvac': typeof HvacRoute
+  '/informatii-legale': typeof InformatiiLegaleRoute
   '/instalatii-electrice': typeof InstalatiiElectriceRoute
   '/instalatii-termice': typeof InstalatiiTermiceRoute
   '/modelare-revit': typeof ModelareRevitRoute
+  '/politica-cookies': typeof PoliticaCookiesRoute
+  '/politica-de-confidentialitate': typeof PoliticaDeConfidentialitateRoute
   '/portofoliu': typeof PortofoliuRoute
   '/revit-mep': typeof RevitMepRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/termeni-si-conditii': typeof TermeniSiConditiiRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/autocad-dwg'
+    | '/contact'
     | '/hvac'
+    | '/informatii-legale'
     | '/instalatii-electrice'
     | '/instalatii-termice'
     | '/modelare-revit'
+    | '/politica-cookies'
+    | '/politica-de-confidentialitate'
     | '/portofoliu'
     | '/revit-mep'
     | '/robots.txt'
     | '/sitemap.xml'
+    | '/termeni-si-conditii'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/autocad-dwg'
+    | '/contact'
     | '/hvac'
+    | '/informatii-legale'
     | '/instalatii-electrice'
     | '/instalatii-termice'
     | '/modelare-revit'
+    | '/politica-cookies'
+    | '/politica-de-confidentialitate'
     | '/portofoliu'
     | '/revit-mep'
     | '/robots.txt'
     | '/sitemap.xml'
+    | '/termeni-si-conditii'
   id:
     | '__root__'
     | '/'
     | '/autocad-dwg'
+    | '/contact'
     | '/hvac'
+    | '/informatii-legale'
     | '/instalatii-electrice'
     | '/instalatii-termice'
     | '/modelare-revit'
+    | '/politica-cookies'
+    | '/politica-de-confidentialitate'
     | '/portofoliu'
     | '/revit-mep'
     | '/robots.txt'
     | '/sitemap.xml'
+    | '/termeni-si-conditii'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AutocadDwgRoute: typeof AutocadDwgRoute
+  ContactRoute: typeof ContactRoute
   HvacRoute: typeof HvacRoute
+  InformatiiLegaleRoute: typeof InformatiiLegaleRoute
   InstalatiiElectriceRoute: typeof InstalatiiElectriceRoute
   InstalatiiTermiceRoute: typeof InstalatiiTermiceRoute
   ModelareRevitRoute: typeof ModelareRevitRoute
+  PoliticaCookiesRoute: typeof PoliticaCookiesRoute
+  PoliticaDeConfidentialitateRoute: typeof PoliticaDeConfidentialitateRoute
   PortofoliuRoute: typeof PortofoliuRoute
   RevitMepRoute: typeof RevitMepRoute
   RobotsDottxtRoute: typeof RobotsDottxtRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  TermeniSiConditiiRoute: typeof TermeniSiConditiiRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -176,11 +242,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AutocadDwgRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/hvac': {
       id: '/hvac'
       path: '/hvac'
       fullPath: '/hvac'
       preLoaderRoute: typeof HvacRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/informatii-legale': {
+      id: '/informatii-legale'
+      path: '/informatii-legale'
+      fullPath: '/informatii-legale'
+      preLoaderRoute: typeof InformatiiLegaleRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/instalatii-electrice': {
@@ -202,6 +282,20 @@ declare module '@tanstack/react-router' {
       path: '/modelare-revit'
       fullPath: '/modelare-revit'
       preLoaderRoute: typeof ModelareRevitRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/politica-cookies': {
+      id: '/politica-cookies'
+      path: '/politica-cookies'
+      fullPath: '/politica-cookies'
+      preLoaderRoute: typeof PoliticaCookiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/politica-de-confidentialitate': {
+      id: '/politica-de-confidentialitate'
+      path: '/politica-de-confidentialitate'
+      fullPath: '/politica-de-confidentialitate'
+      preLoaderRoute: typeof PoliticaDeConfidentialitateRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/portofoliu': {
@@ -232,20 +326,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/termeni-si-conditii': {
+      id: '/termeni-si-conditii'
+      path: '/termeni-si-conditii'
+      fullPath: '/termeni-si-conditii'
+      preLoaderRoute: typeof TermeniSiConditiiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AutocadDwgRoute: AutocadDwgRoute,
+  ContactRoute: ContactRoute,
   HvacRoute: HvacRoute,
+  InformatiiLegaleRoute: InformatiiLegaleRoute,
   InstalatiiElectriceRoute: InstalatiiElectriceRoute,
   InstalatiiTermiceRoute: InstalatiiTermiceRoute,
   ModelareRevitRoute: ModelareRevitRoute,
+  PoliticaCookiesRoute: PoliticaCookiesRoute,
+  PoliticaDeConfidentialitateRoute: PoliticaDeConfidentialitateRoute,
   PortofoliuRoute: PortofoliuRoute,
   RevitMepRoute: RevitMepRoute,
   RobotsDottxtRoute: RobotsDottxtRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  TermeniSiConditiiRoute: TermeniSiConditiiRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

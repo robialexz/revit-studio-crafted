@@ -11,6 +11,7 @@ import {
   defaultWhatsappMessage,
   hasWhatsapp,
   hasEmail,
+  formatPhoneDisplay,
 } from "@/lib/site-config";
 import { track } from "@/lib/analytics";
 
@@ -258,7 +259,11 @@ export function ServicePage({
                 {(hasWhatsapp || hasEmail) && (
                   <div className="mt-10 border-t border-border-strong pt-6">
                     <p className="tech-label text-muted-foreground">Contact</p>
-                    {hasWhatsapp && <p className="mt-3 text-sm">WhatsApp: {site.whatsappNumber}</p>}
+                    {hasWhatsapp && (
+                      <p className="mt-3 text-sm">
+                        WhatsApp: {formatPhoneDisplay(site.whatsappNumber)}
+                      </p>
+                    )}
                     {hasEmail && <p className="text-sm">Email: {site.email}</p>}
                   </div>
                 )}

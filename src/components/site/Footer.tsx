@@ -6,6 +6,7 @@ import {
   defaultWhatsappMessage,
   hasWhatsapp,
   hasEmail,
+  formatPhoneDisplay,
 } from "@/lib/site-config";
 
 export function Footer() {
@@ -53,9 +54,32 @@ export function Footer() {
                 </a>
               </li>
               <li>
-                <a href="/#estimare" className="hover:text-primary">
+                <Link to="/contact" className="hover:text-primary">
                   Contact
-                </a>
+                </Link>
+              </li>
+            </ul>
+            <p className="tech-label mt-8 text-graphite-foreground/45">Legal</p>
+            <ul className="mt-4 space-y-2.5 text-sm">
+              <li>
+                <Link to="/politica-de-confidentialitate" className="hover:text-primary">
+                  Politica de confidențialitate
+                </Link>
+              </li>
+              <li>
+                <Link to="/politica-cookies" className="hover:text-primary">
+                  Politica de cookies
+                </Link>
+              </li>
+              <li>
+                <Link to="/termeni-si-conditii" className="hover:text-primary">
+                  Termeni și condiții
+                </Link>
+              </li>
+              <li>
+                <Link to="/informatii-legale" className="hover:text-primary">
+                  Informații legale
+                </Link>
               </li>
             </ul>
           </nav>
@@ -72,7 +96,7 @@ export function Footer() {
                       rel="noreferrer noopener"
                       className="hover:text-primary"
                     >
-                      WhatsApp — {site.whatsappNumber}
+                      WhatsApp — {formatPhoneDisplay(site.whatsappNumber)}
                     </a>
                   </li>
                 )}

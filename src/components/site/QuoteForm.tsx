@@ -386,6 +386,17 @@ export function QuoteForm() {
         Cererea ajunge direct la mine. După trimitere poți continua conversația pe WhatsApp, cu
         detaliile deja completate.
       </p>
+      <p className="mt-4 border-t border-border pt-4 text-xs leading-relaxed text-muted-foreground">
+        Prin trimiterea cererii, datele sunt prelucrate pentru a răspunde solicitării tale. Detalii
+        în{" "}
+        <a
+          href="/politica-de-confidentialitate"
+          className="underline underline-offset-4 hover:text-primary"
+        >
+          Politica de confidențialitate
+        </a>
+        .
+      </p>
     </form>
   );
 }

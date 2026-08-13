@@ -17,6 +17,11 @@ const entries: SitemapEntry[] = [
   { path: "/instalatii-electrice", changefreq: "monthly", priority: "0.8" },
   { path: "/autocad-dwg", changefreq: "monthly", priority: "0.7" },
   { path: "/portofoliu", changefreq: "monthly", priority: "0.8" },
+  { path: "/contact", changefreq: "monthly", priority: "0.8" },
+  { path: "/politica-de-confidentialitate", changefreq: "yearly", priority: "0.3" },
+  { path: "/politica-cookies", changefreq: "yearly", priority: "0.3" },
+  { path: "/termeni-si-conditii", changefreq: "yearly", priority: "0.3" },
+  { path: "/informatii-legale", changefreq: "yearly", priority: "0.3" },
 ];
 
 export const Route = createFileRoute("/sitemap.xml")({

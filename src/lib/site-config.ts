@@ -52,6 +52,33 @@ export function canonicalUrl(path: string): string {
   return `${site.siteUrl}${clean}`;
 }
 
+/**
+ * Afișare telefon prietenoasă pentru oameni (nu schimbă link-urile wa.me).
+ * Exemplu RO: 40750485793 -> "+40 750 485 793".
+ */
+export function formatPhoneDisplay(raw: string | undefined): string {
+  const digits = (raw ?? "").replace(/\D/g, "");
+  if (!digits) return "";
+
+  // România: 10 cifre începând cu 07 => +40 7XX XXX XXX
+  if (/^07\d{8}$/.test(digits)) {
+    return `+40 ${digits.slice(1, 4)} ${digits.slice(4, 7)} ${digits.slice(7)}`;
+  }
+  // România cu prefix de țară: 40 + 9 cifre
+  if (/^40\d{9}$/.test(digits)) {
+    const local = digits.slice(2);
+    return `+40 ${local.slice(0, 3)} ${local.slice(3, 6)} ${local.slice(6)}`;
+  }
+  // Internațional generic: grupăm cifrele de la dreapta la stânga în blocuri de 3
+  {
+    const groups: string[] = [];
+    for (let i = digits.length; i > 0; i -= 3) {
+      groups.unshift(digits.slice(Math.max(0, i - 3), i));
+    }
+    return `+${groups.join(" ")}`;
+  }
+}
+
 export const defaultWhatsappMessage =
   "Salut! Aș avea nevoie de ajutor pentru un proiect Revit MEP. Pot să îți trimit fișierele pentru o estimare?";
 

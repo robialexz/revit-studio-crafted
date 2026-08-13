@@ -4,12 +4,26 @@ import { supabase } from "./client";
 
 // Must be registered as a global `functionMiddleware` in `src/start.ts`; otherwise
 // the browser never attaches the bearer token to serverFn RPCs.
+//
+// NOD BIM (producție): atașarea sesiunii este opțională — formularul de lead nu
+// folosește autentificare. Dacă clientul Supabase din browser nu poate fi
+// inițializat (ex: VITE_SUPABASE_URL / VITE_SUPABASE_PUBLISHABLE_KEY lipsesc
+// din mediul de build), cererea serverFn merge mai departe FĂRĂ header de
+// autentificare, în loc să blocheze trimiterea formularului.
 export const attachSupabaseAuth = createMiddleware({ type: "function" }).client(
   async ({ next }) => {
-    const { data } = await supabase.auth.getSession();
-    const token = data.session?.access_token;
-    return next({
-      headers: token ? { Authorization: `Bearer ${token}` } : {},
-    });
+    try {
+      const { data } = await supabase.auth.getSession();
+      const token = data.session?.access_token;
+      return next({
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+      });
+    } catch (error) {
+      console.warn(
+        "[supabase] Sesiunea nu a putut fi citită; cererea continuă fără autentificare.",
+        error,
+      );
+      return next({ headers: {} });
+    }
   },
 );
