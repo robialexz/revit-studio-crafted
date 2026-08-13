@@ -1,19 +1,19 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import {
-  ArrowUpRight,
-  Box,
-  FileStack,
-  Layers,
-  PenLine,
-  Ruler,
-  Wrench,
-  Zap,
-} from "lucide-react";
+import { ArrowUpRight, Box, FileStack, Layers, PenLine, Ruler, Wrench, Zap } from "lucide-react";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { QuoteForm } from "@/components/site/QuoteForm";
 import { MobileCta } from "@/components/site/MobileCta";
-import { site, disclaimer, whatsappLink, defaultWhatsappMessage } from "@/lib/site-config";
+import {
+  site,
+  disclaimer,
+  whatsappLink,
+  defaultWhatsappMessage,
+  hasWhatsapp,
+  hasEmail,
+  hasSiteUrl,
+  canonicalUrl,
+} from "@/lib/site-config";
 import type { ServicePath } from "@/components/site/ServicePage";
 import { track } from "@/lib/analytics";
 
@@ -27,6 +27,7 @@ import projSheet from "@/assets/proj-sheet.jpg";
 const title = "Revit MEP & Modelare BIM · Planșe HVAC, Termice, Electrice";
 const description =
   "Modelare Revit MEP și documentație tehnică pentru instalații HVAC, termice și electrice. Planșe, secțiuni, sheet-uri, export RVT / DWG / PDF. AutoCAD disponibil complementar.";
+const url = canonicalUrl("/");
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -37,10 +38,12 @@ export const Route = createFileRoute("/")({
       { property: "og:description", content: description },
       { property: "og:type", content: "website" },
       { property: "og:locale", content: "ro_RO" },
-      { property: "og:url", content: "/" },
+      { property: "og:url", content: url },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: title },
+      { name: "twitter:description", content: description },
     ],
-    links: [{ rel: "canonical", href: "/" }],
+    links: [{ rel: "canonical", href: url }],
     scripts: [
       {
         type: "application/ld+json",
@@ -58,6 +61,9 @@ export const Route = createFileRoute("/")({
             "Desenare instalații electrice",
             "Desenare AutoCAD / DWG",
           ],
+          ...(hasSiteUrl ? { url: canonicalUrl("/") } : {}),
+          ...(hasWhatsapp ? { telephone: site.whatsappNumber } : {}),
+          ...(hasEmail ? { email: site.email } : {}),
         }),
       },
     ],
@@ -75,7 +81,6 @@ const serviceHref: Record<string, ServicePath | undefined> = {
   "Instalații electrice": "/instalatii-electrice",
   "AutoCAD / DWG": "/autocad-dwg",
 };
-
 
 const services = [
   {
@@ -217,14 +222,26 @@ const process = [
 ];
 
 const faq = [
-  ["Lucrezi în Revit?", "Da. Revit MEP este principalul meu mediu de lucru pentru modelare și pregătirea planșelor."],
-  ["Pot primi fișierul RVT?", "Da, atunci când livrarea fișierului editabil face parte din lucrare."],
-  ["Pot primi și DWG?", "Da. Pot furniza exporturi sau fișiere DWG atunci când proiectul o necesită."],
+  [
+    "Lucrezi în Revit?",
+    "Da. Revit MEP este principalul meu mediu de lucru pentru modelare și pregătirea planșelor.",
+  ],
+  [
+    "Pot primi fișierul RVT?",
+    "Da, atunci când livrarea fișierului editabil face parte din lucrare.",
+  ],
+  [
+    "Pot primi și DWG?",
+    "Da. Pot furniza exporturi sau fișiere DWG atunci când proiectul o necesită.",
+  ],
   [
     "Poți lucra pe un proiect început de altcineva?",
     "Da. Pot prelua fișiere RVT, DWG sau documentații existente pentru corectări, completări și reorganizare.",
   ],
-  ["Poți porni de la un PDF?", "Da, în funcție de calitatea și informațiile disponibile în document."],
+  [
+    "Poți porni de la un PDF?",
+    "Da, în funcție de calitatea și informațiile disponibile în document.",
+  ],
   [
     "Realizezi instalații sanitare?",
     "Nu. Serviciile sunt concentrate pe Revit MEP, HVAC, instalații termice și instalații electrice.",
@@ -298,15 +315,17 @@ function Home() {
                 >
                   Solicită o estimare
                 </a>
-                <a
-                  href={waHref}
-                  target="_blank"
-                  rel="noreferrer noopener"
-                  onClick={() => track("whatsapp_click", { source: "homepage" })}
-                  className="tech-label border border-foreground px-6 py-4 transition-colors hover:bg-foreground hover:text-background"
-                >
-                  Scrie pe WhatsApp
-                </a>
+                {hasWhatsapp && (
+                  <a
+                    href={waHref || undefined}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    onClick={() => track("whatsapp_click", { source: "homepage" })}
+                    className="tech-label border border-foreground px-6 py-4 transition-colors hover:bg-foreground hover:text-background"
+                  >
+                    Scrie pe WhatsApp
+                  </a>
+                )}
               </div>
 
               <dl className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-3 border-t border-border-strong pt-5">
@@ -489,14 +508,14 @@ function Home() {
                     }`}
                   >
                     <div className="flex items-start justify-between">
-                      <span
-                        className={`tech-label ${s.featured ? "text-primary" : "text-mep"}`}
-                      >
+                      <span className={`tech-label ${s.featured ? "text-primary" : "text-mep"}`}>
                         {s.n}
                       </span>
                       <Icon
                         size={18}
-                        className={s.featured ? "text-graphite-foreground/50" : "text-muted-foreground"}
+                        className={
+                          s.featured ? "text-graphite-foreground/50" : "text-muted-foreground"
+                        }
                         aria-hidden="true"
                       />
                     </div>
@@ -519,16 +538,14 @@ function Home() {
 
                     <p
                       className={`mt-3 max-w-md text-sm leading-relaxed ${
-                        s.featured ? "text-graphite-foreground/75 md:text-base" : "text-muted-foreground"
+                        s.featured
+                          ? "text-graphite-foreground/75 md:text-base"
+                          : "text-muted-foreground"
                       }`}
                     >
                       {s.lead}
                     </p>
-                    <ul
-                      className={`mt-6 flex flex-wrap gap-x-4 gap-y-2 ${
-                        s.featured ? "" : ""
-                      }`}
-                    >
+                    <ul className={`mt-6 flex flex-wrap gap-x-4 gap-y-2 ${s.featured ? "" : ""}`}>
                       {s.items.map((it) => (
                         <li
                           key={it}
@@ -564,9 +581,18 @@ function Home() {
             <div className="grid gap-px bg-border-strong sm:grid-cols-2 lg:col-span-7">
               {[
                 ["Model 3D + planșe 2D", "Modelul și documentația trăiesc în același workflow."],
-                ["Vederi și secțiuni", "Informația tehnică poate fi înțeleasă vizual, nu doar citită."],
-                ["Modificări urmărite mai ușor", "Un model structurat ajută la organizarea reviziilor."],
-                ["Fișier editabil", "RVT poate rămâne livrabil editabil, când face parte din scopul lucrării."],
+                [
+                  "Vederi și secțiuni",
+                  "Informația tehnică poate fi înțeleasă vizual, nu doar citită.",
+                ],
+                [
+                  "Modificări urmărite mai ușor",
+                  "Un model structurat ajută la organizarea reviziilor.",
+                ],
+                [
+                  "Fișier editabil",
+                  "RVT poate rămâne livrabil editabil, când face parte din scopul lucrării.",
+                ],
               ].map(([t, d]) => (
                 <div key={t} className="bg-background p-6 md:p-8">
                   <h3 className="text-2xl uppercase">{t}</h3>
@@ -578,9 +604,15 @@ function Home() {
         </section>
 
         {/* PROCES */}
-        <section id="proces" className="border-y border-border-strong bg-graphite text-graphite-foreground">
+        <section
+          id="proces"
+          className="border-y border-border-strong bg-graphite text-graphite-foreground"
+        >
           <div className="relative mx-auto max-w-[1400px] px-5 py-16 md:px-8 md:py-24">
-            <div className="cad-grid pointer-events-none absolute inset-0 opacity-60" aria-hidden="true" />
+            <div
+              className="cad-grid pointer-events-none absolute inset-0 opacity-60"
+              aria-hidden="true"
+            />
             <div className="relative">
               <div className="flex items-baseline gap-4">
                 <span className="tech-label text-primary">04</span>
@@ -595,7 +627,9 @@ function Home() {
                   <li key={p.n} className="bg-graphite p-6 md:p-8">
                     <span className="tech-label text-primary">{p.n}</span>
                     <h3 className="mt-5 text-2xl uppercase">{p.title}</h3>
-                    <p className="mt-3 text-sm leading-relaxed text-graphite-foreground/75">{p.body}</p>
+                    <p className="mt-3 text-sm leading-relaxed text-graphite-foreground/75">
+                      {p.body}
+                    </p>
                     <p className="tech-label mt-6 text-graphite-foreground/45">{p.meta}</p>
                   </li>
                 ))}
@@ -751,23 +785,27 @@ function Home() {
             <div className="lg:col-span-5">
               <h2 className="text-4xl uppercase md:text-5xl">Solicită o estimare</h2>
               <p className="mt-5 max-w-md text-sm leading-relaxed text-muted-foreground">
-                Completează câteva detalii, iar formularul generează un mesaj pre-scris pe WhatsApp.
-                Fișierele le poți trimite direct în conversație.
+                Completează câteva detalii, iar cererea ajunge la mine pentru o estimare.
+                {hasWhatsapp ? " Fișierele le poți trimite direct pe WhatsApp." : ""}
               </p>
-              <a
-                href={waHref}
-                target="_blank"
-                rel="noreferrer noopener"
-                onClick={() => track("whatsapp_click", { source: "homepage" })}
-                className="tech-label mt-8 inline-block border border-foreground px-6 py-4 transition-colors hover:bg-foreground hover:text-background"
-              >
-                Trimite proiectul pe WhatsApp
-              </a>
-              <div className="mt-10 border-t border-border-strong pt-6">
-                <p className="tech-label text-muted-foreground">Contact</p>
-                <p className="mt-3 text-sm">WhatsApp: {site.whatsappNumber}</p>
-                <p className="text-sm">Email: {site.email}</p>
-              </div>
+              {hasWhatsapp && (
+                <a
+                  href={waHref || undefined}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  onClick={() => track("whatsapp_click", { source: "homepage" })}
+                  className="tech-label mt-8 inline-block border border-foreground px-6 py-4 transition-colors hover:bg-foreground hover:text-background"
+                >
+                  Trimite proiectul pe WhatsApp
+                </a>
+              )}
+              {(hasWhatsapp || hasEmail) && (
+                <div className="mt-10 border-t border-border-strong pt-6">
+                  <p className="tech-label text-muted-foreground">Contact</p>
+                  {hasWhatsapp && <p className="mt-3 text-sm">WhatsApp: {site.whatsappNumber}</p>}
+                  {hasEmail && <p className="text-sm">Email: {site.email}</p>}
+                </div>
+              )}
             </div>
             <div className="lg:col-span-7">
               <QuoteForm />
@@ -778,7 +816,10 @@ function Home() {
         {/* CTA FINAL */}
         <section className="border-t border-border-strong bg-graphite text-graphite-foreground">
           <div className="relative mx-auto max-w-[1400px] px-5 py-20 md:px-8 md:py-28">
-            <div className="cad-grid-lg pointer-events-none absolute inset-0 opacity-70" aria-hidden="true" />
+            <div
+              className="cad-grid-lg pointer-events-none absolute inset-0 opacity-70"
+              aria-hidden="true"
+            />
             <div className="relative max-w-3xl">
               <h2 className="display-xl text-5xl md:text-7xl">Ai un proiect de terminat?</h2>
               <p className="mt-6 max-w-xl text-base leading-relaxed text-graphite-foreground/75">
@@ -792,15 +833,17 @@ function Home() {
                 >
                   Solicită o estimare
                 </a>
-                <a
-                  href={waHref}
-                  target="_blank"
-                  rel="noreferrer noopener"
-                  onClick={() => track("whatsapp_click", { source: "homepage" })}
-                  className="tech-label border border-graphite-foreground/40 px-6 py-4 transition-colors hover:bg-graphite-foreground hover:text-graphite"
-                >
-                  Trimite proiectul pe WhatsApp
-                </a>
+                {hasWhatsapp && (
+                  <a
+                    href={waHref || undefined}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    onClick={() => track("whatsapp_click", { source: "homepage" })}
+                    className="tech-label border border-graphite-foreground/40 px-6 py-4 transition-colors hover:bg-graphite-foreground hover:text-graphite"
+                  >
+                    Trimite proiectul pe WhatsApp
+                  </a>
+                )}
               </div>
             </div>
           </div>

@@ -17,6 +17,7 @@ import { Route as InstalatiiTermiceRouteImport } from './routes/instalatii-termi
 import { Route as ModelareRevitRouteImport } from './routes/modelare-revit'
 import { Route as PortofoliuRouteImport } from './routes/portofoliu'
 import { Route as RevitMepRouteImport } from './routes/revit-mep'
+import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 
 const IndexRoute = IndexRouteImport.update({
@@ -59,6 +60,11 @@ const RevitMepRoute = RevitMepRouteImport.update({
   path: '/revit-mep',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RobotsDottxtRoute = RobotsDottxtRouteImport.update({
+  id: '/robots.txt',
+  path: '/robots.txt',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
@@ -74,6 +80,7 @@ export interface FileRoutesByFullPath {
   '/modelare-revit': typeof ModelareRevitRoute
   '/portofoliu': typeof PortofoliuRoute
   '/revit-mep': typeof RevitMepRoute
+  '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
 }
 export interface FileRoutesByTo {
@@ -85,6 +92,7 @@ export interface FileRoutesByTo {
   '/modelare-revit': typeof ModelareRevitRoute
   '/portofoliu': typeof PortofoliuRoute
   '/revit-mep': typeof RevitMepRoute
+  '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
 }
 export interface FileRoutesById {
@@ -97,6 +105,7 @@ export interface FileRoutesById {
   '/modelare-revit': typeof ModelareRevitRoute
   '/portofoliu': typeof PortofoliuRoute
   '/revit-mep': typeof RevitMepRoute
+  '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
 }
 export interface FileRouteTypes {
@@ -110,6 +119,7 @@ export interface FileRouteTypes {
     | '/modelare-revit'
     | '/portofoliu'
     | '/revit-mep'
+    | '/robots.txt'
     | '/sitemap.xml'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -121,6 +131,7 @@ export interface FileRouteTypes {
     | '/modelare-revit'
     | '/portofoliu'
     | '/revit-mep'
+    | '/robots.txt'
     | '/sitemap.xml'
   id:
     | '__root__'
@@ -132,6 +143,7 @@ export interface FileRouteTypes {
     | '/modelare-revit'
     | '/portofoliu'
     | '/revit-mep'
+    | '/robots.txt'
     | '/sitemap.xml'
   fileRoutesById: FileRoutesById
 }
@@ -144,6 +156,7 @@ export interface RootRouteChildren {
   ModelareRevitRoute: typeof ModelareRevitRoute
   PortofoliuRoute: typeof PortofoliuRoute
   RevitMepRoute: typeof RevitMepRoute
+  RobotsDottxtRoute: typeof RobotsDottxtRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
 }
 
@@ -205,6 +218,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RevitMepRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/robots.txt': {
+      id: '/robots.txt'
+      path: '/robots.txt'
+      fullPath: '/robots.txt'
+      preLoaderRoute: typeof RobotsDottxtRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sitemap.xml': {
       id: '/sitemap.xml'
       path: '/sitemap.xml'
@@ -224,6 +244,7 @@ const rootRouteChildren: RootRouteChildren = {
   ModelareRevitRoute: ModelareRevitRoute,
   PortofoliuRoute: PortofoliuRoute,
   RevitMepRoute: RevitMepRoute,
+  RobotsDottxtRoute: RobotsDottxtRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
 }
 export const routeTree = rootRouteImport

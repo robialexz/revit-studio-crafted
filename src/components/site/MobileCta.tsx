@@ -1,4 +1,4 @@
-import { whatsappLink, defaultWhatsappMessage } from "@/lib/site-config";
+import { hasWhatsapp, whatsappLink, defaultWhatsappMessage } from "@/lib/site-config";
 
 export function MobileCta() {
   return (
@@ -9,14 +9,16 @@ export function MobileCta() {
       >
         Solicită o estimare
       </a>
-      <a
-        href={whatsappLink(defaultWhatsappMessage)}
-        target="_blank"
-        rel="noreferrer noopener"
-        className="tech-label flex-1 px-4 py-4 text-center"
-      >
-        WhatsApp
-      </a>
+      {hasWhatsapp && (
+        <a
+          href={whatsappLink(defaultWhatsappMessage) || undefined}
+          target="_blank"
+          rel="noreferrer noopener"
+          className="tech-label flex-1 px-4 py-4 text-center"
+        >
+          WhatsApp
+        </a>
+      )}
     </div>
   );
 }

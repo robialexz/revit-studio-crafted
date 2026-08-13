@@ -22,10 +22,9 @@ const entries: SitemapEntry[] = [
 export const Route = createFileRoute("/sitemap.xml")({
   server: {
     handlers: {
-      GET: async ({ request }) => {
-        // SITE_URL centralizat; până la configurarea domeniului final se folosește
-        // originea cererii, astfel încât sitemap-ul să rămână valid.
-        const base = site.siteUrl || new URL(request.url).origin;
+      GET: async () => {
+        // Canonicalul rămâne domeniul de producție chiar și când ruta este verificată local.
+        const base = site.siteUrl;
 
         const urls = entries.map((e) =>
           [

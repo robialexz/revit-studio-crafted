@@ -36,7 +36,13 @@ export const Route = createFileRoute("/modelare-revit")({
         {
           title: "Ce poți trimite ca punct de plecare",
           body: "Nu e nevoie să ai deja un model. Pot porni de la ce există, iar dacă informația din documente e insuficientă, îți semnalez ce mai este necesar înainte de a începe.",
-          items: ["plan arhitectură DWG", "PDF scanat sau exportat", "schițe de mână", "fișier RVT început", "temă tehnică"],
+          items: [
+            "plan arhitectură DWG",
+            "PDF scanat sau exportat",
+            "schițe de mână",
+            "fișier RVT început",
+            "temă tehnică",
+          ],
         },
         {
           title: "Ce conține modelarea",

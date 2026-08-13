@@ -31,17 +31,35 @@ export const Route = createFileRoute("/instalatii-termice")({
         {
           title: "Trasee și conducte",
           body: "Modelez circuitele de tur și retur, cu diametrele și racordurile indicate în tema tehnică, inclusiv coloanele verticale și trecerile între niveluri.",
-          items: ["tur / retur", "coloane", "distribuție pe niveluri", "racorduri", "izolații indicate în planșă"],
+          items: [
+            "tur / retur",
+            "coloane",
+            "distribuție pe niveluri",
+            "racorduri",
+            "izolații indicate în planșă",
+          ],
         },
         {
           title: "Echipamente și corpuri de încălzire",
           body: "Amplasez corpurile de încălzire și echipamentele din centrala termică, cu identificarea necesară pentru citirea planșei și pentru listele de componente.",
-          items: ["radiatoare", "centrale termice", "pompe", "distribuitoare / colectoare", "vase de expansiune", "armături"],
+          items: [
+            "radiatoare",
+            "centrale termice",
+            "pompe",
+            "distribuitoare / colectoare",
+            "vase de expansiune",
+            "armături",
+          ],
         },
         {
           title: "Încălzire în pardoseală",
           body: "Pentru sistemele de încălzire în pardoseală desenez circuitele pe camere, cu marcarea distribuitorului și a lungimilor de circuit indicate în tema de proiect.",
-          items: ["circuite pe camere", "poziția distribuitorului", "marcarea circuitelor", "legendă"],
+          items: [
+            "circuite pe camere",
+            "poziția distribuitorului",
+            "marcarea circuitelor",
+            "legendă",
+          ],
         },
         {
           title: "Planșe și scheme",

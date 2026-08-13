@@ -17,13 +17,20 @@ const leadSchema = z.object({
   utm_campaign: z.string().trim().max(200).optional(),
   utm_content: z.string().trim().max(200).optional(),
   utm_term: z.string().trim().max(200).optional(),
+  website: z.string().trim().max(200).optional(),
 });
 
 export type LeadInput = z.infer<typeof leadSchema>;
 
 export const submitLead = createServerFn({ method: "POST" })
-  .inputValidator((data: unknown) => leadSchema.parse(data))
+  .validator((data: unknown) => leadSchema.parse(data))
   .handler(async ({ data }) => {
+    // Câmp honeypot ascuns vizitatorilor: bot-ii îl completează, oamenii nu.
+    // Pretindem succes fără a salva nimic.
+    if (data.website) {
+      return { id: "accepted" };
+    }
+
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { sendLeadNotification } = await import("./leads.server");
 

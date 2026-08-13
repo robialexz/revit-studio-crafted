@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
-import { whatsappLink } from "@/lib/site-config";
+import { hasWhatsapp, whatsappLink } from "@/lib/site-config";
 import { getAttribution } from "@/lib/attribution";
 import { track, trackOnce } from "@/lib/analytics";
 import { submitLead } from "@/lib/leads.functions";
@@ -22,6 +22,7 @@ type Errors = Partial<Record<"name" | "phone" | "email" | "form", string>>;
 
 export function QuoteForm() {
   const send = useServerFn(submitLead);
+  const honeypotRef = useRef<HTMLInputElement>(null);
 
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -72,6 +73,12 @@ export function QuoteForm() {
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (submitting || submittedRef.current) return;
+    // Honeypot: bot-ii completează câmpul ascuns. Pretindem succes fără a trimite.
+    if (honeypotRef.current?.value) {
+      submittedRef.current = true;
+      setSent(true);
+      return;
+    }
     if (!validate()) return;
 
     setSubmitting(true);
@@ -89,6 +96,7 @@ export function QuoteForm() {
           deadline: termen.trim(),
           description: detalii.trim(),
           ...attribution,
+          website: honeypotRef.current?.value ?? "",
         },
       });
       submittedRef.current = true;
@@ -97,7 +105,9 @@ export function QuoteForm() {
     } catch (error) {
       console.error(error);
       setErrors({
-        form: "Trimiterea a eșuat. Reîncearcă sau scrie-mi direct pe WhatsApp.",
+        form: hasWhatsapp
+          ? "Trimiterea a eșuat. Reîncearcă sau scrie-mi direct pe WhatsApp."
+          : "Trimiterea a eșuat. Reîncearcă.",
       });
     } finally {
       setSubmitting(false);
@@ -110,27 +120,46 @@ export function QuoteForm() {
         <p className="tech-label text-mep">Confirmare</p>
         <h3 className="mt-4 text-3xl uppercase md:text-4xl">Cererea a fost trimisă.</h3>
         <p className="mt-4 max-w-md text-sm leading-relaxed text-muted-foreground">
-          Am primit informațiile proiectului. Pentru un răspuns mai rapid, poți continua
-          conversația direct pe WhatsApp.
+          Am primit informațiile proiectului.
+          {hasWhatsapp
+            ? " Pentru un răspuns mai rapid, poți continua conversația direct pe WhatsApp."
+            : ""}
         </p>
-        <a
-          href={whatsappLink(message)}
-          target="_blank"
-          rel="noreferrer noopener"
-          onClick={() => track("whatsapp_click", { source: "quote_success" })}
-          className="tech-label mt-8 inline-block border border-foreground bg-foreground px-6 py-4 text-background transition-colors hover:border-primary hover:bg-primary"
-        >
-          Continuă pe WhatsApp
-        </a>
-        <p className="mt-4 text-xs leading-relaxed text-muted-foreground">
-          Mesajul conține deja detaliile completate. Fișierele le poți atașa direct în conversație.
-        </p>
+        {hasWhatsapp && (
+          <>
+            <a
+              href={whatsappLink(message) || undefined}
+              target="_blank"
+              rel="noreferrer noopener"
+              onClick={() => track("whatsapp_click", { source: "quote_success" })}
+              className="tech-label mt-8 inline-block border border-foreground bg-foreground px-6 py-4 text-background transition-colors hover:border-primary hover:bg-primary"
+            >
+              Continuă pe WhatsApp
+            </a>
+            <p className="mt-4 text-xs leading-relaxed text-muted-foreground">
+              Mesajul conține deja detaliile completate. Fișierele le poți atașa direct în
+              conversație.
+            </p>
+          </>
+        )}
       </div>
     );
   }
 
   return (
     <form className="sheet-frame p-5 md:p-8" onSubmit={onSubmit} noValidate>
+      <div aria-hidden="true" className="absolute -left-[9999px] top-0 h-px w-px overflow-hidden">
+        <label htmlFor="lead-website">Website</label>
+        <input
+          id="lead-website"
+          ref={honeypotRef}
+          type="text"
+          name="website"
+          tabIndex={-1}
+          autoComplete="off"
+        />
+      </div>
+
       <fieldset className="border-0 p-0">
         <legend className="tech-label text-muted-foreground">01 — Date de contact</legend>
         <div className="mt-3 grid gap-5 sm:grid-cols-2">
@@ -145,10 +174,16 @@ export function QuoteForm() {
                 started();
                 setName(e.target.value);
               }}
+              autoComplete="name"
               aria-invalid={!!errors.name}
+              aria-describedby={errors.name ? "lead-name-error" : undefined}
               className="mt-2 w-full border border-input bg-background px-3 py-3 text-sm outline-none focus:border-primary"
             />
-            {errors.name && <p className="mt-1 text-xs text-destructive">{errors.name}</p>}
+            {errors.name && (
+              <p id="lead-name-error" className="mt-1 text-xs text-destructive">
+                {errors.name}
+              </p>
+            )}
           </div>
           <div>
             <label htmlFor="lead-phone" className="tech-label text-muted-foreground">
@@ -163,10 +198,16 @@ export function QuoteForm() {
                 started();
                 setPhone(e.target.value);
               }}
+              autoComplete="tel"
               aria-invalid={!!errors.phone}
+              aria-describedby={errors.phone ? "lead-phone-error" : undefined}
               className="mt-2 w-full border border-input bg-background px-3 py-3 text-sm outline-none focus:border-primary"
             />
-            {errors.phone && <p className="mt-1 text-xs text-destructive">{errors.phone}</p>}
+            {errors.phone && (
+              <p id="lead-phone-error" className="mt-1 text-xs text-destructive">
+                {errors.phone}
+              </p>
+            )}
           </div>
           <div className="sm:col-span-2">
             <label htmlFor="lead-email" className="tech-label text-muted-foreground">
@@ -180,10 +221,16 @@ export function QuoteForm() {
                 started();
                 setEmail(e.target.value);
               }}
+              autoComplete="email"
               aria-invalid={!!errors.email}
+              aria-describedby={errors.email ? "lead-email-error" : undefined}
               className="mt-2 w-full border border-input bg-background px-3 py-3 text-sm outline-none focus:border-primary"
             />
-            {errors.email && <p className="mt-1 text-xs text-destructive">{errors.email}</p>}
+            {errors.email && (
+              <p id="lead-email-error" className="mt-1 text-xs text-destructive">
+                {errors.email}
+              </p>
+            )}
           </div>
         </div>
       </fieldset>
@@ -287,7 +334,10 @@ export function QuoteForm() {
       </div>
 
       {errors.form && (
-        <p className="mt-5 border border-destructive px-3 py-3 text-sm text-destructive" role="alert">
+        <p
+          className="mt-5 border border-destructive px-3 py-3 text-sm text-destructive"
+          role="alert"
+        >
           {errors.form}
         </p>
       )}

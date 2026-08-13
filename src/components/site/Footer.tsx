@@ -1,5 +1,12 @@
 import { Link } from "@tanstack/react-router";
-import { site, disclaimer, whatsappLink, defaultWhatsappMessage } from "@/lib/site-config";
+import {
+  site,
+  disclaimer,
+  whatsappLink,
+  defaultWhatsappMessage,
+  hasWhatsapp,
+  hasEmail,
+} from "@/lib/site-config";
 
 export function Footer() {
   return (
@@ -53,29 +60,35 @@ export function Footer() {
             </ul>
           </nav>
 
-          <div className="md:col-span-4">
-            <p className="tech-label text-graphite-foreground/45">Contact</p>
-            <ul className="mt-4 space-y-2.5 text-sm">
-              <li>
-                <a
-                  href={whatsappLink(defaultWhatsappMessage)}
-                  target="_blank"
-                  rel="noreferrer noopener"
-                  className="hover:text-primary"
-                >
-                  WhatsApp — {site.whatsappNumber}
-                </a>
-              </li>
-              <li>
-                <a href={`mailto:${site.email}`} className="hover:text-primary">
-                  {site.email}
-                </a>
-              </li>
-            </ul>
-            <p className="mt-8 max-w-sm text-xs leading-relaxed text-graphite-foreground/55">
-              {disclaimer}
-            </p>
-          </div>
+          {(hasWhatsapp || hasEmail) && (
+            <div className="md:col-span-4">
+              <p className="tech-label text-graphite-foreground/45">Contact</p>
+              <ul className="mt-4 space-y-2.5 text-sm">
+                {hasWhatsapp && (
+                  <li>
+                    <a
+                      href={whatsappLink(defaultWhatsappMessage)}
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      className="hover:text-primary"
+                    >
+                      WhatsApp — {site.whatsappNumber}
+                    </a>
+                  </li>
+                )}
+                {hasEmail && (
+                  <li>
+                    <a href={`mailto:${site.email}`} className="hover:text-primary">
+                      {site.email}
+                    </a>
+                  </li>
+                )}
+              </ul>
+              <p className="mt-8 max-w-sm text-xs leading-relaxed text-graphite-foreground/55">
+                {disclaimer}
+              </p>
+            </div>
+          )}
         </div>
 
         <div className="mt-14 flex flex-col gap-3 border-t border-graphite-foreground/15 pt-6 md:flex-row md:items-center md:justify-between">

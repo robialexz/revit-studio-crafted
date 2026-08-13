@@ -4,7 +4,7 @@ import { X } from "lucide-react";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { MobileCta } from "@/components/site/MobileCta";
-import { whatsappLink, defaultWhatsappMessage } from "@/lib/site-config";
+import { hasWhatsapp, whatsappLink, defaultWhatsappMessage, canonicalUrl } from "@/lib/site-config";
 import hero3d from "@/assets/hero-3d.jpg";
 import hero2d from "@/assets/hero-2d.jpg";
 import projHvac from "@/assets/proj-hvac.jpg";
@@ -17,6 +17,7 @@ import projDwg from "@/assets/proj-dwg.jpg";
 const title = "Portofoliu Revit MEP · Modele BIM și planșe tehnice";
 const description =
   "Exemple de modelare Revit MEP și documentație tehnică: modele BIM 3D, planuri HVAC, instalații termice și electrice, secțiuni, sheet-uri și lucrări AutoCAD / DWG.";
+const url = canonicalUrl("/portofoliu");
 
 export const Route = createFileRoute("/portofoliu")({
   head: () => ({
@@ -27,10 +28,12 @@ export const Route = createFileRoute("/portofoliu")({
       { property: "og:description", content: description },
       { property: "og:type", content: "website" },
       { property: "og:locale", content: "ro_RO" },
-      { property: "og:url", content: "/portofoliu" },
+      { property: "og:url", content: url },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: title },
+      { name: "twitter:description", content: description },
     ],
-    links: [{ rel: "canonical", href: "/portofoliu" }],
+    links: [{ rel: "canonical", href: url }],
   }),
   component: Portofoliu,
 });
@@ -212,8 +215,8 @@ function Portofoliu() {
           <div className="mx-auto max-w-[1400px] px-5 py-20 md:px-8 md:py-24">
             <h2 className="display-xl text-4xl md:text-6xl">Ai un proiect de terminat?</h2>
             <p className="mt-6 max-w-xl text-base leading-relaxed text-graphite-foreground/75">
-              Trimite planurile și cerințele, iar eu îți pot spune ce presupune lucrarea, termenul și
-              costul.
+              Trimite planurile și cerințele, iar eu îți pot spune ce presupune lucrarea, termenul
+              și costul.
             </p>
             <div className="mt-10 flex flex-wrap gap-3">
               <Link
@@ -223,14 +226,16 @@ function Portofoliu() {
               >
                 Solicită o estimare
               </Link>
-              <a
-                href={whatsappLink(defaultWhatsappMessage)}
-                target="_blank"
-                rel="noreferrer noopener"
-                className="tech-label border border-graphite-foreground/40 px-6 py-4 transition-colors hover:bg-graphite-foreground hover:text-graphite"
-              >
-                Trimite proiectul pe WhatsApp
-              </a>
+              {hasWhatsapp && (
+                <a
+                  href={whatsappLink(defaultWhatsappMessage) || undefined}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className="tech-label border border-graphite-foreground/40 px-6 py-4 transition-colors hover:bg-graphite-foreground hover:text-graphite"
+                >
+                  Trimite proiectul pe WhatsApp
+                </a>
+              )}
             </div>
           </div>
         </section>
@@ -256,11 +261,7 @@ function Portofoliu() {
             <X size={18} />
           </button>
           <figure className="max-h-full w-full max-w-6xl" onClick={(e) => e.stopPropagation()}>
-            <img
-              src={open.src}
-              alt={open.alt}
-              className="max-h-[82vh] w-full object-contain"
-            />
+            <img src={open.src} alt={open.alt} className="max-h-[82vh] w-full object-contain" />
             <figcaption className="tech-label mt-3 text-graphite-foreground/70">
               {open.caption} — {open.meta}
             </figcaption>

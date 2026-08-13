@@ -79,7 +79,10 @@ export function Header() {
       </div>
 
       {open && (
-        <nav className="border-t border-border bg-sheet px-5 py-4 lg:hidden" aria-label="Navigație mobilă">
+        <nav
+          className="border-t border-border bg-sheet px-5 py-4 lg:hidden"
+          aria-label="Navigație mobilă"
+        >
           <ul className="flex flex-col">
             {nav.map((item) => (
               <li key={item.label} className="border-b border-border last:border-0">
@@ -92,7 +95,11 @@ export function Header() {
                     {item.label}
                   </a>
                 ) : (
-                  <Link to={item.href} onClick={() => setOpen(false)} className="tech-label block py-4">
+                  <Link
+                    to={item.href}
+                    onClick={() => setOpen(false)}
+                    className="tech-label block py-4"
+                  >
                     {item.label}
                   </Link>
                 )}

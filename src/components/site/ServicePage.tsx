@@ -4,7 +4,14 @@ import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { MobileCta } from "@/components/site/MobileCta";
 import { QuoteForm } from "@/components/site/QuoteForm";
-import { site, disclaimer, whatsappLink, defaultWhatsappMessage } from "@/lib/site-config";
+import {
+  site,
+  disclaimer,
+  whatsappLink,
+  defaultWhatsappMessage,
+  hasWhatsapp,
+  hasEmail,
+} from "@/lib/site-config";
 import { track } from "@/lib/analytics";
 
 export type ServicePath =
@@ -75,7 +82,7 @@ export function ServicePage({
   related: ServicePath[];
   note?: string;
 }) {
-  const waHref = whatsappLink(defaultWhatsappMessage);
+  const waHref = hasWhatsapp ? whatsappLink(defaultWhatsappMessage) : "";
   const relatedItems = serviceLinks.filter((s) => related.includes(s.to));
 
   return (
@@ -108,15 +115,17 @@ export function ServicePage({
               >
                 Solicită o estimare
               </a>
-              <a
-                href={waHref}
-                target="_blank"
-                rel="noreferrer noopener"
-                onClick={() => track("whatsapp_click", { source: label })}
-                className="tech-label border border-foreground px-6 py-4 transition-colors hover:bg-foreground hover:text-background"
-              >
-                Scrie pe WhatsApp
-              </a>
+              {hasWhatsapp && (
+                <a
+                  href={waHref || undefined}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  onClick={() => track("whatsapp_click", { source: label })}
+                  className="tech-label border border-foreground px-6 py-4 transition-colors hover:bg-foreground hover:text-background"
+                >
+                  Scrie pe WhatsApp
+                </a>
+              )}
             </div>
           </div>
         </section>
@@ -133,7 +142,10 @@ export function ServicePage({
                   {s.items && (
                     <ul className="mt-5 flex flex-wrap gap-x-4 gap-y-2">
                       {s.items.map((it) => (
-                        <li key={it} className="tech-label border-b border-border pb-1 text-foreground/70">
+                        <li
+                          key={it}
+                          className="tech-label border-b border-border pb-1 text-foreground/70"
+                        >
                           {it}
                         </li>
                       ))}
@@ -142,7 +154,9 @@ export function ServicePage({
                 </article>
               ))}
               {note && (
-                <p className="mt-8 max-w-2xl text-xs leading-relaxed text-muted-foreground">{note}</p>
+                <p className="mt-8 max-w-2xl text-xs leading-relaxed text-muted-foreground">
+                  {note}
+                </p>
               )}
             </div>
 
@@ -199,7 +213,10 @@ export function ServicePage({
                 <details key={q} className="group border-b border-border-strong first:border-t">
                   <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-5 font-display text-lg font-semibold uppercase tracking-tight">
                     {q}
-                    <span className="tech-label text-mep transition-transform group-open:rotate-45" aria-hidden="true">
+                    <span
+                      className="tech-label text-mep transition-transform group-open:rotate-45"
+                      aria-hidden="true"
+                    >
                       +
                     </span>
                   </summary>
@@ -214,7 +231,11 @@ export function ServicePage({
           <h2 className="text-3xl uppercase md:text-4xl">Servicii conexe</h2>
           <div className="mt-8 grid gap-px bg-border-strong md:grid-cols-2 lg:grid-cols-3">
             {relatedItems.map((s) => (
-              <Link key={s.to} to={s.to} className="group bg-background p-6 transition-colors hover:bg-sheet md:p-8">
+              <Link
+                key={s.to}
+                to={s.to}
+                className="group bg-background p-6 transition-colors hover:bg-sheet md:p-8"
+              >
                 <h3 className="text-xl uppercase group-hover:text-primary">{s.label}</h3>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{s.blurb}</p>
                 <span className="tech-label mt-5 inline-flex items-center gap-2 text-primary">
@@ -234,11 +255,13 @@ export function ServicePage({
                   Trimite câteva detalii despre proiect. Îți răspund cu ce presupune lucrarea,
                   termenul și costul, stabilite înainte de începere.
                 </p>
-                <div className="mt-10 border-t border-border-strong pt-6">
-                  <p className="tech-label text-muted-foreground">Contact</p>
-                  <p className="mt-3 text-sm">WhatsApp: {site.whatsappNumber}</p>
-                  <p className="text-sm">Email: {site.email}</p>
-                </div>
+                {(hasWhatsapp || hasEmail) && (
+                  <div className="mt-10 border-t border-border-strong pt-6">
+                    <p className="tech-label text-muted-foreground">Contact</p>
+                    {hasWhatsapp && <p className="mt-3 text-sm">WhatsApp: {site.whatsappNumber}</p>}
+                    {hasEmail && <p className="text-sm">Email: {site.email}</p>}
+                  </div>
+                )}
                 <p className="mt-8 max-w-md text-xs leading-relaxed text-muted-foreground">
                   {disclaimer}
                 </p>

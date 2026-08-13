@@ -7,11 +7,7 @@
 import { site } from "./site-config";
 
 export type ConversionEvent =
-  | "quote_start"
-  | "quote_submit"
-  | "whatsapp_click"
-  | "portfolio_open"
-  | "pricing_cta_click";
+  "quote_start" | "quote_submit" | "whatsapp_click" | "portfolio_open" | "pricing_cta_click";
 
 declare global {
   interface Window {

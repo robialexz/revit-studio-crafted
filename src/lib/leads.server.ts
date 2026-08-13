@@ -1,5 +1,3 @@
-import { site } from "./site-config";
-
 export type LeadRecord = {
   id: string;
   created_at: string;
@@ -88,12 +86,12 @@ export function buildLeadEmail(lead: LeadRecord) {
 /** Trimite notificarea de lead nou. Nu aruncă niciodată — lead-ul e deja salvat. */
 export async function sendLeadNotification(lead: LeadRecord): Promise<void> {
   const apiKey = process.env["RESEND_API_KEY"];
-  const to = site.leadNotificationEmail;
+  const to = process.env["LEAD_NOTIFICATION_EMAIL"];
   const from = process.env["LEAD_NOTIFICATION_FROM"] || "onboarding@resend.dev";
 
   if (!apiKey || !to) {
     console.warn(
-      "[leads] Notificare email sărită: lipsește RESEND_API_KEY sau site.leadNotificationEmail.",
+      "[leads] Notificare email sărită: lipsește RESEND_API_KEY sau LEAD_NOTIFICATION_EMAIL.",
     );
     return;
   }
@@ -103,7 +101,14 @@ export async function sendLeadNotification(lead: LeadRecord): Promise<void> {
     const res = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
-      body: JSON.stringify({ from, to: [to], subject, html, text, reply_to: lead.email || undefined }),
+      body: JSON.stringify({
+        from,
+        to: [to],
+        subject,
+        html,
+        text,
+        reply_to: lead.email || undefined,
+      }),
     });
     if (!res.ok) console.error("[leads] Resend a răspuns cu eroare:", res.status, await res.text());
   } catch (error) {

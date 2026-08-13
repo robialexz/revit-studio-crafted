@@ -42,12 +42,24 @@ export const Route = createFileRoute("/autocad-dwg")({
         {
           title: "Redesenare și corectări",
           body: "Redesenez planuri pornind de la scanări, PDF-uri sau desene incomplete și implementez observațiile primite pe documentațiile existente.",
-          items: ["redesenare plan", "completări", "implementarea observațiilor", "cote și note", "hașuri și legende"],
+          items: [
+            "redesenare plan",
+            "completări",
+            "implementarea observațiilor",
+            "cote și note",
+            "hașuri și legende",
+          ],
         },
         {
           title: "Layout, print și conversii",
           body: "Pregătesc fișierul pentru livrare: layout-uri în Paper Space, scări corecte, indicator și export controlat.",
-          items: ["layout / Paper Space", "viewport-uri și scări", "indicator", "PDF pregătit de print", "PDF către DWG, când documentul permite"],
+          items: [
+            "layout / Paper Space",
+            "viewport-uri și scări",
+            "indicator",
+            "PDF pregătit de print",
+            "PDF către DWG, când documentul permite",
+          ],
         },
         {
           title: "Legătura cu fluxul Revit",

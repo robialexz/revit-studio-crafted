@@ -32,17 +32,33 @@ export const Route = createFileRoute("/instalatii-electrice")({
         {
           title: "Amplasări și consumatori",
           body: "Desenez poziția corpurilor de iluminat, a prizelor și a celorlalți consumatori conform soluției transmise, cu simbolurile folosite consecvent în toate planșele.",
-          items: ["corpuri de iluminat", "prize", "întrerupătoare", "consumatori dedicați", "aparataj de comandă"],
+          items: [
+            "corpuri de iluminat",
+            "prize",
+            "întrerupătoare",
+            "consumatori dedicați",
+            "aparataj de comandă",
+          ],
         },
         {
           title: "Circuite și trasee",
           body: "Marchez circuitele și traseele astfel încât legătura dintre tablou și consumator să fie clară pe planșă, cu numerotare unitară.",
-          items: ["numerotarea circuitelor", "trasee pe plan", "grupare pe zone", "marcaje și note"],
+          items: [
+            "numerotarea circuitelor",
+            "trasee pe plan",
+            "grupare pe zone",
+            "marcaje și note",
+          ],
         },
         {
           title: "Tablouri, simboluri și legende",
           body: "Pregătesc reprezentarea tablourilor și schemele aferente pe baza datelor primite, împreună cu legenda simbolurilor folosite în planșe.",
-          items: ["tablouri electrice", "scheme monofilare pe baza datelor primite", "legendă simboluri", "tabele de circuite"],
+          items: [
+            "tablouri electrice",
+            "scheme monofilare pe baza datelor primite",
+            "legendă simboluri",
+            "tabele de circuite",
+          ],
         },
         {
           title: "Limitele serviciului",
