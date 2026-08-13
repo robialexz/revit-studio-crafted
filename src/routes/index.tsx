@@ -19,7 +19,9 @@ import type { ServicePath } from "@/components/site/ServicePage";
 import { track, trackConversion } from "@/lib/analytics";
 
 import hero3d from "@/assets/hero-3d.jpg";
+import hero3dMobile from "@/assets/hero-3d-640.jpg";
 import hero2d from "@/assets/hero-2d.jpg";
+import hero2dMobile from "@/assets/hero-2d-640.jpg";
 import projHvac from "@/assets/proj-hvac.jpg";
 import projTermice from "@/assets/proj-termice.jpg";
 import projSectiune from "@/assets/proj-sectiune.jpg";
@@ -44,7 +46,16 @@ export const Route = createFileRoute("/")({
       { name: "twitter:title", content: title },
       { name: "twitter:description", content: description },
     ],
-    links: [{ rel: "canonical", href: url }],
+    links: [
+      { rel: "canonical", href: url },
+      {
+        rel: "preload",
+        as: "image",
+        href: hero3d,
+        imagesrcset: `${hero3dMobile} 640w, ${hero3d} 1200w`,
+        imagesizes: "(min-width: 1024px) 640px, 100vw",
+      },
+    ],
     scripts: [
       {
         type: "application/ld+json",
@@ -354,6 +365,8 @@ function Home() {
                   </div>
                   <img
                     src={hero3d}
+                    srcSet={`${hero3dMobile} 640w, ${hero3d} 1200w`}
+                    sizes="(min-width: 1024px) 640px, 100vw"
                     alt="Model 3D Revit MEP cu trasee de tubulatură, conducte și echipamente"
                     width={1200}
                     height={912}
@@ -374,6 +387,8 @@ function Home() {
                     </div>
                     <img
                       src={hero2d}
+                      srcSet={`${hero2dMobile} 640w, ${hero2d} 912w`}
+                      sizes="(min-width: 1024px) 640px, 100vw"
                       alt="Planșă 2D de instalații extrasă din modelul Revit, cu trasee, cote și legendă"
                       width={912}
                       height={1104}
