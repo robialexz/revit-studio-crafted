@@ -65,7 +65,6 @@ export interface LeadRecordForNotification {
   utm_content: string | null;
   utm_term: string | null;
   notification_status?: string | null;
-  notification_attempts?: number | null;
 }
 
 export interface SubmitLeadResult {
@@ -108,11 +107,7 @@ async function findLeadBySubmissionId(
 ): Promise<LeadRecordForNotification | undefined> {
   const { data, error } = await supabase
     .from("leads")
-    // Complet, nu doar id + status: retry-ul notificării are nevoie de toate
-    // datele lead-ului pentru a reconstrui emailul integral.
-    .select(
-      "id, submission_id, created_at, name, phone, email, project_type, available_files, approximate_sheet_count, deadline, description, page_path, referrer, utm_source, utm_medium, utm_campaign, utm_content, utm_term, notification_status, notification_attempts",
-    )
+    .select("id")
     .eq("submission_id", submissionId)
     .single();
 
@@ -147,9 +142,10 @@ async function notifyAndRecord(deps: LeadDeps, lead: LeadRecordForNotification):
  * fără un al doilea rând. Două anchete diferite (conținut diferit => token
  * diferit) creează întotdeauna două lead-uri.
  *
- * Notificare: salvarea în bază de date este sursa de adevăr. Eșecul
- * notificării nu pierde lead-ul; la un retry idempotent al aceleiași
- * trimiteri, notificarea este reîncercată dacă nu fusese deja trimisă.
+ * Notificare (V1): salvarea în bază de date este sursa de adevăr. O singură
+ * încercare de notificare Resend, cu cheie de idempotență stabilă; rezultatul
+ * se înregistrează în notification_status. Eșecul notificării nu pierde
+ * lead-ul și nu schimbă răspunsul de succes al vizitatorului.
  */
 export async function handleSubmitLead(data: LeadInput, deps: LeadDeps): Promise<SubmitLeadResult> {
   // Câmp honeypot ascuns vizitatorilor: bot-ii îl completează, oamenii nu.
@@ -187,14 +183,11 @@ export async function handleSubmitLead(data: LeadInput, deps: LeadDeps): Promise
 
   if ("uniqueViolation" in inserted) {
     // Aceeași trimitere deja salvată: returnează rândul existent fără duplicat.
+    // V1: fără reîncercare automată a notificării — o singură tentativă per
+    // trimitere. Rezultatul (succes) este identic pentru vizitator.
     if (data.submission_id) {
       const existing = await findLeadBySubmissionId(deps.supabase, data.submission_id);
       if (existing) {
-        // Retry al notificării cu datele COMPLETE ale lead-ului existent,
-        // dacă prima încercare nu a fost trimisă.
-        if (existing.notification_status !== "sent") {
-          await notifyAndRecord(deps, existing);
-        }
         return { id: existing.id, duplicate: true };
       }
     }

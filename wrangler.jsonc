@@ -14,11 +14,6 @@
   "observability": {
     "enabled": true
   },
-  "triggers": {
-    "crons": [
-      "*/5 * * * *"
-    ]
-  },
   "routes": [
     {
       "pattern": "nodbim.com",

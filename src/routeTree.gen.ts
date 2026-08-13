@@ -16,7 +16,6 @@ import { Route as InstalatiiElectriceRouteImport } from './routes/instalatii-ele
 import { Route as InstalatiiTermiceRouteImport } from './routes/instalatii-termice'
 import { Route as ModelareRevitRouteImport } from './routes/modelare-revit'
 import { Route as PortofoliuRouteImport } from './routes/portofoliu'
-import { Route as RetryNotificationsRouteImport } from './routes/retry-notifications'
 import { Route as RevitMepRouteImport } from './routes/revit-mep'
 import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
@@ -56,11 +55,6 @@ const PortofoliuRoute = PortofoliuRouteImport.update({
   path: '/portofoliu',
   getParentRoute: () => rootRouteImport,
 } as any)
-const RetryNotificationsRoute = RetryNotificationsRouteImport.update({
-  id: '/retry-notifications',
-  path: '/retry-notifications',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const RevitMepRoute = RevitMepRouteImport.update({
   id: '/revit-mep',
   path: '/revit-mep',
@@ -85,7 +79,6 @@ export interface FileRoutesByFullPath {
   '/instalatii-termice': typeof InstalatiiTermiceRoute
   '/modelare-revit': typeof ModelareRevitRoute
   '/portofoliu': typeof PortofoliuRoute
-  '/retry-notifications': typeof RetryNotificationsRoute
   '/revit-mep': typeof RevitMepRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -98,7 +91,6 @@ export interface FileRoutesByTo {
   '/instalatii-termice': typeof InstalatiiTermiceRoute
   '/modelare-revit': typeof ModelareRevitRoute
   '/portofoliu': typeof PortofoliuRoute
-  '/retry-notifications': typeof RetryNotificationsRoute
   '/revit-mep': typeof RevitMepRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -112,7 +104,6 @@ export interface FileRoutesById {
   '/instalatii-termice': typeof InstalatiiTermiceRoute
   '/modelare-revit': typeof ModelareRevitRoute
   '/portofoliu': typeof PortofoliuRoute
-  '/retry-notifications': typeof RetryNotificationsRoute
   '/revit-mep': typeof RevitMepRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -127,7 +118,6 @@ export interface FileRouteTypes {
     | '/instalatii-termice'
     | '/modelare-revit'
     | '/portofoliu'
-    | '/retry-notifications'
     | '/revit-mep'
     | '/robots.txt'
     | '/sitemap.xml'
@@ -140,7 +130,6 @@ export interface FileRouteTypes {
     | '/instalatii-termice'
     | '/modelare-revit'
     | '/portofoliu'
-    | '/retry-notifications'
     | '/revit-mep'
     | '/robots.txt'
     | '/sitemap.xml'
@@ -153,7 +142,6 @@ export interface FileRouteTypes {
     | '/instalatii-termice'
     | '/modelare-revit'
     | '/portofoliu'
-    | '/retry-notifications'
     | '/revit-mep'
     | '/robots.txt'
     | '/sitemap.xml'
@@ -167,7 +155,6 @@ export interface RootRouteChildren {
   InstalatiiTermiceRoute: typeof InstalatiiTermiceRoute
   ModelareRevitRoute: typeof ModelareRevitRoute
   PortofoliuRoute: typeof PortofoliuRoute
-  RetryNotificationsRoute: typeof RetryNotificationsRoute
   RevitMepRoute: typeof RevitMepRoute
   RobotsDottxtRoute: typeof RobotsDottxtRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
@@ -224,13 +211,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PortofoliuRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/retry-notifications': {
-      id: '/retry-notifications'
-      path: '/retry-notifications'
-      fullPath: '/retry-notifications'
-      preLoaderRoute: typeof RetryNotificationsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/revit-mep': {
       id: '/revit-mep'
       path: '/revit-mep'
@@ -263,7 +243,6 @@ const rootRouteChildren: RootRouteChildren = {
   InstalatiiTermiceRoute: InstalatiiTermiceRoute,
   ModelareRevitRoute: ModelareRevitRoute,
   PortofoliuRoute: PortofoliuRoute,
-  RetryNotificationsRoute: RetryNotificationsRoute,
   RevitMepRoute: RevitMepRoute,
   RobotsDottxtRoute: RobotsDottxtRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,

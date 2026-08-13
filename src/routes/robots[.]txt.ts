@@ -12,11 +12,9 @@ export const Route = createFileRoute("/robots.txt")({
         const txt = [
           "User-agent: Googlebot",
           "Allow: /",
-          "Disallow: /retry-notifications",
           "",
           "User-agent: Bingbot",
           "Allow: /",
-          "Disallow: /retry-notifications",
           "",
           "User-agent: Twitterbot",
           "Allow: /",
@@ -26,7 +24,6 @@ export const Route = createFileRoute("/robots.txt")({
           "",
           "User-agent: *",
           "Allow: /",
-          "Disallow: /retry-notifications",
           "",
           `Sitemap: ${base}/sitemap.xml`,
         ].join("\n");

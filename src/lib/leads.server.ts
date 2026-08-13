@@ -18,13 +18,7 @@ export type LeadRecord = {
   utm_content: string | null;
   utm_term: string | null;
   notification_status?: string | null;
-  notification_attempts?: number | null;
 };
-
-export const MAX_NOTIFICATION_ATTEMPTS = 5;
-
-/** Numărul maxim de lead-uri procesate într-o rulare a retry-ului programat. */
-export const NOTIFICATION_RETRY_BATCH_SIZE = 20;
 
 function escapeHtml(value: string) {
   return value
@@ -117,15 +111,14 @@ export function buildLeadEmail(lead: LeadRecord) {
 /**
  * Cheie de idempotență Resend DETERMINISTĂ per lead:
  * lead-notification/<submission_id> (sau lead.id pentru rândurile vechi).
- * Aceeași cheie la trimiterea inițială, la retry-uri și la retry-ul
- * programat — Resend respinge emailurile duplicate trimise cu aceeași cheie.
+ * Resend respinge emailurile duplicate trimise cu aceeași cheie.
  */
 export function resendIdempotencyKey(lead: LeadRecord): string {
   return `lead-notification/${lead.submission_id || lead.id}`;
 }
 
 /**
- * Trimite notificarea de lead nou.
+ * Trimite notificarea de lead nou — o singură încercare (V1).
  * Nu aruncă niciodată — lead-ul este deja salvat; returnează true doar
  * când emailul a fost acceptat de Resend. Fără configurare completă
  * (cheie + destinatar + expeditor de producție) notificarea este sărită
@@ -159,8 +152,7 @@ export async function sendLeadNotification(lead: LeadRecord): Promise<boolean> {
       headers: {
         Authorization: `Bearer ${apiKey}`,
         "Content-Type": "application/json",
-        // Dublă protecție împotriva emailurilor duplicate: cheie stabilă
-        // per lead, pe lângă deduplicarea aplicației.
+        // Protecție împotriva emailurilor duplicate: cheie stabilă per lead.
         "Idempotency-Key": resendIdempotencyKey(lead),
       },
       body: JSON.stringify({
@@ -181,85 +173,4 @@ export async function sendLeadNotification(lead: LeadRecord): Promise<boolean> {
     console.error("[leads] Trimiterea notificării a eșuat:", error);
     return false;
   }
-}
-
-export interface NotificationRetryQuery {
-  in: (column: string, values: string[]) => NotificationRetryQuery;
-  lt: (column: string, value: number) => NotificationRetryQuery;
-  order: (column: string, options?: { ascending?: boolean }) => NotificationRetryQuery;
-  limit: (count: number) => Promise<{ data: LeadRecord[] | null; error: unknown | null }>;
-}
-
-export interface NotificationRetrySupabase {
-  from: (table: string) => {
-    select: (columns: string) => NotificationRetryQuery;
-    update: (payload: Record<string, unknown>) => {
-      eq: (column: string, value: unknown) => Promise<{ error: unknown | null }>;
-    };
-  };
-}
-
-export interface NotificationRetryResult {
-  attempted: number;
-  sent: number;
-  failed: number;
-}
-
-/**
- * Procesează automat lead-urile cu notificare nesosată (pending/failed),
- * până la MAX_NOTIFICATION_ATTEMPTS încercări, în loturi mărginite.
- * Folosește aceeași cheie de idempotență Resend la fiecare încercare.
- */
-export async function processPendingNotifications(deps: {
-  supabase: NotificationRetrySupabase;
-  sendNotification: (lead: LeadRecord) => Promise<boolean>;
-  now?: () => Date;
-}): Promise<NotificationRetryResult> {
-  const now = deps.now?.() ?? new Date();
-  const result: NotificationRetryResult = { attempted: 0, sent: 0, failed: 0 };
-
-  const { data, error } = await deps.supabase
-    .from("leads")
-    .select(
-      "id, submission_id, created_at, name, phone, email, project_type, available_files, approximate_sheet_count, deadline, description, page_path, referrer, utm_source, utm_medium, utm_campaign, utm_content, utm_term, notification_status, notification_attempts",
-    )
-    .in("notification_status", ["pending", "failed"])
-    .lt("notification_attempts", MAX_NOTIFICATION_ATTEMPTS)
-    .order("created_at", { ascending: true })
-    .limit(NOTIFICATION_RETRY_BATCH_SIZE);
-
-  if (error || !data) {
-    console.error("[leads] Retry programat: interogarea a eșuat:", error);
-    return result;
-  }
-
-  for (const lead of data) {
-    result.attempted += 1;
-    const attempts = (lead.notification_attempts ?? 0) + 1;
-    const sent = await deps.sendNotification(lead);
-
-    const updatePayload: Record<string, unknown> = {
-      notification_attempts: attempts,
-      notification_last_attempt_at: now.toISOString(),
-    };
-    if (sent) {
-      updatePayload["notification_status"] = "sent";
-      updatePayload["notification_sent_at"] = now.toISOString();
-      result.sent += 1;
-    } else {
-      // Oprim încercările doar după epuizarea bugetului de încercări.
-      if (attempts >= MAX_NOTIFICATION_ATTEMPTS) {
-        updatePayload["notification_status"] = "failed";
-      }
-      result.failed += 1;
-    }
-
-    try {
-      await deps.supabase.from("leads").update(updatePayload).eq("id", lead.id);
-    } catch (updateError) {
-      console.error("[leads] Retry programat: actualizarea statusului a eșuat:", updateError);
-    }
-  }
-
-  return result;
 }

@@ -60,7 +60,6 @@ function createMemorySupabase(options: { withoutNewColumns?: boolean } = {}) {
             id: crypto.randomUUID(),
             created_at: new Date().toISOString(),
             notification_status: "pending",
-            notification_attempts: 0,
             ...payload,
           };
           rows.push(row);
@@ -190,14 +189,12 @@ describe("handleSubmitLead — idempotență", () => {
     expect(results.filter((r) => r.duplicate).length).toBe(2);
   });
 
-  test("cereri concurente care ajung amândouă la email folosesc aceeași cheie Resend", async () => {
+  test("cereri concurente pentru aceeași trimitere => un singur rând + o singură tentativă de email cu cheia corectă", async () => {
     const store = createMemorySupabase();
     const seenKeys: string[] = [];
     const deps = makeDeps(store, async (lead) => {
       seenKeys.push(resendIdempotencyKey(lead as never));
-      // Prima notificare eșuează, astfel încât a doua cerere (duplicat)
-      // să ajungă și ea la stratul de email.
-      return seenKeys.length === 1 ? "failed" : "sent";
+      return "failed";
     });
     const input = baseLead({ submission_id: "aaaa1111-aaaa-4aaa-8aaa-aaaaaaaaaaaa" });
 
@@ -208,10 +205,12 @@ describe("handleSubmitLead — idempotență", () => {
 
     expect(store.count()).toBe(1);
     expect(first.id).toBe(second.id);
-    expect(seenKeys.length).toBeGreaterThanOrEqual(2);
-    // Aceeași cheie deterministă per lead, la fiecare încercare.
-    expect(new Set(seenKeys).size).toBe(1);
+    // O singură încercare de notificare (V1): doar câștigătoarea insert-ului
+    // trimite emailul; duplicatul returnează lead-ul existent fără retrimitere.
+    expect(seenKeys).toHaveLength(1);
     expect(seenKeys[0]).toBe("lead-notification/aaaa1111-aaaa-4aaa-8aaa-aaaaaaaaaaaa");
+    const row = store.getBySubmissionId("aaaa1111-aaaa-4aaa-8aaa-aaaaaaaaaaaa");
+    expect(row?.["notification_status"]).toBe("failed");
   });
 
   test("honeypot completat => succes fals, fără rând în baza de date", async () => {
@@ -244,15 +243,12 @@ describe("handleSubmitLead — notificare și retry", () => {
     expect(row?.["notification_status"]).toBe("failed");
   });
 
-  test("retry după eșec Resend => același lead, notificare reîncercată cu DATE COMPLETE", async () => {
+  test("retry idempotent după eșec Resend => același lead, fără retrimitere (V1), status rămâne 'failed'", async () => {
     const store = createMemorySupabase();
     let attempts = 0;
-    const seenLeads: LeadRecordForNotification[] = [];
-    const deps = makeDeps(store, async (lead) => {
+    const deps = makeDeps(store, async () => {
       attempts += 1;
-      seenLeads.push(lead);
-      // Prima încercare pică, a doua reușește.
-      return attempts === 1 ? "failed" : "sent";
+      return "failed";
     });
     const input = baseLead({
       submission_id: "ffffffff-ffff-4fff-8fff-ffffffffffff",
@@ -264,27 +260,28 @@ describe("handleSubmitLead — notificare și retry", () => {
     expect(first.duplicate).toBe(false);
     expect(attempts).toBe(1);
 
+    // Retry-ul aceleiași trimiteri: lead-ul există deja, se returnează fără
+    // a reîncerca notificarea. Vizitatorul primește tot succes.
     const retry = await handleSubmitLead(input, deps);
     expect(retry.duplicate).toBe(true);
     expect(retry.id).toBe(first.id);
-    expect(attempts).toBe(2);
+    expect(attempts).toBe(1);
     expect(store.count()).toBe(1);
 
-    // Emailul de retry conține datele COMPLETE originale, nu doar id+status.
-    const retryLead = seenLeads[1];
-    expect(retryLead).toBeDefined();
-    expect(retryLead?.name).toBe("Ion Popescu");
-    expect(retryLead?.phone).toBe("0722123456");
-    expect(retryLead?.project_type).toBe("HVAC");
-    expect(retryLead?.deadline).toBe("1 septembrie");
-    expect(retryLead?.description).toBe("Modelare HVAC");
-    expect(retryLead?.submission_id).toBe("ffffffff-ffff-4fff-8fff-ffffffffffff");
-
-    // Aceeași cheie de idempotență Resend la ambele încercări.
-    const keys = seenLeads.map((l) => resendIdempotencyKey(l as never));
-    expect(new Set(keys).size).toBe(1);
-
     const row = store.getBySubmissionId("ffffffff-ffff-4fff-8fff-ffffffffffff");
+    expect(row?.["notification_status"]).toBe("failed");
+  });
+
+  test("Resend reușește => lead salvat + status 'sent'", async () => {
+    const store = createMemorySupabase();
+    const deps = makeDeps(store, async () => "sent");
+    const input = baseLead({ submission_id: "abababab-abab-4bab-8bab-abababababab" });
+
+    const result = await handleSubmitLead(input, deps);
+
+    expect(result.duplicate).toBe(false);
+    expect(store.count()).toBe(1);
+    const row = store.getBySubmissionId("abababab-abab-4bab-8bab-abababababab");
     expect(row?.["notification_status"]).toBe("sent");
   });
 
