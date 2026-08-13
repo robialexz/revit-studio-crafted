@@ -20,7 +20,7 @@ export const Route = createFileRoute("/modelare-revit")({
       { property: "og:locale", content: "ro_RO" },
       { property: "og:url", content: url },
     ],
-    links: [{ rel: "canonical", href: url }],
+    links: [{ rel: "canonical", href: url }, { rel: "preload", as: "image", href: hero2d }],
   }),
   component: () => (
     <ServicePage

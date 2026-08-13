@@ -20,7 +20,7 @@ export const Route = createFileRoute("/instalatii-electrice")({
       { property: "og:locale", content: "ro_RO" },
       { property: "og:url", content: url },
     ],
-    links: [{ rel: "canonical", href: url }],
+    links: [{ rel: "canonical", href: url }, { rel: "preload", as: "image", href: projElectrice }],
   }),
   component: () => (
     <ServicePage
