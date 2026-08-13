@@ -21,7 +21,10 @@ export const Route = createFileRoute("/revit-mep")({
       { property: "og:locale", content: "ro_RO" },
       { property: "og:url", content: url },
     ],
-    links: [{ rel: "canonical", href: url }, { rel: "preload", as: "image", href: hero3d }],
+    links: [
+      { rel: "canonical", href: url },
+      { rel: "preload", as: "image", href: hero3d },
+    ],
   }),
   component: () => (
     <ServicePage

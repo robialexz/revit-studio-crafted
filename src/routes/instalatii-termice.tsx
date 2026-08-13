@@ -20,7 +20,10 @@ export const Route = createFileRoute("/instalatii-termice")({
       { property: "og:locale", content: "ro_RO" },
       { property: "og:url", content: url },
     ],
-    links: [{ rel: "canonical", href: url }, { rel: "preload", as: "image", href: projTermice }],
+    links: [
+      { rel: "canonical", href: url },
+      { rel: "preload", as: "image", href: projTermice },
+    ],
   }),
   component: () => (
     <ServicePage

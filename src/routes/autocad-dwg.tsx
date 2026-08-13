@@ -19,7 +19,10 @@ export const Route = createFileRoute("/autocad-dwg")({
       { property: "og:locale", content: "ro_RO" },
       { property: "og:url", content: url },
     ],
-    links: [{ rel: "canonical", href: url }, { rel: "preload", as: "image", href: projDwg }],
+    links: [
+      { rel: "canonical", href: url },
+      { rel: "preload", as: "image", href: projDwg },
+    ],
   }),
   component: () => (
     <ServicePage

@@ -20,7 +20,10 @@ export const Route = createFileRoute("/hvac")({
       { property: "og:locale", content: "ro_RO" },
       { property: "og:url", content: url },
     ],
-    links: [{ rel: "canonical", href: url }, { rel: "preload", as: "image", href: projHvac }],
+    links: [
+      { rel: "canonical", href: url },
+      { rel: "preload", as: "image", href: projHvac },
+    ],
   }),
   component: () => (
     <ServicePage
