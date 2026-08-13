@@ -166,7 +166,7 @@ export function ServicePage({
 
             <aside className="lg:col-span-5">
               <div className="grid gap-4">
-                {images.map((img) => (
+                {images.map((img, index) => (
                   <figure key={img.src + img.caption} className="sheet-frame p-2 md:p-3">
                     <div className="flex items-center justify-between border-b border-border px-2 pb-2">
                       <span className="tech-label text-muted-foreground">{img.caption}</span>
@@ -175,7 +175,10 @@ export function ServicePage({
                     <img
                       src={img.src}
                       alt={img.alt}
-                      loading="lazy"
+                      // Prima imagine (de regulă LCP) se încarcă imediat,
+                      // restul doar la scroll.
+                      loading={index === 0 ? "eager" : "lazy"}
+                      fetchPriority={index === 0 ? "high" : undefined}
                       width={1200}
                       height={860}
                       className="mt-2 w-full object-cover"
