@@ -140,10 +140,21 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
               src: `https://www.googletagmanager.com/gtag/js?id=${site.gaMeasurementId || site.adsConversionId}`,
               async: true,
             },
-            ...(site.gaMeasurementId
+            ...(site.gaMeasurementId || site.adsConversionId
               ? [
                   {
-                    children: `gtag('js',new Date());gtag('config','${site.gaMeasurementId}');`,
+                    children: `gtag('js',new Date());${
+                      site.gaMeasurementId ? `gtag('config','${site.gaMeasurementId}');` : ""
+                    }`,
+                  },
+                ]
+              : []),
+            // Google Ads: tag AW încărcat în același cont gtag — necesar pentru
+            // conversia cu send_to.
+            ...(site.adsConversionId
+              ? [
+                  {
+                    children: `gtag('config','${site.adsConversionId}');`,
                   },
                 ]
               : []),

@@ -26,6 +26,28 @@ declare global {
 }
 
 const fired = new Set<string>();
+const firedAdsConversions = new Set<string>();
+
+export type GoogleAdsConversionPayload = {
+  send_to: string;
+  value: 1.0;
+  currency: "RON";
+};
+
+/** Construiește payload-ul Ads fără date din formular. */
+export function buildAdsConversionPayload(
+  conversionId: string,
+  conversionLabel: string,
+): GoogleAdsConversionPayload | null {
+  const id = conversionId.trim();
+  const label = conversionLabel.trim();
+  if (!id || !label) return null;
+  return {
+    send_to: `${id}/${label}`,
+    value: 1.0,
+    currency: "RON",
+  };
+}
 
 function hasAnalyticsConsent(): boolean {
   return readConsent() === "all";
@@ -66,9 +88,18 @@ export function track(
 export function trackConversion(
   name: "lead_form_success" | "whatsapp_click" | "phone_click" | "email_click",
   params: Record<string, string | number | undefined> = {},
+  options: { dedupeKey?: string } = {},
 ): void {
   if (typeof window === "undefined") return;
   try {
+    const adsPayload =
+      name === "lead_form_success"
+        ? buildAdsConversionPayload(site.adsConversionId, site.adsConversionLabel)
+        : null;
+    const adsDedupeKey = options.dedupeKey ? `ads:${options.dedupeKey}` : "";
+    const canSendAds = Boolean(adsPayload && hasAdsConsent());
+    if (canSendAds && adsDedupeKey && firedAdsConversions.has(adsDedupeKey)) return;
+
     (window.dataLayer ||= []).push({ event: name, ...params });
 
     if (typeof window.gtag !== "function") return;
@@ -77,16 +108,10 @@ export function trackConversion(
       window.gtag("event", name, params);
     }
 
-    if (
-      site.adsConversionId &&
-      site.adsConversionLabel &&
-      hasAdsConsent() &&
-      name === "lead_form_success"
-    ) {
+    if (canSendAds && adsPayload) {
       // Conversia principală: doar lead salvat cu succes, cu consimțământ ads.
-      window.gtag("event", "conversion", {
-        send_to: `${site.adsConversionId}/${site.adsConversionLabel}`,
-      });
+      window.gtag("event", "conversion", adsPayload);
+      if (adsDedupeKey) firedAdsConversions.add(adsDedupeKey);
     }
   } catch {
     /* never block user interaction */
