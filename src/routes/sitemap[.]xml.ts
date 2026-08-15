@@ -4,24 +4,36 @@ import { site } from "@/lib/site-config";
 
 interface SitemapEntry {
   path: string;
+  lastmod: string;
   changefreq?: "always" | "hourly" | "daily" | "weekly" | "monthly" | "yearly" | "never";
   priority?: string;
 }
 
+/**
+ * Data ultimei modificări de conținut — actualizează manual când
+ * modifici substanțial textele/paginile (Google o folosește la recrawl).
+ */
+const LAST_MODIFIED = "2026-08-15";
+
 const entries: SitemapEntry[] = [
-  { path: "/", changefreq: "weekly", priority: "1.0" },
-  { path: "/revit-mep", changefreq: "monthly", priority: "0.9" },
-  { path: "/modelare-revit", changefreq: "monthly", priority: "0.8" },
-  { path: "/hvac", changefreq: "monthly", priority: "0.8" },
-  { path: "/instalatii-termice", changefreq: "monthly", priority: "0.8" },
-  { path: "/instalatii-electrice", changefreq: "monthly", priority: "0.8" },
-  { path: "/autocad-dwg", changefreq: "monthly", priority: "0.7" },
-  { path: "/portofoliu", changefreq: "monthly", priority: "0.8" },
-  { path: "/contact", changefreq: "monthly", priority: "0.8" },
-  { path: "/politica-de-confidentialitate", changefreq: "yearly", priority: "0.3" },
-  { path: "/politica-cookies", changefreq: "yearly", priority: "0.3" },
-  { path: "/termeni-si-conditii", changefreq: "yearly", priority: "0.3" },
-  { path: "/informatii-legale", changefreq: "yearly", priority: "0.3" },
+  { path: "/", lastmod: LAST_MODIFIED, changefreq: "weekly", priority: "1.0" },
+  { path: "/revit-mep", lastmod: LAST_MODIFIED, changefreq: "monthly", priority: "0.9" },
+  { path: "/modelare-revit", lastmod: LAST_MODIFIED, changefreq: "monthly", priority: "0.8" },
+  { path: "/hvac", lastmod: LAST_MODIFIED, changefreq: "monthly", priority: "0.8" },
+  { path: "/instalatii-termice", lastmod: LAST_MODIFIED, changefreq: "monthly", priority: "0.8" },
+  { path: "/instalatii-electrice", lastmod: LAST_MODIFIED, changefreq: "monthly", priority: "0.8" },
+  { path: "/autocad-dwg", lastmod: LAST_MODIFIED, changefreq: "monthly", priority: "0.7" },
+  { path: "/portofoliu", lastmod: LAST_MODIFIED, changefreq: "monthly", priority: "0.8" },
+  { path: "/contact", lastmod: LAST_MODIFIED, changefreq: "monthly", priority: "0.8" },
+  {
+    path: "/politica-de-confidentialitate",
+    lastmod: LAST_MODIFIED,
+    changefreq: "yearly",
+    priority: "0.3",
+  },
+  { path: "/politica-cookies", lastmod: LAST_MODIFIED, changefreq: "yearly", priority: "0.3" },
+  { path: "/termeni-si-conditii", lastmod: LAST_MODIFIED, changefreq: "yearly", priority: "0.3" },
+  { path: "/informatii-legale", lastmod: LAST_MODIFIED, changefreq: "yearly", priority: "0.3" },
 ];
 
 export const Route = createFileRoute("/sitemap.xml")({
@@ -35,6 +47,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           [
             `  <url>`,
             `    <loc>${base}${e.path}</loc>`,
+            `    <lastmod>${e.lastmod}</lastmod>`,
             e.changefreq ? `    <changefreq>${e.changefreq}</changefreq>` : null,
             e.priority ? `    <priority>${e.priority}</priority>` : null,
             `  </url>`,

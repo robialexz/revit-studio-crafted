@@ -1,8 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ServicePage } from "@/components/site/ServicePage";
 import { canonicalUrl } from "@/lib/site-config";
-import projElectrice from "@/assets/proj-electrice.jpg";
-import hero2d from "@/assets/hero-2d.jpg";
+import projElectrice from "@/assets/proj-electrice.webp";
+import hero2d from "@/assets/hero-2d.webp";
 
 const title = "Instalații electrice — desenare și modelare tehnică";
 const description =

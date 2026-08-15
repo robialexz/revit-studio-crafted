@@ -1,9 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ServicePage } from "@/components/site/ServicePage";
 import { canonicalUrl } from "@/lib/site-config";
-import hero3d from "@/assets/hero-3d.jpg";
-import projSectiune from "@/assets/proj-sectiune.jpg";
-import projSheet from "@/assets/proj-sheet.jpg";
+import hero3d from "@/assets/hero-3d.webp";
+import projSectiune from "@/assets/proj-sectiune.webp";
+import projSheet from "@/assets/proj-sheet.webp";
 
 const title = "Servicii Revit MEP — modelare BIM instalații și planșe tehnice";
 const description =

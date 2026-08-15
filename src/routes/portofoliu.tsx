@@ -5,14 +5,14 @@ import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { MobileCta } from "@/components/site/MobileCta";
 import { hasWhatsapp, whatsappLink, defaultWhatsappMessage, canonicalUrl } from "@/lib/site-config";
-import hero3d from "@/assets/hero-3d.jpg";
-import hero2d from "@/assets/hero-2d.jpg";
-import projHvac from "@/assets/proj-hvac.jpg";
-import projTermice from "@/assets/proj-termice.jpg";
-import projElectrice from "@/assets/proj-electrice.jpg";
-import projSectiune from "@/assets/proj-sectiune.jpg";
-import projSheet from "@/assets/proj-sheet.jpg";
-import projDwg from "@/assets/proj-dwg.jpg";
+import hero3d from "@/assets/hero-3d.webp";
+import hero2d from "@/assets/hero-2d.webp";
+import projHvac from "@/assets/proj-hvac.webp";
+import projTermice from "@/assets/proj-termice.webp";
+import projElectrice from "@/assets/proj-electrice.webp";
+import projSectiune from "@/assets/proj-sectiune.webp";
+import projSheet from "@/assets/proj-sheet.webp";
+import projDwg from "@/assets/proj-dwg.webp";
 
 const title = "Portofoliu Revit MEP · Modele BIM și planșe tehnice";
 const description =

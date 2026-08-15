@@ -1,8 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ServicePage } from "@/components/site/ServicePage";
 import { canonicalUrl } from "@/lib/site-config";
-import hero2d from "@/assets/hero-2d.jpg";
-import projSheet from "@/assets/proj-sheet.jpg";
+import hero2d from "@/assets/hero-2d.webp";
+import projSheet from "@/assets/proj-sheet.webp";
 
 const title = "Modelare Revit și desenare planșe — modelare BIM 3D";
 const description =

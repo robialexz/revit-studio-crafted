@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ServicePage } from "@/components/site/ServicePage";
 import { canonicalUrl } from "@/lib/site-config";
-import projDwg from "@/assets/proj-dwg.jpg";
+import projDwg from "@/assets/proj-dwg.webp";
 
 const title = "Desenare AutoCAD, corectare și redesenare DWG";
 const description =

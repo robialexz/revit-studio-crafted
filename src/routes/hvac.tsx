@@ -1,8 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ServicePage } from "@/components/site/ServicePage";
 import { canonicalUrl } from "@/lib/site-config";
-import projHvac from "@/assets/proj-hvac.jpg";
-import projSectiune from "@/assets/proj-sectiune.jpg";
+import projHvac from "@/assets/proj-hvac.webp";
+import projSectiune from "@/assets/proj-sectiune.webp";
 
 const title = "Instalații HVAC — modelare Revit și planșe de ventilare";
 const description =

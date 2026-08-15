@@ -18,14 +18,14 @@ import {
 import type { ServicePath } from "@/components/site/ServicePage";
 import { track, trackConversion } from "@/lib/analytics";
 
-import hero3d from "@/assets/hero-3d.jpg";
-import hero3dMobile from "@/assets/hero-3d-640.jpg";
-import hero2d from "@/assets/hero-2d.jpg";
-import hero2dMobile from "@/assets/hero-2d-640.jpg";
-import projHvac from "@/assets/proj-hvac.jpg";
-import projTermice from "@/assets/proj-termice.jpg";
-import projSectiune from "@/assets/proj-sectiune.jpg";
-import projSheet from "@/assets/proj-sheet.jpg";
+import hero3d from "@/assets/hero-3d.webp";
+import hero3dMobile from "@/assets/hero-3d-640.webp";
+import hero2d from "@/assets/hero-2d.webp";
+import hero2dMobile from "@/assets/hero-2d-640.webp";
+import projHvac from "@/assets/proj-hvac.webp";
+import projTermice from "@/assets/proj-termice.webp";
+import projSectiune from "@/assets/proj-sectiune.webp";
+import projSheet from "@/assets/proj-sheet.webp";
 
 const title = "Revit MEP & Modelare BIM · Planșe HVAC, Termice, Electrice";
 const description =
@@ -64,6 +64,7 @@ export const Route = createFileRoute("/")({
           "@type": "ProfessionalService",
           name: site.businessName,
           description,
+          slogan: site.tagline,
           areaServed: "RO",
           serviceType: [
             "Modelare Revit MEP",
@@ -73,9 +74,21 @@ export const Route = createFileRoute("/")({
             "Desenare instalații electrice",
             "Desenare AutoCAD / DWG",
           ],
-          ...(hasSiteUrl ? { url: canonicalUrl("/") } : {}),
+          ...(hasSiteUrl ? { url: canonicalUrl("/"), image: canonicalUrl("/og-image.jpg") } : {}),
           ...(hasWhatsapp ? { telephone: site.whatsappNumber } : {}),
           ...(hasEmail ? { email: site.email } : {}),
+        }),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: faq.map(([q, a]) => ({
+            "@type": "Question",
+            name: q,
+            acceptedAnswer: { "@type": "Answer", text: a },
+          })),
         }),
       },
     ],
@@ -375,7 +388,7 @@ function Home() {
                   />
                   <div className="flex items-center justify-between px-2 pt-2">
                     <span className="tech-label text-muted-foreground">MEP-3D-01</span>
-                    <span className="tech-label text-mep">Imagine demonstrativă · înlocuibilă</span>
+                    <span className="tech-label text-mep">Proiect demonstrativ</span>
                   </div>
                 </div>
 
@@ -501,7 +514,7 @@ function Home() {
             </figure>
           </div>
           <p className="tech-label mt-6 text-muted-foreground">
-            Imagini demonstrative, ușor de înlocuit cu capturi din proiecte reale.
+            Imagini dintr-un proiect demonstrativ propriu.
           </p>
         </section>
 

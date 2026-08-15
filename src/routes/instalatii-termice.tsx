@@ -1,8 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ServicePage } from "@/components/site/ServicePage";
 import { canonicalUrl } from "@/lib/site-config";
-import projTermice from "@/assets/proj-termice.jpg";
-import projSheet from "@/assets/proj-sheet.jpg";
+import projTermice from "@/assets/proj-termice.webp";
+import projSheet from "@/assets/proj-sheet.webp";
 
 const title = "Instalații termice — modelare Revit și planșe de încălzire";
 const description =

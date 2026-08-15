@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useLocation } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
@@ -12,6 +12,7 @@ import {
   hasWhatsapp,
   hasEmail,
   formatPhoneDisplay,
+  canonicalUrl,
 } from "@/lib/site-config";
 import { track, trackConversion } from "@/lib/analytics";
 
@@ -85,9 +86,40 @@ export function ServicePage({
 }) {
   const waHref = hasWhatsapp ? whatsappLink(defaultWhatsappMessage) : "";
   const relatedItems = serviceLinks.filter((s) => related.includes(s.to));
+  const location = useLocation();
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Acasă", item: canonicalUrl("/") },
+      { "@type": "ListItem", position: 2, name: label, item: canonicalUrl(location.pathname) },
+    ],
+  };
+
+  const serviceSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    serviceType: label,
+    name: h1,
+    description: intro,
+    areaServed: "RO",
+    provider: {
+      "@type": "ProfessionalService",
+      name: site.businessName,
+      url: canonicalUrl("/"),
+      ...(hasWhatsapp ? { telephone: site.whatsappNumber } : {}),
+      ...(hasEmail ? { email: site.email } : {}),
+    },
+    ...(deliverables.length
+      ? { serviceOutput: deliverables.map((d) => ({ "@type": "Thing", name: d })) }
+      : {}),
+  };
 
   return (
     <div className="min-h-screen bg-background">
+      <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
+      <script type="application/ld+json">{JSON.stringify(serviceSchema)}</script>
       <Header />
       <main className="pb-16 lg:pb-0">
         <section className="relative overflow-hidden border-b border-border-strong">
@@ -184,9 +216,7 @@ export function ServicePage({
                       className="mt-2 w-full object-cover"
                     />
                     {site.showDemoImageLabels && (
-                      <p className="tech-label px-2 pt-2 text-mep">
-                        Imagine demonstrativă · înlocuibilă
-                      </p>
+                      <p className="tech-label px-2 pt-2 text-mep">Proiect demonstrativ</p>
                     )}
                   </figure>
                 ))}
