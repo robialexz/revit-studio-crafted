@@ -29,12 +29,19 @@ export function Header() {
       }`}
     >
       <div className="mx-auto flex max-w-[1400px] items-center justify-between gap-6 px-5 py-3 md:px-8">
-        <Link to="/" className="group flex flex-col leading-none">
-          <span className="font-display text-xl font-semibold uppercase tracking-tight md:text-2xl">
-            {site.businessName}
-          </span>
-          <span className="tech-label mt-1 text-muted-foreground text-[0.58rem] md:text-[0.65rem]">
-            {site.tagline}
+        <Link to="/" className="group flex items-center gap-3">
+          <img
+            src="/branding/nod-bim-mark.png"
+            alt="NOD BIM"
+            className="h-9 w-9 shrink-0 object-contain md:h-10 md:w-10"
+          />
+          <span className="flex flex-col leading-none">
+            <span className="font-display text-xl font-semibold uppercase tracking-tight md:text-2xl">
+              {site.businessName}
+            </span>
+            <span className="tech-label mt-1 text-muted-foreground text-[0.58rem] md:text-[0.65rem]">
+              {site.tagline}
+            </span>
           </span>
         </Link>
 
