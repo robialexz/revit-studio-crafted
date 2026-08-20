@@ -1,0 +1,12 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema.json",
+  "entry": ["scripts/**/*.mjs"],
+  "project": ["src/**/*.{ts,tsx,css}", "scripts/**/*.mjs", "tests/**/*.ts"],
+  "ignore": ["src/integrations/supabase/types.ts"],
+  "includeEntryExports": true,
+  "treatConfigHintsAsErrors": false,
+  "rules": {
+    "nsExports": "error",
+    "nsTypes": "error"
+  }
+}

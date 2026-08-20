@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { LegalPage } from "@/components/site/LegalPage";
 import { canonicalUrl, hasEmail, site } from "@/lib/site-config";
-import { configuredLegalFields, legal, isLegalConfigured } from "@/lib/legal-config";
+import { legal, isLegalConfigured } from "@/lib/legal-config";
 
 const title = "Politica de confidențialitate — NOD BIM";
 const description =

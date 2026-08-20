@@ -7,20 +7,20 @@ import { leadSchema, type LeadInput } from "./lead-schema";
  * lead. Clientul real (@supabase/supabase-js) îl satisface structural;
  * testele folosesc un store in-memory cu aceleași coduri de eroare.
  */
-export interface LeadFilterableQuery {
+interface LeadFilterableQuery {
   eq: (column: string, value: unknown) => LeadFilterableQuery;
   single: () => Promise<LeadQueryResult>;
 }
 
-export interface LeadInsertQuery {
+interface LeadInsertQuery {
   select: (columns?: string) => { single: () => Promise<LeadQueryResult> };
 }
 
-export interface LeadUpdateQuery {
+interface LeadUpdateQuery {
   eq: (column: string, value: unknown) => Promise<{ error: LeadErrorLike | null }>;
 }
 
-export interface LeadQueryResult {
+interface LeadQueryResult {
   data: unknown;
   error: LeadErrorLike | null;
 }
@@ -38,7 +38,7 @@ export interface LeadSupabaseLike {
   };
 }
 
-export type LeadNotificationOutcome = "sent" | "failed";
+type LeadNotificationOutcome = "sent" | "failed";
 
 export interface LeadDeps {
   supabase: LeadSupabaseLike;

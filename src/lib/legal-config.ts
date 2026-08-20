@@ -51,8 +51,3 @@ export function configuredLegalFields(): { key: LegalFieldKey; label: string; va
     .filter((key) => isLegalConfigured(legal[key]))
     .map((key) => ({ key, label: labels[key], value: legal[key] }));
 }
-
-/** Datele legale care încă lipsesc — pentru raportare internă (nu se afișează public). */
-export function missingLegalFields(): LegalFieldKey[] {
-  return (Object.keys(legal) as LegalFieldKey[]).filter((key) => !isLegalConfigured(legal[key]));
-}

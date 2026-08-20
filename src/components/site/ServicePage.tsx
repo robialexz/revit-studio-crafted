@@ -24,7 +24,7 @@ export type ServicePath =
   | "/instalatii-electrice"
   | "/autocad-dwg";
 
-export const serviceLinks: { to: ServicePath; label: string; blurb: string }[] = [
+const serviceLinks: { to: ServicePath; label: string; blurb: string }[] = [
   {
     to: "/revit-mep",
     label: "Revit MEP & modelare BIM instalații",

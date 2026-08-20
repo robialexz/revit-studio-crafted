@@ -32,7 +32,7 @@ export const site = {
 
 const placeholderPattern = /^\[[A-Z0-9_]+\]$/;
 
-export function isConfigured(value: string | undefined): value is string {
+function isConfigured(value: string | undefined): value is string {
   const normalized = value?.trim() ?? "";
   return Boolean(normalized && !placeholderPattern.test(normalized));
 }
