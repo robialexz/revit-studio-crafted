@@ -13,6 +13,12 @@ import projElectrice from "@/assets/proj-electrice.webp";
 import projSectiune from "@/assets/proj-sectiune.webp";
 import projSheet from "@/assets/proj-sheet.webp";
 import projDwg from "@/assets/proj-dwg.webp";
+import showcaseCoordination from "@/assets/showcase-coordination.webp";
+import showcaseDwgRevit from "@/assets/showcase-dwg-revit.webp";
+import showcaseElectrical from "@/assets/showcase-electrical.webp";
+import showcaseHvacPlan from "@/assets/showcase-hvac-plan.webp";
+import showcasePlantRoom from "@/assets/showcase-plant-room.webp";
+import showcaseSection from "@/assets/showcase-section.webp";
 
 const title = "Portofoliu Revit MEP · Modele BIM și planșe tehnice";
 const description =
@@ -114,6 +120,60 @@ const items: Item[] = [
     h: 912,
     span: "lg:col-span-7",
     dark: true,
+  },
+  {
+    src: showcaseCoordination,
+    alt: "Model de coordonare BIM cu verificarea interferențelor între instalații",
+    caption: "Coordonare · Model BIM",
+    meta: "Detecție conflicte · Navisworks / Revit",
+    w: 1568,
+    h: 1003,
+    span: "lg:col-span-7",
+  },
+  {
+    src: showcaseSection,
+    alt: "Secțiune printr-un model Revit MEP cu trasee de tubulatură și conducte",
+    caption: "Secțiune · Model BIM",
+    meta: "Model 3D Revit",
+    w: 1122,
+    h: 1402,
+    span: "lg:col-span-5",
+  },
+  {
+    src: showcaseHvacPlan,
+    alt: "Planșă HVAC cu trasee de tubulatură, grile, anemostate și echipamente",
+    caption: "HVAC · Plan nivel",
+    meta: "Ventilare · Climatizare",
+    w: 1568,
+    h: 1003,
+    span: "lg:col-span-12",
+  },
+  {
+    src: showcasePlantRoom,
+    alt: "Cameră tehnică cu echipamente HVAC și trasee de instalații",
+    caption: "Centrală tehnică",
+    meta: "Echipamente · Trasee",
+    w: 1448,
+    h: 1086,
+    span: "lg:col-span-5",
+  },
+  {
+    src: showcaseElectrical,
+    alt: "Plan de instalații electrice cu circuite, prize și corpuri de iluminat",
+    caption: "Electrice · Plan",
+    meta: "Iluminat · Prize · Circuite",
+    w: 1568,
+    h: 1003,
+    span: "lg:col-span-7",
+  },
+  {
+    src: showcaseDwgRevit,
+    alt: "Plan DWG pregătit și importat pentru modelare în Revit",
+    caption: "DWG · Conversie Revit",
+    meta: "Import · Curățare · Export",
+    w: 1586,
+    h: 992,
+    span: "lg:col-span-12",
   },
 ];
 
