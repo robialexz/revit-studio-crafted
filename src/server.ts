@@ -74,6 +74,37 @@ function redirectWwwHost(request: Request): Response | undefined {
   });
 }
 
+/**
+ * Returnează URL-ul țintă de redirect http→https (cu path și query păstrate),
+ * sau undefined când cererea e deja https sau host-ul nu este cel canonical.
+ * Pură, pentru testare; robustă și în spatele proxy-urilor (folosește
+ * antetul Host, nu doar request.url). Dev-ul local (localhost) nu e atins.
+ */
+export function redirectToHttpsUrl(
+  requestUrl: string,
+  hostHeader: string | null,
+  canonicalHost: string,
+): string | undefined {
+  const url = new URL(requestUrl);
+  if (url.protocol !== "http:") return undefined;
+  const host = ((hostHeader ?? url.host).split(":")[0] ?? "").toLowerCase();
+  if (host !== canonicalHost) return undefined;
+  url.protocol = "https:";
+  return url.toString();
+}
+
+function redirectHttpHost(request: Request): Response | undefined {
+  const target = redirectToHttpsUrl(request.url, request.headers.get("host"), canonicalHostname);
+  if (!target) return undefined;
+  return new Response(null, {
+    status: 301,
+    headers: {
+      Location: target,
+      "Cache-Control": "public, max-age=3600",
+    },
+  });
+}
+
 async function getServerEntry(): Promise<ServerEntry> {
   if (!serverEntryPromise) {
     serverEntryPromise = import("@tanstack/react-start/server-entry").then(
@@ -112,7 +143,7 @@ function isH3SwallowedErrorBody(body: string): boolean {
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
     try {
-      const redirect = redirectWwwHost(request);
+      const redirect = redirectWwwHost(request) ?? redirectHttpHost(request);
       if (redirect) return withSecurityHeaders(redirect, request);
 
       const handler = await getServerEntry();
