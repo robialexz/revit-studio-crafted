@@ -65,7 +65,7 @@ export const Route = createFileRoute("/")({
         as: "image",
         href: hero3d,
         imagesrcset: `${hero3dMobile} 640w, ${hero3d960} 960w, ${hero3d} 1200w`,
-        imagesizes: "(min-width: 1024px) 640px, 96vw",
+        imagesizes: "(min-width: 1024px) 640px, 640px",
       },
     ],
     scripts: [
@@ -197,7 +197,7 @@ function Home() {
                   <img
                     src={hero3d}
                     srcSet={`${hero3dMobile} 640w, ${hero3d960} 960w, ${hero3d} 1200w`}
-                    sizes="(min-width: 1024px) 640px, 96vw"
+                    sizes="(min-width: 1024px) 640px, 640px"
                     alt="Model 3D Revit MEP cu trasee de tubulatură, conducte și echipamente"
                     width={1200}
                     height={912}
@@ -219,7 +219,7 @@ function Home() {
                     <img
                       src={hero2d}
                       srcSet={`${hero2dMobile} 640w, ${hero2d720} 720w, ${hero2d} 912w`}
-                      sizes="(min-width: 1024px) 640px, 96vw"
+                      sizes="(min-width: 1024px) 640px, 640px"
                       alt="Planșă 2D de instalații extrasă din modelul Revit, cu trasee, cote și legendă"
                       width={912}
                       height={1104}
