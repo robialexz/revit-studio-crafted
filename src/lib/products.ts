@@ -1,13 +1,12 @@
 /**
- * Produsele magazinului NOD BIM:
- * - Machete & unelte de desen: produse de import (furnizori China),
- *   revândute local — lucruri greu de găsit în România.
- * - Didactice: modele secționate MEP realizate la comandă (print 3D).
+ * Produsele magazinului NOD BIM — unelte de birou/CAD și desen tehnic
+ * (import, revândute local) + modele didactice secționate MEP (print 3D).
+ * Selectate pe criteriul: nu se găsesc pe eMAG/magazinele uzuale din RO.
  */
 export type ShopProduct = {
   id: string;
   name: string;
-  category: "Machete" | "Unelte de desen" | "Didactice";
+  category: "Birou & CAD" | "Unelte de desen" | "Didactice";
   description: string;
   price: string;
   availability: string;
@@ -16,63 +15,78 @@ export type ShopProduct = {
 
 export const products: ShopProduct[] = [
   {
-    id: "arbori-1-100",
-    name: "Set 20 arbori pentru machete — 1:100",
-    category: "Machete",
+    id: "macropad-3",
+    name: "Macropad CAD — 3 taste + rotativ",
+    category: "Birou & CAD",
     description:
-      "20 de arbori în amestec (foioase, conifere, aliniament stradal) pentru machete arhitecturale și planuri de situație. Vopsiți, gata de folosit.",
+      "Tastatură mini programabilă pentru scurtături Revit, AutoCAD, Blender sau Photoshop: 3 butoane + buton rotativ (zoom, undo, volum). Se configurează per aplicație.",
+    price: "139 lei",
+    availability: "Livrare 7–14 zile",
+    details: [
+      "3 butoane + rotativ cu click",
+      "USB-C · fără driver special",
+      "Software de configurare inclus",
+      "Scurtături salvate în memorie",
+    ],
+  },
+  {
+    id: "macropad-6",
+    name: "Macropad CAD — 6 taste + 2 rotative",
+    category: "Birou & CAD",
+    description:
+      "Versiunea extinsă: 6 butoane programabile și 2 butoane rotative, pentru fluxuri complete de lucru în Revit MEP, AutoCAD sau editare foto/video.",
+    price: "179 lei",
+    availability: "Livrare 7–14 zile",
+    details: [
+      "6 butoane + 2 rotative",
+      "Profiluri per aplicație",
+      "USB-C · memorare internă",
+      "Ideal pentru scurtături MEP",
+    ],
+  },
+  {
+    id: "radiera-electrica",
+    name: "Radieră electrică pentru desen tehnic",
+    category: "Birou & CAD",
+    description:
+      "Radieră electrică de precizie pentru planșe și schițe — șterge curat fără să roadă hârtia. Unelta clasică de desenator, aproape imposibil de găsit în România.",
     price: "59 lei",
     availability: "Livrare 7–14 zile",
     details: [
-      "20 bucăți · amestec tipologii",
-      "Scară 1:100 (potrivit și pentru HO)",
-      "ABS / plastic vopsit",
-      "Direct din import",
+      "Motor rotativ · 2 viteze",
+      "Vârf de cauciuc schimbabil",
+      "Alimentare baterii AAA",
+      "Pentru planșe, schițe, hârtie de calc",
     ],
   },
   {
-    id: "figurine-1-100",
-    name: "Set 50 figurine umane vopsite — 1:100",
-    category: "Machete",
+    id: "lead-pointer-2mm",
+    name: "Ascuțitor pentru mine de 2mm (lead pointer)",
+    category: "Birou & CAD",
     description:
-      "50 de siluete umane vopsite, în ipostaze diverse (în picioare, mergând, așezate) — dau viață oricărei machete sau prezentări.",
-    price: "69 lei",
+      "Ascuțitor dedicat minelor de 2mm pentru creioane mecanice (port-mină) — vârf fin de desen sau de scris, cu rezervor pentru praf. Accesoriul pe care îl caută orice desenator tehnic.",
+    price: "29 lei",
     availability: "Livrare 7–14 zile",
     details: [
-      "50 bucăți · culori amestecate",
-      "Scară 1:100",
-      "ABS vopsit, detalii fine",
-      "Direct din import",
+      "Pentru mine de 2mm",
+      "Două profile de vârf",
+      "Rezervor pentru praf inclus",
+      "Compatibil cu majoritatea port-minelor",
     ],
   },
   {
-    id: "masini-1-100",
-    name: "Set 20 autovehicule vopsite — 1:100",
-    category: "Machete",
+    id: "set-creioane-2mm",
+    name: "Set creioane mecanice 2mm + 144 mine + ascuțitor",
+    category: "Birou & CAD",
     description:
-      "20 de autovehicule (autoturisme, dubă, autobuz) în culori amestecate, pentru contexte urbane în machete și diorame.",
-    price: "59 lei",
+      "Set complet de desen tehnic: creion mecanic metalic de 2mm, 144 de mine HB/2B și ascuțitor dedicat. Trusă în cutie, gata de lucru.",
+    price: "79 lei",
     availability: "Livrare 7–14 zile",
     details: [
-      "20 bucăți · 4–5 culori",
-      "Lungime 4–4,8 cm (1:100)",
-      "ABS vopsit",
-      "Direct din import",
-    ],
-  },
-  {
-    id: "kit-macheta-complet",
-    name: "Kit complet machetă — arbori + figurine + vehicule",
-    category: "Machete",
-    description:
-      "Pachetul complet pentru o machetă vie: 20 arbori, 50 figurine și 20 vehicule la scara 1:100, în culori amestecate.",
-    price: "149 lei",
-    availability: "Livrare 7–14 zile",
-    details: [
-      "90 piese în total",
-      "Scară 1:100",
-      "Vopsite, gata de montaj",
-      "Economisești ~38 lei față de seturi separate",
+      "Creion mecanic metalic 2mm",
+      "144 mine · HB și 2B",
+      "Ascuțitor + radieră incluse",
+      "Cutie de transport",
     ],
   },
   {

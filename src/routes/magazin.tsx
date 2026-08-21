@@ -7,9 +7,9 @@ import { CtaSection } from "@/components/site/CtaSection";
 import { canonicalUrl, hasWhatsapp, whatsappLink } from "@/lib/site-config";
 import { products } from "@/lib/products";
 
-const title = "Magazin · Accesorii machete și modele didactice MEP";
+const title = "Magazin · Unelte CAD și desen tehnic · NOD BIM";
 const description =
-  "Produse realizate la comandă prin print 3D: accesorii pentru machete arhitecturale (arbori, figurine, vehicule la scara 1:100/1:50) și modele didactice secționate pentru instalații MEP.";
+  "Unelte de birou și CAD greu de găsit în România: macropad-uri pentru scurtături Revit/AutoCAD, radiere electrice, ascuțitori pentru mine de 2mm, șabloane de desen tehnic și modele didactice secționate MEP.";
 const url = canonicalUrl("/magazin");
 
 export const Route = createFileRoute("/magazin")({
@@ -37,7 +37,7 @@ function orderLink(productName: string): string {
 }
 
 function Magazin() {
-  const machete = products.filter((p) => p.category === "Machete");
+  const birouCad = products.filter((p) => p.category === "Birou & CAD");
   const unelte = products.filter((p) => p.category === "Unelte de desen");
   const didactice = products.filter((p) => p.category === "Didactice");
 
@@ -54,8 +54,8 @@ function Magazin() {
                 Produse de nișă
               </h1>
               <p className="mt-6 max-w-xl text-base leading-relaxed text-foreground/80">
-                Accesorii pentru machete arhitecturale, unelte de desen tehnic și modele didactice
-                secționate pentru instalații — lucruri greu de găsit în România, la prețuri corecte.
+                Unelte de birou și CAD pe care nu le găsești pe eMAG, șabloane de desen tehnic și
+                modele didactice secționate pentru instalații — la prețuri corecte.
               </p>
               <p className="tech-label mt-6 text-muted-foreground">
                 Produsele de import au livrare 7–14 zile · modelele didactice se realizează la
@@ -69,12 +69,12 @@ function Magazin() {
           <Reveal>
             <div className="flex items-baseline gap-4">
               <span className="tech-label text-mep">01</span>
-              <span className="tech-label text-muted-foreground">Accesorii pentru machete</span>
+              <span className="tech-label text-muted-foreground">Unelte de birou & CAD</span>
               <span className="h-px flex-1 bg-border-strong" />
             </div>
           </Reveal>
           <div className="mt-6 grid gap-4 md:grid-cols-2">
-            {machete.map((p, i) => (
+            {birouCad.map((p, i) => (
               <ProductCard key={p.id} product={p} index={i} />
             ))}
           </div>
