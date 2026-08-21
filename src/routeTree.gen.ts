@@ -16,6 +16,7 @@ import { Route as HvacRouteImport } from './routes/hvac'
 import { Route as InformatiiLegaleRouteImport } from './routes/informatii-legale'
 import { Route as InstalatiiElectriceRouteImport } from './routes/instalatii-electrice'
 import { Route as InstalatiiTermiceRouteImport } from './routes/instalatii-termice'
+import { Route as MagazinRouteImport } from './routes/magazin'
 import { Route as ModelareRevitRouteImport } from './routes/modelare-revit'
 import { Route as PoliticaCookiesRouteImport } from './routes/politica-cookies'
 import { Route as PoliticaDeConfidentialitateRouteImport } from './routes/politica-de-confidentialitate'
@@ -59,6 +60,11 @@ const InstalatiiElectriceRoute = InstalatiiElectriceRouteImport.update({
 const InstalatiiTermiceRoute = InstalatiiTermiceRouteImport.update({
   id: '/instalatii-termice',
   path: '/instalatii-termice',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MagazinRoute = MagazinRouteImport.update({
+  id: '/magazin',
+  path: '/magazin',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ModelareRevitRoute = ModelareRevitRouteImport.update({
@@ -116,6 +122,7 @@ export interface FileRoutesByFullPath {
   '/informatii-legale': typeof InformatiiLegaleRoute
   '/instalatii-electrice': typeof InstalatiiElectriceRoute
   '/instalatii-termice': typeof InstalatiiTermiceRoute
+  '/magazin': typeof MagazinRoute
   '/modelare-revit': typeof ModelareRevitRoute
   '/politica-cookies': typeof PoliticaCookiesRoute
   '/politica-de-confidentialitate': typeof PoliticaDeConfidentialitateRoute
@@ -134,6 +141,7 @@ export interface FileRoutesByTo {
   '/informatii-legale': typeof InformatiiLegaleRoute
   '/instalatii-electrice': typeof InstalatiiElectriceRoute
   '/instalatii-termice': typeof InstalatiiTermiceRoute
+  '/magazin': typeof MagazinRoute
   '/modelare-revit': typeof ModelareRevitRoute
   '/politica-cookies': typeof PoliticaCookiesRoute
   '/politica-de-confidentialitate': typeof PoliticaDeConfidentialitateRoute
@@ -153,6 +161,7 @@ export interface FileRoutesById {
   '/informatii-legale': typeof InformatiiLegaleRoute
   '/instalatii-electrice': typeof InstalatiiElectriceRoute
   '/instalatii-termice': typeof InstalatiiTermiceRoute
+  '/magazin': typeof MagazinRoute
   '/modelare-revit': typeof ModelareRevitRoute
   '/politica-cookies': typeof PoliticaCookiesRoute
   '/politica-de-confidentialitate': typeof PoliticaDeConfidentialitateRoute
@@ -173,6 +182,7 @@ export interface FileRouteTypes {
     | '/informatii-legale'
     | '/instalatii-electrice'
     | '/instalatii-termice'
+    | '/magazin'
     | '/modelare-revit'
     | '/politica-cookies'
     | '/politica-de-confidentialitate'
@@ -191,6 +201,7 @@ export interface FileRouteTypes {
     | '/informatii-legale'
     | '/instalatii-electrice'
     | '/instalatii-termice'
+    | '/magazin'
     | '/modelare-revit'
     | '/politica-cookies'
     | '/politica-de-confidentialitate'
@@ -209,6 +220,7 @@ export interface FileRouteTypes {
     | '/informatii-legale'
     | '/instalatii-electrice'
     | '/instalatii-termice'
+    | '/magazin'
     | '/modelare-revit'
     | '/politica-cookies'
     | '/politica-de-confidentialitate'
@@ -228,6 +240,7 @@ export interface RootRouteChildren {
   InformatiiLegaleRoute: typeof InformatiiLegaleRoute
   InstalatiiElectriceRoute: typeof InstalatiiElectriceRoute
   InstalatiiTermiceRoute: typeof InstalatiiTermiceRoute
+  MagazinRoute: typeof MagazinRoute
   ModelareRevitRoute: typeof ModelareRevitRoute
   PoliticaCookiesRoute: typeof PoliticaCookiesRoute
   PoliticaDeConfidentialitateRoute: typeof PoliticaDeConfidentialitateRoute
@@ -288,6 +301,13 @@ declare module '@tanstack/react-router' {
       path: '/instalatii-termice'
       fullPath: '/instalatii-termice'
       preLoaderRoute: typeof InstalatiiTermiceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/magazin': {
+      id: '/magazin'
+      path: '/magazin'
+      fullPath: '/magazin'
+      preLoaderRoute: typeof MagazinRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/modelare-revit': {
@@ -364,6 +384,7 @@ const rootRouteChildren: RootRouteChildren = {
   InformatiiLegaleRoute: InformatiiLegaleRoute,
   InstalatiiElectriceRoute: InstalatiiElectriceRoute,
   InstalatiiTermiceRoute: InstalatiiTermiceRoute,
+  MagazinRoute: MagazinRoute,
   ModelareRevitRoute: ModelareRevitRoute,
   PoliticaCookiesRoute: PoliticaCookiesRoute,
   PoliticaDeConfidentialitateRoute: PoliticaDeConfidentialitateRoute,

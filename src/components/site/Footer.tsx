@@ -44,6 +44,11 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link to="/magazin" className="hover:text-primary">
+                  Magazin
+                </Link>
+              </li>
+              <li>
                 <a href="/#proces" className="hover:text-primary">
                   Proces
                 </a>

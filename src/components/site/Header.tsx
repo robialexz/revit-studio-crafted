@@ -7,6 +7,7 @@ const nav = [
   { label: "Servicii", href: "/#servicii" },
   { label: "Portofoliu", href: "/portofoliu" },
   { label: "Referințe", href: "/referinte" },
+  { label: "Magazin", href: "/magazin" },
   { label: "Proces", href: "/#proces" },
   { label: "Prețuri", href: "/#preturi" },
   { label: "FAQ", href: "/#faq" },
