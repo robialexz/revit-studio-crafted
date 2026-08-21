@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AgentInstructionsDottxtRouteImport } from './routes/agent-instructions[.]txt'
+import { Route as AgentDotjsonRouteImport } from './routes/agent[.]json'
 import { Route as AutocadDwgRouteImport } from './routes/autocad-dwg'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as DespreRouteImport } from './routes/despre'
@@ -33,6 +34,7 @@ import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as TermeniSiConditiiRouteImport } from './routes/termeni-si-conditii'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
+import { Route as WellKnownAgentDotjsonRouteImport } from './routes/well-known/agent[.]json'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -47,6 +49,11 @@ const AboutRoute = AboutRouteImport.update({
 const AgentInstructionsDottxtRoute = AgentInstructionsDottxtRouteImport.update({
   id: '/agent-instructions.txt',
   path: '/agent-instructions.txt',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AgentDotjsonRoute = AgentDotjsonRouteImport.update({
+  id: '/agent.json',
+  path: '/agent.json',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AutocadDwgRoute = AutocadDwgRouteImport.update({
@@ -155,11 +162,17 @@ const BlogSlugRoute = BlogSlugRouteImport.update({
   path: '/blog/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const WellKnownAgentDotjsonRoute = WellKnownAgentDotjsonRouteImport.update({
+  id: '/well-known/agent.json',
+  path: '/well-known/agent.json',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/agent-instructions.txt': typeof AgentInstructionsDottxtRoute
+  '/agent.json': typeof AgentDotjsonRoute
   '/autocad-dwg': typeof AutocadDwgRoute
   '/contact': typeof ContactRoute
   '/despre': typeof DespreRoute
@@ -180,12 +193,14 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/termeni-si-conditii': typeof TermeniSiConditiiRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/well-known/agent.json': typeof WellKnownAgentDotjsonRoute
   '/blog/': typeof BlogIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/agent-instructions.txt': typeof AgentInstructionsDottxtRoute
+  '/agent.json': typeof AgentDotjsonRoute
   '/autocad-dwg': typeof AutocadDwgRoute
   '/contact': typeof ContactRoute
   '/despre': typeof DespreRoute
@@ -206,6 +221,7 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/termeni-si-conditii': typeof TermeniSiConditiiRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/well-known/agent.json': typeof WellKnownAgentDotjsonRoute
   '/blog': typeof BlogIndexRoute
 }
 export interface FileRoutesById {
@@ -213,6 +229,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/agent-instructions.txt': typeof AgentInstructionsDottxtRoute
+  '/agent.json': typeof AgentDotjsonRoute
   '/autocad-dwg': typeof AutocadDwgRoute
   '/contact': typeof ContactRoute
   '/despre': typeof DespreRoute
@@ -233,6 +250,7 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/termeni-si-conditii': typeof TermeniSiConditiiRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/well-known/agent.json': typeof WellKnownAgentDotjsonRoute
   '/blog/': typeof BlogIndexRoute
 }
 export interface FileRouteTypes {
@@ -241,6 +259,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/agent-instructions.txt'
+    | '/agent.json'
     | '/autocad-dwg'
     | '/contact'
     | '/despre'
@@ -261,12 +280,14 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/termeni-si-conditii'
     | '/blog/$slug'
+    | '/well-known/agent.json'
     | '/blog/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
     | '/agent-instructions.txt'
+    | '/agent.json'
     | '/autocad-dwg'
     | '/contact'
     | '/despre'
@@ -287,12 +308,14 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/termeni-si-conditii'
     | '/blog/$slug'
+    | '/well-known/agent.json'
     | '/blog'
   id:
     | '__root__'
     | '/'
     | '/about'
     | '/agent-instructions.txt'
+    | '/agent.json'
     | '/autocad-dwg'
     | '/contact'
     | '/despre'
@@ -313,6 +336,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/termeni-si-conditii'
     | '/blog/$slug'
+    | '/well-known/agent.json'
     | '/blog/'
   fileRoutesById: FileRoutesById
 }
@@ -320,6 +344,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   AgentInstructionsDottxtRoute: typeof AgentInstructionsDottxtRoute
+  AgentDotjsonRoute: typeof AgentDotjsonRoute
   AutocadDwgRoute: typeof AutocadDwgRoute
   ContactRoute: typeof ContactRoute
   DespreRoute: typeof DespreRoute
@@ -340,6 +365,7 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TermeniSiConditiiRoute: typeof TermeniSiConditiiRoute
   BlogSlugRoute: typeof BlogSlugRoute
+  WellKnownAgentDotjsonRoute: typeof WellKnownAgentDotjsonRoute
   BlogIndexRoute: typeof BlogIndexRoute
 }
 
@@ -364,6 +390,13 @@ declare module '@tanstack/react-router' {
       path: '/agent-instructions.txt'
       fullPath: '/agent-instructions.txt'
       preLoaderRoute: typeof AgentInstructionsDottxtRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/agent.json': {
+      id: '/agent.json'
+      path: '/agent.json'
+      fullPath: '/agent.json'
+      preLoaderRoute: typeof AgentDotjsonRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/autocad-dwg': {
@@ -513,6 +546,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/well-known/agent.json': {
+      id: '/well-known/agent.json'
+      path: '/well-known/agent.json'
+      fullPath: '/well-known/agent.json'
+      preLoaderRoute: typeof WellKnownAgentDotjsonRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -520,6 +560,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   AgentInstructionsDottxtRoute: AgentInstructionsDottxtRoute,
+  AgentDotjsonRoute: AgentDotjsonRoute,
   AutocadDwgRoute: AutocadDwgRoute,
   ContactRoute: ContactRoute,
   DespreRoute: DespreRoute,
@@ -540,6 +581,7 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TermeniSiConditiiRoute: TermeniSiConditiiRoute,
   BlogSlugRoute: BlogSlugRoute,
+  WellKnownAgentDotjsonRoute: WellKnownAgentDotjsonRoute,
   BlogIndexRoute: BlogIndexRoute,
 }
 export const routeTree = rootRouteImport

@@ -78,6 +78,7 @@ export const Route = createFileRoute("/")({
           description,
           slogan: site.tagline,
           areaServed: "RO",
+          dateModified: "2026-08-22",
           serviceType: [
             "Modelare Revit MEP",
             "Modelare BIM",
@@ -99,6 +100,7 @@ export const Route = createFileRoute("/")({
           name: site.businessName,
           url: canonicalUrl("/"),
           description,
+          dateModified: "2026-08-22",
           email: hasEmail ? site.email : undefined,
           ...(hasWhatsapp ? { telephone: site.whatsappNumber } : {}),
           contactPoint: {
