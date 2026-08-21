@@ -25,96 +25,87 @@ export function Footer() {
             </p>
           </div>
 
-          <nav className="md:col-span-3" aria-label="Navigație footer">
-            <p className="tech-label text-graphite-foreground/60">Site</p>
-            <ul className="mt-4 space-y-2.5 text-sm">
-              <li>
-                <a href="/#servicii" className="hover:text-primary">
-                  Servicii
-                </a>
-              </li>
-              <li>
-                <Link to="/portofoliu" className="hover:text-primary">
-                  Portofoliu
-                </Link>
-              </li>
-              <li>
-                <Link to="/referinte" className="hover:text-primary">
-                  Referințe
-                </Link>
-              </li>
-              <li>
-                <Link to="/magazin" className="hover:text-primary">
-                  Magazin
-                </Link>
-              </li>
-              <li>
-                <Link to="/blog" className="hover:text-primary">
-                  Jurnal tehnic
-                </Link>
-              </li>
-              <li>
-                <Link to="/despre" className="hover:text-primary">
-                  Despre
-                </Link>
-              </li>
-              <li>
-                <a href="/#proces" className="hover:text-primary">
-                  Proces
-                </a>
-              </li>
-              <li>
-                <a href="/#preturi" className="hover:text-primary">
-                  Prețuri
-                </a>
-              </li>
-              <li>
-                <a href="/#faq" className="hover:text-primary">
-                  FAQ
-                </a>
-              </li>
-              <li>
-                <Link to="/contact" className="hover:text-primary">
-                  Contact
-                </Link>
-              </li>
-            </ul>
-            <p className="tech-label mt-8 text-graphite-foreground/60">Legal</p>
-            <ul className="mt-4 space-y-2.5 text-sm">
-              <li>
-                <Link to="/politica-de-confidentialitate" className="hover:text-primary">
-                  Politica de confidențialitate
-                </Link>
-              </li>
-              <li>
-                <Link to="/politica-cookies" className="hover:text-primary">
-                  Politica de cookies
-                </Link>
-              </li>
-              <li>
-                <Link to="/termeni-si-conditii" className="hover:text-primary">
-                  Termeni și condiții
-                </Link>
-              </li>
-              <li>
-                <Link to="/informatii-legale" className="hover:text-primary">
-                  Informații legale
-                </Link>
-              </li>
-              <li>
-                <button
-                  type="button"
-                  onClick={() => window.dispatchEvent(new Event("nod:open-consent"))}
-                  className="hover:text-primary"
-                >
-                  Preferințe cookies
-                </button>
-              </li>
-            </ul>
+          <nav className="md:col-span-4" aria-label="Navigație footer">
+            <div className="grid grid-cols-2 gap-8">
+              <div>
+                <p className="tech-label text-graphite-foreground/60">Site</p>
+                <ul className="mt-4 space-y-2.5 text-sm">
+                  <li>
+                    <a href="/#servicii" className="hover:text-primary">
+                      Servicii
+                    </a>
+                  </li>
+                  <li>
+                    <Link to="/portofoliu" className="hover:text-primary">
+                      Portofoliu
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/referinte" className="hover:text-primary">
+                      Referințe
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/magazin" className="hover:text-primary">
+                      Magazin
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/blog" className="hover:text-primary">
+                      Jurnal tehnic
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/despre" className="hover:text-primary">
+                      Despre
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/contact" className="hover:text-primary">
+                      Contact
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <p className="tech-label text-graphite-foreground/60">Legal</p>
+                <ul className="mt-4 space-y-2.5 text-sm">
+                  <li>
+                    <Link to="/politica-de-confidentialitate" className="hover:text-primary">
+                      Politica de confidențialitate
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/politica-cookies" className="hover:text-primary">
+                      Politica de cookies
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/termeni-si-conditii" className="hover:text-primary">
+                      Termeni și condiții
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/informatii-legale" className="hover:text-primary">
+                      Informații legale
+                    </Link>
+                  </li>
+                  <li>
+                    <button
+                      type="button"
+                      onClick={() => window.dispatchEvent(new Event("nod:open-consent"))}
+                      className="hover:text-primary"
+                    >
+                      Preferințe cookies
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            </div>
           </nav>
 
           {(hasWhatsapp || hasEmail) && (
-            <div className="md:col-span-4">
+            <div className="md:col-span-3">
               <p className="tech-label text-graphite-foreground/60">Contact</p>
               <ul className="mt-4 space-y-2.5 text-sm">
                 {hasWhatsapp && (

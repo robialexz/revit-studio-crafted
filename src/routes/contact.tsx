@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { MobileCta } from "@/components/site/MobileCta";
+import { Reveal } from "@/components/site/Reveal";
 import { trackConversion } from "@/lib/analytics";
 import {
   site,
@@ -48,25 +49,27 @@ function ContactPage() {
         <section className="relative overflow-hidden border-b border-border-strong">
           <div className="cad-grid-lg pointer-events-none absolute inset-0" aria-hidden="true" />
           <div className="relative mx-auto max-w-[1400px] px-5 py-12 md:px-8 md:py-20">
-            <nav aria-label="Breadcrumb" className="tech-label text-muted-foreground">
-              <Link to="/" className="hover:text-primary">
-                Acasă
-              </Link>
-              <span className="px-2">/</span>
-              <span className="text-foreground">Contact</span>
-            </nav>
-            <h1 className="display-xl mt-8 max-w-4xl text-[2.6rem] sm:text-[3.4rem] lg:text-[4.2rem]">
-              Contact
-            </h1>
-            <p className="mt-7 max-w-2xl text-base leading-relaxed text-foreground/80 md:text-lg">
-              Trimite tema, planurile existente și cerințele proiectului. Primești o estimare cu
-              volumul, termenul și costul, stabilite înainte de începerea lucrării.
-            </p>
+            <Reveal>
+              <nav aria-label="Breadcrumb" className="tech-label text-muted-foreground">
+                <Link to="/" className="hover:text-primary">
+                  Acasă
+                </Link>
+                <span className="px-2">/</span>
+                <span className="text-foreground">Contact</span>
+              </nav>
+              <h1 className="display-xl mt-8 max-w-4xl text-[2.6rem] sm:text-[3.4rem] lg:text-[4.2rem]">
+                Contact
+              </h1>
+              <p className="mt-7 max-w-2xl text-base leading-relaxed text-foreground/80 md:text-lg">
+                Trimite tema, planurile existente și cerințele proiectului. Primești o estimare cu
+                volumul, termenul și costul, stabilite înainte de începerea lucrării.
+              </p>
+            </Reveal>
           </div>
         </section>
 
         <section className="mx-auto max-w-[1400px] px-5 py-14 md:px-8 md:py-20">
-          <div className="grid gap-6 lg:grid-cols-12">
+          <Reveal className="grid gap-6 lg:grid-cols-12">
             <div className="sheet-frame p-6 md:p-8 lg:col-span-7">
               <p className="tech-label text-mep">Canale de contact</p>
               <ul className="mt-6 space-y-4 text-sm md:text-base">
@@ -164,7 +167,7 @@ function ContactPage() {
                 </Link>
               </div>
             </div>
-          </div>
+          </Reveal>
         </section>
       </main>
       <Footer />

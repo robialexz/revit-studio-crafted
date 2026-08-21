@@ -8,7 +8,8 @@ const nav = [
   { label: "Portofoliu", href: "/portofoliu" },
   { label: "Referințe", href: "/referinte" },
   { label: "Magazin", href: "/magazin" },
-  { label: "Proces", href: "/#proces" },
+  { label: "Jurnal", href: "/blog" },
+  { label: "Despre", href: "/despre" },
   { label: "Prețuri", href: "/#preturi" },
   { label: "FAQ", href: "/#faq" },
 ];
@@ -47,7 +48,7 @@ export function Header() {
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-7 lg:flex" aria-label="Navigație principală">
+        <nav className="hidden items-center gap-5 lg:flex" aria-label="Navigație principală">
           {nav.map((item) =>
             item.href.startsWith("/#") ? (
               <a

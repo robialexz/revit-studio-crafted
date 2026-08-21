@@ -275,6 +275,181 @@ export const articles: Article[] = [
       },
     ],
   },
+  {
+    slug: "cum-verifici-un-model-revit-primit",
+    title: "Cum verifici un model Revit primit de la altcineva — checklist de preluare",
+    description:
+      "Ai primit un fișier RVT de la un colaborator și trebuie să continui lucrul? Checklist-ul complet de preluare: ce verifici înainte de a promite termene, care sunt semnele unui model prost construit și cum eviți să moștenești greșelile altora.",
+    date: "2026-08-21",
+    readingTime: 9,
+    tags: ["Revit MEP", "Control calitate", "Preluare proiect"],
+    sections: [
+      {
+        paragraphs: [
+          "Preluarea unui model Revit început de altcineva este una dintre cele mai riscante lucrări din modelare: primești un fișier care arată bine în 3D, dar în interior poate fi construit în zece feluri diferite, cu familii explodate, filtre duplicate și parametri inventați. Timpul de curățare poate depăși timpul de modelare. Acest checklist este exact ordinea în care verific eu un model primit, înainte de a estima orice termen.",
+        ],
+      },
+      {
+        heading: "Pasul 1 — Integritatea fișierului",
+        list: [
+          "Deschide modelul fără a încărca link-uri: dacă lipsește arhitectura, ceri link-urile înainte de orice.",
+          "Verifică dimensiunea fișierului față de conținut: un model de 300 MB pentru o casă ascunde de obicei importuri CAD grele sau familii explode.",
+          "Rulează un audit de fișier (Revit → Audit) la deschidere — semnalează corupții care altfel apar exact înainte de predare.",
+        ],
+      },
+      {
+        heading: "Pasul 2 — Structura modelului",
+        list: [
+          "Browser-ul de proiect: există o logică de organizare a vederilor și sheet-urilor, sau totul e aruncat la rădăcină?",
+          "Familiile: câte sunt „Familii locale” vs. încărcate din bibliotecă? O mulțime de familii locale înseamnă muncă nereutilizabilă.",
+          "Parametrii partajați: există un fișier de parametri partajați predat odată cu modelul? Fără el, orice program (schedules) care îi folosește devine fragil.",
+          "Fazele: modelul are faze setate corect sau totul e „Fază nouă” cu excepții manuale?",
+        ],
+      },
+      {
+        heading: "Pasul 3 — Calitatea modelării MEP",
+        list: [
+          "Sistemele sunt reale (conectate logic) sau traseele sunt doar geometrie fără sistem? Fără sisteme, nu ai liste, nu ai filtre, nu ai control.",
+          "Pantele la canalizare: sunt modelate ca pante reale sau „desenate aproximativ” cu texte puse manual?",
+          "Cotele și etichetele: citesc valori reale din elemente sau sunt text static? Textul static minte la prima modificare.",
+          "Coliziunile existente: rulează o verificare de interferențe înainte de a promite că „doar continui” — moștenești fiecare conflict.",
+        ],
+      },
+      {
+        heading: "Pasul 4 — Ce spui clientului înainte de a începe",
+        paragraphs: [
+          "Dacă modelul pică jumătate din verificări, varianta corectă profesional este să spui asta deschis: „Fișierul primit necesită X ore de curățare înainte de continuare; costul este Y; alternativa este remodelarea porțiunilor problematice”. Promisiunea de a „continua orbește” este exact cum se nasc proiectele care se livrează târziu și prost.",
+          "Acest tip de preluare și reorganizare este o lucrare pe care o fac des — dacă ai un model moștenit, trimite-mi-l și îți spun exact ce am găsit și cât costă să-l aduc în stare de lucru.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "lod-explicat-practic",
+    title: "LOD explicat practic: ce înseamnă LOD 100–400 în instalații",
+    description:
+      "LOD (Level of Development) este cel mai abuzat termen din contractele de modelare. Explicația practică pe un proiect de instalații: ce conține fiecare nivel, ce se cere de fapt într-o ofertă și cum eviți să plătești pentru LOD 350 când primești LOD 200.",
+    date: "2026-08-21",
+    readingTime: 8,
+    tags: ["BIM", "Standarde", "Revit MEP"],
+    sections: [
+      {
+        paragraphs: [
+          "„Vreau modelul la LOD 350” este o cerință care apare în aproape fiecare caiet de sarcini — și care, în practică, rareori înseamnă același lucru pentru ambele părți. LOD (Level of Development) descrie cât de dezvoltat și de fiabil este un element din model, nu cât de detaliat arată. Diferența dintre „dezvoltat” și „arătos” este exact locul unde se pierd banii.",
+        ],
+      },
+      {
+        heading: "Nivelurile, pe un exemplu concret: un ventiloconvector",
+        table: {
+          head: ["Nivel", "Ce conține elementul", "La ce folosește"],
+          rows: [
+            [
+              "LOD 100",
+              "Un simbol sau un volum generic, cu locul aproximativ",
+              "Studii de fezabilitate, concept — doar ca să existe ceva acolo",
+            ],
+            [
+              "LOD 200",
+              "Element cu dimensiuni aproximative, poziție orientativă",
+              "Predimensionare, coordonare grosieră între discipline",
+            ],
+            [
+              "LOD 300",
+              "Geometrie corectă, poziție exactă, sistem conectat, parametri tehnici",
+              "Proiectul care se poate autoriza și executa — nivelul standard al planșelor",
+            ],
+            [
+              "LOD 350",
+              "LOD 300 + conexiunile la trasee verificate, suporturi, spații de mentenanță",
+              "Coordonare finală interdisciplinară, verificarea montajului",
+            ],
+            [
+              "LOD 400",
+              "Tot ce e în 350 + detalii de fabricație și montaj exacte",
+              "Prefabricare, execuție asistată direct din model",
+            ],
+          ],
+        },
+      },
+      {
+        heading: "Unde se pierd banii în practică",
+        paragraphs: [
+          "Problema clasică: se cere LOD 350 în contract, dar livrabilele cerute sunt planșe 2D la scara 1:50. Adică se plătește coordonare de montaj pentru o documentație care nu o folosește. Invers: se cere „doar modelul” la LOD 200, dar modelul trebuie să stea la baza listelor de cantități pentru licitație — liste care au nevoie de LOD 300 ca să fie corecte.",
+          "Regula simplă: nivelul LOD se stabilește pornind de la ce se face cu modelul, nu de la un număr la modă. Un element la LOD 300 corect construit valorează mai mult decât unul „350” care doar are mai multe detalii desenate, dar fără sisteme și parametri.",
+        ],
+      },
+      {
+        heading: "Cum ceri corect într-o ofertă",
+        list: [
+          "Specifică scopul: „modelul servește la X” — restul derivă de acolo.",
+          "Cere nivelul pe discipline, nu global: HVAC la 300 poate coexista cu sanitare la 200 într-o fază timpurie.",
+          "Cere criterii de acceptare: „sisteme conectate, fără coliziuni la verificare, parametri X, Y, Z completați” — măsurabil, nu descriptiv.",
+          "Întreabă explicit ce înseamnă LOD-ul ofertat: dacă răspunsul e vag, prețul va fi vag.",
+        ],
+        note: "În ofertele NOD BIM, nivelul de detaliu este parte din scopul lucrării, stabilit în scris înainte de start — exact ca să nu existe „LOD 350” care înseamnă altceva pentru fiecare.",
+      },
+    ],
+  },
+  {
+    slug: "ce-fisiere-trimiti-pentru-modelare-mep",
+    title: "Ce fișiere să trimiți pentru modelare MEP — ghid pentru arhitecți și beneficiari",
+    description:
+      "Ghidul practic al fișierelor pentru o cerere de modelare sau planșe de instalații: ce se poate face din fiecare format (DWG, PDF, RVT, schițe), ce lipsește cel mai des și cum să trimiți tema ca estimarea să fie corectă din prima.",
+    date: "2026-08-21",
+    readingTime: 7,
+    tags: ["Proces", "Ghid", "Fișiere"],
+    sections: [
+      {
+        paragraphs: [
+          "Jumătate din timpul unei estimări se pierde pe fișiere incomplete. Acest ghid este exact ce cer eu de la un client nou — îl poți folosi ca listă de verificare înainte de a trimite orice cerere de modelare sau planșe de instalații.",
+        ],
+      },
+      {
+        heading: "Ce se poate face din fiecare format",
+        table: {
+          head: ["Format", "Ce primești", "Ce nu primești"],
+          rows: [
+            [
+              "RVT (Revit)",
+              "Model complet editabil: cel mai bun punct de plecare",
+              "Necesită versiune compatibilă; predarea se stabilește contractual",
+            ],
+            [
+              "DWG (AutoCAD)",
+              "Planuri vectoriale, la scară, cu layere",
+              "Fără model 3D; calitatea depinde de organizarea layere-lor",
+            ],
+            [
+              "PDF",
+              "Planuri doar pentru referință/redesenare",
+              "Fără date vectoriale utilizabile direct — totul se redesenază",
+            ],
+            [
+              "Schițe / imagini",
+              "Punct de pornire pentru concept",
+              "Necesită interpretare și clarificări; risc mare de neînțelegeri",
+            ],
+          ],
+        },
+      },
+      {
+        heading: "Cele mai frecvente lipsuri (și de ce contează)",
+        list: [
+          "Arhitectura lipsește: fără planurile de arhitectură, instalațiile se modelează „în gol” — și se refac la prima suprapunere.",
+          "Tema nu spune disciplinele: „vreau instalații” poate însemna 2 sau 6 specialități — diferența de preț e de ordinul 3-5x.",
+          "Fără informații despre echipamente: centrală, ventilație, tablouri — dacă nu există, se lucrează cu ipoteze care se plătesc la revizii.",
+          "Fără termen și scop: planșe pentru autorizație vs. planșe pentru execuție sunt lucrări diferite.",
+        ],
+      },
+      {
+        heading: "Lista completă de trimitere",
+        paragraphs: [
+          "Ca regulă, o cerere completă conține: (1) planurile de arhitectură în DWG sau PDF, la scară, cu toate nivelurile; (2) tema proiectului — ce discipline, ce echipamente, ce norme; (3) fișierele existente în orice format, chiar și vechi — mai bine prea multe decât prea puține; (4) termenul dorit; (5) scopul livrabilelor (autorizație, execuție, predare către alt proiectant).",
+          "Cu aceste cinci lucruri, o estimare corectă durează o zi, nu o săptămână de întrebări. Și da — trimite fișierele direct pe WhatsApp sau prin formularul de estimare; dimensiunea nu e o problemă.",
+        ],
+      },
+    ],
+  },
 ];
 
 export function getArticle(slug: string): Article | undefined {
