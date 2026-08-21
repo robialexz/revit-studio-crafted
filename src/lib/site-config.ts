@@ -28,6 +28,9 @@ export const site = {
   adsConversionLabel: envValue("VITE_GOOGLE_ADS_CONVERSION_LABEL"),
   /** Etichete „imagine demonstrativă" — pune pe false când ai capturi reale. */
   showDemoImageLabels: true,
+  /** Etichete „date demonstrative" pe fișele de referințe — pune pe false
+   *  când dosarul conține doar lucrări reale, cu acordul clienților. */
+  showDemoReferralLabels: false,
 } as const;
 
 const placeholderPattern = /^\[[A-Z0-9_]+\]$/;

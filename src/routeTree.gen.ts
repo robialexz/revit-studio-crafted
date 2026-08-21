@@ -20,6 +20,7 @@ import { Route as ModelareRevitRouteImport } from './routes/modelare-revit'
 import { Route as PoliticaCookiesRouteImport } from './routes/politica-cookies'
 import { Route as PoliticaDeConfidentialitateRouteImport } from './routes/politica-de-confidentialitate'
 import { Route as PortofoliuRouteImport } from './routes/portofoliu'
+import { Route as ReferinteRouteImport } from './routes/referinte'
 import { Route as RevitMepRouteImport } from './routes/revit-mep'
 import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
@@ -81,6 +82,11 @@ const PortofoliuRoute = PortofoliuRouteImport.update({
   path: '/portofoliu',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ReferinteRoute = ReferinteRouteImport.update({
+  id: '/referinte',
+  path: '/referinte',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RevitMepRoute = RevitMepRouteImport.update({
   id: '/revit-mep',
   path: '/revit-mep',
@@ -114,6 +120,7 @@ export interface FileRoutesByFullPath {
   '/politica-cookies': typeof PoliticaCookiesRoute
   '/politica-de-confidentialitate': typeof PoliticaDeConfidentialitateRoute
   '/portofoliu': typeof PortofoliuRoute
+  '/referinte': typeof ReferinteRoute
   '/revit-mep': typeof RevitMepRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -131,6 +138,7 @@ export interface FileRoutesByTo {
   '/politica-cookies': typeof PoliticaCookiesRoute
   '/politica-de-confidentialitate': typeof PoliticaDeConfidentialitateRoute
   '/portofoliu': typeof PortofoliuRoute
+  '/referinte': typeof ReferinteRoute
   '/revit-mep': typeof RevitMepRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -149,6 +157,7 @@ export interface FileRoutesById {
   '/politica-cookies': typeof PoliticaCookiesRoute
   '/politica-de-confidentialitate': typeof PoliticaDeConfidentialitateRoute
   '/portofoliu': typeof PortofoliuRoute
+  '/referinte': typeof ReferinteRoute
   '/revit-mep': typeof RevitMepRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -168,6 +177,7 @@ export interface FileRouteTypes {
     | '/politica-cookies'
     | '/politica-de-confidentialitate'
     | '/portofoliu'
+    | '/referinte'
     | '/revit-mep'
     | '/robots.txt'
     | '/sitemap.xml'
@@ -185,6 +195,7 @@ export interface FileRouteTypes {
     | '/politica-cookies'
     | '/politica-de-confidentialitate'
     | '/portofoliu'
+    | '/referinte'
     | '/revit-mep'
     | '/robots.txt'
     | '/sitemap.xml'
@@ -202,6 +213,7 @@ export interface FileRouteTypes {
     | '/politica-cookies'
     | '/politica-de-confidentialitate'
     | '/portofoliu'
+    | '/referinte'
     | '/revit-mep'
     | '/robots.txt'
     | '/sitemap.xml'
@@ -220,6 +232,7 @@ export interface RootRouteChildren {
   PoliticaCookiesRoute: typeof PoliticaCookiesRoute
   PoliticaDeConfidentialitateRoute: typeof PoliticaDeConfidentialitateRoute
   PortofoliuRoute: typeof PortofoliuRoute
+  ReferinteRoute: typeof ReferinteRoute
   RevitMepRoute: typeof RevitMepRoute
   RobotsDottxtRoute: typeof RobotsDottxtRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
@@ -305,6 +318,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PortofoliuRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/referinte': {
+      id: '/referinte'
+      path: '/referinte'
+      fullPath: '/referinte'
+      preLoaderRoute: typeof ReferinteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/revit-mep': {
       id: '/revit-mep'
       path: '/revit-mep'
@@ -348,6 +368,7 @@ const rootRouteChildren: RootRouteChildren = {
   PoliticaCookiesRoute: PoliticaCookiesRoute,
   PoliticaDeConfidentialitateRoute: PoliticaDeConfidentialitateRoute,
   PortofoliuRoute: PortofoliuRoute,
+  ReferinteRoute: ReferinteRoute,
   RevitMepRoute: RevitMepRoute,
   RobotsDottxtRoute: RobotsDottxtRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,

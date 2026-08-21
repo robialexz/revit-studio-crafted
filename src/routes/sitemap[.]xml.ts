@@ -24,6 +24,7 @@ const entries: SitemapEntry[] = [
   { path: "/instalatii-electrice", lastmod: LAST_MODIFIED, changefreq: "monthly", priority: "0.8" },
   { path: "/autocad-dwg", lastmod: LAST_MODIFIED, changefreq: "monthly", priority: "0.7" },
   { path: "/portofoliu", lastmod: LAST_MODIFIED, changefreq: "monthly", priority: "0.8" },
+  { path: "/referinte", lastmod: LAST_MODIFIED, changefreq: "monthly", priority: "0.7" },
   { path: "/contact", lastmod: LAST_MODIFIED, changefreq: "monthly", priority: "0.8" },
   {
     path: "/politica-de-confidentialitate",

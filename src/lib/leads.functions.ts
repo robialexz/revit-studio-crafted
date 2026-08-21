@@ -133,6 +133,65 @@ async function notifyAndRecord(deps: LeadDeps, lead: LeadRecordForNotification):
   await recordNotificationStatus(deps.supabase, lead.id, outcome);
 }
 
+type InsertOutcome =
+  | { row: LeadRecordForNotification }
+  | { uniqueViolation: boolean }
+  | { failed: LeadErrorLike | null }
+  | { emailFallback: true };
+
+/**
+ * Încearcă inserarea în Supabase; dacă baza este indisponibilă (rețea,
+ * proiect pauzat), trimite lead-ul direct pe email ca să nu se piardă.
+ * Aruncă doar când nici emailul nu a putut fi trimis.
+ */
+async function tryInsertLead(
+  deps: LeadDeps,
+  data: LeadInput,
+  payload: Record<string, unknown>,
+): Promise<InsertOutcome> {
+  try {
+    return await insertLead(deps.supabase, payload);
+  } catch (error) {
+    console.error("[leads] Insert a eșuat (Supabase indisponibil?):", error);
+    return insertWithEmailFallback(deps, data);
+  }
+}
+
+/** Returnează rezultatul inserării eșuate, sau succes prin email fallback. */
+async function insertWithEmailFallback(deps: LeadDeps, data: LeadInput): Promise<InsertOutcome> {
+  const outcome = await deps.sendNotification(emailFallbackRecord(data));
+  if (outcome === "sent") {
+    return { emailFallback: true };
+  }
+  throw new Error(SAFE_USER_ERROR);
+}
+
+/** Record de notificare construit direct din datele formularului — folosit
+ *  când Supabase este indisponibil, ca să nu pierdem lead-ul. */
+function emailFallbackRecord(data: LeadInput): LeadRecordForNotification {
+  return {
+    id: data.submission_id,
+    submission_id: data.submission_id,
+    created_at: new Date().toISOString(),
+    name: data.name,
+    phone: data.phone,
+    email: data.email || null,
+    project_type: data.project_type || null,
+    available_files: data.available_files ?? [],
+    approximate_sheet_count: data.approximate_sheet_count || null,
+    deadline: data.deadline || null,
+    description: data.description || null,
+    page_path: data.page_path || null,
+    referrer: data.referrer || null,
+    utm_source: data.utm_source || null,
+    utm_medium: data.utm_medium || null,
+    utm_campaign: data.utm_campaign || null,
+    utm_content: data.utm_content || null,
+    utm_term: data.utm_term || null,
+    notification_status: "email_fallback",
+  };
+}
+
 /**
  * Logica centrală de trimitere lead — independentă de framework, testabilă.
  *
@@ -146,6 +205,9 @@ async function notifyAndRecord(deps: LeadDeps, lead: LeadRecordForNotification):
  * încercare de notificare Resend, cu cheie de idempotență stabilă; rezultatul
  * se înregistrează în notification_status. Eșecul notificării nu pierde
  * lead-ul și nu schimbă răspunsul de succes al vizitatorului.
+ *
+ * Reziliență: dacă Supabase este indisponibil (proiect pauzat, rețea),
+ * lead-ul este trimis direct pe email (fallback) — nu se pierde niciodată.
  */
 export async function handleSubmitLead(data: LeadInput, deps: LeadDeps): Promise<SubmitLeadResult> {
   // Câmp honeypot ascuns vizitatorilor: bot-ii îl completează, oamenii nu.
@@ -174,7 +236,7 @@ export async function handleSubmitLead(data: LeadInput, deps: LeadDeps): Promise
     notification_status: "pending",
   };
 
-  const inserted = await insertLead(deps.supabase, payload);
+  const inserted = await tryInsertLead(deps, data, payload);
 
   if ("row" in inserted) {
     await notifyAndRecord(deps, inserted.row);
@@ -193,6 +255,11 @@ export async function handleSubmitLead(data: LeadInput, deps: LeadDeps): Promise
     }
     console.error("[leads] Conflict de idempotență fără rând găsit:", data.submission_id);
     throw new Error(SAFE_USER_ERROR);
+  }
+
+  if ("emailFallback" in inserted) {
+    // Supabase indisponibil: lead-ul a plecat direct pe email.
+    return { id: `email:${data.submission_id}`, duplicate: false };
   }
 
   // Fallback: migrarea nu e aplicată (coloanele noi lipsesc) — salvăm fără
@@ -217,8 +284,10 @@ export async function handleSubmitLead(data: LeadInput, deps: LeadDeps): Promise
     throw new Error(SAFE_USER_ERROR);
   }
 
-  console.error("[leads] Insert eșuat:", JSON.stringify(inserted));
-  throw new Error(SAFE_USER_ERROR);
+  console.error("[leads] Insert eșuat (Supabase indisponibil?):", JSON.stringify(inserted));
+  // Aruncă SAFE_USER_ERROR dacă nici emailul nu a putut fi trimis.
+  await insertWithEmailFallback(deps, data);
+  return { id: `email:${data.submission_id}`, duplicate: false };
 }
 
 export const submitLead = createServerFn({ method: "POST" })

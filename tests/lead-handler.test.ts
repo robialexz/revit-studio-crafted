@@ -302,9 +302,7 @@ describe("handleSubmitLead — notificare și retry", () => {
     expect(store.count()).toBe(1);
   });
 
-  test("eroare DB neașteptată => eroare sigură pentru utilizator, fără detalii", async () => {
-    const store = createMemorySupabase();
-    void store;
+  test("eroare DB neașteptată + email funcțional => succes prin fallback email", async () => {
     const broken: LeadSupabaseLike = {
       from: () => ({
         insert: () => ({
@@ -316,11 +314,70 @@ describe("handleSubmitLead — notificare și retry", () => {
         update: () => ({ eq: async () => ({ error: null }) }),
       }),
     };
-    const deps = { supabase: broken, sendNotification: async () => "sent" as const };
+    const sentLeads: string[] = [];
+    const deps = {
+      supabase: broken,
+      sendNotification: async (lead: LeadRecordForNotification) => {
+        sentLeads.push(lead.id);
+        return "sent" as const;
+      },
+    };
+    const input = baseLead({ submission_id: "eeee5555-eeee-4eee-8eee-eeeeeeeeeeee" });
+
+    const result = await handleSubmitLead(input, deps);
+
+    expect(result.duplicate).toBe(false);
+    expect(result.id).toBe("email:eeee5555-eeee-4eee-8eee-eeeeeeeeeeee");
+    expect(sentLeads).toHaveLength(1);
+  });
+
+  test("eroare DB neașteptată + email eșuat => eroare sigură pentru utilizator", async () => {
+    const broken: LeadSupabaseLike = {
+      from: () => ({
+        insert: () => ({
+          select: () => ({
+            single: async () => ({ data: null, error: { code: "PGRST500", message: "boom" } }),
+          }),
+        }),
+        select: () => ({ eq: () => ({ single: async () => ({ data: null, error: null }) }) }),
+        update: () => ({ eq: async () => ({ error: null }) }),
+      }),
+    };
+    const deps = {
+      supabase: broken,
+      sendNotification: async () => "failed" as const,
+    };
 
     await expect(handleSubmitLead(baseLead(), deps)).rejects.toThrow(
       "Cererea nu a putut fi salvată. Încearcă din nou.",
     );
+  });
+
+  test("Supabase indisponibil (insert aruncă) + email funcțional => succes prin fallback", async () => {
+    const down: LeadSupabaseLike = {
+      from: () => ({
+        insert: () => {
+          throw new Error("fetch failed");
+        },
+        select: () => ({ eq: () => ({ single: async () => ({ data: null, error: null }) }) }),
+        update: () => ({ eq: async () => ({ error: null }) }),
+      }),
+    };
+    const sentLeads: string[] = [];
+    const deps = {
+      supabase: down,
+      sendNotification: async (lead: LeadRecordForNotification) => {
+        sentLeads.push(lead.id);
+        return "sent" as const;
+      },
+    };
+    const input = baseLead({ submission_id: "dddd2222-dddd-4ddd-8ddd-dddddddddddd" });
+
+    const result = await handleSubmitLead(input, deps);
+
+    expect(result.duplicate).toBe(false);
+    expect(sentLeads).toHaveLength(1);
+    expect(sentLeads[0]).toBe(input.submission_id);
   });
 
   test("migrarea neaplicată (42703) => salvăm degradat fără câmpurile noi, fără eroare", async () => {

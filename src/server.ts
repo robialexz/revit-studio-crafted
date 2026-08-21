@@ -161,4 +161,26 @@ export default {
       );
     }
   },
+
+  /**
+   * Keep-alive zilnic pentru Supabase (free tier): proiectele fără trafic
+   * sunt puse pe pauză automat după o săptămână; un ping de activitate
+   * previne pauzarea. Cron: zilnic la 07:00 UTC (10:00 RO), via wrangler.jsonc.
+   */
+  async scheduled(_event: unknown, _env: unknown, _ctx: unknown) {
+    const url = process.env["SUPABASE_URL"];
+    const key = process.env["SUPABASE_SERVICE_ROLE_KEY"];
+    if (!url || !key) {
+      console.warn("[keepalive] Supabase env lipsă — ping sărit.");
+      return;
+    }
+    try {
+      const res = await fetch(`${url}/rest/v1/leads?select=id&limit=1`, {
+        headers: { apikey: key, Authorization: `Bearer ${key}` },
+      });
+      console.log("[keepalive] Supabase ping:", res.status);
+    } catch (error) {
+      console.error("[keepalive] Supabase ping eșuat:", error);
+    }
+  },
 };

@@ -6,6 +6,7 @@ import { site } from "@/lib/site-config";
 const nav = [
   { label: "Servicii", href: "/#servicii" },
   { label: "Portofoliu", href: "/portofoliu" },
+  { label: "Referințe", href: "/referinte" },
   { label: "Proces", href: "/#proces" },
   { label: "Prețuri", href: "/#preturi" },
   { label: "FAQ", href: "/#faq" },

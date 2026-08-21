@@ -1,11 +1,12 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { MobileCta } from "@/components/site/MobileCta";
 import { Reveal } from "@/components/site/Reveal";
-import { hasWhatsapp, whatsappLink, defaultWhatsappMessage, canonicalUrl } from "@/lib/site-config";
+import { CtaSection } from "@/components/site/CtaSection";
+import { canonicalUrl } from "@/lib/site-config";
 import hero3d from "@/assets/hero-3d.webp";
 import hero2d from "@/assets/hero-2d.webp";
 import projHvac from "@/assets/proj-hvac.webp";
@@ -284,36 +285,11 @@ function Portofoliu() {
           </div>
         </section>
 
-        <section className="border-t border-border-strong bg-graphite text-graphite-foreground">
-          <div className="mx-auto max-w-[1400px] px-5 py-20 md:px-8 md:py-24">
-            <Reveal>
-              <h2 className="display-xl text-4xl md:text-6xl">Ai un proiect de terminat?</h2>
-              <p className="mt-6 max-w-xl text-base leading-relaxed text-graphite-foreground/75">
-                Trimite planurile și cerințele, iar eu îți pot spune ce presupune lucrarea, termenul
-                și costul.
-              </p>
-              <div className="mt-10 flex flex-wrap gap-3">
-                <Link
-                  to="/"
-                  hash="estimare"
-                  className="tech-label border border-primary bg-primary px-6 py-4 text-primary-foreground transition-opacity hover:opacity-90"
-                >
-                  Solicită o estimare
-                </Link>
-                {hasWhatsapp && (
-                  <a
-                    href={whatsappLink(defaultWhatsappMessage) || undefined}
-                    target="_blank"
-                    rel="noreferrer noopener"
-                    className="tech-label border border-graphite-foreground/40 px-6 py-4 transition-colors hover:bg-graphite-foreground hover:text-graphite"
-                  >
-                    Trimite proiectul pe WhatsApp
-                  </a>
-                )}
-              </div>
-            </Reveal>
-          </div>
-        </section>
+        <CtaSection
+          title="Ai un proiect de terminat?"
+          description="Trimite planurile și cerințele, iar eu îți pot spune ce presupune lucrarea, termenul și costul."
+          source="portofoliu"
+        />
       </main>
       <Footer />
       <MobileCta />
