@@ -4,6 +4,9 @@ import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { QuoteForm } from "@/components/site/QuoteForm";
 import { MobileCta } from "@/components/site/MobileCta";
+import { Reveal } from "@/components/site/Reveal";
+import { Ticker } from "@/components/site/Ticker";
+import { Typewriter } from "@/components/site/Typewriter";
 import {
   site,
   disclaimer,
@@ -95,8 +98,6 @@ export const Route = createFileRoute("/")({
   }),
   component: Home,
 });
-
-const capabilities = ["Revit MEP", "BIM 3D", "HVAC", "Termice", "Electrice", "RVT", "DWG", "PDF"];
 
 /** Linkuri interne crawlabile de la blocurile de servicii către paginile dedicate. */
 const serviceHref: Record<string, ServicePath | undefined> = {
@@ -311,9 +312,9 @@ function Home() {
         <section className="relative overflow-hidden border-b border-border-strong">
           <div className="cad-grid-lg pointer-events-none absolute inset-0" aria-hidden="true" />
           <div className="relative mx-auto grid max-w-[1400px] gap-10 px-5 py-14 md:px-8 md:py-20 lg:grid-cols-12 lg:gap-12 lg:py-24">
-            <div className="lg:col-span-5">
+            <Reveal className="lg:col-span-5">
               <p className="tech-label text-primary">
-                Revit MEP · Modelare BIM · HVAC · Termice · Electrice
+                Revit MEP · Modelare BIM · <Typewriter words={["HVAC", "Termice", "Electrice"]} />
               </p>
               <h1 className="display-xl mt-6 text-[3.1rem] sm:text-[4rem] lg:text-[4.6rem] xl:text-[5.4rem]">
                 Modelare
@@ -366,10 +367,10 @@ function Home() {
                   <dd className="tech-label mt-1 text-foreground">RVT · DWG · PDF</dd>
                 </div>
               </dl>
-            </div>
+            </Reveal>
 
             {/* Compoziție 3D + 2D */}
-            <div className="lg:col-span-7">
+            <Reveal delay={120} className="lg:col-span-7">
               <figure className="relative">
                 <div className="sheet-frame p-2 md:p-3">
                   <div className="flex items-center justify-between border-b border-border px-2 pb-2">
@@ -419,99 +420,100 @@ function Home() {
                   </div>
                 </div>
               </figure>
-            </div>
+            </Reveal>
           </div>
         </section>
 
-        {/* CAPABILITY STRIP */}
-        <section aria-label="Capabilități" className="border-b border-border-strong bg-sheet">
-          <div className="mx-auto flex max-w-[1400px] flex-wrap items-center gap-x-8 gap-y-3 px-5 py-4 md:px-8">
-            {capabilities.map((c, i) => (
-              <span key={c} className="tech-label flex items-center gap-8 text-foreground/75">
-                {c}
-                {i < capabilities.length - 1 && (
-                  <span className="hidden h-3 w-px bg-border-strong sm:block" aria-hidden="true" />
-                )}
-              </span>
-            ))}
-          </div>
-        </section>
+        {/* CAPABILITY STRIP — ticker infinit */}
+        <Ticker />
 
         {/* PORTOFOLIU PREVIEW */}
         <section id="portofoliu" className="mx-auto max-w-[1400px] px-5 py-16 md:px-8 md:py-24">
-          <SectionLabel index="01">Portofoliu</SectionLabel>
-          <div className="mt-8 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-            <h2 className="max-w-2xl text-4xl uppercase md:text-6xl">
-              Lucrări de modelare și documentație tehnică
-            </h2>
-            <Link
-              to="/portofoliu"
-              className="tech-label inline-flex items-center gap-2 border-b border-foreground pb-1 transition-colors hover:border-primary hover:text-primary"
-            >
-              Vezi portofoliul complet <ArrowUpRight size={14} />
-            </Link>
-          </div>
+          <Reveal>
+            <SectionLabel index="01">Portofoliu</SectionLabel>
+            <div className="mt-8 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+              <h2 className="max-w-2xl text-4xl uppercase md:text-6xl">
+                Lucrări de modelare și documentație tehnică
+              </h2>
+              <Link
+                to="/portofoliu"
+                className="tech-label inline-flex items-center gap-2 border-b border-foreground pb-1 transition-colors hover:border-primary hover:text-primary"
+              >
+                Vezi portofoliul complet <ArrowUpRight size={14} />
+              </Link>
+            </div>
+          </Reveal>
 
           <div className="mt-12 grid gap-4 lg:grid-cols-12">
-            <figure className="group relative overflow-hidden border border-border-strong bg-sheet lg:col-span-8">
-              <img
-                src={projHvac}
-                alt="Planșă tehnică de instalații HVAC cu trasee de tubulatură, grile și legendă"
-                width={1600}
-                height={1008}
-                loading="lazy"
-                className="w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
-              />
-              <figcaption className="flex flex-wrap items-center justify-between gap-2 border-t border-border px-4 py-3">
-                <span className="tech-label">HVAC · Plan nivel</span>
-                <span className="tech-label text-muted-foreground">Software: Revit MEP</span>
-              </figcaption>
-            </figure>
+            <Reveal className="lg:col-span-8">
+              <figure className="group relative h-full overflow-hidden border border-border-strong bg-sheet">
+                <img
+                  src={projHvac}
+                  alt="Planșă tehnică de instalații HVAC cu trasee de tubulatură, grile și legendă"
+                  width={1600}
+                  height={1008}
+                  loading="lazy"
+                  className="w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+                />
+                <figcaption className="flex flex-wrap items-center justify-between gap-2 border-t border-border px-4 py-3">
+                  <span className="tech-label">HVAC · Plan nivel</span>
+                  <span className="tech-label text-muted-foreground">Software: Revit MEP</span>
+                </figcaption>
+              </figure>
+            </Reveal>
 
-            <figure className="group relative overflow-hidden border border-border-strong bg-graphite lg:col-span-4">
-              <img
-                src={projSectiune}
-                alt="Secțiune 3D printr-un model Revit MEP cu tubulaturi, conducte și susțineri"
-                width={1200}
-                height={1408}
-                loading="lazy"
-                className="h-72 w-full object-cover transition-transform duration-500 group-hover:scale-[1.02] lg:h-[calc(100%-3rem)]"
-              />
-              <figcaption className="flex items-center justify-between border-t border-graphite-foreground/15 px-4 py-3 text-graphite-foreground">
-                <span className="tech-label">Model BIM · Secțiune</span>
-                <span className="tech-label text-graphite-foreground/50">3D</span>
-              </figcaption>
-            </figure>
+            <Reveal delay={80} className="lg:col-span-4">
+              <figure className="group relative h-full overflow-hidden border border-border-strong bg-graphite">
+                <img
+                  src={projSectiune}
+                  alt="Secțiune 3D printr-un model Revit MEP cu tubulaturi, conducte și susțineri"
+                  width={1200}
+                  height={1408}
+                  loading="lazy"
+                  className="h-72 w-full object-cover transition-transform duration-500 group-hover:scale-[1.02] lg:h-[calc(100%-3rem)]"
+                />
+                <figcaption className="flex items-center justify-between border-t border-graphite-foreground/15 px-4 py-3 text-graphite-foreground">
+                  <span className="tech-label">Model BIM · Secțiune</span>
+                  <span className="tech-label text-graphite-foreground/50">3D</span>
+                </figcaption>
+              </figure>
+            </Reveal>
 
-            <figure className="group overflow-hidden border border-border-strong bg-sheet lg:col-span-5">
-              <img
-                src={projTermice}
-                alt="Plan de instalații termice cu trasee de conducte, radiatoare și distribuitoare"
-                width={1200}
-                height={912}
-                loading="lazy"
-                className="h-64 w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
-              />
-              <figcaption className="flex items-center justify-between border-t border-border px-4 py-3">
-                <span className="tech-label">Termice · Plan</span>
-                <span className="tech-label text-muted-foreground">Livrabil: PDF</span>
-              </figcaption>
-            </figure>
+            <Reveal delay={160} className="lg:col-span-5">
+              <figure className="group h-full overflow-hidden border border-border-strong bg-sheet">
+                <img
+                  src={projTermice}
+                  alt="Plan de instalații termice cu trasee de conducte, radiatoare și distribuitoare"
+                  width={1200}
+                  height={912}
+                  loading="lazy"
+                  className="h-64 w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+                />
+                <figcaption className="flex items-center justify-between border-t border-border px-4 py-3">
+                  <span className="tech-label">Termice · Plan</span>
+                  <span className="tech-label text-muted-foreground">Livrabil: PDF</span>
+                </figcaption>
+              </figure>
+            </Reveal>
 
-            <figure className="group overflow-hidden border border-border-strong bg-sheet lg:col-span-7">
-              <img
-                src={projSheet}
-                alt="Sheet tehnic cu mai multe vederi, secțiuni, legende și indicator"
-                width={1600}
-                height={1104}
-                loading="lazy"
-                className="h-64 w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
-              />
-              <figcaption className="flex items-center justify-between border-t border-border px-4 py-3">
-                <span className="tech-label">Sheet · Organizare planșe</span>
-                <span className="tech-label text-muted-foreground">Livrabil: RVT · DWG · PDF</span>
-              </figcaption>
-            </figure>
+            <Reveal delay={240} className="lg:col-span-7">
+              <figure className="group h-full overflow-hidden border border-border-strong bg-sheet">
+                <img
+                  src={projSheet}
+                  alt="Sheet tehnic cu mai multe vederi, secțiuni, legende și indicator"
+                  width={1600}
+                  height={1104}
+                  loading="lazy"
+                  className="h-64 w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+                />
+                <figcaption className="flex items-center justify-between border-t border-border px-4 py-3">
+                  <span className="tech-label">Sheet · Organizare planșe</span>
+                  <span className="tech-label text-muted-foreground">
+                    Livrabil: RVT · DWG · PDF
+                  </span>
+                </figcaption>
+              </figure>
+            </Reveal>
           </div>
           <p className="tech-label mt-6 text-muted-foreground">
             Imagini dintr-un proiect demonstrativ propriu.
@@ -521,12 +523,17 @@ function Home() {
         {/* SERVICII */}
         <section id="servicii" className="border-y border-border-strong bg-sheet">
           <div className="mx-auto max-w-[1400px] px-5 py-16 md:px-8 md:py-24">
-            <SectionLabel index="02">Servicii</SectionLabel>
-            <h2 className="mt-8 max-w-3xl text-4xl uppercase md:text-6xl">
-              Revit MEP în centru. Restul, complementar.
-            </h2>
+            <Reveal>
+              <SectionLabel index="02">Servicii</SectionLabel>
+              <h2 className="mt-8 max-w-3xl text-4xl uppercase md:text-6xl">
+                Revit MEP în centru. Restul, complementar.
+              </h2>
+            </Reveal>
 
-            <div className="mt-12 grid gap-px bg-border-strong md:grid-cols-2 lg:grid-cols-3">
+            <Reveal
+              delay={80}
+              className="mt-12 grid gap-px bg-border-strong md:grid-cols-2 lg:grid-cols-3"
+            >
               {services.map((s) => {
                 const Icon = s.icon;
                 const to = serviceHref[s.title];
@@ -594,7 +601,7 @@ function Home() {
                   </article>
                 );
               })}
-            </div>
+            </Reveal>
             <p className="mt-8 max-w-3xl text-xs leading-relaxed text-muted-foreground">
               {disclaimer}
             </p>
@@ -603,8 +610,10 @@ function Home() {
 
         {/* DE CE REVIT / BIM */}
         <section className="mx-auto max-w-[1400px] px-5 py-16 md:px-8 md:py-24">
-          <SectionLabel index="03">De ce Revit / BIM</SectionLabel>
-          <div className="mt-8 grid gap-10 lg:grid-cols-12">
+          <Reveal>
+            <SectionLabel index="03">De ce Revit / BIM</SectionLabel>
+          </Reveal>
+          <Reveal delay={80} className="mt-8 grid gap-10 lg:grid-cols-12">
             <h2 className="text-4xl uppercase md:text-5xl lg:col-span-5">
               Un singur model.
               <br />
@@ -632,7 +641,7 @@ function Home() {
                 </div>
               ))}
             </div>
-          </div>
+          </Reveal>
         </section>
 
         {/* PROCES */}
@@ -646,34 +655,40 @@ function Home() {
               aria-hidden="true"
             />
             <div className="relative">
-              <div className="flex items-baseline gap-4">
-                <span className="tech-label text-accent">04</span>
-                <span className="tech-label text-graphite-foreground/50">Proces</span>
-                <span className="h-px flex-1 bg-graphite-foreground/20" />
-              </div>
-              <h2 className="mt-8 max-w-2xl text-4xl uppercase md:text-6xl">
-                De la fișierele tale la planșe gata de predare
-              </h2>
-              <ol className="mt-12 grid gap-px bg-graphite-foreground/15 md:grid-cols-2 lg:grid-cols-4">
-                {process.map((p) => (
-                  <li key={p.n} className="bg-graphite p-6 md:p-8">
-                    <span className="tech-label text-accent">{p.n}</span>
-                    <h3 className="mt-5 text-2xl uppercase">{p.title}</h3>
-                    <p className="mt-3 text-sm leading-relaxed text-graphite-foreground/75">
-                      {p.body}
-                    </p>
-                    <p className="tech-label mt-6 text-graphite-foreground/60">{p.meta}</p>
-                  </li>
-                ))}
-              </ol>
+              <Reveal>
+                <div className="flex items-baseline gap-4">
+                  <span className="tech-label text-accent">04</span>
+                  <span className="tech-label text-graphite-foreground/50">Proces</span>
+                  <span className="h-px flex-1 bg-graphite-foreground/20" />
+                </div>
+                <h2 className="mt-8 max-w-2xl text-4xl uppercase md:text-6xl">
+                  De la fișierele tale la planșe gata de predare
+                </h2>
+              </Reveal>
+              <Reveal delay={80}>
+                <ol className="mt-12 grid gap-px bg-graphite-foreground/15 md:grid-cols-2 lg:grid-cols-4">
+                  {process.map((p) => (
+                    <li key={p.n} className="bg-graphite p-6 md:p-8">
+                      <span className="tech-label text-accent">{p.n}</span>
+                      <h3 className="mt-5 text-2xl uppercase">{p.title}</h3>
+                      <p className="mt-3 text-sm leading-relaxed text-graphite-foreground/75">
+                        {p.body}
+                      </p>
+                      <p className="tech-label mt-6 text-graphite-foreground/60">{p.meta}</p>
+                    </li>
+                  ))}
+                </ol>
+              </Reveal>
             </div>
           </div>
         </section>
 
         {/* LIVRABILE */}
         <section className="mx-auto max-w-[1400px] px-5 py-16 md:px-8 md:py-24">
-          <SectionLabel index="05">Livrabile</SectionLabel>
-          <div className="mt-8 grid gap-10 lg:grid-cols-12">
+          <Reveal>
+            <SectionLabel index="05">Livrabile</SectionLabel>
+          </Reveal>
+          <Reveal delay={80} className="mt-8 grid gap-10 lg:grid-cols-12">
             <div className="lg:col-span-6">
               <h2 className="text-4xl uppercase md:text-5xl">Ce primești la final</h2>
               <ul className="mt-8 grid grid-cols-1 gap-px bg-border-strong sm:grid-cols-2">
@@ -706,14 +721,16 @@ function Home() {
                 </p>
               </div>
             </div>
-          </div>
+          </Reveal>
         </section>
 
         {/* PREȚURI */}
         <section id="preturi" className="border-y border-border-strong bg-sheet">
           <div className="mx-auto max-w-[1400px] px-5 py-16 md:px-8 md:py-24">
-            <SectionLabel index="06">Prețuri</SectionLabel>
-            <div className="mt-8 grid gap-10 lg:grid-cols-12">
+            <Reveal>
+              <SectionLabel index="06">Prețuri</SectionLabel>
+            </Reveal>
+            <Reveal delay={80} className="mt-8 grid gap-10 lg:grid-cols-12">
               <div className="lg:col-span-4">
                 <h2 className="text-4xl uppercase md:text-5xl">Estimare orientativă</h2>
                 <p className="mt-5 text-sm leading-relaxed text-muted-foreground">
@@ -748,15 +765,20 @@ function Home() {
                   </div>
                 ))}
               </dl>
-            </div>
+            </Reveal>
           </div>
         </section>
 
         {/* PENTRU CINE LUCREZ */}
         <section className="mx-auto max-w-[1400px] px-5 py-16 md:px-8 md:py-24">
-          <SectionLabel index="07">Clienți</SectionLabel>
-          <h2 className="mt-8 text-4xl uppercase md:text-6xl">Pentru cine lucrez</h2>
-          <div className="mt-12 grid gap-px bg-border-strong md:grid-cols-2 lg:grid-cols-4">
+          <Reveal>
+            <SectionLabel index="07">Clienți</SectionLabel>
+            <h2 className="mt-8 text-4xl uppercase md:text-6xl">Pentru cine lucrez</h2>
+          </Reveal>
+          <Reveal
+            delay={80}
+            className="mt-12 grid gap-px bg-border-strong md:grid-cols-2 lg:grid-cols-4"
+          >
             {[
               [
                 "Proiectanți / birouri",
@@ -777,14 +799,16 @@ function Home() {
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{d}</p>
               </div>
             ))}
-          </div>
+          </Reveal>
         </section>
 
         {/* FAQ */}
         <section id="faq" className="border-y border-border-strong bg-sheet">
           <div className="mx-auto max-w-[1400px] px-5 py-16 md:px-8 md:py-24">
-            <SectionLabel index="08">Întrebări frecvente</SectionLabel>
-            <div className="mt-8 grid gap-10 lg:grid-cols-12">
+            <Reveal>
+              <SectionLabel index="08">Întrebări frecvente</SectionLabel>
+            </Reveal>
+            <Reveal delay={80} className="mt-8 grid gap-10 lg:grid-cols-12">
               <h2 className="text-4xl uppercase md:text-5xl lg:col-span-4">
                 Întrebări
                 <br />
@@ -806,14 +830,16 @@ function Home() {
                   </details>
                 ))}
               </div>
-            </div>
+            </Reveal>
           </div>
         </section>
 
         {/* ESTIMARE / WHATSAPP */}
         <section id="estimare" className="mx-auto max-w-[1400px] px-5 py-16 md:px-8 md:py-24">
-          <SectionLabel index="09">Estimare</SectionLabel>
-          <div className="mt-8 grid gap-10 lg:grid-cols-12">
+          <Reveal>
+            <SectionLabel index="09">Estimare</SectionLabel>
+          </Reveal>
+          <Reveal delay={80} className="mt-8 grid gap-10 lg:grid-cols-12">
             <div className="lg:col-span-5">
               <h2 className="text-4xl uppercase md:text-5xl">Solicită o estimare</h2>
               <p className="mt-5 max-w-md text-sm leading-relaxed text-muted-foreground">
@@ -849,7 +875,7 @@ function Home() {
             <div className="lg:col-span-7">
               <QuoteForm />
             </div>
-          </div>
+          </Reveal>
         </section>
 
         {/* CTA FINAL */}
@@ -860,33 +886,35 @@ function Home() {
               aria-hidden="true"
             />
             <div className="relative max-w-3xl">
-              <h2 className="display-xl text-5xl md:text-7xl">Ai un proiect de terminat?</h2>
-              <p className="mt-6 max-w-xl text-base leading-relaxed text-graphite-foreground/75">
-                Trimite planurile și cerințele, iar eu îți pot spune ce presupune lucrarea, termenul
-                și costul.
-              </p>
-              <div className="mt-10 flex flex-wrap gap-3">
-                <a
-                  href="#estimare"
-                  className="tech-label border border-primary bg-primary px-6 py-4 text-primary-foreground transition-opacity hover:opacity-90"
-                >
-                  Solicită o estimare
-                </a>
-                {hasWhatsapp && (
+              <Reveal>
+                <h2 className="display-xl text-5xl md:text-7xl">Ai un proiect de terminat?</h2>
+                <p className="mt-6 max-w-xl text-base leading-relaxed text-graphite-foreground/75">
+                  Trimite planurile și cerințele, iar eu îți pot spune ce presupune lucrarea,
+                  termenul și costul.
+                </p>
+                <div className="mt-10 flex flex-wrap gap-3">
                   <a
-                    href={waHref || undefined}
-                    target="_blank"
-                    rel="noreferrer noopener"
-                    onClick={() => {
-                      track("whatsapp_click", { source: "homepage" });
-                      trackConversion("whatsapp_click", { source: "homepage" });
-                    }}
-                    className="tech-label border border-graphite-foreground/40 px-6 py-4 transition-colors hover:bg-graphite-foreground hover:text-graphite"
+                    href="#estimare"
+                    className="tech-label border border-primary bg-primary px-6 py-4 text-primary-foreground transition-opacity hover:opacity-90"
                   >
-                    Trimite proiectul pe WhatsApp
+                    Solicită o estimare
                   </a>
-                )}
-              </div>
+                  {hasWhatsapp && (
+                    <a
+                      href={waHref || undefined}
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      onClick={() => {
+                        track("whatsapp_click", { source: "homepage" });
+                        trackConversion("whatsapp_click", { source: "homepage" });
+                      }}
+                      className="tech-label border border-graphite-foreground/40 px-6 py-4 transition-colors hover:bg-graphite-foreground hover:text-graphite"
+                    >
+                      Trimite proiectul pe WhatsApp
+                    </a>
+                  )}
+                </div>
+              </Reveal>
             </div>
           </div>
         </section>
