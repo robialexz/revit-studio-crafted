@@ -4,7 +4,7 @@ import { canonicalUrl } from "@/lib/site-config";
 import hero2d from "@/assets/hero-2d.webp";
 import projSheet from "@/assets/proj-sheet.webp";
 
-const title = "Modelare Revit și desenare planșe — modelare BIM 3D";
+const title = "Modelare Revit și desenare planșe — modelare BIM 3D · NOD BIM";
 const description =
   "Modelare Revit și desenare tehnică: model 3D, planuri, secțiuni și planșe organizate. Când merită modelarea BIM, ce trimiți la început și ce primești la final.";
 const url = canonicalUrl("/modelare-revit");

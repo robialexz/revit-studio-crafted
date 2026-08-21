@@ -3,7 +3,7 @@ import { ServicePage } from "@/components/site/ServicePage";
 import { canonicalUrl } from "@/lib/site-config";
 import projDwg from "@/assets/proj-dwg.webp";
 
-const title = "Desenare AutoCAD, corectare și redesenare DWG";
+const title = "Desenare AutoCAD, corectare și redesenare DWG · NOD BIM";
 const description =
   "Serviciu complementar de AutoCAD: curățare DWG, organizare layere, redesenare, corectări, layout / Paper Space, conversii și pregătire pentru print.";
 const url = canonicalUrl("/autocad-dwg");

@@ -22,7 +22,7 @@ import showcaseHvacPlan from "@/assets/showcase-hvac-plan.webp";
 import showcasePlantRoom from "@/assets/showcase-plant-room.webp";
 import showcaseSection from "@/assets/showcase-section.webp";
 
-const title = "Portofoliu Revit MEP · Modele BIM și planșe tehnice";
+const title = "Portofoliu Revit MEP · Modele BIM și planșe tehnice · NOD BIM";
 const description =
   "Exemple de modelare Revit MEP și documentație tehnică: modele BIM 3D, planuri HVAC, instalații termice și electrice, secțiuni, sheet-uri și lucrări AutoCAD / DWG.";
 const url = canonicalUrl("/portofoliu");

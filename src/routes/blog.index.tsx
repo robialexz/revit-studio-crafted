@@ -7,7 +7,7 @@ import { CtaSection } from "@/components/site/CtaSection";
 import { canonicalUrl } from "@/lib/site-config";
 import { articles } from "@/lib/blog";
 
-const title = "Jurnal tehnic · Revit MEP, BIM și instalații explicate în profunzime";
+const title = "Jurnal tehnic · Revit MEP, BIM și instalații explicate în profunzime · NOD BIM";
 const description =
   "Articole de inginerie cu probe practice: costuri reale, experimente Revit vs AutoCAD, proiectarea instalațiilor în centre de date. Conținut tehnic, nu umplutură.";
 const url = canonicalUrl("/blog");

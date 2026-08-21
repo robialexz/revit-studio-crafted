@@ -7,7 +7,7 @@ import { CtaSection } from "@/components/site/CtaSection";
 import { canonicalUrl, site } from "@/lib/site-config";
 import { referrals } from "@/lib/referrals";
 
-const title = "Dosar de referințe · Lucrări livrate Revit MEP";
+const title = "Dosar de referințe · Lucrări livrate Revit MEP · NOD BIM";
 const description =
   "Fișe de lucrare cu ce s-a livrat, în cât timp și la ce cost: modelare Revit MEP, planșe HVAC, termice și electrice, lucrări DWG. Publicate cu acordul clienților.";
 const url = canonicalUrl("/referinte");

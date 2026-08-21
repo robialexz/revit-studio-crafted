@@ -4,7 +4,7 @@ import { canonicalUrl } from "@/lib/site-config";
 import projHvac from "@/assets/proj-hvac.webp";
 import projSectiune from "@/assets/proj-sectiune.webp";
 
-const title = "Instalații HVAC — modelare Revit și planșe de ventilare";
+const title = "Instalații HVAC — modelare Revit și planșe de ventilare · NOD BIM";
 const description =
   "Modelare Revit și planșe pentru instalații HVAC: tubulaturi, echipamente, grile și anemostate, introducere și evacuare aer, planuri, secțiuni și scheme.";
 const url = canonicalUrl("/hvac");

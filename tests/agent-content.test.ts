@@ -6,6 +6,7 @@ import {
   llmsTxt,
   markdownResponseForPath,
   notFoundMarkdown,
+  agentInstructionsTxt,
 } from "../src/lib/agent-content";
 import { articles } from "../src/lib/blog";
 
@@ -65,8 +66,18 @@ describe("agent-content — negotiere markdown", () => {
     expect(txt).toContain("> ");
     expect(txt).toContain("## Servicii");
     expect(txt).toContain("## Optional");
-    expect(txt).toContain("Când folosești acest site");
+    expect(txt).toContain("## When to use this");
+    expect(txt).toContain("Do NOT use this site for");
     expect(txt).toContain("/sitemap.xml");
-    expect(txt).toContain("text/markdown");
+    expect(txt).toContain("Accept: text/markdown");
+  });
+
+  test("agent-instructions.txt conține ghidul când/cum să folosești site-ul", () => {
+    const txt = agentInstructionsTxt();
+    expect(txt).toContain("# Agent instructions");
+    expect(txt).toContain("## When to use this");
+    expect(txt).toContain("## How to call");
+    expect(txt).toContain("Do NOT use this site for");
+    expect(txt).toContain("/llms.txt");
   });
 });

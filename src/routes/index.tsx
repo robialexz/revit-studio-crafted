@@ -39,7 +39,7 @@ import projSectiune640 from "@/assets/proj-sectiune-640.webp";
 import projSheet from "@/assets/proj-sheet.webp";
 import projSheet640 from "@/assets/proj-sheet-640.webp";
 
-const title = "Revit MEP & Modelare BIM · Planșe HVAC, Termice, Electrice";
+const title = "NOD BIM · Revit MEP & Modelare BIM · Planșe HVAC, Termice, Electrice";
 const description =
   "Modelare Revit MEP și documentație tehnică pentru instalații HVAC, termice și electrice. Planșe, secțiuni, sheet-uri, export RVT / DWG / PDF. AutoCAD disponibil complementar.";
 const url = canonicalUrl("/");

@@ -5,7 +5,7 @@ import hero3d from "@/assets/hero-3d.webp";
 import projSectiune from "@/assets/proj-sectiune.webp";
 import projSheet from "@/assets/proj-sheet.webp";
 
-const title = "Servicii Revit MEP — modelare BIM instalații și planșe tehnice";
+const title = "Servicii Revit MEP — modelare BIM instalații și planșe tehnice · NOD BIM";
 const description =
   "Modelare Revit MEP pentru instalații: model 3D, vederi, secțiuni, sheet-uri și documentație 2D. Preluare modele existente, corectări, export RVT / DWG / PDF.";
 const url = canonicalUrl("/revit-mep");

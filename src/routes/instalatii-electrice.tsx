@@ -4,7 +4,7 @@ import { canonicalUrl } from "@/lib/site-config";
 import projElectrice from "@/assets/proj-electrice.webp";
 import hero2d from "@/assets/hero-2d.webp";
 
-const title = "Instalații electrice — desenare și modelare tehnică";
+const title = "Instalații electrice — desenare și modelare tehnică · NOD BIM";
 const description =
   "Desenare și modelare tehnică pentru instalații electrice: iluminat, prize, circuite, trasee, tablouri, simboluri și legende, pe baza informațiilor de proiect furnizate.";
 const url = canonicalUrl("/instalatii-electrice");
