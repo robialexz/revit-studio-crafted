@@ -65,6 +65,22 @@ export const products: ShopProduct[] = [
     ],
   },
   {
+    id: "stream-dock",
+    name: "Stream Dock — 15 taste LCD programabile",
+    category: "Birou & CAD",
+    description:
+      "Controller de birou cu 15 taste LCD: fiecare tastă afișează propria iconiță (inclusiv GIF), cu sute de plugin-uri și profiluri per aplicație. Alternativa accesibilă la Elgato Stream Deck, pentru scurtături Revit, AutoCAD, Photoshop.",
+    price: "399 lei",
+    availability: "Livrare 7–14 zile",
+    image: "/products/stream-dock.jpg",
+    details: [
+      "15 taste cu ecran LCD propriu",
+      "Iconițe personalizate (JPG/PNG/GIF)",
+      "Profiluri auto per aplicație",
+      "Suport PC & Mac · USB-C",
+    ],
+  },
+  {
     id: "masa-desen-standard",
     name: "Masă de desen A3 — riglă paralelă",
     category: "Birou & CAD",
@@ -104,6 +120,7 @@ export const products: ShopProduct[] = [
       "Radieră electrică de precizie pentru planșe și schițe — șterge curat fără să roadă hârtia. Unelta clasică de desenator, aproape imposibil de găsit în România.",
     price: "59 lei",
     availability: "Livrare 7–14 zile",
+    image: "/products/radiera-electrica.jpg",
     details: [
       "Motor rotativ · 2 viteze",
       "Vârf de cauciuc schimbabil",
