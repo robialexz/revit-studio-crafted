@@ -12,6 +12,24 @@ const description =
   "Unelte de birou și CAD greu de găsit în România: macropad-uri pentru scurtături Revit/AutoCAD, radiere electrice, ascuțitori pentru mine de 2mm, șabloane de desen tehnic și modele didactice secționate MEP.";
 const url = canonicalUrl("/magazin");
 
+function productSchema() {
+  return products.map((p) => {
+    const price = p.price.replace(/\D/g, "");
+    return {
+      "@type": "Product",
+      name: p.name,
+      description: p.description,
+      offers: {
+        "@type": "Offer",
+        price,
+        priceCurrency: "RON",
+        availability: "https://schema.org/InStock",
+        url: canonicalUrl("/magazin"),
+      },
+    };
+  });
+}
+
 export const Route = createFileRoute("/magazin")({
   head: () => ({
     meta: [
@@ -27,6 +45,15 @@ export const Route = createFileRoute("/magazin")({
       { name: "twitter:description", content: description },
     ],
     links: [{ rel: "canonical", href: url }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@graph": productSchema(),
+        }),
+      },
+    ],
   }),
   component: Magazin,
 });
@@ -111,6 +138,58 @@ function Magazin() {
             Nu găsești ce cauți? Modelele didactice se pot realiza și la cerere — trimite o
             descriere a echipamentului pe care vrei să-l prezinți la curs.
           </p>
+        </section>
+
+        <section className="border-y border-border-strong bg-sheet">
+          <div className="mx-auto max-w-[1400px] px-5 py-16 md:px-8 md:py-20">
+            <Reveal>
+              <div className="flex items-baseline gap-4">
+                <span className="tech-label text-mep">04</span>
+                <span className="tech-label text-muted-foreground">Întrebări despre comandă</span>
+                <span className="h-px flex-1 bg-border-strong" />
+              </div>
+              <h2 className="mt-8 max-w-2xl text-4xl uppercase md:text-5xl">
+                Cum funcționează comanda
+              </h2>
+              <div className="mt-8 max-w-3xl">
+                {[
+                  [
+                    "Cât durează livrarea?",
+                    "Produsele de import (macropad-uri, radiere, șabloane, mese de desen) au termen de 7–14 zile. Modelele didactice se realizează la comandă în 3–5 zile lucrătoare. Termenul exact ți-l confirm înainte de plată.",
+                  ],
+                  [
+                    "Cum plătesc?",
+                    "După ce confirmăm comanda pe WhatsApp, plătești prin transfer bancar sau Revolut. Primești dovada plății și numărul de urmărire la expediere.",
+                  ],
+                  [
+                    "Cum se face livrarea?",
+                    "Prin curier, oriunde în România. Costul transportului ți-l comunic înainte de confirmarea comenzii.",
+                  ],
+                  [
+                    "Pot returna un produs?",
+                    "Da — ai drept de retur de 14 zile pentru produsele nefolosite, conform OUG 34/2014. Pentru modelele didactice personalizate, returul se discută de la caz la caz.",
+                  ],
+                  [
+                    "Pot comanda un model didactic după specificațiile mele?",
+                    "Da. Trimite pe WhatsApp echipamentul pe care vrei să-l prezinți la curs și îți propun un model secționat adaptat, cu preț și termen.",
+                  ],
+                ].map(([q, a]) => (
+                  <details key={q} className="group border-b border-border-strong first:border-t">
+                    <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-5 font-display text-lg font-semibold uppercase tracking-tight">
+                      {q}
+                      <span
+                        className="tech-label text-mep transition-transform group-open:rotate-45"
+                        aria-hidden="true"
+                      >
+                        +
+                      </span>
+                    </summary>
+                    <p className="pb-5 pr-8 text-sm leading-relaxed text-muted-foreground">{a}</p>
+                  </details>
+                ))}
+              </div>
+            </Reveal>
+          </div>
         </section>
 
         <CtaSection

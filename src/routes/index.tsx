@@ -22,6 +22,7 @@ import {
 import { services, process, faq, serviceHref } from "@/lib/home-content";
 import { track, trackConversion } from "@/lib/analytics";
 import { referrals } from "@/lib/referrals";
+import { articles } from "@/lib/blog";
 
 import hero3d from "@/assets/hero-3d.webp";
 import hero3dMobile from "@/assets/hero-3d-640.webp";
@@ -660,11 +661,49 @@ function Home() {
           </div>
         </section>
 
+        {/* JURNAL TEHNIC */}
+        <section id="jurnal" className="mx-auto max-w-[1400px] px-5 py-16 md:px-8 md:py-24">
+          <Reveal>
+            <SectionLabel index="09">Jurnal tehnic</SectionLabel>
+            <div className="mt-8 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+              <h2 className="max-w-2xl text-4xl uppercase md:text-6xl">
+                Articole cu probe, nu păreri
+              </h2>
+              <Link
+                to="/blog"
+                className="tech-label inline-flex items-center gap-2 border-b border-foreground pb-1 transition-colors hover:border-primary hover:text-primary"
+              >
+                Toate articolele <ArrowUpRight size={14} />
+              </Link>
+            </div>
+          </Reveal>
+          <div className="mt-12 grid gap-4 md:grid-cols-3">
+            {articles.slice(0, 3).map((a, i) => (
+              <Reveal key={a.slug} delay={i * 80} className="h-full">
+                <Link to="/blog/$slug" params={{ slug: a.slug }} className="block h-full">
+                  <article className="sheet-frame flex h-full flex-col transition-colors hover:border-primary">
+                    <div className="flex items-center justify-between border-b border-border px-5 py-3">
+                      <span className="tech-label text-mep">{a.readingTime} min</span>
+                      <span className="tech-label text-muted-foreground">{a.tags[0]}</span>
+                    </div>
+                    <div className="flex flex-1 flex-col px-5 py-4">
+                      <h3 className="text-xl uppercase leading-tight">{a.title}</h3>
+                      <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                        {a.description}
+                      </p>
+                    </div>
+                  </article>
+                </Link>
+              </Reveal>
+            ))}
+          </div>
+        </section>
+
         {/* FAQ */}
         <section id="faq" className="border-y border-border-strong bg-sheet">
           <div className="mx-auto max-w-[1400px] px-5 py-16 md:px-8 md:py-24">
             <Reveal>
-              <SectionLabel index="09">Întrebări frecvente</SectionLabel>
+              <SectionLabel index="10">Întrebări frecvente</SectionLabel>
             </Reveal>
             <Reveal delay={80} className="mt-8 grid gap-10 lg:grid-cols-12">
               <h2 className="text-4xl uppercase md:text-5xl lg:col-span-4">
@@ -695,7 +734,7 @@ function Home() {
         {/* ESTIMARE / WHATSAPP */}
         <section id="estimare" className="mx-auto max-w-[1400px] px-5 py-16 md:px-8 md:py-24">
           <Reveal>
-            <SectionLabel index="10">Estimare</SectionLabel>
+            <SectionLabel index="11">Estimare</SectionLabel>
           </Reveal>
           <Reveal delay={80} className="mt-8 grid gap-10 lg:grid-cols-12">
             <div className="lg:col-span-5">
