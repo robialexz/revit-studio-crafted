@@ -38,6 +38,7 @@ function orderLink(productName: string): string {
 
 function Magazin() {
   const machete = products.filter((p) => p.category === "Machete");
+  const unelte = products.filter((p) => p.category === "Unelte de desen");
   const didactice = products.filter((p) => p.category === "Didactice");
 
   return (
@@ -53,11 +54,12 @@ function Magazin() {
                 Produse de nișă
               </h1>
               <p className="mt-6 max-w-xl text-base leading-relaxed text-foreground/80">
-                Accesorii pentru machete arhitecturale și modele didactice secționate pentru
-                instalații — lucruri greu de găsit în România, realizate la comandă prin print 3D.
+                Accesorii pentru machete arhitecturale, unelte de desen tehnic și modele didactice
+                secționate pentru instalații — lucruri greu de găsit în România, la prețuri corecte.
               </p>
               <p className="tech-label mt-6 text-muted-foreground">
-                Fiecare produs se realizează după comandă · termen 3–5 zile lucrătoare
+                Produsele de import au livrare 7–14 zile · modelele didactice se realizează la
+                comandă în 3–5 zile lucrătoare
               </p>
             </Reveal>
           </div>
@@ -80,6 +82,19 @@ function Magazin() {
           <Reveal>
             <div className="mt-16 flex items-baseline gap-4">
               <span className="tech-label text-mep">02</span>
+              <span className="tech-label text-muted-foreground">Unelte de desen tehnic</span>
+              <span className="h-px flex-1 bg-border-strong" />
+            </div>
+          </Reveal>
+          <div className="mt-6 grid gap-4 md:grid-cols-2">
+            {unelte.map((p, i) => (
+              <ProductCard key={p.id} product={p} index={i} />
+            ))}
+          </div>
+
+          <Reveal>
+            <div className="mt-16 flex items-baseline gap-4">
+              <span className="tech-label text-mep">03</span>
               <span className="tech-label text-muted-foreground">
                 Modele didactice secționate MEP
               </span>
@@ -117,7 +132,7 @@ function ProductCard({ product, index }: { product: (typeof products)[number]; i
       <article className="sheet-frame flex h-full flex-col">
         <div className="flex items-center justify-between border-b border-border px-5 py-3">
           <span className="tech-label text-mep">{product.category}</span>
-          <span className="tech-label text-muted-foreground">La comandă</span>
+          <span className="tech-label text-muted-foreground">{product.availability}</span>
         </div>
         <div className="flex flex-1 flex-col px-5 py-4">
           <h2 className="text-2xl uppercase">{product.name}</h2>
