@@ -26,12 +26,18 @@ import { articles } from "@/lib/blog";
 
 import hero3d from "@/assets/hero-3d.webp";
 import hero3dMobile from "@/assets/hero-3d-640.webp";
+import hero3d960 from "@/assets/hero-3d-960.webp";
 import hero2d from "@/assets/hero-2d.webp";
 import hero2dMobile from "@/assets/hero-2d-640.webp";
+import hero2d720 from "@/assets/hero-2d-720.webp";
 import projHvac from "@/assets/proj-hvac.webp";
+import projHvac640 from "@/assets/proj-hvac-640.webp";
 import projTermice from "@/assets/proj-termice.webp";
+import projTermice640 from "@/assets/proj-termice-640.webp";
 import projSectiune from "@/assets/proj-sectiune.webp";
+import projSectiune640 from "@/assets/proj-sectiune-640.webp";
 import projSheet from "@/assets/proj-sheet.webp";
+import projSheet640 from "@/assets/proj-sheet-640.webp";
 
 const title = "Revit MEP & Modelare BIM · Planșe HVAC, Termice, Electrice";
 const description =
@@ -58,8 +64,8 @@ export const Route = createFileRoute("/")({
         rel: "preload",
         as: "image",
         href: hero3d,
-        imagesrcset: `${hero3dMobile} 640w, ${hero3d} 1200w`,
-        imagesizes: "(min-width: 1024px) 640px, 100vw",
+        imagesrcset: `${hero3dMobile} 640w, ${hero3d960} 960w, ${hero3d} 1200w`,
+        imagesizes: "(min-width: 1024px) 640px, 96vw",
       },
     ],
     scripts: [
@@ -190,8 +196,8 @@ function Home() {
                   </div>
                   <img
                     src={hero3d}
-                    srcSet={`${hero3dMobile} 640w, ${hero3d} 1200w`}
-                    sizes="(min-width: 1024px) 640px, 100vw"
+                    srcSet={`${hero3dMobile} 640w, ${hero3d960} 960w, ${hero3d} 1200w`}
+                    sizes="(min-width: 1024px) 640px, 96vw"
                     alt="Model 3D Revit MEP cu trasee de tubulatură, conducte și echipamente"
                     width={1200}
                     height={912}
@@ -212,8 +218,8 @@ function Home() {
                     </div>
                     <img
                       src={hero2d}
-                      srcSet={`${hero2dMobile} 640w, ${hero2d} 912w`}
-                      sizes="(min-width: 1024px) 640px, 100vw"
+                      srcSet={`${hero2dMobile} 640w, ${hero2d720} 720w, ${hero2d} 912w`}
+                      sizes="(min-width: 1024px) 640px, 96vw"
                       alt="Planșă 2D de instalații extrasă din modelul Revit, cu trasee, cote și legendă"
                       width={912}
                       height={1104}
@@ -260,6 +266,8 @@ function Home() {
               <figure className="group relative h-full overflow-hidden border border-border-strong bg-sheet">
                 <img
                   src={projHvac}
+                  srcSet={`${projHvac640} 640w, ${projHvac} 1600w`}
+                  sizes="(min-width: 1024px) 66vw, 100vw"
                   alt="Planșă tehnică de instalații HVAC cu trasee de tubulatură, grile și legendă"
                   width={1600}
                   height={1008}
@@ -277,6 +285,8 @@ function Home() {
               <figure className="group relative h-full overflow-hidden border border-border-strong bg-graphite">
                 <img
                   src={projSectiune}
+                  srcSet={`${projSectiune640} 640w, ${projSectiune} 1200w`}
+                  sizes="(min-width: 1024px) 33vw, 100vw"
                   alt="Secțiune 3D printr-un model Revit MEP cu tubulaturi, conducte și susțineri"
                   width={1200}
                   height={1408}
@@ -294,6 +304,8 @@ function Home() {
               <figure className="group h-full overflow-hidden border border-border-strong bg-sheet">
                 <img
                   src={projTermice}
+                  srcSet={`${projTermice640} 640w, ${projTermice} 1200w`}
+                  sizes="(min-width: 1024px) 42vw, 100vw"
                   alt="Plan de instalații termice cu trasee de conducte, radiatoare și distribuitoare"
                   width={1200}
                   height={912}
@@ -311,6 +323,8 @@ function Home() {
               <figure className="group h-full overflow-hidden border border-border-strong bg-sheet">
                 <img
                   src={projSheet}
+                  srcSet={`${projSheet640} 640w, ${projSheet} 1600w`}
+                  sizes="(min-width: 1024px) 58vw, 100vw"
                   alt="Sheet tehnic cu mai multe vederi, secțiuni, legende și indicator"
                   width={1600}
                   height={1104}
