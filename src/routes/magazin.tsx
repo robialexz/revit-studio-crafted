@@ -134,6 +134,18 @@ function ProductCard({ product, index }: { product: (typeof products)[number]; i
           <span className="tech-label text-mep">{product.category}</span>
           <span className="tech-label text-muted-foreground">{product.availability}</span>
         </div>
+        {product.image && (
+          <div className="border-b border-border bg-sheet">
+            <img
+              src={product.image}
+              alt={product.name}
+              loading="lazy"
+              width={480}
+              height={480}
+              className="h-48 w-full object-cover"
+            />
+          </div>
+        )}
         <div className="flex flex-1 flex-col px-5 py-4">
           <h2 className="text-2xl uppercase">{product.name}</h2>
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground">

@@ -11,6 +11,8 @@ export type ShopProduct = {
   price: string;
   availability: string;
   details: string[];
+  /** Imagine produs (din /public/products). Opțională până la fotografia proprie. */
+  image?: string;
 };
 
 export const products: ShopProduct[] = [
@@ -22,6 +24,7 @@ export const products: ShopProduct[] = [
       "Tastatură mini programabilă pentru scurtături Revit, AutoCAD, Blender sau Photoshop: 3 butoane + buton rotativ (zoom, undo, volum). Se configurează per aplicație.",
     price: "139 lei",
     availability: "Livrare 7–14 zile",
+    image: "/products/macropad-3.jpg",
     details: [
       "3 butoane + rotativ cu click",
       "USB-C · fără driver special",
@@ -37,11 +40,60 @@ export const products: ShopProduct[] = [
       "Versiunea extinsă: 6 butoane programabile și 2 butoane rotative, pentru fluxuri complete de lucru în Revit MEP, AutoCAD sau editare foto/video.",
     price: "179 lei",
     availability: "Livrare 7–14 zile",
+    image: "/products/macropad-6.jpg",
     details: [
       "6 butoane + 2 rotative",
       "Profiluri per aplicație",
       "USB-C · memorare internă",
       "Ideal pentru scurtături MEP",
+    ],
+  },
+  {
+    id: "macropad-12",
+    name: "Macropad CAD — 12 taste mecanice + 2 rotative",
+    category: "Birou & CAD",
+    description:
+      "Versiunea completă pentru proiectanți: 12 taste mecanice hotswap cu RGB + 2 butoane rotative. Toate scurtăturile Revit/AutoCAD la o mână distanță.",
+    price: "229 lei",
+    availability: "Livrare 7–14 zile",
+    image: "/products/macropad-12.jpg",
+    details: [
+      "12 taste mecanice hotswap",
+      "2 rotative · RGB per tastă",
+      "Profiluri multiple",
+      "Bluetooth + USB",
+    ],
+  },
+  {
+    id: "masa-desen-standard",
+    name: "Masă de desen A3 — riglă paralelă",
+    category: "Birou & CAD",
+    description:
+      "Masă portabilă de desen A3 cu riglă paralelă glisantă, cleme de fixare a hârtiei și echer cu raportor integrat. Uneltele de bază ale desenatorului, într-un singur pachet.",
+    price: "199 lei",
+    availability: "Livrare 10–20 zile",
+    image: "/products/masa-desen-standard.jpg",
+    details: [
+      "Format A3 · 2 cleme hârtie",
+      "Riglă paralelă cu blocare",
+      "Echer + raportor incluse",
+      "Suprafață antiderapantă",
+    ],
+  },
+  {
+    id: "masa-desen-pro",
+    name: "Masă de desen A3 pro — cap de desenare cu echer rotativ",
+    category: "Birou & CAD",
+    description:
+      "Varianta profesională: cap de desenare cu echer rotativ gradat 0–90°, mecanism paralel precis și suport de hârtie dublu. Pentru planșe tehnice la standard de birou.",
+    price: "449 lei",
+    availability: "Livrare 10–20 zile",
+    image: "/products/masa-desen-pro.jpg",
+    details: [
+      "Cap de desenare cu echer rotativ",
+      "Scală gradată 0–90°",
+      "Mecanism paralel dublu",
+      "Comparabil cu mesele de firmă de 3x prețul",
     ],
   },
   {
