@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AutocadDwgRouteImport } from './routes/autocad-dwg'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as DespreRouteImport } from './routes/despre'
 import { Route as HvacRouteImport } from './routes/hvac'
 import { Route as InformatiiLegaleRouteImport } from './routes/informatii-legale'
 import { Route as InstalatiiElectriceRouteImport } from './routes/instalatii-electrice'
@@ -26,6 +27,8 @@ import { Route as RevitMepRouteImport } from './routes/revit-mep'
 import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as TermeniSiConditiiRouteImport } from './routes/termeni-si-conditii'
+import { Route as BlogIndexRouteImport } from './routes/blog.index'
+import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -40,6 +43,11 @@ const AutocadDwgRoute = AutocadDwgRouteImport.update({
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DespreRoute = DespreRouteImport.update({
+  id: '/despre',
+  path: '/despre',
   getParentRoute: () => rootRouteImport,
 } as any)
 const HvacRoute = HvacRouteImport.update({
@@ -113,11 +121,22 @@ const TermeniSiConditiiRoute = TermeniSiConditiiRouteImport.update({
   path: '/termeni-si-conditii',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogIndexRoute = BlogIndexRouteImport.update({
+  id: '/blog/',
+  path: '/blog/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogSlugRoute = BlogSlugRouteImport.update({
+  id: '/blog/$slug',
+  path: '/blog/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/autocad-dwg': typeof AutocadDwgRoute
   '/contact': typeof ContactRoute
+  '/despre': typeof DespreRoute
   '/hvac': typeof HvacRoute
   '/informatii-legale': typeof InformatiiLegaleRoute
   '/instalatii-electrice': typeof InstalatiiElectriceRoute
@@ -132,11 +151,14 @@ export interface FileRoutesByFullPath {
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/termeni-si-conditii': typeof TermeniSiConditiiRoute
+  '/blog/$slug': typeof BlogSlugRoute
+  '/blog/': typeof BlogIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/autocad-dwg': typeof AutocadDwgRoute
   '/contact': typeof ContactRoute
+  '/despre': typeof DespreRoute
   '/hvac': typeof HvacRoute
   '/informatii-legale': typeof InformatiiLegaleRoute
   '/instalatii-electrice': typeof InstalatiiElectriceRoute
@@ -151,12 +173,15 @@ export interface FileRoutesByTo {
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/termeni-si-conditii': typeof TermeniSiConditiiRoute
+  '/blog/$slug': typeof BlogSlugRoute
+  '/blog': typeof BlogIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/autocad-dwg': typeof AutocadDwgRoute
   '/contact': typeof ContactRoute
+  '/despre': typeof DespreRoute
   '/hvac': typeof HvacRoute
   '/informatii-legale': typeof InformatiiLegaleRoute
   '/instalatii-electrice': typeof InstalatiiElectriceRoute
@@ -171,6 +196,8 @@ export interface FileRoutesById {
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/termeni-si-conditii': typeof TermeniSiConditiiRoute
+  '/blog/$slug': typeof BlogSlugRoute
+  '/blog/': typeof BlogIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -178,6 +205,7 @@ export interface FileRouteTypes {
     | '/'
     | '/autocad-dwg'
     | '/contact'
+    | '/despre'
     | '/hvac'
     | '/informatii-legale'
     | '/instalatii-electrice'
@@ -192,11 +220,14 @@ export interface FileRouteTypes {
     | '/robots.txt'
     | '/sitemap.xml'
     | '/termeni-si-conditii'
+    | '/blog/$slug'
+    | '/blog/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/autocad-dwg'
     | '/contact'
+    | '/despre'
     | '/hvac'
     | '/informatii-legale'
     | '/instalatii-electrice'
@@ -211,11 +242,14 @@ export interface FileRouteTypes {
     | '/robots.txt'
     | '/sitemap.xml'
     | '/termeni-si-conditii'
+    | '/blog/$slug'
+    | '/blog'
   id:
     | '__root__'
     | '/'
     | '/autocad-dwg'
     | '/contact'
+    | '/despre'
     | '/hvac'
     | '/informatii-legale'
     | '/instalatii-electrice'
@@ -230,12 +264,15 @@ export interface FileRouteTypes {
     | '/robots.txt'
     | '/sitemap.xml'
     | '/termeni-si-conditii'
+    | '/blog/$slug'
+    | '/blog/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AutocadDwgRoute: typeof AutocadDwgRoute
   ContactRoute: typeof ContactRoute
+  DespreRoute: typeof DespreRoute
   HvacRoute: typeof HvacRoute
   InformatiiLegaleRoute: typeof InformatiiLegaleRoute
   InstalatiiElectriceRoute: typeof InstalatiiElectriceRoute
@@ -250,6 +287,8 @@ export interface RootRouteChildren {
   RobotsDottxtRoute: typeof RobotsDottxtRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TermeniSiConditiiRoute: typeof TermeniSiConditiiRoute
+  BlogSlugRoute: typeof BlogSlugRoute
+  BlogIndexRoute: typeof BlogIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -273,6 +312,13 @@ declare module '@tanstack/react-router' {
       path: '/contact'
       fullPath: '/contact'
       preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/despre': {
+      id: '/despre'
+      path: '/despre'
+      fullPath: '/despre'
+      preLoaderRoute: typeof DespreRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/hvac': {
@@ -373,6 +419,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TermeniSiConditiiRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog/': {
+      id: '/blog/'
+      path: '/blog'
+      fullPath: '/blog/'
+      preLoaderRoute: typeof BlogIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/$slug': {
+      id: '/blog/$slug'
+      path: '/blog/$slug'
+      fullPath: '/blog/$slug'
+      preLoaderRoute: typeof BlogSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -380,6 +440,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AutocadDwgRoute: AutocadDwgRoute,
   ContactRoute: ContactRoute,
+  DespreRoute: DespreRoute,
   HvacRoute: HvacRoute,
   InformatiiLegaleRoute: InformatiiLegaleRoute,
   InstalatiiElectriceRoute: InstalatiiElectriceRoute,
@@ -394,6 +455,8 @@ const rootRouteChildren: RootRouteChildren = {
   RobotsDottxtRoute: RobotsDottxtRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TermeniSiConditiiRoute: TermeniSiConditiiRoute,
+  BlogSlugRoute: BlogSlugRoute,
+  BlogIndexRoute: BlogIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

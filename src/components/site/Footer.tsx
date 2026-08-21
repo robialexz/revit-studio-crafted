@@ -49,6 +49,16 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link to="/blog" className="hover:text-primary">
+                  Jurnal tehnic
+                </Link>
+              </li>
+              <li>
+                <Link to="/despre" className="hover:text-primary">
+                  Despre
+                </Link>
+              </li>
+              <li>
                 <a href="/#proces" className="hover:text-primary">
                   Proces
                 </a>

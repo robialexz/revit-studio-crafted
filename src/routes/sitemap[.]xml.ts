@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
 import { site } from "@/lib/site-config";
+import { articles } from "@/lib/blog";
 
 interface SitemapEntry {
   path: string;
@@ -26,6 +27,14 @@ const entries: SitemapEntry[] = [
   { path: "/portofoliu", lastmod: LAST_MODIFIED, changefreq: "monthly", priority: "0.8" },
   { path: "/referinte", lastmod: LAST_MODIFIED, changefreq: "monthly", priority: "0.7" },
   { path: "/magazin", lastmod: LAST_MODIFIED, changefreq: "weekly", priority: "0.7" },
+  { path: "/blog", lastmod: LAST_MODIFIED, changefreq: "weekly", priority: "0.8" },
+  ...articles.map((a) => ({
+    path: `/blog/${a.slug}`,
+    lastmod: a.date,
+    changefreq: "monthly" as const,
+    priority: "0.6",
+  })),
+  { path: "/despre", lastmod: LAST_MODIFIED, changefreq: "monthly", priority: "0.6" },
   { path: "/contact", lastmod: LAST_MODIFIED, changefreq: "monthly", priority: "0.8" },
   {
     path: "/politica-de-confidentialitate",
