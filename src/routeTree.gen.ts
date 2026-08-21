@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as AutocadDwgRouteImport } from './routes/autocad-dwg'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as DespreRouteImport } from './routes/despre'
@@ -17,11 +18,13 @@ import { Route as HvacRouteImport } from './routes/hvac'
 import { Route as InformatiiLegaleRouteImport } from './routes/informatii-legale'
 import { Route as InstalatiiElectriceRouteImport } from './routes/instalatii-electrice'
 import { Route as InstalatiiTermiceRouteImport } from './routes/instalatii-termice'
+import { Route as LlmsDottxtRouteImport } from './routes/llms[.]txt'
 import { Route as MagazinRouteImport } from './routes/magazin'
 import { Route as ModelareRevitRouteImport } from './routes/modelare-revit'
 import { Route as PoliticaCookiesRouteImport } from './routes/politica-cookies'
 import { Route as PoliticaDeConfidentialitateRouteImport } from './routes/politica-de-confidentialitate'
 import { Route as PortofoliuRouteImport } from './routes/portofoliu'
+import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ReferinteRouteImport } from './routes/referinte'
 import { Route as RevitMepRouteImport } from './routes/revit-mep'
 import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
@@ -33,6 +36,11 @@ import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AutocadDwgRoute = AutocadDwgRouteImport.update({
@@ -70,6 +78,11 @@ const InstalatiiTermiceRoute = InstalatiiTermiceRouteImport.update({
   path: '/instalatii-termice',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LlmsDottxtRoute = LlmsDottxtRouteImport.update({
+  id: '/llms.txt',
+  path: '/llms.txt',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MagazinRoute = MagazinRouteImport.update({
   id: '/magazin',
   path: '/magazin',
@@ -94,6 +107,11 @@ const PoliticaDeConfidentialitateRoute =
 const PortofoliuRoute = PortofoliuRouteImport.update({
   id: '/portofoliu',
   path: '/portofoliu',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ReferinteRoute = ReferinteRouteImport.update({
@@ -134,6 +152,7 @@ const BlogSlugRoute = BlogSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/autocad-dwg': typeof AutocadDwgRoute
   '/contact': typeof ContactRoute
   '/despre': typeof DespreRoute
@@ -141,11 +160,13 @@ export interface FileRoutesByFullPath {
   '/informatii-legale': typeof InformatiiLegaleRoute
   '/instalatii-electrice': typeof InstalatiiElectriceRoute
   '/instalatii-termice': typeof InstalatiiTermiceRoute
+  '/llms.txt': typeof LlmsDottxtRoute
   '/magazin': typeof MagazinRoute
   '/modelare-revit': typeof ModelareRevitRoute
   '/politica-cookies': typeof PoliticaCookiesRoute
   '/politica-de-confidentialitate': typeof PoliticaDeConfidentialitateRoute
   '/portofoliu': typeof PortofoliuRoute
+  '/privacy': typeof PrivacyRoute
   '/referinte': typeof ReferinteRoute
   '/revit-mep': typeof RevitMepRoute
   '/robots.txt': typeof RobotsDottxtRoute
@@ -156,6 +177,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/autocad-dwg': typeof AutocadDwgRoute
   '/contact': typeof ContactRoute
   '/despre': typeof DespreRoute
@@ -163,11 +185,13 @@ export interface FileRoutesByTo {
   '/informatii-legale': typeof InformatiiLegaleRoute
   '/instalatii-electrice': typeof InstalatiiElectriceRoute
   '/instalatii-termice': typeof InstalatiiTermiceRoute
+  '/llms.txt': typeof LlmsDottxtRoute
   '/magazin': typeof MagazinRoute
   '/modelare-revit': typeof ModelareRevitRoute
   '/politica-cookies': typeof PoliticaCookiesRoute
   '/politica-de-confidentialitate': typeof PoliticaDeConfidentialitateRoute
   '/portofoliu': typeof PortofoliuRoute
+  '/privacy': typeof PrivacyRoute
   '/referinte': typeof ReferinteRoute
   '/revit-mep': typeof RevitMepRoute
   '/robots.txt': typeof RobotsDottxtRoute
@@ -179,6 +203,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/autocad-dwg': typeof AutocadDwgRoute
   '/contact': typeof ContactRoute
   '/despre': typeof DespreRoute
@@ -186,11 +211,13 @@ export interface FileRoutesById {
   '/informatii-legale': typeof InformatiiLegaleRoute
   '/instalatii-electrice': typeof InstalatiiElectriceRoute
   '/instalatii-termice': typeof InstalatiiTermiceRoute
+  '/llms.txt': typeof LlmsDottxtRoute
   '/magazin': typeof MagazinRoute
   '/modelare-revit': typeof ModelareRevitRoute
   '/politica-cookies': typeof PoliticaCookiesRoute
   '/politica-de-confidentialitate': typeof PoliticaDeConfidentialitateRoute
   '/portofoliu': typeof PortofoliuRoute
+  '/privacy': typeof PrivacyRoute
   '/referinte': typeof ReferinteRoute
   '/revit-mep': typeof RevitMepRoute
   '/robots.txt': typeof RobotsDottxtRoute
@@ -203,6 +230,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/about'
     | '/autocad-dwg'
     | '/contact'
     | '/despre'
@@ -210,11 +238,13 @@ export interface FileRouteTypes {
     | '/informatii-legale'
     | '/instalatii-electrice'
     | '/instalatii-termice'
+    | '/llms.txt'
     | '/magazin'
     | '/modelare-revit'
     | '/politica-cookies'
     | '/politica-de-confidentialitate'
     | '/portofoliu'
+    | '/privacy'
     | '/referinte'
     | '/revit-mep'
     | '/robots.txt'
@@ -225,6 +255,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/about'
     | '/autocad-dwg'
     | '/contact'
     | '/despre'
@@ -232,11 +263,13 @@ export interface FileRouteTypes {
     | '/informatii-legale'
     | '/instalatii-electrice'
     | '/instalatii-termice'
+    | '/llms.txt'
     | '/magazin'
     | '/modelare-revit'
     | '/politica-cookies'
     | '/politica-de-confidentialitate'
     | '/portofoliu'
+    | '/privacy'
     | '/referinte'
     | '/revit-mep'
     | '/robots.txt'
@@ -247,6 +280,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/about'
     | '/autocad-dwg'
     | '/contact'
     | '/despre'
@@ -254,11 +288,13 @@ export interface FileRouteTypes {
     | '/informatii-legale'
     | '/instalatii-electrice'
     | '/instalatii-termice'
+    | '/llms.txt'
     | '/magazin'
     | '/modelare-revit'
     | '/politica-cookies'
     | '/politica-de-confidentialitate'
     | '/portofoliu'
+    | '/privacy'
     | '/referinte'
     | '/revit-mep'
     | '/robots.txt'
@@ -270,6 +306,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
   AutocadDwgRoute: typeof AutocadDwgRoute
   ContactRoute: typeof ContactRoute
   DespreRoute: typeof DespreRoute
@@ -277,11 +314,13 @@ export interface RootRouteChildren {
   InformatiiLegaleRoute: typeof InformatiiLegaleRoute
   InstalatiiElectriceRoute: typeof InstalatiiElectriceRoute
   InstalatiiTermiceRoute: typeof InstalatiiTermiceRoute
+  LlmsDottxtRoute: typeof LlmsDottxtRoute
   MagazinRoute: typeof MagazinRoute
   ModelareRevitRoute: typeof ModelareRevitRoute
   PoliticaCookiesRoute: typeof PoliticaCookiesRoute
   PoliticaDeConfidentialitateRoute: typeof PoliticaDeConfidentialitateRoute
   PortofoliuRoute: typeof PortofoliuRoute
+  PrivacyRoute: typeof PrivacyRoute
   ReferinteRoute: typeof ReferinteRoute
   RevitMepRoute: typeof RevitMepRoute
   RobotsDottxtRoute: typeof RobotsDottxtRoute
@@ -298,6 +337,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/autocad-dwg': {
@@ -349,6 +395,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof InstalatiiTermiceRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/llms.txt': {
+      id: '/llms.txt'
+      path: '/llms.txt'
+      fullPath: '/llms.txt'
+      preLoaderRoute: typeof LlmsDottxtRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/magazin': {
       id: '/magazin'
       path: '/magazin'
@@ -382,6 +435,13 @@ declare module '@tanstack/react-router' {
       path: '/portofoliu'
       fullPath: '/portofoliu'
       preLoaderRoute: typeof PortofoliuRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/referinte': {
@@ -438,6 +498,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
   AutocadDwgRoute: AutocadDwgRoute,
   ContactRoute: ContactRoute,
   DespreRoute: DespreRoute,
@@ -445,11 +506,13 @@ const rootRouteChildren: RootRouteChildren = {
   InformatiiLegaleRoute: InformatiiLegaleRoute,
   InstalatiiElectriceRoute: InstalatiiElectriceRoute,
   InstalatiiTermiceRoute: InstalatiiTermiceRoute,
+  LlmsDottxtRoute: LlmsDottxtRoute,
   MagazinRoute: MagazinRoute,
   ModelareRevitRoute: ModelareRevitRoute,
   PoliticaCookiesRoute: PoliticaCookiesRoute,
   PoliticaDeConfidentialitateRoute: PoliticaDeConfidentialitateRoute,
   PortofoliuRoute: PortofoliuRoute,
+  PrivacyRoute: PrivacyRoute,
   ReferinteRoute: ReferinteRoute,
   RevitMepRoute: RevitMepRoute,
   RobotsDottxtRoute: RobotsDottxtRoute,

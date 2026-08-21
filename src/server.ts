@@ -3,6 +3,12 @@ import "./lib/error-capture";
 import { consumeLastCapturedError } from "./lib/error-capture";
 import { renderErrorPage } from "./lib/error-page";
 import { canonicalHostname } from "./lib/site-config";
+import {
+  isKnownPath,
+  markdownResponseForPath,
+  notAcceptableMarkdown,
+  notFoundMarkdown,
+} from "./lib/agent-content";
 
 type ServerEntry = {
   fetch: (request: Request, env: unknown, ctx: unknown) => Promise<Response> | Response;
@@ -29,6 +35,8 @@ function withSecurityHeaders(response: Response, request: Request): Response {
   headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
   headers.set("Permissions-Policy", "camera=(), microphone=(), geolocation=(), payment=()");
   headers.set("X-Frame-Options", "DENY");
+  // Negociere de conținut: variantele HTML și markdown nu au același cache.
+  headers.set("Vary", "Accept, Accept-Encoding");
 
   if (import.meta.env.PROD) {
     headers.set("Content-Security-Policy", contentSecurityPolicy);
@@ -145,6 +153,24 @@ export default {
     try {
       const redirect = redirectWwwHost(request) ?? redirectHttpHost(request);
       if (redirect) return withSecurityHeaders(redirect, request);
+
+      // Negociere markdown pentru agenți AI (acceptmarkdown.com):
+      // la Accept: text/markdown servim varianta markdown a paginii,
+      // cu Vary: Accept ca să nu se amestece variantele în cache.
+      const accept = request.headers.get("accept") ?? "";
+      const wantsMarkdown =
+        accept.includes("text/markdown") && !accept.includes("text/markdown;q=0");
+      if (wantsMarkdown) {
+        const pathname = new URL(request.url).pathname;
+        const md = markdownResponseForPath(pathname);
+        if (md) return withSecurityHeaders(md, request);
+        if (isKnownPath(pathname) && !accept.includes("text/html") && !accept.includes("*/*")) {
+          return withSecurityHeaders(notAcceptableMarkdown(pathname), request);
+        }
+        if (!isKnownPath(pathname)) {
+          return withSecurityHeaders(notFoundMarkdown(pathname), request);
+        }
+      }
 
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);

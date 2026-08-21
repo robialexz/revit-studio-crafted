@@ -33,6 +33,39 @@ function NotFoundComponent() {
             Înapoi la pagina principală
           </Link>
         </div>
+        <p className="tech-label mt-10 text-muted-foreground">Unde poți continua:</p>
+        <ul className="mt-4 space-y-2 text-sm">
+          <li>
+            <a href="/sitemap.xml" className="hover:text-primary">
+              sitemap.xml
+            </a>{" "}
+            — harta completă a site-ului
+          </li>
+          <li>
+            <a href="/llms.txt" className="hover:text-primary">
+              llms.txt
+            </a>{" "}
+            — index pentru agenți AI
+          </li>
+          <li>
+            <Link to="/revit-mep" className="hover:text-primary">
+              Servicii
+            </Link>
+          </li>
+          <li>
+            <Link to="/blog" className="hover:text-primary">
+              Jurnal tehnic
+            </Link>
+          </li>
+        </ul>
+        <pre className="mt-8 overflow-x-auto border border-border bg-sheet p-4 text-left text-xs leading-relaxed text-muted-foreground">{`# Pagina nu există (404)
+
+Vezi unde să continui:
+- /sitemap.xml
+- /llms.txt
+- /revit-mep
+- /blog
+- /contact`}</pre>
       </div>
     </div>
   );

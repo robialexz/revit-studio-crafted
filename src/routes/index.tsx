@@ -95,6 +95,30 @@ export const Route = createFileRoute("/")({
         type: "application/ld+json",
         children: JSON.stringify({
           "@context": "https://schema.org",
+          "@type": "Organization",
+          name: site.businessName,
+          url: canonicalUrl("/"),
+          description,
+          email: hasEmail ? site.email : undefined,
+          ...(hasWhatsapp ? { telephone: site.whatsappNumber } : {}),
+          contactPoint: {
+            "@type": "ContactPoint",
+            contactType: "customer service",
+            ...(hasEmail ? { email: site.email } : {}),
+            ...(hasWhatsapp ? { telephone: site.whatsappNumber } : {}),
+            availableLanguage: ["ro", "en"],
+          },
+          address: {
+            "@type": "PostalAddress",
+            addressLocality: "București",
+            addressCountry: "RO",
+          },
+        }),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
           "@type": "FAQPage",
           mainEntity: faq.map(([q, a]) => ({
             "@type": "Question",
