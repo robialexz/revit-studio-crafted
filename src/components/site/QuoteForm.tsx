@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { hasWhatsapp, whatsappLink } from "@/lib/site-config";
 import { getAttribution } from "@/lib/attribution";
@@ -43,6 +43,21 @@ export function QuoteForm() {
   const [submitting, setSubmitting] = useState(false);
   const [sent, setSent] = useState(false);
   const submittedRef = useRef(false);
+  const successRef = useRef<HTMLDivElement>(null);
+
+  // După trimitere, aducem confirmarea în vizor: formularul lung este
+  // înlocuit de un panou scurt, iar fără scroll utilizatorul rămâne cu
+  // viewport-ul sub mesaj (mai ales pe mobil).
+  useEffect(() => {
+    if (!sent) return;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    requestAnimationFrame(() => {
+      successRef.current?.scrollIntoView({
+        behavior: reduce ? "auto" : "smooth",
+        block: "center",
+      });
+    });
+  }, [sent]);
 
   const toggleFile = (f: string) =>
     setFiles((prev) => (prev.includes(f) ? prev.filter((x) => x !== f) : [...prev, f]));
@@ -153,35 +168,64 @@ export function QuoteForm() {
 
   if (sent) {
     return (
-      <div className="sheet-frame p-5 md:p-8" role="status" aria-live="polite">
-        <p className="tech-label text-mep">Confirmare</p>
-        <h3 className="mt-4 text-3xl uppercase md:text-4xl">Cererea a fost trimisă.</h3>
-        <p className="mt-4 max-w-md text-sm leading-relaxed text-muted-foreground">
-          Am primit informațiile proiectului.
-          {hasWhatsapp
-            ? " Pentru un răspuns mai rapid, poți continua conversația direct pe WhatsApp."
-            : ""}
-        </p>
-        {hasWhatsapp && (
-          <>
-            <a
-              href={whatsappLink(message) || undefined}
-              target="_blank"
-              rel="noreferrer noopener"
-              onClick={() => {
-                track("whatsapp_click", { source: "quote_success" });
-                trackConversion("whatsapp_click", { source: "quote_success" });
-              }}
-              className="tech-label mt-8 inline-block border border-foreground bg-foreground px-6 py-4 text-background transition-colors hover:border-primary hover:bg-primary"
-            >
-              Continuă pe WhatsApp
-            </a>
-            <p className="mt-4 text-xs leading-relaxed text-muted-foreground">
-              Mesajul conține deja detaliile completate. Fișierele le poți atașa direct în
-              conversație.
-            </p>
-          </>
-        )}
+      <div ref={successRef} className="sheet-frame p-5 md:p-8" role="status" aria-live="polite">
+        <div className="reveal flex items-center gap-4" style={{ animationDelay: "0ms" }}>
+          <svg viewBox="0 0 52 52" className="h-12 w-12 shrink-0" aria-hidden="true">
+            <circle
+              cx="26"
+              cy="26"
+              r="24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              className="check-circle text-primary"
+            />
+            <path
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="3"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M14 27l8 8 16-16"
+              className="check-mark text-primary"
+            />
+          </svg>
+          <p className="tech-label text-mep">Confirmare · cerere înregistrată</p>
+        </div>
+        <h3
+          className="reveal mt-5 text-3xl uppercase md:text-4xl"
+          style={{ animationDelay: "120ms" }}
+        >
+          Cererea a fost trimisă.
+        </h3>
+        <div className="reveal" style={{ animationDelay: "220ms" }}>
+          <p className="mt-4 max-w-md text-sm leading-relaxed text-muted-foreground">
+            Am primit informațiile proiectului.
+            {hasWhatsapp
+              ? " Pentru un răspuns mai rapid, poți continua conversația direct pe WhatsApp."
+              : ""}
+          </p>
+          {hasWhatsapp && (
+            <>
+              <a
+                href={whatsappLink(message) || undefined}
+                target="_blank"
+                rel="noreferrer noopener"
+                onClick={() => {
+                  track("whatsapp_click", { source: "quote_success" });
+                  trackConversion("whatsapp_click", { source: "quote_success" });
+                }}
+                className="tech-label mt-8 inline-block border border-foreground bg-foreground px-6 py-4 text-background transition-colors hover:border-primary hover:bg-primary"
+              >
+                Continuă pe WhatsApp
+              </a>
+              <p className="mt-4 text-xs leading-relaxed text-muted-foreground">
+                Mesajul conține deja detaliile completate. Fișierele le poți atașa direct în
+                conversație.
+              </p>
+            </>
+          )}
+        </div>
       </div>
     );
   }
