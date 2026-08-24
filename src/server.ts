@@ -4,6 +4,7 @@ import { consumeLastCapturedError } from "./lib/error-capture";
 import { renderErrorPage } from "./lib/error-page";
 import { canonicalHostname } from "./lib/site-config";
 import {
+  agentDescriptorJson,
   isKnownPath,
   markdownResponseForPath,
   notAcceptableMarkdown,
@@ -153,6 +154,20 @@ export default {
     try {
       const redirect = redirectWwwHost(request) ?? redirectHttpHost(request);
       if (redirect) return withSecurityHeaders(redirect, request);
+
+      // /.well-known/agent.json — calea well-known nu se potrivește prin
+      // router (segment cu punct în subdirector), o servim direct.
+      if (new URL(request.url).pathname === "/.well-known/agent.json") {
+        return withSecurityHeaders(
+          new Response(agentDescriptorJson(), {
+            headers: {
+              "content-type": "application/json; charset=utf-8",
+              "cache-control": "public, max-age=3600",
+            },
+          }),
+          request,
+        );
+      }
 
       // Negociere markdown pentru agenți AI (acceptmarkdown.com):
       // la Accept: text/markdown servim varianta markdown a paginii,

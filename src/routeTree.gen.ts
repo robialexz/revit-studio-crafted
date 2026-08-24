@@ -34,7 +34,6 @@ import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as TermeniSiConditiiRouteImport } from './routes/termeni-si-conditii'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
-import { Route as WellKnownAgentDotjsonRouteImport } from './routes/well-known/agent[.]json'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -162,11 +161,6 @@ const BlogSlugRoute = BlogSlugRouteImport.update({
   path: '/blog/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
-const WellKnownAgentDotjsonRoute = WellKnownAgentDotjsonRouteImport.update({
-  id: '/well-known/agent.json',
-  path: '/well-known/agent.json',
-  getParentRoute: () => rootRouteImport,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -193,7 +187,6 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/termeni-si-conditii': typeof TermeniSiConditiiRoute
   '/blog/$slug': typeof BlogSlugRoute
-  '/well-known/agent.json': typeof WellKnownAgentDotjsonRoute
   '/blog/': typeof BlogIndexRoute
 }
 export interface FileRoutesByTo {
@@ -221,7 +214,6 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/termeni-si-conditii': typeof TermeniSiConditiiRoute
   '/blog/$slug': typeof BlogSlugRoute
-  '/well-known/agent.json': typeof WellKnownAgentDotjsonRoute
   '/blog': typeof BlogIndexRoute
 }
 export interface FileRoutesById {
@@ -250,7 +242,6 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/termeni-si-conditii': typeof TermeniSiConditiiRoute
   '/blog/$slug': typeof BlogSlugRoute
-  '/well-known/agent.json': typeof WellKnownAgentDotjsonRoute
   '/blog/': typeof BlogIndexRoute
 }
 export interface FileRouteTypes {
@@ -280,7 +271,6 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/termeni-si-conditii'
     | '/blog/$slug'
-    | '/well-known/agent.json'
     | '/blog/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -308,7 +298,6 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/termeni-si-conditii'
     | '/blog/$slug'
-    | '/well-known/agent.json'
     | '/blog'
   id:
     | '__root__'
@@ -336,7 +325,6 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/termeni-si-conditii'
     | '/blog/$slug'
-    | '/well-known/agent.json'
     | '/blog/'
   fileRoutesById: FileRoutesById
 }
@@ -365,7 +353,6 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TermeniSiConditiiRoute: typeof TermeniSiConditiiRoute
   BlogSlugRoute: typeof BlogSlugRoute
-  WellKnownAgentDotjsonRoute: typeof WellKnownAgentDotjsonRoute
   BlogIndexRoute: typeof BlogIndexRoute
 }
 
@@ -546,13 +533,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/well-known/agent.json': {
-      id: '/well-known/agent.json'
-      path: '/well-known/agent.json'
-      fullPath: '/well-known/agent.json'
-      preLoaderRoute: typeof WellKnownAgentDotjsonRouteImport
-      parentRoute: typeof rootRouteImport
-    }
   }
 }
 
@@ -581,7 +561,6 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TermeniSiConditiiRoute: TermeniSiConditiiRoute,
   BlogSlugRoute: BlogSlugRoute,
-  WellKnownAgentDotjsonRoute: WellKnownAgentDotjsonRoute,
   BlogIndexRoute: BlogIndexRoute,
 }
 export const routeTree = rootRouteImport

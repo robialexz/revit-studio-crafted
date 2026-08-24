@@ -7,6 +7,7 @@ import {
   markdownResponseForPath,
   notFoundMarkdown,
   agentInstructionsTxt,
+  agentDescriptorJson,
 } from "../src/lib/agent-content";
 import { articles } from "../src/lib/blog";
 
@@ -79,5 +80,16 @@ describe("agent-content — negotiere markdown", () => {
     expect(txt).toContain("## How to call");
     expect(txt).toContain("Do NOT use this site for");
     expect(txt).toContain("/llms.txt");
+  });
+
+  test("agent.json descriptor descrie site-ul și capabilitățile", () => {
+    const parsed = JSON.parse(agentDescriptorJson()) as {
+      name?: string;
+      capabilities?: { type?: string }[];
+      resources?: string[];
+    };
+    expect(parsed.name).toBe("NOD BIM");
+    expect(parsed.capabilities?.some((c) => c.type === "estimate-request")).toBe(true);
+    expect(parsed.resources?.some((r) => r.includes("/llms.txt"))).toBe(true);
   });
 });
