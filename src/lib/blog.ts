@@ -450,6 +450,280 @@ export const articles: Article[] = [
       },
     ],
   },
+  {
+    slug: "cat-costa-modelarea-bim-pe-tip-de-cladire",
+    title: "Cât costă modelarea BIM în 2026: prețuri reale pe tip de clădire",
+    description:
+      "Tabel de prețuri orientative pentru modelare BIM pe tipuri de clădiri: casă, apartament, birou, hală, centru de date. Ce determină prețul, cum compari corect ofertele și cum reduci costul fără să pierzi din calitate.",
+    date: "2026-08-24",
+    readingTime: 9,
+    tags: ["Prețuri", "BIM", "Revit MEP"],
+    sections: [
+      {
+        paragraphs: [
+          "Modelarea BIM nu are un preț unic — dar nici nu e un mister. Dacă prețurile din piață par aleatorii, e pentru că aproape nimeni nu le explică public. Acest articol descompune costul modelării pe tipuri reale de clădiri, cu intervale orientative și cu factorii care le schimbă.",
+        ],
+      },
+      {
+        heading: "Prețuri orientative pe tip de clădire (modelare + planșe rezultate)",
+        table: {
+          head: ["Tip clădire", "Interval orientativ", "Ce include de regulă"],
+          rows: [
+            [
+              "Apartament (tip 2-3 camere)",
+              "800 – 1.500 lei",
+              "1-2 discipline, planuri de nivel, 2-3 planșe",
+            ],
+            [
+              "Casă P+1 / P+2",
+              "1.500 – 3.500 lei",
+              "2-3 discipline, planuri + secțiuni, 4-8 planșe",
+            ],
+            [
+              "Birou / spațiu comercial (100-300 mp)",
+              "2.500 – 6.000 lei",
+              "3 discipline, coordonare, 6-12 planșe",
+            ],
+            [
+              "Clădire rezidențială (bloc mic)",
+              "8.000 – 20.000 lei",
+              "Toate disciplinele, model coordonat, 20+ planșe",
+            ],
+            [
+              "Hală industrială",
+              "10.000 – 30.000 lei",
+              "Model MEP + coordonare, echipamente specifice",
+            ],
+            [
+              "Centru de date / spațiu critic",
+              "la cerere",
+              "Redundanță modelată ca sisteme separate, standarde Tier",
+            ],
+          ],
+        },
+      },
+      {
+        heading: "Ce face ca modelarea să coste mai mult (sau mai puțin)",
+        list: [
+          "Numărul de discipline: HVAC + termice + electrice înseamnă coordonare triplă, nu doar triplul desenului.",
+          "Starea fișierelor de intrare: un DWG curat e de două ori mai ieftin de modelat decât un PDF scanat.",
+          "Nivelul de detaliu cerut: LOD 200 (concept) vs LOD 350 (coordonare de montaj) sunt alte lucrări.",
+          "Reviziile incluse: 1-2 runde normale sunt standard; schimbări majore de temă sunt lucrare nouă.",
+          "Termenul: urgența plătește ore suplimentare, nu altceva.",
+        ],
+      },
+      {
+        heading: "Cum compari ofertele corect",
+        paragraphs: [
+          "Nu compara prețul total — compară ce e în spatele lui: câte planșe, ce formate, câte runde de revizii, cine verifică modelul, termenul. O ofertă cu 30% mai ieftină care livrează doar jumătate din ce ai nevoie e, de fapt, mai scumpă.",
+          "Regula pe care o folosesc eu: dacă oferta nu spune explicit ce primești la final, cere-o în scris înainte de orice plată.",
+        ],
+        note: "Pe site-ul NOD BIM prețurile orientative sunt publice — de la corectare de planșă la pachete complete — ca să poți compara direct.",
+      },
+      {
+        heading: "Cum reduci costul fără a pierde din calitate",
+        paragraphs: [
+          "Trimite fișiere curate și complete, stabilește scopul (autorizație vs execuție) și termenul realist, și fă schimbările de temă înainte de începerea lucrării, nu pe parcurs. Modelarea BIM plătește investiția de fiecare dată, pentru că documentația rămâne coerentă din aceeași sursă.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "clash-detection-ce-este",
+    title: "Clash detection: ce se verifică de fapt într-un model și când devine o problemă",
+    description:
+      "Verificarea de coliziuni (clash detection) nu este un capriciu de coordonare: e diferența dintre un șantier care merge și unul care se oprește. Ce tipuri de coliziuni există, ce se verifică într-un model MEP și cât costă prinsul lor târziu.",
+    date: "2026-08-24",
+    readingTime: 8,
+    tags: ["Coordonare", "BIM", "Revit MEP"],
+    sections: [
+      {
+        paragraphs: [
+          "Clash detection înseamnă verificarea automată a intersectărilor dintre elementele modelului — nu doar între instalații, ci între instalații și structură sau arhitectură. O conductă de 200 mm care traversează un grinda... acelea nu se văd în plan 2D, dar se văd imediat în modelul coordonat.",
+        ],
+      },
+      {
+        heading: "Cele trei tipuri de coliziuni care contează",
+        list: [
+          "Hard clash: două obiecte care se intersectează fizic (conductă prin grindă). Este cel mai vizibil și cel mai frecvent prins.",
+          "Soft clash: spațiu insuficient fără intersecție directă — curburi minim, spațiu de montaj, izolație, sarcini de mentenanță.",
+          "Clearance: zonele de acces și serviciu — o vană care nu mai poate fi operată pentru că tabloul este în fața ei.",
+        ],
+        paragraphs: [
+          "În coordonarea 2D, toate cele trei tipuri se verifică manual, vizual, desen cu desen. De aceea erorile apar exact în planurile aglomerate.",
+        ],
+      },
+      {
+        heading: "Cât costă o coliziune prinsă târziu",
+        table: {
+          head: ["Etapa în care se prinde", "Cost tipic de remediere", "Observații"],
+          rows: [
+            [
+              "În model (înainte de predare)",
+              "Nimic — se mutează traseul",
+              "O singură modificare, toată documentația se actualizează",
+            ],
+            [
+              "La execuție, înainte de montaj",
+              "Săptămâni + materiale",
+              "Reluări, neclarități, discuții între echipe",
+            ],
+            [
+              "La montaj (pe șantier)",
+              "Zile de oprire + reluare",
+              "Cel mai scump scenariu, plus riscul de improvizații",
+            ],
+          ],
+        },
+      },
+      {
+        heading: "Ce se verifică într-un model MEP coordonat",
+        list: [
+          "Traseele de aer și conducte față de grinzi și goluri de montaj",
+          "Spațiul de serviciu la vane, filtre și echipamente",
+          "Gabaritele de întreținere (acces pentru schimbare de piese)",
+          "Traverse și penetrații compartimentate",
+          "Traseele electrice față de conducte de apă (regula de aur a coordonării)",
+        ],
+      },
+      {
+        heading: "Cum arată un raport de coordonare",
+        paragraphs: [
+          "Un raport serios nu e o listă de erori — e o hartă a priorităților: coliziunile critice (care blochează montajul), minore (cosmetice) și zonele de atenție. Fiecare cu poziție, schiță și remediere propusă.",
+          "Dacă modelul tău vine de la altcineva, această verificare e primul lucru pe care îl fac înainte de orice termen promis — un model cu zeci de coliziuni moștenite costă mai mult de curățat decât de construit.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "documentatie-instalatii-dtac-pt",
+    title:
+      "Documentația de instalații pentru autorizație (DTAC) și proiect tehnic (PTh): pași și greșeli care întârzie",
+    description:
+      "Ce intră în DTAC la instalații, care e diferența față de PTh și care sunt greșelile care blochează autorizarea. Ghid practic pentru beneficiari și arhitecți care pregătesc documentația.",
+    date: "2026-08-24",
+    readingTime: 9,
+    tags: ["Autorizație", "Documentație", "Instalații"],
+    sections: [
+      {
+        paragraphs: [
+          "Documentația tehnică de instalații este partea care întârzie cel mai des autorizațiile — nu pentru că ar fi greu de făcut, ci pentru că se pregătește pe ultima sută de metri și sub presiune. Acest ghid îți arată ce trebuie să conțină și unde se pierde timpul de fapt.",
+        ],
+      },
+      {
+        heading: "Ce intră în DTAC la instalații",
+        list: [
+          "Planuri de instalații pe fiecare nivel, cu trasee, echipamente și simboluri standard",
+          "Scheme de principiu pe discipline (electrice, termice, ventilare)",
+          "Detalii tehnice relevante la scara uzuală",
+          "Legende cu simbolurile folosite, cote și adnotări clare",
+          "Notă de dimensionare pe instalațiile principale, acolo unde este cerută",
+        ],
+        paragraphs: [
+          "Toate piesele trebuie să fie coerente între ele — un plan care nu corespunde cu schema de principiu e primul motiv de respingere.",
+        ],
+      },
+      {
+        heading: "DTAC vs PTh: diferența reală",
+        table: {
+          head: ["", "DTAC (autorizație)", "PTh (proiect tehnic)"],
+          rows: [
+            ["Scop", "Obținerea autorizației de construire", "Execuția propriu-zisă a lucrării"],
+            [
+              "Nivel de detaliu",
+              "Definitivarea conceptului, verificarea conformității",
+              "Detalii de execuție, liste de materiale, amplasări exacte",
+            ],
+            [
+              "Instalații",
+              "Trasee principale, scheme, echipamente",
+              "Trasee complete, cote, detalii de montaj, scheme unifilare",
+            ],
+            ["Cine o folosește", "Autoritatea de autorizare", "Executantul și verificatorii"],
+          ],
+        },
+      },
+      {
+        heading: "Greșelile care întârzie autorizarea",
+        table: {
+          head: ["Greșeală", "Impact"],
+          rows: [
+            [
+              "Planuri fără templet și indice (indicator)",
+              "Documentul se trimite înapoi pentru completare",
+            ],
+            [
+              "Nerespectarea simbolurilor standard",
+              "Verificatorul nu poate urmări logica instalațiilor",
+            ],
+            [
+              "Incoerență între planuri și scheme",
+              "Se cere refacerea pieselor sau explicații suplimentare",
+            ],
+            ["Date incomplete despre echipamente", "Dimensionarea devine incertă, apar observații"],
+            [
+              "Lipsa notelor și a detaliilor la zona unităților externe",
+              "Observații la fațade și amplasamente",
+            ],
+          ],
+        },
+      },
+      {
+        heading: "Cum te pregătești ca să nu refaci nimic",
+        paragraphs: [
+          "Pregătește de la început documentația ca un set coerent: același template, aceleași simboluri, numerotare unică a planșelor. Dacă arhitectura este la final, instalațiile se pot desena pe un ACAS curat, fără dubluri.",
+          "Aceasta este exact tipul de lucrare pe care o predau ca livrabil de sine stătător — documentația iese din model, cu planșe, legende și indicator gata de depunere.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "template-revit-mep-bun",
+    title: "Ce trebuie să conțină un template Revit MEP bun (și cum recunoști unul făcut prost)",
+    description:
+      "Template-ul Revit MEP este diferența dintre un proiect care pornește curat și unul în care pierzi săptămâni. Ce trebuie să conțină un template bun, semnalele unuia prost și cât timp îți economisește.",
+    date: "2026-08-24",
+    readingTime: 8,
+    tags: ["Revit MEP", "Workflow", "Template"],
+    sections: [
+      {
+        paragraphs: [
+          "Template-ul de proiect este baza din care pornește fiecare lucrare Revit: stiluri, filtre, parametri, indicator, legende. Unul bun îți economisește zile la fiecare proiect. Unul prost te costă săptămâni de corectat lucruri care ar fi trebuit să fie setate o singură dată.",
+        ],
+      },
+      {
+        heading: "Ce trebuie să conțină un template MEP serios",
+        list: [
+          "Indicator (cartuș) conform cu cerințele uzuale, cu format A3/A4 și variațiile la scară",
+          "Stiluri de linie și obiecte cu grosimi logice pe discipline",
+          "Filtre de vizibilitate pe sistem (rețea de aer, conducte, circuite electrice)",
+          "View templates pe tip de vedere: plan, secțiune, 3D, sheet",
+          "Parametri partajați cu un fișier .txt predat odată cu template-ul",
+          "Seturi de legende și simboluri standard",
+          "Schedules predefinite pentru liste de cantități",
+          "Niveluri, axe și grille inițializate corect",
+        ],
+      },
+      {
+        heading: "Semnalele unui template făcut prost",
+        list: [
+          "Stiluri duplicate cu nume asemănătoare (Lini 1, Lini 2, Linie 1 copy)",
+          "Filtre făcute pe deșertăciune, care se strică la prima modificare",
+          "Familii locale în loc de familii încărcate din bibliotecă",
+          "Parametri fără unități sau cu nume ambigue",
+          "Indicator care nu se scalează la A3 cu textul suprapus",
+        ],
+      },
+      {
+        heading: "Cât economisești de fapt",
+        paragraphs: [
+          "În realitate, 2-4 ore la începutul fiecărui proiect plus, mai important, erori evitate: planșe cu simboluri inconsistente, liste incorecte, revizii care puteau fi evitate. La un volum de 10 proiecte pe an, template-ul bun e diferența dintre o jumătate de săptămână și patru săptămâni de muncă.",
+          "Dacă proiectul tău nu are un template ținut la zi, orice lucrare nouă pornește cu handicap — și exact asta e prima verificare pe care o fac la orice preluare de model.",
+        ],
+        note: "Template-uri MEP curate, cu indicator și simboluri, sunt parte din gama de resurse pe care le pot pregăti la comandă — detalii la cerere prin formularul de contact.",
+      },
+    ],
+  },
 ];
 
 export function getArticle(slug: string): Article | undefined {
