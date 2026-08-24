@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as R09cc0f49373bfe3e74afbd962e8ac392DottxtRouteImport } from './routes/09cc0f49373bfe3e74afbd962e8ac392[.]txt'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AgentInstructionsDottxtRouteImport } from './routes/agent-instructions[.]txt'
 import { Route as AgentDotjsonRouteImport } from './routes/agent[.]json'
@@ -40,6 +41,12 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const R09cc0f49373bfe3e74afbd962e8ac392DottxtRoute =
+  R09cc0f49373bfe3e74afbd962e8ac392DottxtRouteImport.update({
+    id: '/09cc0f49373bfe3e74afbd962e8ac392.txt',
+    path: '/09cc0f49373bfe3e74afbd962e8ac392.txt',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
@@ -164,6 +171,7 @@ const BlogSlugRoute = BlogSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/09cc0f49373bfe3e74afbd962e8ac392.txt': typeof R09cc0f49373bfe3e74afbd962e8ac392DottxtRoute
   '/about': typeof AboutRoute
   '/agent-instructions.txt': typeof AgentInstructionsDottxtRoute
   '/agent.json': typeof AgentDotjsonRoute
@@ -191,6 +199,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/09cc0f49373bfe3e74afbd962e8ac392.txt': typeof R09cc0f49373bfe3e74afbd962e8ac392DottxtRoute
   '/about': typeof AboutRoute
   '/agent-instructions.txt': typeof AgentInstructionsDottxtRoute
   '/agent.json': typeof AgentDotjsonRoute
@@ -219,6 +228,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/09cc0f49373bfe3e74afbd962e8ac392.txt': typeof R09cc0f49373bfe3e74afbd962e8ac392DottxtRoute
   '/about': typeof AboutRoute
   '/agent-instructions.txt': typeof AgentInstructionsDottxtRoute
   '/agent.json': typeof AgentDotjsonRoute
@@ -248,6 +258,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/09cc0f49373bfe3e74afbd962e8ac392.txt'
     | '/about'
     | '/agent-instructions.txt'
     | '/agent.json'
@@ -275,6 +286,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/09cc0f49373bfe3e74afbd962e8ac392.txt'
     | '/about'
     | '/agent-instructions.txt'
     | '/agent.json'
@@ -302,6 +314,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/09cc0f49373bfe3e74afbd962e8ac392.txt'
     | '/about'
     | '/agent-instructions.txt'
     | '/agent.json'
@@ -330,6 +343,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  R09cc0f49373bfe3e74afbd962e8ac392DottxtRoute: typeof R09cc0f49373bfe3e74afbd962e8ac392DottxtRoute
   AboutRoute: typeof AboutRoute
   AgentInstructionsDottxtRoute: typeof AgentInstructionsDottxtRoute
   AgentDotjsonRoute: typeof AgentDotjsonRoute
@@ -363,6 +377,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/09cc0f49373bfe3e74afbd962e8ac392.txt': {
+      id: '/09cc0f49373bfe3e74afbd962e8ac392.txt'
+      path: '/09cc0f49373bfe3e74afbd962e8ac392.txt'
+      fullPath: '/09cc0f49373bfe3e74afbd962e8ac392.txt'
+      preLoaderRoute: typeof R09cc0f49373bfe3e74afbd962e8ac392DottxtRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -538,6 +559,8 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  R09cc0f49373bfe3e74afbd962e8ac392DottxtRoute:
+    R09cc0f49373bfe3e74afbd962e8ac392DottxtRoute,
   AboutRoute: AboutRoute,
   AgentInstructionsDottxtRoute: AgentInstructionsDottxtRoute,
   AgentDotjsonRoute: AgentDotjsonRoute,
