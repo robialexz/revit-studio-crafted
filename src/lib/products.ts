@@ -1,266 +1,147 @@
-/**
- * Produsele magazinului NOD BIM — unelte de birou/CAD și desen tehnic
- * (import, revândute local) + modele didactice secționate MEP (print 3D).
- * Selectate pe criteriul: nu se găsesc pe eMAG/magazinele uzuale din RO.
- */
+import shopAutomation from "@/assets/shop-automation.webp";
+import shopCapacity from "@/assets/shop-capacity.webp";
+import shopDidacticModel from "@/assets/shop-didactic-model.webp";
+import shopHealthCheck from "@/assets/shop-health-check.webp";
+import shopStarterKit from "@/assets/shop-starter-kit.webp";
+
 export type ShopProduct = {
   id: string;
   name: string;
-  category: "Birou & CAD" | "Unelte de desen" | "Didactice";
+  category:
+    | "Audit & verificare"
+    | "Kituri Revit MEP"
+    | "Automatizări"
+    | "Capacitate externă"
+    | "Modele didactice";
+  kind: "Pachet digital" | "Serviciu" | "Model fizic";
   description: string;
   price: string;
+  priceMin?: number;
+  priceMax?: number;
   availability: string;
-  details: string[];
-  /** Imagine produs (din /public/products). Opțională până la fotografia proprie. */
-  image?: string;
+  audience: string;
+  compatibility: string;
+  deliverables: string[];
+  image: string;
+  imageAlt: string;
+  imageCaption: string;
 };
 
+/**
+ * Oferta magazinului NOD BIM: produse și servicii mici care pot deschide o
+ * colaborare B2B — audit, organizare Revit, automatizări și modele didactice.
+ */
 export const products: ShopProduct[] = [
   {
-    id: "macropad-3",
-    name: "Macropad CAD — 3 taste + rotativ",
-    category: "Birou & CAD",
+    id: "rvt-dwg-health-check",
+    name: "RVT / DWG Health Check",
+    category: "Audit & verificare",
+    kind: "Serviciu",
     description:
-      "Tastatură mini programabilă pentru scurtături Revit, AutoCAD, Blender sau Photoshop: 3 butoane + buton rotativ (zoom, undo, volum). Se configurează per aplicație.",
-    price: "139 lei",
-    availability: "Livrare 7–14 zile",
-    image: "/products/macropad-3.jpg",
-    details: [
-      "3 butoane + rotativ cu click",
-      "USB-C · fără driver special",
-      "Software de configurare inclus",
-      "Scurtături salvate în memorie",
+      "Verificare punctuală pentru un fișier RVT sau DWG înainte de predare, preluare ori continuarea lucrului. Primești o imagine clară a problemelor și a următorilor pași.",
+    price: "149–299 lei",
+    priceMin: 149,
+    priceMax: 299,
+    availability: "Raport în 2–4 zile lucrătoare",
+    audience: "Birouri mici de proiectare",
+    compatibility: "RVT · DWG · PDF · HVAC / termice / electrice",
+    deliverables: [
+      "raport PDF cu problemele găsite",
+      "observații prioritizate pentru corectare",
+      "verificare structură, planșe și denumiri",
+      "recomandări pentru predare sau continuarea proiectului",
     ],
+    image: shopHealthCheck,
+    imageAlt: "Comparație între o planșă DWG și un model 3D Revit MEP coordonat",
+    imageCaption: "Preview audit · DWG → RVT",
   },
   {
-    id: "macropad-6",
-    name: "Macropad CAD — 6 taste + 2 rotative",
-    category: "Birou & CAD",
+    id: "revit-mep-office-starter-kit",
+    name: "Revit MEP Office Starter Kit",
+    category: "Kituri Revit MEP",
+    kind: "Pachet digital",
     description:
-      "Versiunea extinsă: 6 butoane programabile și 2 butoane rotative, pentru fluxuri complete de lucru în Revit MEP, AutoCAD sau editare foto/video.",
-    price: "179 lei",
-    availability: "Livrare 7–14 zile",
-    image: "/products/macropad-6.jpg",
-    details: [
-      "6 butoane + 2 rotative",
-      "Profiluri per aplicație",
-      "USB-C · memorare internă",
-      "Ideal pentru scurtături MEP",
+      "Un punct de pornire practic pentru un birou care vrea să lucreze mai organizat în Revit MEP și să reducă timpul pierdut la fiecare proiect nou.",
+    price: "249–499 lei",
+    priceMin: 249,
+    priceMax: 499,
+    availability: "Livrare digitală · 3–5 zile",
+    audience: "Birouri care vor un flux repetabil",
+    compatibility: "Revit MEP · template RVT · versiunea se confirmă la comandă",
+    deliverables: [
+      "template RVT de pornire",
+      "view templates și filtre de bază",
+      "nomenclatoare și sheet-uri organizate",
+      "checklist QA/QC pentru predare",
     ],
+    image: shopStarterKit,
+    imageAlt: "Kit vizual cu template Revit MEP, sheet-uri și checklist QA/QC",
+    imageCaption: "Preview kit · sheet și documentație",
   },
   {
-    id: "macropad-12",
-    name: "Macropad CAD — 12 taste mecanice + 2 rotative",
-    category: "Birou & CAD",
+    id: "dynamo-pyrevit-mep-pack",
+    name: "Pachete Dynamo / pyRevit pentru MEP",
+    category: "Automatizări",
+    kind: "Pachet digital",
     description:
-      "Versiunea completă pentru proiectanți: 12 taste mecanice hotswap cu RGB + 2 butoane rotative. Toate scurtăturile Revit/AutoCAD la o mână distanță.",
-    price: "229 lei",
-    availability: "Livrare 7–14 zile",
-    image: "/products/macropad-12.jpg",
-    details: [
-      "12 taste mecanice hotswap",
-      "2 rotative · RGB per tastă",
-      "Profiluri multiple",
-      "Bluetooth + USB",
+      "Automatizări mici pentru sarcini repetitive din Revit MEP: numerotare, verificări, pregătirea planșelor și exporturi. Alegi doar fluxul de care ai nevoie.",
+    price: "79–299 lei",
+    priceMin: 79,
+    priceMax: 299,
+    availability: "Livrare digitală · după confirmarea fluxului",
+    audience: "Proiectanți și coordonatori Revit",
+    compatibility: "Revit MEP · Dynamo · pyRevit · Windows",
+    deliverables: [
+      "scripturile pentru fluxul ales",
+      "instrucțiuni scurte de instalare și rulare",
+      "verificări pentru scenariul agreat",
+      "exemplu de utilizare pe un proiect demonstrativ",
     ],
+    image: shopAutomation,
+    imageAlt: "Flux vizual de automatizare pentru modelare și documentație Revit MEP",
+    imageCaption: "Preview automatizare · coordonare MEP",
   },
   {
-    id: "stream-dock",
-    name: "Stream Dock — 15 taste LCD programabile",
-    category: "Birou & CAD",
+    id: "revit-mep-capacity-pack",
+    name: "Pachet de capacitate externă Revit MEP",
+    category: "Capacitate externă",
+    kind: "Serviciu",
     description:
-      "Controller de birou cu 15 taste LCD: fiecare tastă afișează propria iconiță (inclusiv GIF), cu sute de plugin-uri și profiluri per aplicație. Alternativa accesibilă la Elgato Stream Deck, pentru scurtături Revit, AutoCAD, Photoshop.",
-    price: "399 lei",
-    availability: "Livrare 7–14 zile",
-    image: "/products/stream-dock.jpg",
-    details: [
-      "15 taste cu ecran LCD propriu",
-      "Iconițe personalizate (JPG/PNG/GIF)",
-      "Profiluri auto per aplicație",
-      "Suport PC & Mac · USB-C",
+      "O rezervă de capacitate pentru birouri care au un vârf de lucru, o revizie urgentă sau nevoie de o mână în plus la documentație.",
+    price: "La ofertă",
+    availability: "Termen și preț după fișiere",
+    audience: "Firme cu vârf de lucru sau lipsă temporară de personal",
+    compatibility: "RVT · DWG · PDF · HVAC / termice / electrice",
+    deliverables: [
+      "5 planșe sau o revizie RVT/DWG",
+      "pachet de 10 ore de suport tehnic",
+      "scope, termen și livrabile stabilite în scris",
+      "predare RVT, DWG și PDF când sunt incluse în scop",
     ],
+    image: shopCapacity,
+    imageAlt: "Ansamblu HVAC și set de planșe pregătite pentru predare",
+    imageCaption: "Preview capacitate · planșă HVAC",
   },
   {
-    id: "masa-desen-standard",
-    name: "Masă de desen A3 — riglă paralelă",
-    category: "Birou & CAD",
+    id: "modele-didactice-mep",
+    name: "Modele didactice MEP la comandă",
+    category: "Modele didactice",
+    kind: "Model fizic",
     description:
-      "Masă portabilă de desen A3 cu riglă paralelă glisantă, cleme de fixare a hârtiei și echer cu raportor integrat. Uneltele de bază ale desenatorului, într-un singur pachet.",
-    price: "199 lei",
-    availability: "Livrare 10–20 zile",
-    image: "/products/masa-desen-standard.jpg",
-    details: [
-      "Format A3 · 2 cleme hârtie",
-      "Riglă paralelă cu blocare",
-      "Echer + raportor incluse",
-      "Suprafață antiderapantă",
+      "Modele secționate pentru predarea instalațiilor: pompă, vană, ventiloconvector, distribuitor sau un ansamblu personalizat. Conceptul și nivelul de detaliu se stabilesc înainte de print.",
+    price: "650–2.500+ lei",
+    priceMin: 650,
+    availability: "La comandă · termen confirmat",
+    audience: "Facultăți, licee tehnologice și firme de training",
+    compatibility: "Print 3D · variante și coduri de culoare stabilite împreună",
+    deliverables: [
+      "model secționat cu componente vizibile",
+      "coduri de culoare pentru componente sau fluxuri",
+      "suport de prezentare, când este necesar",
+      "variante: pompă, vană, ventiloconvector, distribuitor, CRAH/CDU",
     ],
-  },
-  {
-    id: "masa-desen-pro",
-    name: "Masă de desen A3 pro — cap de desenare cu echer rotativ",
-    category: "Birou & CAD",
-    description:
-      "Varianta profesională: cap de desenare cu echer rotativ gradat 0–90°, mecanism paralel precis și suport de hârtie dublu. Pentru planșe tehnice la standard de birou.",
-    price: "449 lei",
-    availability: "Livrare 10–20 zile",
-    image: "/products/masa-desen-pro.jpg",
-    details: [
-      "Cap de desenare cu echer rotativ",
-      "Scală gradată 0–90°",
-      "Mecanism paralel dublu",
-      "Comparabil cu mesele de firmă de 3x prețul",
-    ],
-  },
-  {
-    id: "radiera-electrica",
-    name: "Radieră electrică pentru desen tehnic",
-    category: "Birou & CAD",
-    description:
-      "Radieră electrică de precizie pentru planșe și schițe — șterge curat fără să roadă hârtia. Unelta clasică de desenator, aproape imposibil de găsit în România.",
-    price: "59 lei",
-    availability: "Livrare 7–14 zile",
-    image: "/products/radiera-electrica.jpg",
-    details: [
-      "Motor rotativ · 2 viteze",
-      "Vârf de cauciuc schimbabil",
-      "Alimentare baterii AAA",
-      "Pentru planșe, schițe, hârtie de calc",
-    ],
-  },
-  {
-    id: "lead-pointer-2mm",
-    name: "Ascuțitor pentru mine de 2mm (lead pointer)",
-    category: "Birou & CAD",
-    description:
-      "Ascuțitor dedicat minelor de 2mm pentru creioane mecanice (port-mină) — vârf fin de desen sau de scris, cu rezervor pentru praf. Accesoriul pe care îl caută orice desenator tehnic.",
-    price: "29 lei",
-    availability: "Livrare 7–14 zile",
-    details: [
-      "Pentru mine de 2mm",
-      "Două profile de vârf",
-      "Rezervor pentru praf inclus",
-      "Compatibil cu majoritatea port-minelor",
-    ],
-  },
-  {
-    id: "set-creioane-2mm",
-    name: "Set creioane mecanice 2mm + 144 mine + ascuțitor",
-    category: "Birou & CAD",
-    description:
-      "Set complet de desen tehnic: creion mecanic metalic de 2mm, 144 de mine HB/2B și ascuțitor dedicat. Trusă în cutie, gata de lucru.",
-    price: "79 lei",
-    availability: "Livrare 7–14 zile",
-    details: [
-      "Creion mecanic metalic 2mm",
-      "144 mine · HB și 2B",
-      "Ascuțitor + radieră incluse",
-      "Cutie de transport",
-    ],
-  },
-  {
-    id: "sablon-instalatii",
-    name: "Șablon instalații — vane, flanșe, coturi, pompe",
-    category: "Unelte de desen",
-    description:
-      "Șablon de desen pentru scheme de instalații: simboluri de vane, flanșe, reducții, pompe și coturi. Esențial pentru scheme izometrice de mână.",
-    price: "49 lei",
-    availability: "Livrare 7–14 zile",
-    details: [
-      "Simboluri vane + fitinguri",
-      "Plastic translucid verde",
-      "Riglă 7 cm + 14 cm inclusă",
-      "Potrivit pentru studenți și proiectanți",
-    ],
-  },
-  {
-    id: "sablon-electrice",
-    name: "Șablon simboluri electrice",
-    category: "Unelte de desen",
-    description:
-      "Șablon cu simboluri standard pentru scheme electrice: întrerupătoare, prize, corpuri de iluminat, circuite și componente.",
-    price: "39 lei",
-    availability: "Livrare 7–14 zile",
-    details: [
-      "Simboluri standard instalații",
-      "Plastic translucid",
-      "Cu ghidaje de aliniere",
-      "Pentru scheme și planuri",
-    ],
-  },
-  {
-    id: "sablon-arhitect-1-50",
-    name: "Șablon arhitect 1:50 — uși, mobilier, electrice",
-    category: "Unelte de desen",
-    description:
-      "Șablon combinat pentru planuri 1:50: uși, obiecte sanitare, mobilier și simboluri electro. Acril 2 mm, laser-cut.",
-    price: "49 lei",
-    availability: "Livrare 7–14 zile",
-    details: [
-      "Scară 1:50 integrată",
-      "Acril verde translucid 2 mm",
-      "Decupaje laser precise",
-      "Pentru schițe și planuri",
-    ],
-  },
-  {
-    id: "sablon-mobilier-1-100",
-    name: "Șablon mobilier 1:100 + raportor",
-    category: "Unelte de desen",
-    description:
-      "Șablon universal cu simboluri de mobilier (living, dormitor, bucătărie, baie) și simboluri electrice uzuale, la scara 1:100.",
-    price: "39 lei",
-    availability: "Livrare 7–14 zile",
-    details: [
-      "Scară 1:100",
-      "Raportor inclus",
-      "K-resin flexibil",
-      "Simboluri mobilier + electrice",
-    ],
-  },
-  {
-    id: "pompa-sectionata",
-    name: "Model didactic — pompă centrifugală secționată",
-    category: "Didactice",
-    description:
-      "Model secționat de pompă centrifugală, cu rotor, carcasă spirală și garnituri vizibile. Secțiuni colorate pe coduri, manivelă de rotire manuală.",
-    price: "650 lei",
-    availability: "La comandă · 3–5 zile",
-    details: [
-      "Secțiuni colorate pe componente",
-      "Rotor rotativ manual",
-      "Print 3D, finisat manual",
-      "Pentru licee tehnologice și facultăți",
-    ],
-  },
-  {
-    id: "ventiloconvector",
-    name: "Model didactic — ventiloconvector secționat",
-    category: "Didactice",
-    description:
-      "Ventiloconvector (fan coil) cu baterie, ventilator și vană vizibile prin secțiune — ideal pentru cursuri de HVAC și instalații termice.",
-    price: "890 lei",
-    availability: "La comandă · 3–5 zile",
-    details: [
-      "Baterie + ventilator vizibile",
-      "Secțiuni colorate pe fluxuri",
-      "Suport de prezentare inclus",
-      "Pentru cursuri HVAC / termice",
-    ],
-  },
-  {
-    id: "vana-bila",
-    name: "Model didactic — vană cu bilă secționată",
-    category: "Didactice",
-    description:
-      "Vană cu bilă cu trecere integrală, secționată pentru a arăta bila, scaunele și garniturile. Robinetul se rotește manual.",
-    price: "350 lei",
-    availability: "La comandă · 3–5 zile",
-    details: [
-      "Bilă rotativă manual",
-      "Scaune și garnituri vizibile",
-      "Secțiuni colorate",
-      "Pentru cursuri de instalații",
-    ],
+    image: shopDidacticModel,
+    imageAlt: "Model fizic secționat pentru instruirea instalațiilor HVAC și MEP",
+    imageCaption: "Preview conceptual · model didactic MEP",
   },
 ];

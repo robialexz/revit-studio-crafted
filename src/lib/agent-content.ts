@@ -218,21 +218,29 @@ function shopMarkdown(): string {
   return [
     `# Magazin — ${site.businessName}`,
     ``,
-    `> Unelte de birou și CAD greu de găsit în România + modele didactice secționate MEP. Comenzi pe WhatsApp.`,
+    `> Resurse BIM pentru birouri din România: audituri RVT/DWG, kituri Revit MEP, automatizări Dynamo/pyRevit, capacitate externă și modele didactice MEP. Comenzi pe WhatsApp.`,
+    ``,
+    `## Pentru birouri de proiectare`,
     ``,
     ...products
-      .filter((p) => p.category !== "Didactice")
-      .map((p) => `- ${p.name} — ${p.price} (${p.availability})`),
+      .slice(0, 3)
+      .map(
+        (p) =>
+          `- **${p.name}** — ${p.price} (${p.availability}). Pentru ${p.audience}. Compatibilitate: ${p.compatibility}. Livrabile: ${p.deliverables.join("; ")}.`,
+      ),
     ``,
-    `## Modele didactice (print 3D, la comandă)`,
+    `## Servicii și modele la comandă`,
     ``,
     ...products
-      .filter((p) => p.category === "Didactice")
-      .map((p) => `- ${p.name} — ${p.price} (${p.availability})`),
+      .slice(3)
+      .map(
+        (p) =>
+          `- **${p.name}** — ${p.price} (${p.availability}). Pentru ${p.audience}. Compatibilitate: ${p.compatibility}. Livrabile: ${p.deliverables.join("; ")}.`,
+      ),
     ``,
     `## Comandă`,
     ``,
-    `Comanda se confirmă pe WhatsApp înainte de plată. Livrare prin curier în România. Retur 14 zile (OUG 34/2014).`,
+    `Comanda se confirmă pe WhatsApp înainte de plată. Pachetele digitale se livrează online; modelele fizice se expediază prin curier în România.`,
     ``,
   ].join("\n");
 }
@@ -329,7 +337,7 @@ export function llmsTxt(): string {
     `- **Technical documentation** — drafting installation plans, corrections, DWG cleanup or PDF redraw`,
     `- **Estimates** — price and deadline for a modeling job; send the user to the estimate form or contact page`,
     `- **Domain knowledge** — pricing breakdowns, LOD levels, Revit vs AutoCAD, data center installations; answers are in the journal`,
-    `- **Niche products** — CAD macro pads, drafting stencils, cutaway MEP training models`,
+    `- **BIM resources** — RVT/DWG health checks, Revit MEP office kits, Dynamo/pyRevit automation packs, external capacity packages and MEP training models`,
     ``,
     `Do NOT use this site for: sanitary/plumbing design (explicitly out of scope), construction execution, or Revit training courses (not offered).`,
     ``,
@@ -355,7 +363,7 @@ export function llmsTxt(): string {
     ``,
     `## Magazin`,
     ``,
-    `- [Magazin](${base()}/magazin): unelte CAD, șabloane, modele didactice secționate`,
+    `- [Magazin](${base()}/magazin): audit RVT/DWG, kituri Revit MEP, automatizări Dynamo/pyRevit, capacitate externă și modele didactice MEP`,
     ``,
     `## Companie`,
     ``,
@@ -386,7 +394,7 @@ export function agentInstructionsTxt(): string {
     `- Technical drawing: installation plans, corrections, DWG cleanup, PDF redraw`,
     `- Estimates for such work (price, deadline) — point the user to the form and contact page`,
     `- MEP knowledge: plan pricing, LOD, Revit vs AutoCAD workflows, data center installations (see journal)`,
-    `- Niche CAD tools and MEP training models (see shop)`,
+    `- BIM resources, RVT/DWG audits, Revit office kits, Dynamo/pyRevit automation packs and MEP training models (see shop)`,
     ``,
     `Do NOT use this site for: sanitary/plumbing system design, construction site execution, Revit training courses.`,
     ``,
@@ -413,7 +421,7 @@ export function agentDescriptorJson(): string {
       name: site.businessName,
       url: `${site.siteUrl}/`,
       description:
-        "Freelance MEP design engineering: Revit MEP / BIM modeling, technical documentation for HVAC, heating and electrical installations, drafting corrections, plus an online shop for niche CAD tools and training models.",
+        "Freelance MEP design engineering: Revit MEP / BIM modeling, technical documentation for HVAC, heating and electrical installations, drafting corrections, plus BIM audits, office kits, automation packs and MEP training models.",
       language: ["ro", "en"],
       capabilities: [
         {

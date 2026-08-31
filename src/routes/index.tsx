@@ -24,9 +24,7 @@ import { track, trackConversion } from "@/lib/analytics";
 import { referrals } from "@/lib/referrals";
 import { articles } from "@/lib/blog";
 
-import hero3d from "@/assets/hero-3d.webp";
-import hero3dMobile from "@/assets/hero-3d-640.webp";
-import hero3d960 from "@/assets/hero-3d-960.webp";
+import hero3d from "@/assets/hero-3d-professional.webp";
 import hero2d from "@/assets/hero-2d.webp";
 import hero2dMobile from "@/assets/hero-2d-640.webp";
 import hero2d720 from "@/assets/hero-2d-720.webp";
@@ -64,8 +62,6 @@ export const Route = createFileRoute("/")({
         rel: "preload",
         as: "image",
         href: hero3d,
-        imagesrcset: `${hero3dMobile} 640w, ${hero3d960} 960w, ${hero3d} 1200w`,
-        imagesizes: "(min-width: 1024px) 640px, 640px",
       },
     ],
     scripts: [
@@ -222,11 +218,9 @@ function Home() {
                   </div>
                   <img
                     src={hero3d}
-                    srcSet={`${hero3dMobile} 640w, ${hero3d960} 960w, ${hero3d} 1200w`}
-                    sizes="(min-width: 1024px) 640px, 640px"
                     alt="Model 3D Revit MEP cu trasee de tubulatură, conducte și echipamente"
-                    width={1200}
-                    height={912}
+                    width={1536}
+                    height={1024}
                     fetchPriority="high"
                     className="mt-2 w-full object-cover"
                   />
