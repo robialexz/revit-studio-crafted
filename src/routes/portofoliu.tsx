@@ -7,20 +7,13 @@ import { MobileCta } from "@/components/site/MobileCta";
 import { Reveal } from "@/components/site/Reveal";
 import { CtaSection } from "@/components/site/CtaSection";
 import { canonicalUrl } from "@/lib/site-config";
-import hero3d from "@/assets/hero-3d.webp";
-import hero2d from "@/assets/hero-2d.webp";
-import projHvac from "@/assets/proj-hvac.webp";
-import projTermice from "@/assets/proj-termice.webp";
-import projElectrice from "@/assets/proj-electrice.webp";
-import projSectiune from "@/assets/proj-sectiune.webp";
-import projSheet from "@/assets/proj-sheet.webp";
-import projDwg from "@/assets/proj-dwg.webp";
-import showcaseCoordination from "@/assets/showcase-coordination.webp";
-import showcaseDwgRevit from "@/assets/showcase-dwg-revit.webp";
-import showcaseElectrical from "@/assets/showcase-electrical.webp";
-import showcaseHvacPlan from "@/assets/showcase-hvac-plan.webp";
-import showcasePlantRoom from "@/assets/showcase-plant-room.webp";
-import showcaseSection from "@/assets/showcase-section.webp";
+import hero3d from "@/assets/hero-3d-professional.webp";
+import portfolioDwg from "@/assets/portfolio-dwg-conversion.webp";
+import portfolioElectrical from "@/assets/portfolio-electrical-plan.webp";
+import portfolioHvac from "@/assets/portfolio-hvac-plan.webp";
+import portfolioSection from "@/assets/portfolio-section.webp";
+import portfolioSheet from "@/assets/portfolio-sheet.webp";
+import portfolioThermal from "@/assets/portfolio-thermal-plan.webp";
 
 const title = "Portofoliu Revit MEP · Modele BIM și planșe tehnice · NOD BIM";
 const description =
@@ -59,122 +52,59 @@ type Item = {
 
 const items: Item[] = [
   {
-    src: projSheet,
-    alt: "Sheet tehnic cu vederi, secțiuni, legende și indicator, extras dintr-un model Revit",
-    caption: "Sheet · Organizare planșe",
-    meta: "Software: Revit MEP · Livrabil: RVT · DWG · PDF",
-    w: 1600,
-    h: 1104,
+    src: portfolioSheet,
+    alt: "Panou de documentație tehnică cu plan, secțiune și detalii Revit MEP",
+    caption: "Documentație · Planșe tehnice",
+    meta: "Revit MEP · RVT · DWG · PDF",
+    w: 1448,
+    h: 1086,
     span: "lg:col-span-7",
   },
   {
-    src: projSectiune,
-    alt: "Secțiune 3D printr-un model Revit MEP cu tubulaturi, conducte și susțineri",
-    caption: "Model BIM · Secțiune",
-    meta: "Model 3D Revit",
-    w: 1200,
-    h: 1408,
-    span: "lg:col-span-5",
-    dark: true,
-  },
-  {
-    src: projHvac,
-    alt: "Planșă de instalații HVAC cu trasee de tubulatură, grile, anemostate și legendă",
-    caption: "HVAC · Plan nivel",
-    meta: "Ventilare · Climatizare",
-    w: 1600,
-    h: 1008,
-    span: "lg:col-span-12",
-  },
-  {
-    src: projTermice,
-    alt: "Plan de instalații termice cu conducte, radiatoare, centrală și distribuitoare",
-    caption: "Termice · Plan",
-    meta: "Trasee · Echipamente",
-    w: 1200,
-    h: 912,
-    span: "lg:col-span-6",
-  },
-  {
-    src: projElectrice,
-    alt: "Plan de instalații electrice cu corpuri de iluminat, prize, circuite și legendă",
-    caption: "Electrice · Plan",
-    meta: "Iluminat · Circuite · Tablouri",
-    w: 1200,
-    h: 912,
-    span: "lg:col-span-6",
-  },
-  {
-    src: hero2d,
-    alt: "Planșă 2D extrasă din model Revit, cu cote, adnotări și legendă",
-    caption: "Plan nivel · Documentație 2D",
-    meta: "Extras din model",
-    w: 912,
-    h: 1104,
-    span: "lg:col-span-5",
-  },
-  {
-    src: projDwg,
-    alt: "Plan AutoCAD cu layere organizate și linework curățat",
-    caption: "AutoCAD / DWG · Curățare",
-    meta: "Layere · Layout · Export",
-    w: 1200,
-    h: 912,
-    span: "lg:col-span-7",
-    dark: true,
-  },
-  {
-    src: showcaseCoordination,
-    alt: "Model de coordonare BIM cu verificarea interferențelor între instalații",
-    caption: "Coordonare · Model BIM",
-    meta: "Detecție conflicte · Navisworks / Revit",
-    w: 1568,
-    h: 1003,
-    span: "lg:col-span-7",
-  },
-  {
-    src: showcaseSection,
-    alt: "Secțiune printr-un model Revit MEP cu trasee de tubulatură și conducte",
-    caption: "Secțiune · Model BIM",
-    meta: "Model 3D Revit",
-    w: 1122,
-    h: 1402,
-    span: "lg:col-span-5",
-  },
-  {
-    src: showcaseHvacPlan,
-    alt: "Planșă HVAC cu trasee de tubulatură, grile, anemostate și echipamente",
-    caption: "HVAC · Plan nivel",
-    meta: "Ventilare · Climatizare",
-    w: 1568,
-    h: 1003,
-    span: "lg:col-span-12",
-  },
-  {
-    src: showcasePlantRoom,
-    alt: "Cameră tehnică cu echipamente HVAC și trasee de instalații",
-    caption: "Centrală tehnică",
-    meta: "Echipamente · Trasee",
+    src: portfolioSection,
+    alt: "Secțiune BIM printr-o clădire cu trasee HVAC, termice și electrice coordonate",
+    caption: "Coordonare · Secțiune BIM",
+    meta: "Model 3D · Coordonare MEP",
     w: 1448,
     h: 1086,
     span: "lg:col-span-5",
+    dark: true,
   },
   {
-    src: showcaseElectrical,
-    alt: "Plan de instalații electrice cu circuite, prize și corpuri de iluminat",
-    caption: "Electrice · Plan",
+    src: portfolioHvac,
+    alt: "Plan HVAC coordonat cu tubulaturi, difuzoare și grile într-un nivel de clădire",
+    caption: "HVAC · Plan coordonat",
+    meta: "Ventilare · Climatizare",
+    w: 1448,
+    h: 1086,
+    span: "lg:col-span-12",
+  },
+  {
+    src: portfolioThermal,
+    alt: "Plan de instalații termice cu radiatoare, distribuitor și conducte tur-retur",
+    caption: "Termice · Distribuție",
+    meta: "Radiatoare · Distribuitor · Trasee",
+    w: 1448,
+    h: 1086,
+    span: "lg:col-span-6",
+  },
+  {
+    src: portfolioElectrical,
+    alt: "Plan de instalații electrice cu corpuri de iluminat, prize și trasee de circuit",
+    caption: "Electrice · Plan coordonat",
     meta: "Iluminat · Prize · Circuite",
-    w: 1568,
-    h: 1003,
-    span: "lg:col-span-7",
+    w: 1448,
+    h: 1086,
+    span: "lg:col-span-6",
+    dark: true,
   },
   {
-    src: showcaseDwgRevit,
-    alt: "Plan DWG pregătit și importat pentru modelare în Revit",
-    caption: "DWG · Conversie Revit",
-    meta: "Import · Curățare · Export",
-    w: 1586,
-    h: 992,
+    src: portfolioDwg,
+    alt: "Comparație între un plan DWG curățat și modelul 3D Revit MEP rezultat",
+    caption: "DWG → Revit · Conversie",
+    meta: "Import · Curățare · Modelare",
+    w: 1448,
+    h: 1086,
     span: "lg:col-span-12",
   },
 ];
@@ -227,8 +157,8 @@ function Portofoliu() {
               <img
                 src={hero3d}
                 alt="Model 3D Revit MEP: trasee de tubulatură, conducte și echipamente într-o structură"
-                width={1200}
-                height={912}
+                width={1536}
+                height={1024}
                 className="w-full object-cover"
               />
               <figcaption className="flex flex-wrap items-center justify-between gap-3 border-t border-graphite-foreground/15 px-5 py-4 text-graphite-foreground">
