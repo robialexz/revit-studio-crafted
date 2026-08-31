@@ -16,6 +16,8 @@ import { site, canonicalUrl, hasSiteUrl, hasTracking } from "../lib/site-config"
 import { consentModeBootstrapScript } from "../lib/consent";
 import { ConsentBanner } from "../components/site/ConsentBanner";
 
+const gtmHeadScript = `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${site.gtmContainerId}');`;
+
 function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
@@ -148,7 +150,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           ...(site.siteUrl ? { url: site.siteUrl } : {}),
         }),
       },
-      // Tracking (GA4 + Google Ads) — doar când este configurat. Consent Mode v2:
+      // Tracking (GTM + GA4 + Google Ads) — doar când este configurat. Consent Mode v2:
       // starea implicită de consimțământ este trimisă ÎNAINTE de gtag.js, astfel
       // încât fără consimțământ nu se setează cookie-uri analytics/ads.
       ...(hasTracking
@@ -156,12 +158,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
             {
               children: consentModeBootstrapScript(),
             },
-            {
-              src: `https://www.googletagmanager.com/gtag/js?id=${site.gaMeasurementId || site.adsConversionId}`,
-              async: true,
-            },
             ...(site.gaMeasurementId || site.adsConversionId
               ? [
+                  {
+                    src: `https://www.googletagmanager.com/gtag/js?id=${site.gaMeasurementId || site.adsConversionId}`,
+                    async: true,
+                  },
                   {
                     children: `gtag('js',new Date());${
                       site.gaMeasurementId ? `gtag('config','${site.gaMeasurementId}');` : ""
@@ -169,6 +171,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
                   },
                 ]
               : []),
+            {
+              children: gtmHeadScript,
+            },
             // Google Ads: tag AW încărcat în același cont gtag — necesar pentru
             // conversia cu send_to.
             ...(site.adsConversionId
@@ -196,6 +201,17 @@ function RootShell({ children }: { children: ReactNode }) {
         <HeadContent />
       </head>
       <body>
+        {site.gtmContainerId ? (
+          <noscript>
+            <iframe
+              src={`https://www.googletagmanager.com/ns.html?id=${site.gtmContainerId}`}
+              height="0"
+              width="0"
+              style={{ display: "none", visibility: "hidden" }}
+              title="Google Tag Manager"
+            />
+          </noscript>
+        ) : null}
         {children}
         <Scripts />
       </body>

@@ -43,6 +43,7 @@ export function QuoteForm() {
   const [submitting, setSubmitting] = useState(false);
   const [sent, setSent] = useState(false);
   const submittedRef = useRef(false);
+  const quoteSuccessEventSentRef = useRef(false);
   const successRef = useRef<HTMLDivElement>(null);
 
   // După trimitere, aducem confirmarea în vizor: formularul lung este
@@ -125,6 +126,7 @@ export function QuoteForm() {
     if (!validate()) return;
 
     attemptedRef.current = true;
+    quoteSuccessEventSentRef.current = false;
     setSubmitting(true);
     setErrors({});
     try {
@@ -147,6 +149,23 @@ export function QuoteForm() {
       });
       submittedRef.current = true;
       submissionIdRef.current = undefined;
+      if (!quoteSuccessEventSentRef.current) {
+        quoteSuccessEventSentRef.current = true;
+        try {
+          if (typeof window !== "undefined") {
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+              event: "quote_form_success",
+              form_name: "quote_contact",
+              lead_type: "project_quote",
+              value: 1,
+              currency: "RON",
+            });
+          }
+        } catch {
+          // Tracking-ul nu trebuie să schimbe rezultatul unei trimiteri salvate.
+        }
+      }
       setSent(true);
       track("quote_submit", { project_type: tip });
       // Conversia principală se trage DOAR după ce serverul a confirmat

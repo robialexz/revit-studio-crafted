@@ -26,7 +26,8 @@ const contentSecurityPolicy = [
   "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com",
   "style-src 'self' 'unsafe-inline'",
   "font-src 'self' data:",
-  "img-src 'self' data: blob:",
+  "img-src 'self' data: blob: https://www.google.com https://www.googleadservices.com https://googleads.g.doubleclick.net",
+  "frame-src 'self' https://www.googletagmanager.com",
   "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://www.google-analytics.com https://region1.google-analytics.com https://googleads.g.doubleclick.net https://www.google.com https://www.googleadservices.com",
 ].join("; ");
 
