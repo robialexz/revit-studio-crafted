@@ -168,9 +168,6 @@ export function QuoteForm() {
       }
       setSent(true);
       track("quote_submit", { project_type: tip });
-      // Conversia principală se trage DOAR după ce serverul a confirmat
-      // salvarea lead-ului (nu la click pe buton).
-      trackConversion("lead_form_success", { project_type: tip }, { dedupeKey: submissionId });
     } catch (error) {
       // Tokenul rămâne neschimbat: un retry al aceleiași trimiteri este
       // idempotent pe server (nu creează un al doilea rând).
