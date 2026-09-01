@@ -140,7 +140,9 @@ describe("handleSubmitLead — idempotență", () => {
     const second = await handleSubmitLead(input, deps);
 
     expect(first.duplicate).toBe(false);
+    expect(first.saved).toBe(true);
     expect(second.duplicate).toBe(true);
+    expect(second.saved).toBe(true);
     expect(second.id).toBe(first.id);
     expect(store.count()).toBe(1);
   });
@@ -220,6 +222,7 @@ describe("handleSubmitLead — idempotență", () => {
     const result = await handleSubmitLead(baseLead({ website: "spam.com" }), deps);
 
     expect(result.id).toBe("accepted");
+    expect(result.saved).toBe(false);
     expect(store.count()).toBe(0);
   });
 });
@@ -237,6 +240,7 @@ describe("handleSubmitLead — notificare și retry", () => {
     const result = await handleSubmitLead(input, deps);
 
     expect(result.duplicate).toBe(false);
+    expect(result.saved).toBe(true);
     expect(store.count()).toBe(1);
     expect(sentLeads).toHaveLength(1);
     const row = store.getBySubmissionId("eeeeeeee-eeee-4eee-8eee-eeeeeeeeeeee");
@@ -328,6 +332,7 @@ describe("handleSubmitLead — notificare și retry", () => {
 
     expect(result.duplicate).toBe(false);
     expect(result.id).toBe("email:eeee5555-eeee-4eee-8eee-eeeeeeeeeeee");
+    expect(result.saved).toBe(false);
     expect(sentLeads).toHaveLength(1);
   });
 
@@ -376,6 +381,7 @@ describe("handleSubmitLead — notificare și retry", () => {
     const result = await handleSubmitLead(input, deps);
 
     expect(result.duplicate).toBe(false);
+    expect(result.saved).toBe(false);
     expect(sentLeads).toHaveLength(1);
     expect(sentLeads[0]).toBe(input.submission_id);
   });
@@ -392,6 +398,7 @@ describe("handleSubmitLead — notificare și retry", () => {
     const result = await handleSubmitLead(input, deps);
 
     expect(result.duplicate).toBe(false);
+    expect(result.saved).toBe(true);
     expect(store.count()).toBe(1);
     expect(attempts).toBe(1);
   });

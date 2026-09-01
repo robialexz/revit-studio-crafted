@@ -70,6 +70,7 @@ export interface LeadRecordForNotification {
 export interface SubmitLeadResult {
   id: string;
   duplicate: boolean;
+  saved: boolean;
 }
 
 const SAFE_USER_ERROR = "Cererea nu a putut fi salvată. Încearcă din nou.";
@@ -213,7 +214,7 @@ export async function handleSubmitLead(data: LeadInput, deps: LeadDeps): Promise
   // Câmp honeypot ascuns vizitatorilor: bot-ii îl completează, oamenii nu.
   // Pretindem succes fără a salva nimic.
   if (data.website) {
-    return { id: "accepted", duplicate: false };
+    return { id: "accepted", duplicate: false, saved: false };
   }
 
   const payload: Record<string, unknown> = {
@@ -240,7 +241,7 @@ export async function handleSubmitLead(data: LeadInput, deps: LeadDeps): Promise
 
   if ("row" in inserted) {
     await notifyAndRecord(deps, inserted.row);
-    return { id: inserted.row.id, duplicate: false };
+    return { id: inserted.row.id, duplicate: false, saved: true };
   }
 
   if ("uniqueViolation" in inserted) {
@@ -250,7 +251,7 @@ export async function handleSubmitLead(data: LeadInput, deps: LeadDeps): Promise
     if (data.submission_id) {
       const existing = await findLeadBySubmissionId(deps.supabase, data.submission_id);
       if (existing) {
-        return { id: existing.id, duplicate: true };
+        return { id: existing.id, duplicate: true, saved: true };
       }
     }
     console.error("[leads] Conflict de idempotență fără rând găsit:", data.submission_id);
@@ -259,7 +260,7 @@ export async function handleSubmitLead(data: LeadInput, deps: LeadDeps): Promise
 
   if ("emailFallback" in inserted) {
     // Supabase indisponibil: lead-ul a plecat direct pe email.
-    return { id: `email:${data.submission_id}`, duplicate: false };
+    return { id: `email:${data.submission_id}`, duplicate: false, saved: false };
   }
 
   // Fallback: migrarea nu e aplicată (coloanele noi lipsesc) — salvăm fără
@@ -277,7 +278,7 @@ export async function handleSubmitLead(data: LeadInput, deps: LeadDeps): Promise
     if ("row" in legacyInsert) {
       // Fără coloană de status: notificăm fără a putea înregistra rezultatul.
       await deps.sendNotification(legacyInsert.row);
-      return { id: legacyInsert.row.id, duplicate: false };
+      return { id: legacyInsert.row.id, duplicate: false, saved: true };
     }
 
     console.error("[leads] Insert legacy eșuat:", JSON.stringify(legacyInsert));
@@ -287,7 +288,7 @@ export async function handleSubmitLead(data: LeadInput, deps: LeadDeps): Promise
   console.error("[leads] Insert eșuat (Supabase indisponibil?):", JSON.stringify(inserted));
   // Aruncă SAFE_USER_ERROR dacă nici emailul nu a putut fi trimis.
   await insertWithEmailFallback(deps, data);
-  return { id: `email:${data.submission_id}`, duplicate: false };
+  return { id: `email:${data.submission_id}`, duplicate: false, saved: false };
 }
 
 export const submitLead = createServerFn({ method: "POST" })

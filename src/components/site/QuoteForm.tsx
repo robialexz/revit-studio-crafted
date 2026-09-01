@@ -132,7 +132,7 @@ export function QuoteForm() {
     try {
       const attribution = getAttribution();
       const submissionId = makeSubmissionId();
-      await send({
+      const result = await send({
         data: {
           name: name.trim(),
           phone: phone.trim(),
@@ -149,7 +149,7 @@ export function QuoteForm() {
       });
       submittedRef.current = true;
       submissionIdRef.current = undefined;
-      if (!quoteSuccessEventSentRef.current) {
+      if (result.saved && !quoteSuccessEventSentRef.current) {
         quoteSuccessEventSentRef.current = true;
         try {
           if (typeof window !== "undefined") {
