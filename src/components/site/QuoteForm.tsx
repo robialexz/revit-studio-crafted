@@ -151,20 +151,12 @@ export function QuoteForm() {
       submissionIdRef.current = undefined;
       if (result.saved && !quoteSuccessEventSentRef.current) {
         quoteSuccessEventSentRef.current = true;
-        try {
-          if (typeof window !== "undefined") {
-            window.dataLayer = window.dataLayer || [];
-            window.dataLayer.push({
-              event: "quote_form_success",
-              form_name: "quote_contact",
-              lead_type: "project_quote",
-              value: 1,
-              currency: "RON",
-            });
-          }
-        } catch {
-          // Tracking-ul nu trebuie să schimbe rezultatul unei trimiteri salvate.
-        }
+        track("quote_form_success", {
+          form_name: "quote_contact",
+          lead_type: "project_quote",
+          value: 1,
+          currency: "RON",
+        });
       }
       setSent(true);
       track("quote_submit", { project_type: tip });

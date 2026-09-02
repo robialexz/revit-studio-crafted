@@ -14,6 +14,7 @@ export type ConversionEvent =
   | "whatsapp_click"
   | "portfolio_open"
   | "pricing_cta_click"
+  | "quote_form_success"
   | "lead_form_success"
   | "phone_click"
   | "email_click";
@@ -64,6 +65,7 @@ export function track(
 ): void {
   if (typeof window === "undefined") return;
   try {
+    if (readConsent() !== "all") return;
     const key = options.dedupeKey ?? event;
     if (options.once) {
       if (fired.has(key)) return;
@@ -92,6 +94,7 @@ export function trackConversion(
 ): void {
   if (typeof window === "undefined") return;
   try {
+    if (readConsent() !== "all") return;
     const adsPayload =
       name === "lead_form_success"
         ? buildAdsConversionPayload(site.adsConversionId, site.adsConversionLabel)

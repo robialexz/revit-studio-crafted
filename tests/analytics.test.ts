@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test";
 
-import { buildAdsConversionPayload, trackConversion } from "../src/lib/analytics";
+import { buildAdsConversionPayload, track, trackConversion } from "../src/lib/analytics";
 import { clearConsent, writeConsent } from "../src/lib/consent";
 import { site } from "../src/lib/site-config";
 
@@ -16,6 +16,35 @@ describe("Google Ads conversion payload", () => {
   test("nu construiește destinația dacă ID-ul sau eticheta lipsesc", () => {
     expect(buildAdsConversionPayload("", "label")).toBeNull();
     expect(buildAdsConversionPayload("AW-123", "")).toBeNull();
+  });
+
+  test("nu publică evenimente înainte de consimțământ", () => {
+    const savedWindow = globalThis.window;
+    const savedStorage = globalThis.localStorage;
+    const store = new Map<string, string>();
+    const dataLayer: unknown[] = [];
+
+    // @ts-expect-error polyfill minimal pentru test
+    globalThis.localStorage = {
+      getItem: (key: string) => store.get(key) ?? null,
+      setItem: (key: string, value: string) => void store.set(key, value),
+      removeItem: (key: string) => void store.delete(key),
+    };
+    // @ts-expect-error simulăm window
+    globalThis.window = { dataLayer };
+
+    try {
+      track("quote_form_success");
+      expect(dataLayer).toHaveLength(0);
+
+      writeConsent("all");
+      track("quote_form_success", { value: 1 });
+      expect(dataLayer).toEqual([{ event: "quote_form_success", value: 1 }]);
+    } finally {
+      clearConsent();
+      globalThis.window = savedWindow;
+      globalThis.localStorage = savedStorage;
+    }
   });
 
   test("trimite o singură conversie per submission și fără date personale", () => {

@@ -13,14 +13,15 @@ export function ConsentBanner() {
 
   useEffect(() => {
     if (!site.gaMeasurementId && !site.adsConversionId) return;
-    if (readConsent() !== null) return;
-    setVisible(true);
 
     const onOpen = () => {
       clearConsent();
       setVisible(true);
     };
     window.addEventListener("nod:open-consent", onOpen);
+
+    if (readConsent() === null) setVisible(true);
+
     return () => window.removeEventListener("nod:open-consent", onOpen);
   }, []);
 

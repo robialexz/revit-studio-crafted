@@ -16,7 +16,20 @@ import { site, canonicalUrl, hasSiteUrl, hasTracking } from "../lib/site-config"
 import { consentModeBootstrapScript } from "../lib/consent";
 import { ConsentBanner } from "../components/site/ConsentBanner";
 
-const gtmHeadScript = `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${site.gtmContainerId}');`;
+const gtmHeadScript = `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer',${JSON.stringify(site.gtmContainerId)});`;
+
+const gtagConfigScript = [
+  'gtag("js",new Date());',
+  site.gaMeasurementId ? `gtag("config",${JSON.stringify(site.gaMeasurementId)});` : "",
+  site.adsConversionId ? `gtag("config",${JSON.stringify(site.adsConversionId)});` : "",
+].join("");
+
+// HeadContent gestionează bine JSON-LD, dar scripturile inline de tracking
+// dispar din DOM după hidratare. Le ținem în shell, unde rulează și rămân
+// disponibile pentru GTM pe toată durata paginii.
+const trackingInlineScript = [consentModeBootstrapScript(), gtagConfigScript, gtmHeadScript].join(
+  "",
+);
 
 function NotFoundComponent() {
   return (
@@ -150,41 +163,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           ...(site.siteUrl ? { url: site.siteUrl } : {}),
         }),
       },
-      // Tracking (GTM + GA4 + Google Ads) — doar când este configurat. Consent Mode v2:
-      // starea implicită de consimțământ este trimisă ÎNAINTE de gtag.js, astfel
-      // încât fără consimțământ nu se setează cookie-uri analytics/ads.
-      ...(hasTracking
-        ? [
-            {
-              children: consentModeBootstrapScript(),
-            },
-            ...(site.gaMeasurementId || site.adsConversionId
-              ? [
-                  {
-                    src: `https://www.googletagmanager.com/gtag/js?id=${site.gaMeasurementId || site.adsConversionId}`,
-                    async: true,
-                  },
-                  {
-                    children: `gtag('js',new Date());${
-                      site.gaMeasurementId ? `gtag('config','${site.gaMeasurementId}');` : ""
-                    }`,
-                  },
-                ]
-              : []),
-            {
-              children: gtmHeadScript,
-            },
-            // Google Ads: tag AW încărcat în același cont gtag — necesar pentru
-            // conversia cu send_to.
-            ...(site.adsConversionId
-              ? [
-                  {
-                    children: `gtag('config','${site.adsConversionId}');`,
-                  },
-                ]
-              : []),
-          ]
-        : []),
     ],
   }),
 
@@ -199,6 +177,20 @@ function RootShell({ children }: { children: ReactNode }) {
     <html lang="ro">
       <head>
         <HeadContent />
+        {hasTracking ? (
+          <>
+            {site.gaMeasurementId || site.adsConversionId ? (
+              <script
+                src={`https://www.googletagmanager.com/gtag/js?id=${site.gaMeasurementId || site.adsConversionId}`}
+                async
+              />
+            ) : null}
+            <script
+              dangerouslySetInnerHTML={{ __html: trackingInlineScript }}
+              suppressHydrationWarning
+            />
+          </>
+        ) : null}
       </head>
       <body>
         {site.gtmContainerId ? (
