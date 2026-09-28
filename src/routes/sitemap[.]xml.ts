@@ -14,7 +14,7 @@ interface SitemapEntry {
  * Data ultimei modificări de conținut — actualizează manual când
  * modifici substanțial textele/paginile (Google o folosește la recrawl).
  */
-const LAST_MODIFIED = "2026-08-31";
+const LAST_MODIFIED = "2026-09-28";
 
 const entries: SitemapEntry[] = [
   { path: "/", lastmod: LAST_MODIFIED, changefreq: "weekly", priority: "1.0" },
@@ -24,8 +24,13 @@ const entries: SitemapEntry[] = [
   { path: "/instalatii-termice", lastmod: LAST_MODIFIED, changefreq: "monthly", priority: "0.8" },
   { path: "/instalatii-electrice", lastmod: LAST_MODIFIED, changefreq: "monthly", priority: "0.8" },
   { path: "/autocad-dwg", lastmod: LAST_MODIFIED, changefreq: "monthly", priority: "0.7" },
+  {
+    path: "/en/revit-mep-outsourcing",
+    lastmod: LAST_MODIFIED,
+    changefreq: "monthly",
+    priority: "0.9",
+  },
   { path: "/portofoliu", lastmod: LAST_MODIFIED, changefreq: "monthly", priority: "0.8" },
-  { path: "/referinte", lastmod: LAST_MODIFIED, changefreq: "monthly", priority: "0.7" },
   { path: "/magazin", lastmod: LAST_MODIFIED, changefreq: "weekly", priority: "0.7" },
   { path: "/blog", lastmod: LAST_MODIFIED, changefreq: "weekly", priority: "0.8" },
   ...articles.map((a) => ({
@@ -45,6 +50,8 @@ const entries: SitemapEntry[] = [
   { path: "/politica-cookies", lastmod: LAST_MODIFIED, changefreq: "yearly", priority: "0.3" },
   { path: "/termeni-si-conditii", lastmod: LAST_MODIFIED, changefreq: "yearly", priority: "0.3" },
   { path: "/informatii-legale", lastmod: LAST_MODIFIED, changefreq: "yearly", priority: "0.3" },
+  { path: "/en/privacy", lastmod: LAST_MODIFIED, changefreq: "yearly", priority: "0.3" },
+  { path: "/en/cookies", lastmod: LAST_MODIFIED, changefreq: "yearly", priority: "0.3" },
 ];
 
 export const Route = createFileRoute("/sitemap.xml")({

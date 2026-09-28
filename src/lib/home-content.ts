@@ -2,7 +2,7 @@
  * Conținutul paginii principale (servicii, proces, FAQ) — separat de markup
  * ca să fie ușor de editat fără a atinge componenta.
  */
-import { Box, FileStack, Layers, PenLine, Ruler, Wrench, Zap, type LucideIcon } from "lucide-react";
+import { Box, FileStack, Layers, PenLine, Wrench, Zap, type LucideIcon } from "lucide-react";
 import type { ServicePath } from "@/components/site/ServicePage";
 
 export type ServiceItem = {
@@ -18,8 +18,8 @@ export const services: ServiceItem[] = [
   {
     n: "01",
     icon: Box,
-    title: "Revit MEP & Modelare BIM",
-    lead: "Modelare 3D și pregătirea documentației tehnice într-un workflow Revit MEP.",
+    title: "Externalizare Revit MEP",
+    lead: "Modelare BIM și planșe de instalații pe tema biroului tău, livrate RVT / DWG / PDF.",
     items: [
       "modelare instalații",
       "trasee MEP",
@@ -85,7 +85,7 @@ export const services: ServiceItem[] = [
     n: "05",
     icon: PenLine,
     title: "AutoCAD / DWG",
-    lead: "Serviciu complementar, pentru completări, corectări, conversii și livrare.",
+    lead: "Redesenare, conversie PDF în DWG și curățarea documentației existente.",
     items: [
       "curățare DWG",
       "organizare layere",
@@ -108,20 +108,6 @@ export const services: ServiceItem[] = [
       "completări",
       "reorganizare planșe",
       "refacerea documentației",
-    ],
-  },
-  {
-    n: "07",
-    icon: Ruler,
-    title: "Suport tehnic academic",
-    lead: "Suport pentru modelare, desenare și organizarea proiectelor de facultate.",
-    items: [
-      "modelare Revit",
-      "desenare planșe",
-      "organizarea documentației",
-      "scheme",
-      "explicații tehnice",
-      "implementarea observațiilor",
     ],
   },
 ];
@@ -190,8 +176,16 @@ export const faq: [string, string][] = [
     "Da, pentru partea de desenare/modelare tehnică pe baza cerințelor și informațiilor de proiect furnizate.",
   ],
   [
-    "Poți ajuta cu proiecte pentru facultate?",
-    "Da. Ofer suport tehnic pentru modelare, desenare și organizarea documentației, pe baza cerințelor proiectului.",
+    "Lucrezi cu birouri din afara României?",
+    "Da. Lucrez complet online, în română sau engleză, pentru proiecte din România și din străinătate.",
+  ],
+  [
+    "Poți lucra în template-ul și cu familiile biroului nostru?",
+    "Da. Folosesc template-ul, standardele și familiile furnizate de birou, dacă le primesc la începutul lucrării.",
+  ],
+  [
+    "Semnezi un NDA înainte de a primi fișierele?",
+    "Da, la cerere. Fișierele primite nu sunt publicate și nu sunt transmise mai departe.",
   ],
   [
     "Cum se stabilește prețul?",
@@ -201,12 +195,15 @@ export const faq: [string, string][] = [
     "În cât timp poate fi gata?",
     "Termenul depinde de complexitatea și volumul proiectului. Trimite documentația și termenul dorit pentru o estimare.",
   ],
-  ["Putem lucra complet online?", "Da. Fișierele și observațiile pot fi transmise online."],
+  [
+    "Cum se predau fișierele și observațiile?",
+    "Online: prin email, WhatsApp sau link de transfer (WeTransfer, Google Drive, OneDrive).",
+  ],
 ];
 
 /** Linkuri interne crawlabile de la blocurile de servicii către paginile dedicate. */
 export const serviceHref: Record<string, ServicePath | undefined> = {
-  "Revit MEP & Modelare BIM": "/revit-mep",
+  "Externalizare Revit MEP": "/revit-mep",
   "Instalații HVAC": "/hvac",
   "Instalații termice": "/instalatii-termice",
   "Instalații electrice": "/instalatii-electrice",

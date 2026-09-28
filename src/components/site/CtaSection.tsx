@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { hasWhatsapp, whatsappLink, defaultWhatsappMessage } from "@/lib/site-config";
-import { track, trackConversion } from "@/lib/analytics";
+import { trackConversion } from "@/lib/analytics";
 import { Reveal } from "./Reveal";
 
 /**
@@ -45,7 +45,6 @@ export function CtaSection({
                   target="_blank"
                   rel="noreferrer noopener"
                   onClick={() => {
-                    track("whatsapp_click", { source });
                     trackConversion("whatsapp_click", { source });
                   }}
                   className="tech-label border border-graphite-foreground/40 px-6 py-4 transition-colors hover:bg-graphite-foreground hover:text-graphite"

@@ -3,9 +3,9 @@ import { ServicePage } from "@/components/site/ServicePage";
 import { canonicalUrl } from "@/lib/site-config";
 import projDwg from "@/assets/proj-dwg.webp";
 
-const title = "Desenare AutoCAD, corectare și redesenare DWG · NOD BIM";
+const title = "Servicii AutoCAD: redesenare, conversie PDF în DWG, corectare planșe · NOD BIM";
 const description =
-  "Serviciu complementar de AutoCAD: curățare DWG, organizare layere, redesenare, corectări, layout / Paper Space, conversii și pregătire pentru print.";
+  "Servicii CAD pentru birouri de proiectare: redesenare din PDF sau scanări în DWG, corectarea planșelor existente, curățare layere și layout de print. Lucru online, în română sau engleză.";
 const url = canonicalUrl("/autocad-dwg");
 
 export const Route = createFileRoute("/autocad-dwg")({
@@ -27,9 +27,9 @@ export const Route = createFileRoute("/autocad-dwg")({
   component: () => (
     <ServicePage
       label="AutoCAD / DWG"
-      h1="Desenare AutoCAD, corectare și redesenare DWG"
-      intro="AutoCAD rămâne un serviciu complementar: îl folosesc pentru curățarea, corectarea și pregătirea fișierelor DWG, precum și pentru lucrările strict 2D care nu justifică modelarea."
-      lead="Pentru proiectele de instalații, mediul principal de lucru rămâne Revit MEP."
+      h1="Redesenare AutoCAD, conversie PDF în DWG și corectare planșe"
+      intro="Ai documentație veche în PDF, scanări sau DWG-uri greu de folosit? Planurile sunt redesenate sau corectate în AutoCAD și primești DWG editabil, organizat pe layere, plus PDF gata de print."
+      lead="Pentru birouri de proiectare, arhitecți și firme care au nevoie de documentație curată ca bază de lucru, inclusiv pentru modelarea ulterioară în Revit. Costul se stabilește după ce văd fișierele, înainte de începere."
       sections={[
         {
           title: "Curățare și organizare DWG",

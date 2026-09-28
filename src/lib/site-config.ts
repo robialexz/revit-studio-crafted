@@ -30,9 +30,6 @@ export const site = {
   gtmContainerId: "GTM-TZKXJ7KW",
   /** Etichete „imagine demonstrativă" — pune pe false când ai capturi reale. */
   showDemoImageLabels: true,
-  /** Etichete „date demonstrative" pe fișele de referințe — pune pe false
-   *  când dosarul conține doar lucrări reale, cu acordul clienților. */
-  showDemoReferralLabels: false,
 } as const;
 
 const placeholderPattern = /^\[[A-Z0-9_]+\]$/;
@@ -65,6 +62,17 @@ export function canonicalUrl(path: string): string {
 }
 
 /**
+ * Entitatea din datele structurate. NOD BIM este deocamdată un brand, nu o
+ * societate: fără legalName, taxID, adresă sau dată de înființare. După
+ * înființare, înlocuiește-l cu un nod Organization completat din legal-config.
+ */
+export const brandSchema = {
+  "@type": "Brand",
+  name: site.businessName,
+  url: canonicalUrl("/"),
+} as const;
+
+/**
  * Afișare telefon prietenoasă pentru oameni (nu schimbă link-urile wa.me).
  * Exemplu RO: 40750485793 -> "+40 750 485 793".
  */
@@ -93,6 +101,9 @@ export function formatPhoneDisplay(raw: string | undefined): string {
 
 export const defaultWhatsappMessage =
   "Salut! Aș avea nevoie de ajutor pentru un proiect Revit MEP. Pot să îți trimit fișierele pentru o estimare?";
+
+export const defaultWhatsappMessageEn =
+  "Hello, I found NOD BIM online and would like to discuss a Revit MEP project. Can I send you the files for an estimate?";
 
 export const disclaimer =
   "Serviciile constau în desenare tehnică, modelare BIM și pregătirea documentației. Documentațiile care necesită verificare, autorizare sau semnătură de specialitate trebuie validate de profesioniști autorizați.";

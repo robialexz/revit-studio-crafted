@@ -5,7 +5,7 @@ import { Footer } from "@/components/site/Footer";
 import { MobileCta } from "@/components/site/MobileCta";
 import { Reveal } from "@/components/site/Reveal";
 import { CtaSection } from "@/components/site/CtaSection";
-import { canonicalUrl, site } from "@/lib/site-config";
+import { canonicalUrl } from "@/lib/site-config";
 import { getArticle, type ArticleSection } from "@/lib/blog";
 
 export const Route = createFileRoute("/blog/$slug")({
@@ -41,8 +41,6 @@ export const Route = createFileRoute("/blog/$slug")({
             description: article.description,
             datePublished: article.date,
             inLanguage: "ro-RO",
-            author: { "@type": "Organization", name: site.businessName },
-            publisher: { "@type": "Organization", name: site.businessName },
             mainEntityOfPage: canonicalUrl(`/blog/${article.slug}`),
           }),
         },

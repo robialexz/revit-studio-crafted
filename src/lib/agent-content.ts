@@ -5,7 +5,6 @@
  */
 import { articles } from "./blog";
 import { products } from "./products";
-import { referrals } from "./referrals";
 import { site } from "./site-config";
 
 const base = () => site.siteUrl;
@@ -15,11 +14,11 @@ const staticPaths = new Set([
   "/",
   "/despre",
   "/about",
-  "/privacy",
+  "/en/privacy",
+  "/en/cookies",
   "/contact",
   "/magazin",
   "/portofoliu",
-  "/referinte",
   "/blog",
   "/revit-mep",
   "/modelare-revit",
@@ -27,6 +26,7 @@ const staticPaths = new Set([
   "/instalatii-termice",
   "/instalatii-electrice",
   "/autocad-dwg",
+  "/en/revit-mep-outsourcing",
   "/politica-de-confidentialitate",
   "/politica-cookies",
   "/termeni-si-conditii",
@@ -61,7 +61,6 @@ export function markdownResponseForPath(pathname: string): Response | null {
   if (clean === "/contact") return simpleMdResponse(contactMarkdown());
   if (clean === "/magazin") return simpleMdResponse(shopMarkdown());
   if (clean === "/portofoliu") return simpleMdResponse(portfolioMarkdown());
-  if (clean === "/referinte") return simpleMdResponse(referencesMarkdown());
   if (clean === "/blog") return simpleMdResponse(blogIndexMarkdown());
   if (clean.startsWith("/blog/")) {
     const slug = clean.replace("/blog/", "");
@@ -118,7 +117,7 @@ function homeMarkdown(): string {
     ``,
     `## Servicii`,
     ``,
-    `- [Revit MEP & Modelare BIM](${base()}/revit-mep): modelare 3D, vederi, secțiuni, sheet-uri, export RVT/DWG/PDF`,
+    `- [Externalizare Revit MEP](${base()}/revit-mep): modelare și planșe de instalații pe tema biroului, export RVT/DWG/PDF`,
     `- [Instalații HVAC](${base()}/hvac): tubulaturi, echipamente, grile, anemostate, scheme`,
     `- [Instalații termice](${base()}/instalatii-termice): conducte, radiatoare, centrale, distribuitoare`,
     `- [Instalații electrice](${base()}/instalatii-electrice): iluminat, prize, circuite, trasee, tablouri`,
@@ -139,10 +138,9 @@ function homeMarkdown(): string {
     `- Planșă instalații: de la 300 lei`,
     `- Pachet 5 planșe + suport tehnic: de la 1.500 lei`,
     ``,
-    `## Referințe`,
+    `## Portofoliu`,
     ``,
-    `- [Dosar de referințe](${base()}/referinte): lucrări livrate cu client, termen și cost`,
-    `- [Portofoliu](${base()}/portofoliu): lucrări de modelare și documentație`,
+    `- [Portofoliu](${base()}/portofoliu): exemple de modelare și documentație (proiect demonstrativ propriu)`,
     ``,
     `## Întrebări frecvente`,
     ``,
@@ -164,13 +162,13 @@ function aboutMarkdown(): string {
   return [
     `# Despre ${site.businessName}`,
     ``,
-    `> Inginer de instalații, acreditat Uptime, cu experiență în proiectarea instalațiilor pentru centre de date.`,
+    `> NOD BIM este un brand (nu o societate) prin care un inginer de instalații oferă direct modelare Revit MEP și desenare AutoCAD. Experiența și acreditările de mai jos sunt ale specialistului.`,
     ``,
     `## Formare`,
     ``,
     `- Absolvent al facultății de inginerie a instalațiilor`,
-    `- Acreditări Uptime Institute (centre de date) — standardele cele mai stricte de disponibilitate din industrie`,
-    `- Experiență în proiectarea și coordonarea instalațiilor pentru centre de date`,
+    `- Acreditări personale Uptime Institute: Accredited Tier Designer (ATD) și Accredited Tier Specialist (ATS)`,
+    `- Experiență profesională în proiectarea și coordonarea instalațiilor pentru centre de date (proiectele angajatorului nu sunt prezentate ca lucrări NOD BIM)`,
     ``,
     `## Metoda de lucru`,
     ``,
@@ -251,23 +249,9 @@ function portfolioMarkdown(): string {
     ``,
     `> Exemple de modelare Revit MEP și documentație pentru instalații HVAC, termice și electrice.`,
     ``,
-    ...referrals.slice(0, 6).map((r) => `- ${r.lucrare} — ${r.client} (${r.loc}), ${r.pret}`),
+    `Imaginile provin dintr-un proiect demonstrativ propriu: model 3D, planuri HVAC și termice, secțiuni, sheet-uri și lucrări DWG.`,
     ``,
     `Pentru imagini și detalii complete, vezi pagina [Portofoliu](${base()}/portofoliu).`,
-    ``,
-  ].join("\n");
-}
-
-function referencesMarkdown(): string {
-  return [
-    `# Dosar de referințe — ${site.businessName}`,
-    ``,
-    `> Fișe de lucrare cu ce s-a livrat, în cât timp și la ce cost. Publicate cu acordul clienților.`,
-    ``,
-    ...referrals.map(
-      (r) =>
-        `- **Fișa ${r.fisa}** — ${r.lucrare} · ${r.client}, ${r.loc} · ${r.pret} · ${r.status}: „${r.citat}”`,
-    ),
     ``,
   ].join("\n");
 }
@@ -345,7 +329,8 @@ export function llmsTxt(): string {
     ``,
     `## Servicii`,
     ``,
-    `- [Revit MEP & Modelare BIM](${base()}/revit-mep): modelare 3D, vederi, secțiuni, sheet-uri, export RVT/DWG/PDF`,
+    `- [Externalizare Revit MEP](${base()}/revit-mep): modelare și planșe de instalații pe tema biroului, export RVT/DWG/PDF`,
+    `- [Revit MEP outsourcing (English)](${base()}/en/revit-mep-outsourcing): BIM production support for engineering teams, remote, NDA available`,
     `- [Instalații HVAC](${base()}/hvac): tubulaturi, echipamente, grile, scheme`,
     `- [Instalații termice](${base()}/instalatii-termice): conducte, radiatoare, centrale, distribuitoare`,
     `- [Instalații electrice](${base()}/instalatii-electrice): iluminat, prize, circuite, tablouri`,
@@ -356,18 +341,17 @@ export function llmsTxt(): string {
     `- [Jurnal tehnic](${base()}/blog): articole cu probe practice`,
     ...articles.map((a) => `- [${a.title}](${base()}/blog/${a.slug})`),
     ``,
-    `## Portofoliu și referințe`,
+    `## Portofoliu`,
     ``,
-    `- [Portofoliu](${base()}/portofoliu): lucrări de modelare și documentație`,
-    `- [Dosar de referințe](${base()}/referinte): lucrări livrate cu client, termen și cost`,
+    `- [Portofoliu](${base()}/portofoliu): exemple de modelare și documentație`,
     ``,
     `## Magazin`,
     ``,
     `- [Magazin](${base()}/magazin): audit RVT/DWG, kituri Revit MEP, automatizări Dynamo/pyRevit, capacitate externă și modele didactice MEP`,
     ``,
-    `## Companie`,
+    `## Despre`,
     ``,
-    `- [Despre](${base()}/despre): inginer de instalații, acreditat Uptime`,
+    `- [Despre](${base()}/despre): brand operat de un inginer de instalații, cu acreditări personale Uptime ATD și ATS`,
     `- [Contact](${base()}/contact): formular, WhatsApp, email`,
     ``,
     `## Optional`,
@@ -439,11 +423,6 @@ export function agentDescriptorJson(): string {
           type: "content-negotiation",
           url: `${site.siteUrl}/llms.txt`,
           description: "All main pages serve Markdown at the same URL via Accept: text/markdown.",
-        },
-        {
-          type: "reference",
-          url: `${site.siteUrl}/referinte`,
-          description: "Completed works with client, term and cost.",
         },
       ],
       resources: [

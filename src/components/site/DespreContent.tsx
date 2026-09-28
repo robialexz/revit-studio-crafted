@@ -1,11 +1,27 @@
+import { Link } from "@tanstack/react-router";
 import { Footer } from "@/components/site/Footer";
 import { MobileCta } from "@/components/site/MobileCta";
 import { Reveal } from "@/components/site/Reveal";
 import { CtaSection } from "@/components/site/CtaSection";
 
+const profile: [string, string][] = [
+  ["Formare", "Inginer de instalații — facultatea de inginerie a instalațiilor"],
+  [
+    "Acreditări personale",
+    "Uptime Institute — Accredited Tier Designer (ATD) și Accredited Tier Specialist (ATS)",
+  ],
+  ["Experiență profesională", "Proiectarea și coordonarea instalațiilor pentru centre de date"],
+  ["Software", "Revit MEP · AutoCAD"],
+  ["Discipline", "HVAC · instalații termice · instalații electrice"],
+  ["Livrabile", "RVT · DWG · PDF"],
+  ["Colaborare", "Online, în română sau engleză"],
+];
+
 /**
  * Conținutul paginii „Despre” — reutilizat de /despre (canonical) și
  * /about (alias pentru agenți AI, canonical către /despre).
+ * NOD BIM este un brand, nu o societate: experiența și acreditările sunt
+ * ale specialistului, iar lucrările angajatorului nu apar ca lucrări NOD BIM.
  */
 export function DespreContent() {
   return (
@@ -15,10 +31,15 @@ export function DespreContent() {
           <div className="cad-grid-lg pointer-events-none absolute inset-0" aria-hidden="true" />
           <div className="relative mx-auto max-w-[1400px] px-5 py-14 md:px-8 md:py-20">
             <Reveal>
-              <p className="tech-label text-primary">Despre · Cine e în spatele planșelor</p>
+              <p className="tech-label text-primary">Despre NOD BIM</p>
               <h1 className="display-xl mt-6 max-w-4xl text-[2.8rem] sm:text-6xl lg:text-7xl">
-                Un inginer, un flux de lucru, standarde înalte
+                Servicii BIM și CAD pentru birouri de proiectare
               </h1>
+              <p className="mt-7 max-w-2xl text-base leading-relaxed text-foreground/80 md:text-lg">
+                NOD BIM oferă modelare Revit MEP, planșe de instalații și lucrări AutoCAD / DWG,
+                realizate direct de un inginer de instalații. Nu există intermediari: cine face
+                estimarea este și cine lucrează pe fișierele tale.
+              </p>
             </Reveal>
           </div>
         </section>
@@ -26,86 +47,85 @@ export function DespreContent() {
         <section className="mx-auto max-w-[1400px] px-5 py-12 md:px-8 md:py-16">
           <div className="grid gap-10 lg:grid-cols-12">
             <Reveal className="lg:col-span-7">
-              <h2 className="text-3xl uppercase md:text-4xl">Formarea</h2>
+              <h2 className="text-3xl uppercase md:text-4xl">Specialistul din spatele brandului</h2>
               <p className="mt-5 text-base leading-relaxed text-foreground/85">
-                NOD BIM este condus de un inginer absolvent al facultății de inginerie a
-                instalațiilor. Activitatea de zi cu zi: proiectarea și coordonarea instalațiilor
-                pentru centre de date — medii în care redundanța, documentația exactă și coordonarea
-                interdisciplinară nu sunt opționale, ci condiția de existență.
+                Sunt inginer, absolvent al facultății de inginerie a instalațiilor. Profesional
+                lucrez în proiectarea și coordonarea instalațiilor pentru centre de date — proiecte
+                în care redundanța, documentația exactă și coordonarea între discipline sunt
+                obligatorii. Am acreditările personale Uptime Institute Accredited Tier Designer
+                (ATD) și Accredited Tier Specialist (ATS), obținute pe nume propriu, nu de NOD BIM.
               </p>
               <p className="mt-4 text-base leading-relaxed text-foreground/85">
-                Acreditările Uptime înseamnă lucru cu standardele cele mai stricte de
-                disponibilitate din industrie: instalații proiectate să nu cadă, verificate pe
-                principii care lasă zero loc de improvizație. Exact aceste principii stau la baza
-                modului în care lucrez și pentru clienții NOD BIM — indiferent că e o casă, un birou
-                sau o hală.
+                Proiectele din activitatea profesională aparțin angajatorului și clienților săi și
+                nu sunt prezentate aici ca lucrări NOD BIM. Pe site apar doar lucrări pe care am
+                dreptul să le arăt, iar exemplele demonstrative sunt marcate ca atare.
               </p>
 
-              <h2 className="mt-12 text-3xl uppercase md:text-4xl">Metoda</h2>
+              <h2 className="mt-12 text-3xl uppercase md:text-4xl">Cum lucrez</h2>
               <p className="mt-5 text-base leading-relaxed text-foreground/85">
-                Lucrez în Revit MEP ca flux principal, cu AutoCAD/DWG acolo unde lucrarea se rezolvă
-                cel mai curat în 2D. Documentația rezultă din model, nu din copiere: planuri,
-                secțiuni, sheet-uri și liste de cantități rămân coerente pentru că au o singură
-                sursă. Scopul lucrării și livrabilele se stabilesc înainte de începere — prețul nu
-                se schimbă pe parcurs.
+                Revit MEP este fluxul principal; AutoCAD / DWG acolo unde lucrarea se rezolvă mai
+                curat în 2D. Planurile, secțiunile și sheet-urile rezultă din același model, deci
+                rămân coerente între ele. Scopul, livrabilele, termenul și prețul se stabilesc în
+                scris înainte de începere.
               </p>
-
-              <h2 className="mt-12 text-3xl uppercase md:text-4xl">Principii</h2>
               <ul className="mt-5 space-y-3 text-base leading-relaxed text-foreground/85">
                 <li>
                   <span className="tech-label text-mep">01 · </span>
-                  Transparență: prețuri orientative publice, scopul lucrării stabilit în scris
-                  înainte de start.
+                  Prețuri orientative publice și cost fix, confirmat înainte de start.
                 </li>
                 <li>
                   <span className="tech-label text-mep">02 · </span>
-                  Confidențialitate: fișierele clienților nu sunt publicate niciodată fără acord.
+                  Fișierele primite rămân confidențiale și nu sunt publicate fără acord scris.
                 </li>
                 <li>
                   <span className="tech-label text-mep">03 · </span>
-                  Calitate înaintea vitezei: o planșă se predă când rezistă la verificare, nu când
-                  arată terminată.
-                </li>
-                <li>
-                  <span className="tech-label text-mep">04 · </span>
-                  Conținut tehnic onest: articolele din jurnal explică lucruri reale, cu probe — nu
-                  umplutură de marketing.
+                  Modelare și desenare pe tema proiectantului; soluția tehnică, verificarea și
+                  semnătura rămân la profesioniștii autorizați.
                 </li>
               </ul>
+
+              <h2 className="mt-12 text-3xl uppercase md:text-4xl">Brand, nu societate</h2>
+              <p className="mt-5 text-base leading-relaxed text-foreground/85">
+                NOD BIM este numele sub care ofer aceste servicii; nu este o societate comercială.
+                Modalitatea de contractare și facturare se stabilește la ofertare, pentru fiecare
+                lucrare. Datele de identificare vor apărea pe pagina{" "}
+                <Link to="/informatii-legale" className="underline hover:text-primary">
+                  Informații legale
+                </Link>{" "}
+                când vor exista.
+              </p>
             </Reveal>
 
             <Reveal delay={80} className="lg:col-span-5">
               <div className="sheet-frame p-6 md:p-8">
-                <p className="tech-label text-mep">Fișă tehnică</p>
+                <p className="tech-label text-mep">Profil</p>
                 <dl className="mt-5 divide-y divide-border border-y border-border">
-                  {[
-                    ["Formare", "Inginer de instalații — facultatea de inginerie a instalațiilor"],
-                    ["Acreditări", "Uptime Institute (centre de date)"],
-                    ["Experiență", "Proiectare instalații pentru centre de date"],
-                    ["Flux principal", "Revit MEP · BIM"],
-                    ["Flux secundar", "AutoCAD / DWG"],
-                    ["Livrabile", "RVT · DWG · PDF"],
-                    ["Colaborare", "100% online"],
-                  ].map(([k, v]) => (
+                  {profile.map(([k, v]) => (
                     <div key={k} className="grid grid-cols-2 gap-4 py-3">
                       <dt className="tech-label text-muted-foreground">{k}</dt>
                       <dd className="text-sm leading-relaxed">{v}</dd>
                     </div>
                   ))}
                 </dl>
-                <p className="mt-6 text-xs leading-relaxed text-muted-foreground">
-                  Detaliile personale rămân private: site-ul este activitatea independentă, nu un CV
-                  public. Pentru lucrări comerciale, datele complete de identificare se comunică
-                  direct, la contractare.
-                </p>
+                <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2">
+                  <Link to="/revit-mep" className="tech-label text-primary hover:underline">
+                    Externalizare Revit MEP
+                  </Link>
+                  <Link to="/autocad-dwg" className="tech-label text-primary hover:underline">
+                    Redesenare AutoCAD / DWG
+                  </Link>
+                  <Link to="/portofoliu" className="tech-label text-primary hover:underline">
+                    Portofoliu
+                  </Link>
+                </div>
               </div>
             </Reveal>
           </div>
         </section>
 
         <CtaSection
-          title="Hai să discutăm lucrarea ta"
-          description="Trimite planurile și cerințele — îți spun ce presupune lucrarea, termenul și costul, înainte de începere."
+          title="Trimite planurile pentru o estimare"
+          description="Spune-mi disciplina, formatul fișierelor și termenul. Primești scopul lucrării, termenul și costul înainte de începere."
           source="despre"
         />
       </main>

@@ -5,7 +5,6 @@ const items = [
   "Termice",
   "Electrice",
   "AutoCAD",
-  "Navisworks",
   "RVT",
   "DWG",
   "PDF",

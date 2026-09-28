@@ -14,8 +14,9 @@ import {
   hasEmail,
   formatPhoneDisplay,
   canonicalUrl,
+  brandSchema,
 } from "@/lib/site-config";
-import { track, trackConversion } from "@/lib/analytics";
+import { trackConversion } from "@/lib/analytics";
 
 export type ServicePath =
   | "/revit-mep"
@@ -28,8 +29,8 @@ export type ServicePath =
 const serviceLinks: { to: ServicePath; label: string; blurb: string }[] = [
   {
     to: "/revit-mep",
-    label: "Revit MEP & modelare BIM instalații",
-    blurb: "Model 3D, vederi, secțiuni și sheet-uri pentru instalații.",
+    label: "Externalizare Revit MEP pentru birouri",
+    blurb: "Model și planșe HVAC, termice și electrice pe tema biroului tău.",
   },
   {
     to: "/modelare-revit",
@@ -53,9 +54,45 @@ const serviceLinks: { to: ServicePath; label: string; blurb: string }[] = [
   },
   {
     to: "/autocad-dwg",
-    label: "AutoCAD / DWG — corectare și redesenare",
+    label: "AutoCAD — redesenare și conversie PDF în DWG",
     blurb: "Curățare DWG, layere, layout, conversii, pregătire print.",
   },
+];
+
+/** Răspunsuri la obiecțiile de dinaintea contactului, comune tuturor serviciilor. */
+const workingTerms: [string, string][] = [
+  [
+    "Ce trimiți",
+    "Planurile de arhitectură (DWG sau PDF), tema sau schițele tehnice, disciplina și termenul dorit. Modelul RVT, dacă există.",
+  ],
+  [
+    "Răspuns și ofertă",
+    "De regulă în 1–2 zile lucrătoare primești scopul lucrării, termenul și costul. Lucrarea începe doar după confirmarea ta.",
+  ],
+  [
+    "Software și formate",
+    "Revit MEP și AutoCAD. Livrare RVT, DWG și PDF. Versiunea Revit se confirmă la ofertă, pentru că un fișier RVT nu se poate salva într-o versiune mai veche.",
+  ],
+  [
+    "Standardele tale",
+    "Pot lucra în template-ul, familiile și convențiile de denumire ale biroului tău, dacă le trimiți la început.",
+  ],
+  [
+    "Confidențialitate",
+    "Fișierele nu sunt publicate și nu sunt transmise mai departe. Poți trimite un acord de confidențialitate (NDA) înainte de fișiere.",
+  ],
+  [
+    "Unde lucrez",
+    "Complet online, pentru proiecte din România sau din străinătate, în română sau engleză.",
+  ],
+  [
+    "Revizii",
+    "1–2 runde normale de modificări pot fi incluse, în funcție de lucrare; se stabilesc în ofertă.",
+  ],
+  [
+    "Ce nu includ",
+    "Calcule de dimensionare, verificare și semnătură de specialitate — acestea rămân la proiectantul autorizat.",
+  ],
 ];
 
 export type ServiceSection = { title: string; body: string; items?: string[] };
@@ -104,14 +141,7 @@ export function ServicePage({
     serviceType: label,
     name: h1,
     description: intro,
-    areaServed: "RO",
-    provider: {
-      "@type": "ProfessionalService",
-      name: site.businessName,
-      url: canonicalUrl("/"),
-      ...(hasWhatsapp ? { telephone: site.whatsappNumber } : {}),
-      ...(hasEmail ? { email: site.email } : {}),
-    },
+    brand: brandSchema,
     ...(deliverables.length
       ? { serviceOutput: deliverables.map((d) => ({ "@type": "Thing", name: d })) }
       : {}),
@@ -158,7 +188,6 @@ export function ServicePage({
                     target="_blank"
                     rel="noreferrer noopener"
                     onClick={() => {
-                      track("whatsapp_click", { source: label });
                       trackConversion("whatsapp_click", { source: label });
                     }}
                     className="tech-label border border-foreground px-6 py-4 transition-colors hover:bg-foreground hover:text-background"
@@ -247,6 +276,22 @@ export function ServicePage({
           </div>
         </section>
 
+        <section className="border-t border-border-strong">
+          <div className="mx-auto max-w-[1400px] px-5 py-16 md:px-8 md:py-20">
+            <Reveal>
+              <h2 className="text-3xl uppercase md:text-4xl">Înainte să trimiți fișierele</h2>
+              <dl className="mt-8 grid gap-px bg-border-strong md:grid-cols-2 lg:grid-cols-4">
+                {workingTerms.map(([k, v]) => (
+                  <div key={k} className="bg-background p-6">
+                    <dt className="tech-label text-mep">{k}</dt>
+                    <dd className="mt-3 text-sm leading-relaxed text-foreground/80">{v}</dd>
+                  </div>
+                ))}
+              </dl>
+            </Reveal>
+          </div>
+        </section>
+
         <section className="border-y border-border-strong bg-sheet">
           <div className="mx-auto max-w-[1400px] px-5 py-16 md:px-8 md:py-20">
             <Reveal>
@@ -324,7 +369,7 @@ export function ServicePage({
         </section>
       </main>
       <Footer />
-      <MobileCta />
+      <MobileCta estimateHref="#estimare" />
     </div>
   );
 }

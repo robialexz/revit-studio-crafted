@@ -17,7 +17,7 @@ describe("agent-content — negotiere markdown", () => {
     expect(isKnownPath("/magazin")).toBe(true);
     expect(isKnownPath("/despre")).toBe(true);
     expect(isKnownPath("/about")).toBe(true);
-    expect(isKnownPath("/privacy")).toBe(true);
+    expect(isKnownPath("/en/privacy")).toBe(true);
     expect(isKnownPath("/n-avem-asa-ceva")).toBe(false);
   });
 

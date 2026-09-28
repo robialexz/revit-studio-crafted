@@ -15,7 +15,9 @@ import type { LeadInput } from "../src/lib/lead-schema";
  * coduri de eroare reale (23505 unic violation, 42703 coloană lipsă),
  * constrângere de unicitate pe submission_id, select cu .eq/.single.
  */
-function createMemorySupabase(options: { withoutNewColumns?: boolean } = {}) {
+function createMemorySupabase(
+  options: { withoutNewColumns?: boolean; phoneNotNull?: boolean } = {},
+) {
   const rows: Record<string, unknown>[] = [];
   const bySubmissionId = new Map<string, Record<string, unknown>>();
 
@@ -30,13 +32,26 @@ function createMemorySupabase(options: { withoutNewColumns?: boolean } = {}) {
         insert: (payload) => {
           if (
             options.withoutNewColumns &&
-            ("submission_id" in payload || "notification_status" in payload)
+            ("submission_id" in payload || "notification_status" in payload || "company" in payload)
           ) {
             return {
               select: () => ({
                 single: async () => ({
                   data: null,
                   error: { code: "42703", message: 'column "notification_status" does not exist' },
+                }),
+              }),
+            };
+          }
+          if (options.phoneNotNull && payload["phone"] == null) {
+            return {
+              select: () => ({
+                single: async () => ({
+                  data: null,
+                  error: {
+                    code: "23502",
+                    message: 'null value in column "phone" violates not-null constraint',
+                  },
                 }),
               }),
             };
@@ -122,10 +137,10 @@ function makeDeps(
 const baseLead = (overrides: Partial<LeadInput> = {}): LeadInput => ({
   name: "Ion Popescu",
   phone: "0722123456",
-  email: "",
+  email: "ion@exemplu.ro",
   project_type: "Revit MEP",
   available_files: ["DWG"],
-  description: "Modelare HVAC",
+  description: "Modelare HVAC pentru un birou",
   submission_id: crypto.randomUUID(),
   ...overrides,
 });
@@ -401,5 +416,33 @@ describe("handleSubmitLead — notificare și retry", () => {
     expect(result.saved).toBe(true);
     expect(store.count()).toBe(1);
     expect(attempts).toBe(1);
+  });
+});
+
+describe("handleSubmitLead — telefon opțional și companie", () => {
+  test("fără telefon: salvează phone NULL și compania, fără eroare", async () => {
+    const store = createMemorySupabase();
+    const input = baseLead({ phone: "", company: "Instal Design GmbH" });
+
+    const result = await handleSubmitLead(input, makeDeps(store));
+
+    expect(result.saved).toBe(true);
+    expect(store.rows[0]?.["phone"]).toBeNull();
+    expect(store.rows[0]?.["company"]).toBe("Instal Design GmbH");
+  });
+
+  test("schema veche (phone NOT NULL, fără coloana company) => salvează degradat, fără pierderi", async () => {
+    const store = createMemorySupabase({ withoutNewColumns: true, phoneNotNull: true });
+    const input = baseLead({ phone: undefined, company: "Instal Design GmbH" });
+
+    const result = await handleSubmitLead(input, makeDeps(store));
+
+    expect(result.saved).toBe(true);
+    expect(store.count()).toBe(1);
+    expect(store.rows[0]?.["phone"]).toBe("");
+    expect(store.rows[0]?.["company"]).toBeUndefined();
+    expect(store.rows[0]?.["description"]).toBe(
+      "Companie: Instal Design GmbH\nModelare HVAC pentru un birou",
+    );
   });
 });

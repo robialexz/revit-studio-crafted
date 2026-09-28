@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test";
 
-import { redirectToApexUrl, redirectToHttpsUrl } from "../src/server";
+import { redirectPathUrl, redirectToApexUrl, redirectToHttpsUrl } from "../src/server";
 
 describe("redirect www → apex", () => {
   const base = "https://www.nodbim.com/revit-mep?utm_source=google&a=1";
@@ -82,5 +82,23 @@ describe("redirect http → https", () => {
     expect(redirectToHttpsUrl("http://NODBIM.com/", "NODBIM.COM", "nodbim.com")).toBe(
       "https://nodbim.com/",
     );
+  });
+});
+
+describe("redirect permanent pentru căi", () => {
+  test("elimină slash-ul final și păstrează query-ul", () => {
+    expect(redirectPathUrl("https://nodbim.com/revit-mep/?utm_source=x")).toBe(
+      "https://nodbim.com/revit-mep?utm_source=x",
+    );
+  });
+
+  test("pagina de referințe eliminată duce la portofoliu", () => {
+    expect(redirectPathUrl("https://nodbim.com/referinte")).toBe("https://nodbim.com/portofoliu");
+    expect(redirectPathUrl("https://nodbim.com/referinte/")).toBe("https://nodbim.com/portofoliu");
+  });
+
+  test("căile canonice nu sunt redirecționate", () => {
+    expect(redirectPathUrl("https://nodbim.com/")).toBeUndefined();
+    expect(redirectPathUrl("https://nodbim.com/revit-mep")).toBeUndefined();
   });
 });

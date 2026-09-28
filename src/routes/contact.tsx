@@ -16,7 +16,7 @@ import {
 
 const title = "Contact — NOD BIM · Estimare și suport Revit MEP";
 const description =
-  "Contact NOD BIM pentru modelare Revit MEP, BIM și desenare tehnică. Trimite proiectul pentru o estimare, pe WhatsApp sau prin formularul de contact.";
+  "Trimite proiectul pentru externalizare Revit MEP sau lucrări AutoCAD: estimare cu scop, termen și cost în 1–2 zile lucrătoare. WhatsApp, email sau formular; română sau engleză.";
 const url = canonicalUrl("/contact");
 
 export const Route = createFileRoute("/contact")({
@@ -61,8 +61,9 @@ function ContactPage() {
                 Contact
               </h1>
               <p className="mt-7 max-w-2xl text-base leading-relaxed text-foreground/80 md:text-lg">
-                Trimite tema, planurile existente și cerințele proiectului. Primești o estimare cu
-                volumul, termenul și costul, stabilite înainte de începerea lucrării.
+                Trimite tema, planurile existente și cerințele proiectului. Primești scopul
+                lucrării, termenul și costul înainte de începere. Lucrez în română sau engleză, iar
+                la cerere semnez un NDA înainte de a primi fișierele.
               </p>
             </Reveal>
           </div>
@@ -147,12 +148,11 @@ function ContactPage() {
                 <p className="tech-label text-accent">Servicii</p>
                 <ul className="mt-5 space-y-2 text-sm text-graphite-foreground/85">
                   {[
-                    "Modelare Revit MEP & BIM",
+                    "Externalizare Revit MEP",
                     "Planșe HVAC, termice, electrice",
                     "Vederi, secțiuni, sheet-uri",
                     "Export RVT / DWG / PDF",
-                    "AutoCAD / DWG — corectări și conversii",
-                    "Suport tehnic academic",
+                    "AutoCAD — redesenare și conversie PDF în DWG",
                   ].map((item) => (
                     <li key={item} className="border-b border-graphite-foreground/15 pb-2">
                       {item}

@@ -1,8 +1,34 @@
-import { Link } from "@tanstack/react-router";
+import { enHomePath, useLocale } from "@/lib/i18n";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { MobileCta } from "@/components/site/MobileCta";
 import { Reveal } from "@/components/site/Reveal";
+
+const copy = {
+  ro: {
+    home: { label: "Acasă", href: "/" },
+    updated: "Actualizat",
+    navTitle: "Navigare",
+    nav: [
+      { label: "Contact", href: "/contact" },
+      { label: "Politica de confidențialitate", href: "/politica-de-confidentialitate" },
+      { label: "Politica de cookies", href: "/politica-cookies" },
+      { label: "Termeni și condiții", href: "/termeni-si-conditii" },
+      { label: "Informații legale", href: "/informatii-legale" },
+    ],
+  },
+  en: {
+    home: { label: "Revit MEP outsourcing", href: enHomePath },
+    updated: "Last updated",
+    navTitle: "Navigation",
+    nav: [
+      { label: "Contact", href: `${enHomePath}#estimate` },
+      { label: "Privacy policy", href: "/en/privacy" },
+      { label: "Cookie policy", href: "/en/cookies" },
+      { label: "Legal information (Romanian)", href: "/informatii-legale" },
+    ],
+  },
+};
 
 export function LegalPage({
   label,
@@ -17,6 +43,7 @@ export function LegalPage({
   sections: { title: string; body: string[] }[];
   updatedAt: string;
 }) {
+  const t = copy[useLocale()];
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -26,9 +53,9 @@ export function LegalPage({
           <div className="relative mx-auto max-w-[1400px] px-5 py-12 md:px-8 md:py-20">
             <Reveal>
               <nav aria-label="Breadcrumb" className="tech-label text-muted-foreground">
-                <Link to="/" className="hover:text-primary">
-                  Acasă
-                </Link>
+                <a href={t.home.href} className="hover:text-primary">
+                  {t.home.label}
+                </a>
                 <span className="px-2">/</span>
                 <span className="text-foreground">{label}</span>
               </nav>
@@ -40,7 +67,9 @@ export function LegalPage({
                   {intro}
                 </p>
               )}
-              <p className="tech-label mt-8 text-muted-foreground">Actualizat: {updatedAt}</p>
+              <p className="tech-label mt-8 text-muted-foreground">
+                {t.updated}: {updatedAt}
+              </p>
             </Reveal>
           </div>
         </section>
@@ -68,33 +97,15 @@ export function LegalPage({
 
             <aside className="lg:col-span-4">
               <div className="sheet-frame p-6 md:p-8 lg:sticky lg:top-24">
-                <p className="tech-label text-mep">Navigare</p>
+                <p className="tech-label text-mep">{t.navTitle}</p>
                 <ul className="mt-5 space-y-3 text-sm">
-                  <li>
-                    <Link to="/contact" className="hover:text-primary">
-                      Contact
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/politica-de-confidentialitate" className="hover:text-primary">
-                      Politica de confidențialitate
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/politica-cookies" className="hover:text-primary">
-                      Politica de cookies
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/termeni-si-conditii" className="hover:text-primary">
-                      Termeni și condiții
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/informatii-legale" className="hover:text-primary">
-                      Informații legale
-                    </Link>
-                  </li>
+                  {t.nav.map((l) => (
+                    <li key={l.href}>
+                      <a href={l.href} className="hover:text-primary">
+                        {l.label}
+                      </a>
+                    </li>
+                  ))}
                 </ul>
               </div>
             </aside>

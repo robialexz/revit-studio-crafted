@@ -1,13 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ServicePage } from "@/components/site/ServicePage";
 import { canonicalUrl } from "@/lib/site-config";
+import { hreflangLinks } from "@/lib/i18n";
 import hero3d from "@/assets/hero-3d.webp";
 import projSectiune from "@/assets/proj-sectiune.webp";
 import projSheet from "@/assets/proj-sheet.webp";
 
-const title = "Servicii Revit MEP — modelare BIM instalații și planșe tehnice · NOD BIM";
+const title = "Externalizare Revit MEP pentru birouri de proiectare · NOD BIM";
 const description =
-  "Modelare Revit MEP pentru instalații: model 3D, vederi, secțiuni, sheet-uri și documentație 2D. Preluare modele existente, corectări, export RVT / DWG / PDF.";
+  "Modelare Revit MEP pe tema proiectantului: model 3D și planșe HVAC, termice și electrice, livrate RVT / DWG / PDF. Preiau și proiecte începute. Cost stabilit înainte de start.";
 const url = canonicalUrl("/revit-mep");
 
 export const Route = createFileRoute("/revit-mep")({
@@ -23,15 +24,16 @@ export const Route = createFileRoute("/revit-mep")({
     ],
     links: [
       { rel: "canonical", href: url },
+      ...hreflangLinks("/revit-mep"),
       { rel: "preload", as: "image", href: hero3d },
     ],
   }),
   component: () => (
     <ServicePage
       label="Revit MEP"
-      h1="Modelare Revit MEP pentru instalații"
-      intro="Lucrez în Revit MEP ca mediu principal: construiesc modelul 3D al instalațiilor și scot din același model planșele 2D, vederile, secțiunile și sheet-urile necesare documentației."
-      lead="Discipline acoperite: ventilare și climatizare (HVAC), instalații termice și instalații electrice. Instalațiile sanitare nu fac parte din servicii."
+      h1="Modelare Revit MEP pentru birouri de proiectare"
+      intro="Ai soluția tehnică, dar nu ai timp de modelare și planșe? NOD BIM preia modelarea Revit MEP pe tema ta și livrează modelul RVT, planșele DWG și PDF-urile gata de predare."
+      lead="Discipline: HVAC, instalații termice și instalații electrice. Pornesc de la RVT, DWG sau PDF, inclusiv de la proiecte începute de altcineva. Soluția tehnică și semnătura rămân la proiectant; instalațiile sanitare nu sunt incluse."
       sections={[
         {
           title: "Ce pot realiza în Revit MEP",

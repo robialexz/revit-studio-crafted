@@ -27,14 +27,15 @@ import { Route as ModelareRevitRouteImport } from './routes/modelare-revit'
 import { Route as PoliticaCookiesRouteImport } from './routes/politica-cookies'
 import { Route as PoliticaDeConfidentialitateRouteImport } from './routes/politica-de-confidentialitate'
 import { Route as PortofoliuRouteImport } from './routes/portofoliu'
-import { Route as PrivacyRouteImport } from './routes/privacy'
-import { Route as ReferinteRouteImport } from './routes/referinte'
 import { Route as RevitMepRouteImport } from './routes/revit-mep'
 import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as TermeniSiConditiiRouteImport } from './routes/termeni-si-conditii'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
+import { Route as EnCookiesRouteImport } from './routes/en.cookies'
+import { Route as EnPrivacyRouteImport } from './routes/en.privacy'
+import { Route as EnRevitMepOutsourcingRouteImport } from './routes/en.revit-mep-outsourcing'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -128,16 +129,6 @@ const PortofoliuRoute = PortofoliuRouteImport.update({
   path: '/portofoliu',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PrivacyRoute = PrivacyRouteImport.update({
-  id: '/privacy',
-  path: '/privacy',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ReferinteRoute = ReferinteRouteImport.update({
-  id: '/referinte',
-  path: '/referinte',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const RevitMepRoute = RevitMepRouteImport.update({
   id: '/revit-mep',
   path: '/revit-mep',
@@ -168,6 +159,21 @@ const BlogSlugRoute = BlogSlugRouteImport.update({
   path: '/blog/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EnCookiesRoute = EnCookiesRouteImport.update({
+  id: '/en/cookies',
+  path: '/en/cookies',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnPrivacyRoute = EnPrivacyRouteImport.update({
+  id: '/en/privacy',
+  path: '/en/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnRevitMepOutsourcingRoute = EnRevitMepOutsourcingRouteImport.update({
+  id: '/en/revit-mep-outsourcing',
+  path: '/en/revit-mep-outsourcing',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -188,13 +194,14 @@ export interface FileRoutesByFullPath {
   '/politica-cookies': typeof PoliticaCookiesRoute
   '/politica-de-confidentialitate': typeof PoliticaDeConfidentialitateRoute
   '/portofoliu': typeof PortofoliuRoute
-  '/privacy': typeof PrivacyRoute
-  '/referinte': typeof ReferinteRoute
   '/revit-mep': typeof RevitMepRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/termeni-si-conditii': typeof TermeniSiConditiiRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/en/cookies': typeof EnCookiesRoute
+  '/en/privacy': typeof EnPrivacyRoute
+  '/en/revit-mep-outsourcing': typeof EnRevitMepOutsourcingRoute
   '/blog/': typeof BlogIndexRoute
 }
 export interface FileRoutesByTo {
@@ -216,13 +223,14 @@ export interface FileRoutesByTo {
   '/politica-cookies': typeof PoliticaCookiesRoute
   '/politica-de-confidentialitate': typeof PoliticaDeConfidentialitateRoute
   '/portofoliu': typeof PortofoliuRoute
-  '/privacy': typeof PrivacyRoute
-  '/referinte': typeof ReferinteRoute
   '/revit-mep': typeof RevitMepRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/termeni-si-conditii': typeof TermeniSiConditiiRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/en/cookies': typeof EnCookiesRoute
+  '/en/privacy': typeof EnPrivacyRoute
+  '/en/revit-mep-outsourcing': typeof EnRevitMepOutsourcingRoute
   '/blog': typeof BlogIndexRoute
 }
 export interface FileRoutesById {
@@ -245,13 +253,14 @@ export interface FileRoutesById {
   '/politica-cookies': typeof PoliticaCookiesRoute
   '/politica-de-confidentialitate': typeof PoliticaDeConfidentialitateRoute
   '/portofoliu': typeof PortofoliuRoute
-  '/privacy': typeof PrivacyRoute
-  '/referinte': typeof ReferinteRoute
   '/revit-mep': typeof RevitMepRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/termeni-si-conditii': typeof TermeniSiConditiiRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/en/cookies': typeof EnCookiesRoute
+  '/en/privacy': typeof EnPrivacyRoute
+  '/en/revit-mep-outsourcing': typeof EnRevitMepOutsourcingRoute
   '/blog/': typeof BlogIndexRoute
 }
 export interface FileRouteTypes {
@@ -275,13 +284,14 @@ export interface FileRouteTypes {
     | '/politica-cookies'
     | '/politica-de-confidentialitate'
     | '/portofoliu'
-    | '/privacy'
-    | '/referinte'
     | '/revit-mep'
     | '/robots.txt'
     | '/sitemap.xml'
     | '/termeni-si-conditii'
     | '/blog/$slug'
+    | '/en/cookies'
+    | '/en/privacy'
+    | '/en/revit-mep-outsourcing'
     | '/blog/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -303,13 +313,14 @@ export interface FileRouteTypes {
     | '/politica-cookies'
     | '/politica-de-confidentialitate'
     | '/portofoliu'
-    | '/privacy'
-    | '/referinte'
     | '/revit-mep'
     | '/robots.txt'
     | '/sitemap.xml'
     | '/termeni-si-conditii'
     | '/blog/$slug'
+    | '/en/cookies'
+    | '/en/privacy'
+    | '/en/revit-mep-outsourcing'
     | '/blog'
   id:
     | '__root__'
@@ -331,13 +342,14 @@ export interface FileRouteTypes {
     | '/politica-cookies'
     | '/politica-de-confidentialitate'
     | '/portofoliu'
-    | '/privacy'
-    | '/referinte'
     | '/revit-mep'
     | '/robots.txt'
     | '/sitemap.xml'
     | '/termeni-si-conditii'
     | '/blog/$slug'
+    | '/en/cookies'
+    | '/en/privacy'
+    | '/en/revit-mep-outsourcing'
     | '/blog/'
   fileRoutesById: FileRoutesById
 }
@@ -360,13 +372,14 @@ export interface RootRouteChildren {
   PoliticaCookiesRoute: typeof PoliticaCookiesRoute
   PoliticaDeConfidentialitateRoute: typeof PoliticaDeConfidentialitateRoute
   PortofoliuRoute: typeof PortofoliuRoute
-  PrivacyRoute: typeof PrivacyRoute
-  ReferinteRoute: typeof ReferinteRoute
   RevitMepRoute: typeof RevitMepRoute
   RobotsDottxtRoute: typeof RobotsDottxtRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TermeniSiConditiiRoute: typeof TermeniSiConditiiRoute
   BlogSlugRoute: typeof BlogSlugRoute
+  EnCookiesRoute: typeof EnCookiesRoute
+  EnPrivacyRoute: typeof EnPrivacyRoute
+  EnRevitMepOutsourcingRoute: typeof EnRevitMepOutsourcingRoute
   BlogIndexRoute: typeof BlogIndexRoute
 }
 
@@ -498,20 +511,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PortofoliuRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/privacy': {
-      id: '/privacy'
-      path: '/privacy'
-      fullPath: '/privacy'
-      preLoaderRoute: typeof PrivacyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/referinte': {
-      id: '/referinte'
-      path: '/referinte'
-      fullPath: '/referinte'
-      preLoaderRoute: typeof ReferinteRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/revit-mep': {
       id: '/revit-mep'
       path: '/revit-mep'
@@ -554,6 +553,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/en/cookies': {
+      id: '/en/cookies'
+      path: '/en/cookies'
+      fullPath: '/en/cookies'
+      preLoaderRoute: typeof EnCookiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en/privacy': {
+      id: '/en/privacy'
+      path: '/en/privacy'
+      fullPath: '/en/privacy'
+      preLoaderRoute: typeof EnPrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en/revit-mep-outsourcing': {
+      id: '/en/revit-mep-outsourcing'
+      path: '/en/revit-mep-outsourcing'
+      fullPath: '/en/revit-mep-outsourcing'
+      preLoaderRoute: typeof EnRevitMepOutsourcingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -577,13 +597,14 @@ const rootRouteChildren: RootRouteChildren = {
   PoliticaCookiesRoute: PoliticaCookiesRoute,
   PoliticaDeConfidentialitateRoute: PoliticaDeConfidentialitateRoute,
   PortofoliuRoute: PortofoliuRoute,
-  PrivacyRoute: PrivacyRoute,
-  ReferinteRoute: ReferinteRoute,
   RevitMepRoute: RevitMepRoute,
   RobotsDottxtRoute: RobotsDottxtRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TermeniSiConditiiRoute: TermeniSiConditiiRoute,
   BlogSlugRoute: BlogSlugRoute,
+  EnCookiesRoute: EnCookiesRoute,
+  EnPrivacyRoute: EnPrivacyRoute,
+  EnRevitMepOutsourcingRoute: EnRevitMepOutsourcingRoute,
   BlogIndexRoute: BlogIndexRoute,
 }
 export const routeTree = rootRouteImport

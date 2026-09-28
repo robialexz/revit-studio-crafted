@@ -16,7 +16,7 @@ export const Route = createFileRoute("/about")({
       {
         name: "description",
         content:
-          "NOD BIM is run by an installations engineer with Uptime accreditations and data center experience. Revit MEP modeling and technical documentation.",
+          "NOD BIM is a brand run by an installations engineer with personal Uptime Institute ATD and ATS accreditations and data center experience. Revit MEP outsourcing and CAD drafting, remote, in Romanian or English.",
       },
       { property: "og:title", content: "About NOD BIM" },
       { property: "og:type", content: "website" },

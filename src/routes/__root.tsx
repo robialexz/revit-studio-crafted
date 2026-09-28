@@ -15,6 +15,7 @@ import { captureAttribution } from "../lib/attribution";
 import { site, canonicalUrl, hasSiteUrl, hasTracking } from "../lib/site-config";
 import { consentModeBootstrapScript } from "../lib/consent";
 import { ConsentBanner } from "../components/site/ConsentBanner";
+import { useLocale } from "../lib/i18n";
 
 const gtmHeadScript = `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer',${JSON.stringify(site.gtmContainerId)});`;
 
@@ -100,8 +101,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
           Pagina nu a putut fi încărcată
         </h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          A apărut o problemă din partea noastră. Poți reîncerca sau te poți întoarce la pagina
-          principală.
+          A apărut o problemă pe site. Poți reîncerca sau te poți întoarce la pagina principală.
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
           <button
@@ -159,7 +159,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "@context": "https://schema.org",
           "@type": "WebSite",
           name: site.businessName,
-          inLanguage: "ro-RO",
+          inLanguage: ["ro-RO", "en"],
           ...(site.siteUrl ? { url: site.siteUrl } : {}),
         }),
       },
@@ -173,8 +173,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 });
 
 function RootShell({ children }: { children: ReactNode }) {
+  const locale = useLocale();
   return (
-    <html lang="ro">
+    <html lang={locale}>
       <head>
         <HeadContent />
         {hasTracking ? (

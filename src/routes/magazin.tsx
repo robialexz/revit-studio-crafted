@@ -4,7 +4,7 @@ import { Footer } from "@/components/site/Footer";
 import { MobileCta } from "@/components/site/MobileCta";
 import { Reveal } from "@/components/site/Reveal";
 import { CtaSection } from "@/components/site/CtaSection";
-import { canonicalUrl, hasWhatsapp, site, whatsappLink } from "@/lib/site-config";
+import { brandSchema, canonicalUrl, hasWhatsapp, site, whatsappLink } from "@/lib/site-config";
 import { products, type ShopProduct } from "@/lib/products";
 
 const title = "Magazin BIM · Audit Revit, kituri MEP și modele didactice · NOD BIM";
@@ -63,15 +63,10 @@ function shopSchema() {
       description: product.description,
       category: product.category,
       areaServed: { "@type": "Country", name: "România" },
-      provider: {
-        "@type": "Organization",
-        name: site.businessName,
-        url: canonicalUrl("/"),
-      },
+      brand: brandSchema,
       ...(product.kind !== "Serviciu"
         ? {
             image: canonicalUrl(product.image),
-            brand: { "@type": "Brand", name: site.businessName },
           }
         : {}),
       ...(product.kind === "Serviciu" ? { serviceType: product.category } : {}),

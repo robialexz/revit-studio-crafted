@@ -3,8 +3,9 @@ export type LeadRecord = {
   submission_id: string | null;
   created_at: string;
   name: string;
-  phone: string;
+  phone: string | null;
   email: string | null;
+  company?: string | null;
   project_type: string | null;
   available_files: string[];
   approximate_sheet_count: string | null;
@@ -61,8 +62,9 @@ export function buildLeadEmail(lead: LeadRecord) {
     <div style="background:#fff;border:1px solid #d8dad6;padding:16px">
       <table style="width:100%;border-collapse:collapse">
         ${row("Nume", lead.name)}
-        ${row("Telefon", lead.phone)}
         ${row("Email", lead.email)}
+        ${row("Telefon", lead.phone)}
+        ${row("Companie", lead.company)}
         ${row("Tip proiect", lead.project_type)}
         ${row("Fișiere existente", lead.available_files?.join(", "))}
         ${row("Nr. planșe", lead.approximate_sheet_count)}
@@ -88,8 +90,9 @@ export function buildLeadEmail(lead: LeadRecord) {
   const text = [
     `Lead nou — ${data}`,
     `Nume: ${lead.name}`,
-    `Telefon: ${lead.phone}`,
     `Email: ${lead.email || "—"}`,
+    `Telefon: ${lead.phone || "—"}`,
+    `Companie: ${lead.company || "—"}`,
     `Tip proiect: ${lead.project_type || "—"}`,
     `Fișiere: ${lead.available_files?.join(", ") || "—"}`,
     `Nr. planșe: ${lead.approximate_sheet_count || "—"}`,

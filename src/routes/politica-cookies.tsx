@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { LegalPage } from "@/components/site/LegalPage";
 import { canonicalUrl } from "@/lib/site-config";
+import { hreflangLinks } from "@/lib/i18n";
 
 const title = "Politica de cookies — NOD BIM";
 const description =
@@ -19,7 +20,7 @@ export const Route = createFileRoute("/politica-cookies")({
       { property: "og:url", content: url },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: url }],
+    links: [{ rel: "canonical", href: url }, ...hreflangLinks("/politica-cookies")],
   }),
   component: CookiesPage,
 });
@@ -30,7 +31,7 @@ function CookiesPage() {
       label="Cookies"
       h1="Politica de cookies"
       intro="Site-ul folosește stocare strict necesară pentru funcționare și, doar cu consimțământul tău explicit, cookie-uri de statistică anonimă și de măsurare a reclamelor."
-      updatedAt="13.08.2026"
+      updatedAt="28.09.2026"
       sections={[
         {
           title: "Stocare strict necesară (fără consimțământ)",

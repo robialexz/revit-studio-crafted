@@ -42,7 +42,7 @@ function LegalInfoPage() {
               ? `Site-ul este operat de ${legal.legalName}${
                   isLegalConfigured(legal.legalForm) ? `, ${legal.legalForm}` : ""
                 }.`
-              : "Site-ul este operat de NOD BIM — marca serviciilor de modelare Revit MEP / BIM prezentate pe acest site. Datele complete de identificare vor fi publicate aici de îndată ce sunt disponibile; le puteți solicita prin formularul de contact.",
+              : "NOD BIM este un brand comercial pentru serviciile de modelare Revit MEP / BIM și desenare AutoCAD prezentate pe acest site, nu o societate înregistrată. Modalitatea de contractare și facturare se stabilește la ofertare; datele de identificare vor fi publicate aici când vor exista.",
             ...(fields.length
               ? [fields.map((field) => `${field.label}: ${field.value}`).join(" · ")]
               : []),

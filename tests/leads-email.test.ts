@@ -264,3 +264,13 @@ describe("sendLeadNotification", () => {
     }
   });
 });
+
+describe("buildLeadEmail — telefon opțional", () => {
+  test("afișează compania și un placeholder când telefonul lipsește", () => {
+    const { html, text } = buildLeadEmail({ ...lead, phone: null, company: "Instal Design GmbH" });
+    expect(text).toContain("Telefon: —");
+    expect(text).toContain("Companie: Instal Design GmbH");
+    expect(html).toContain("Instal Design GmbH");
+    expect(text).not.toContain("null");
+  });
+});

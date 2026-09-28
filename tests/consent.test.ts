@@ -14,25 +14,25 @@ import {
 describe("consentStateFor", () => {
   test("'all' => toate categoriile granted", () => {
     expect(consentStateFor("all")).toEqual({
-      adStorage: "granted",
-      adUserData: "granted",
-      adPersonalization: "granted",
-      analyticsStorage: "granted",
+      ad_storage: "granted",
+      ad_user_data: "granted",
+      ad_personalization: "granted",
+      analytics_storage: "granted",
     });
   });
 
   test("'necessary' / null => toate categoriile denied", () => {
     expect(consentStateFor("necessary")).toEqual({
-      adStorage: "denied",
-      adUserData: "denied",
-      adPersonalization: "denied",
-      analyticsStorage: "denied",
+      ad_storage: "denied",
+      ad_user_data: "denied",
+      ad_personalization: "denied",
+      analytics_storage: "denied",
     });
     expect(consentStateFor(null)).toEqual({
-      adStorage: "denied",
-      adUserData: "denied",
-      adPersonalization: "denied",
-      analyticsStorage: "denied",
+      ad_storage: "denied",
+      ad_user_data: "denied",
+      ad_personalization: "denied",
+      analytics_storage: "denied",
     });
   });
 });
@@ -101,17 +101,36 @@ describe("consentModeBootstrapScript", () => {
 });
 
 describe("pushConsentUpdate", () => {
-  test("apelează gtag('consent','update', ...) când gtag există", () => {
+  test("trimite semnalele Google pentru acordare și apoi revocare", () => {
     const calls: unknown[][] = [];
     const saved = globalThis.window;
     // @ts-expect-error simulăm window.gtag
     globalThis.window = { gtag: (...args: unknown[]) => calls.push(args) };
     try {
       pushConsentUpdate("all");
-      expect(calls).toHaveLength(1);
-      expect(calls[0]?.[0]).toBe("consent");
-      expect(calls[0]?.[1]).toBe("update");
-      expect(calls[0]?.[2]).toEqual(consentStateFor("all"));
+      pushConsentUpdate("necessary");
+      expect(calls).toEqual([
+        [
+          "consent",
+          "update",
+          {
+            ad_storage: "granted",
+            ad_user_data: "granted",
+            ad_personalization: "granted",
+            analytics_storage: "granted",
+          },
+        ],
+        [
+          "consent",
+          "update",
+          {
+            ad_storage: "denied",
+            ad_user_data: "denied",
+            ad_personalization: "denied",
+            analytics_storage: "denied",
+          },
+        ],
+      ]);
     } finally {
       globalThis.window = saved;
     }

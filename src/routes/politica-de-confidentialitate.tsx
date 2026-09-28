@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PrivacyContent } from "@/components/site/PrivacyContent";
 import { canonicalUrl } from "@/lib/site-config";
+import { hreflangLinks } from "@/lib/i18n";
 
 const title = "Politica de confidențialitate — NOD BIM";
 const description =
@@ -19,7 +20,7 @@ export const Route = createFileRoute("/politica-de-confidentialitate")({
       { property: "og:url", content: url },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: url }],
+    links: [{ rel: "canonical", href: url }, ...hreflangLinks("/politica-de-confidentialitate")],
   }),
   component: PrivacyPage,
 });

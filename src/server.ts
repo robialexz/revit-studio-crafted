@@ -23,12 +23,12 @@ const contentSecurityPolicy = [
   "form-action 'self'",
   "frame-ancestors 'none'",
   "object-src 'none'",
-  "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com",
+  "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.googleadservices.com https://www.google.com https://pagead2.googlesyndication.com https://googleads.g.doubleclick.net",
   "style-src 'self' 'unsafe-inline'",
   "font-src 'self' data:",
-  "img-src 'self' data: blob: https://www.google.com https://www.googleadservices.com https://googleads.g.doubleclick.net",
+  "img-src 'self' data: blob: https://www.google.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.googletagmanager.com https://pagead2.googlesyndication.com https://google.com https://www.google.ro",
   "frame-src 'self' https://www.googletagmanager.com",
-  "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://www.google-analytics.com https://region1.google-analytics.com https://googleads.g.doubleclick.net https://www.google.com https://www.googleadservices.com",
+  "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://www.google-analytics.com https://region1.google-analytics.com https://googleads.g.doubleclick.net https://www.google.com https://www.googleadservices.com https://www.googletagmanager.com https://pagead2.googlesyndication.com https://ad.doubleclick.net https://google.com https://www.google.ro",
 ].join("; ");
 
 function withSecurityHeaders(response: Response, request: Request): Response {
@@ -115,6 +115,38 @@ function redirectHttpHost(request: Request): Response | undefined {
   });
 }
 
+/** Pagini eliminate, redirecționate permanent către cel mai apropiat conținut. */
+const removedPaths: Record<string, string> = {
+  "/referinte": "/portofoliu",
+  "/privacy": "/en/privacy",
+};
+
+/**
+ * Returnează URL-ul țintă de redirect permanent pentru slash final
+ * („/revit-mep/” → „/revit-mep”) sau pentru pagini eliminate, cu query
+ * păstrat; undefined altfel. Pură, pentru testare.
+ */
+export function redirectPathUrl(requestUrl: string): string | undefined {
+  const url = new URL(requestUrl);
+  const trimmed = url.pathname.length > 1 ? url.pathname.replace(/\/+$/, "") || "/" : "/";
+  const target = removedPaths[trimmed] ?? trimmed;
+  if (target === url.pathname) return undefined;
+  url.pathname = target;
+  return url.toString();
+}
+
+function redirectPath(request: Request): Response | undefined {
+  const target = redirectPathUrl(request.url);
+  if (!target) return undefined;
+  return new Response(null, {
+    status: 301,
+    headers: {
+      Location: target,
+      "Cache-Control": "public, max-age=3600",
+    },
+  });
+}
+
 async function getServerEntry(): Promise<ServerEntry> {
   if (!serverEntryPromise) {
     serverEntryPromise = import("@tanstack/react-start/server-entry").then(
@@ -153,7 +185,8 @@ function isH3SwallowedErrorBody(body: string): boolean {
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
     try {
-      const redirect = redirectWwwHost(request) ?? redirectHttpHost(request);
+      const redirect =
+        redirectWwwHost(request) ?? redirectHttpHost(request) ?? redirectPath(request);
       if (redirect) return withSecurityHeaders(redirect, request);
 
       // /.well-known/agent.json — calea well-known nu se potrivește prin

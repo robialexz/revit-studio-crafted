@@ -10,20 +10,20 @@ export const CONSENT_KEY = "nod_consent_v1";
 export type ConsentChoice = "all" | "necessary";
 
 export interface ConsentState {
-  adStorage: "granted" | "denied";
-  adUserData: "granted" | "denied";
-  adPersonalization: "granted" | "denied";
-  analyticsStorage: "granted" | "denied";
+  ad_storage: "granted" | "denied";
+  ad_user_data: "granted" | "denied";
+  ad_personalization: "granted" | "denied";
+  analytics_storage: "granted" | "denied";
 }
 
 /** Starea Consent Mode corespunzătoare unei alegeri. */
 export function consentStateFor(choice: ConsentChoice | null): ConsentState {
   const value = choice === "all" ? "granted" : "denied";
   return {
-    adStorage: value,
-    adUserData: value,
-    adPersonalization: value,
-    analyticsStorage: value,
+    ad_storage: value,
+    ad_user_data: value,
+    ad_personalization: value,
+    analytics_storage: value,
   };
 }
 

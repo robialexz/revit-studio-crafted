@@ -1,6 +1,26 @@
 import { useEffect, useState } from "react";
 import { site } from "@/lib/site-config";
 import { clearConsent, readConsent, writeConsent, pushConsentUpdate } from "@/lib/consent";
+import { useLocale } from "@/lib/i18n";
+
+const copy = {
+  ro: {
+    label: "Consimțământ cookies",
+    text: "Folosim cookies doar pentru funcționarea site-ului și, cu acordul tău, pentru statistici anonime și măsurarea eficienței reclamelor. Detalii în",
+    policy: "Politica de cookies",
+    policyHref: "/politica-cookies",
+    necessary: "Doar necesare",
+    all: "Accept toate",
+  },
+  en: {
+    label: "Cookie consent",
+    text: "This site uses cookies needed for it to work and, with your consent, for anonymous statistics and ad measurement. Details in the",
+    policy: "cookie policy",
+    policyHref: "/en/cookies",
+    necessary: "Necessary only",
+    all: "Accept all",
+  },
+};
 
 /**
  * Banner de consimțământ cookies (EEA), în stilul vizual al site-ului.
@@ -9,6 +29,7 @@ import { clearConsent, readConsent, writeConsent, pushConsentUpdate } from "@/li
  * îl redeschide prin evenimentul personalizat "nod:open-consent".
  */
 export function ConsentBanner() {
+  const t = copy[useLocale()];
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -36,15 +57,14 @@ export function ConsentBanner() {
   return (
     <div
       role="dialog"
-      aria-label="Consimțământ cookies"
+      aria-label={t.label}
       className="fixed inset-x-0 bottom-0 z-50 border-t border-border-strong bg-graphite text-graphite-foreground"
     >
       <div className="mx-auto flex max-w-[1400px] flex-col gap-4 px-5 py-4 md:flex-row md:items-center md:justify-between md:gap-8 md:px-8">
         <p className="max-w-2xl text-xs leading-relaxed text-graphite-foreground/80">
-          Folosim cookies doar pentru funcționarea site-ului și, cu acordul tău, pentru statistici
-          anonime și măsurarea eficienței reclamelor. Detalii în{" "}
-          <a href="/politica-cookies" className="underline underline-offset-4 hover:text-primary">
-            Politica de cookies
+          {t.text}{" "}
+          <a href={t.policyHref} className="underline underline-offset-4 hover:text-primary">
+            {t.policy}
           </a>
           .
         </p>
@@ -54,14 +74,14 @@ export function ConsentBanner() {
             onClick={() => choose("necessary")}
             className="tech-label border border-graphite-foreground/40 px-5 py-3 transition-colors hover:bg-graphite-foreground hover:text-graphite"
           >
-            Doar necesare
+            {t.necessary}
           </button>
           <button
             type="button"
             onClick={() => choose("all")}
             className="tech-label border border-primary bg-primary px-5 py-3 text-primary-foreground transition-opacity hover:opacity-90"
           >
-            Accept toate
+            {t.all}
           </button>
         </div>
       </div>

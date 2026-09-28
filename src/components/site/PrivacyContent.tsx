@@ -2,10 +2,12 @@ import { LegalPage } from "@/components/site/LegalPage";
 import { hasEmail, site } from "@/lib/site-config";
 import { legal, isLegalConfigured } from "@/lib/legal-config";
 
-/** Conținutul politicii de confidențialitate — reutilizat de /politica-de-confidentialitate
- *  (canonical) și /privacy (alias pentru agenți AI, canonical către pagina românească). */
+/** Conținutul politicii de confidențialitate (/politica-de-confidentialitate).
+ *  Versiunea EN este /en/privacy — păstrează conținutul sincronizat. */
 export function PrivacyContent() {
-  const operatorName = isLegalConfigured(legal.legalName) ? legal.legalName : "NOD BIM";
+  const operatorName = isLegalConfigured(legal.legalName)
+    ? legal.legalName
+    : "persoana fizică care operează brandul NOD BIM";
   const contactChannels = [
     ...(hasEmail ? [`email: ${site.email}`] : []),
     ...(isLegalConfigured(legal.legalEmail) && legal.legalEmail !== site.email
@@ -21,18 +23,18 @@ export function PrivacyContent() {
       label="Confidențialitate"
       h1="Politica de confidențialitate"
       intro={`Această politică explică modul în care ${operatorName} prelucrează datele cu caracter personal atunci când folosești site-ul nodbim.com și, în special, formularul de estimare.`}
-      updatedAt="13.08.2026"
+      updatedAt="28.09.2026"
       sections={[
         {
           title: "Operatorul de date",
           body: [
-            `Operatorul prelucrării este ${operatorName}. Ne poți contacta în legătură cu datele tale personale ${contactLine}.`,
+            `Operatorul prelucrării este ${operatorName}. Pentru orice întrebare legată de datele tale personale poți scrie ${contactLine}.`,
           ],
         },
         {
           title: "Ce date colectăm",
           body: [
-            "Prin formularul de estimare colectăm doar datele pe care ni le furnizezi voluntar: numele (obligatoriu), numărul de telefon / WhatsApp (obligatoriu), adresa de email (opțională) și informații despre proiect: tipul proiectului, fișierele disponibile, numărul aproximativ de planșe, termenul dorit și descrierea proiectului.",
+            "Prin formularul de estimare colectăm doar datele pe care ni le furnizezi voluntar: numele și adresa de email (obligatorii), numărul de telefon / WhatsApp și compania sau biroul (opționale) și informații despre proiect: tipul proiectului, fișierele disponibile, numărul aproximativ de planșe, termenul dorit și descrierea proiectului.",
             "Colectăm automat, pentru funcționarea tehnică a site-ului: pagina vizitată (page_path), referrer-ul (pagina de proveniență), parametrii UTM (sursa campaniei), precum și date tehnice uzuale necesare securității și funcționării serviciului (adrese IP, anteturi HTTP) — prelucrate de infrastructura de găzduire.",
             "Datele marcate ca obligatorii în formular sunt necesare pentru a-ți putea răspunde solicitării. Câmpurile opționale le completezi doar dacă dorești.",
           ],

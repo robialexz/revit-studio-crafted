@@ -4,23 +4,122 @@ import { hasWhatsapp, whatsappLink } from "@/lib/site-config";
 import { getAttribution } from "@/lib/attribution";
 import { track, trackOnce, trackConversion } from "@/lib/analytics";
 import { submitLead } from "@/lib/leads.functions";
+import { useLocale } from "@/lib/i18n";
 
-const tipuri = [
-  "Revit MEP",
-  "HVAC",
-  "Termice",
-  "Electrice",
-  "AutoCAD / DWG",
-  "Corectare proiect existent",
-  "Proiect academic",
-  "Altul",
-];
+const copy = {
+  ro: {
+    types: [
+      "Revit MEP",
+      "HVAC",
+      "Termice",
+      "Electrice",
+      "AutoCAD / DWG",
+      "Corectare proiect existent",
+      "Altul",
+    ],
+    files: ["RVT", "DWG", "PDF", "Schițe / imagini", "Nu există încă fișiere"],
+    waMessage: (tip: string, files: string) =>
+      [
+        "Salut! Am trimis o cerere de estimare pe nodbim.com.",
+        `Tip proiect: ${tip}`,
+        `Fișiere disponibile: ${files}`,
+        "",
+        "Pot să îți trimit fișierele aici?",
+      ].join("\n"),
+    errName: "Completează numele.",
+    errPhone: "Numărul de telefon nu pare valid.",
+    errEmail: "Completează o adresă de email validă.",
+    errDetails: "Descrie pe scurt lucrarea (minim 10 caractere).",
+    errFormWa: "Trimiterea a eșuat. Reîncearcă sau scrie-mi direct pe WhatsApp.",
+    errForm: "Trimiterea a eșuat. Reîncearcă.",
+    okLabel: "Confirmare · cerere înregistrată",
+    okTitle: "Cererea a fost trimisă.",
+    okText: "Am primit informațiile proiectului.",
+    okWa: " Pentru un răspuns mai rapid, poți continua conversația direct pe WhatsApp.",
+    okWaButton: "Continuă pe WhatsApp",
+    okWaNote:
+      "Cererea ta e deja salvată; pe WhatsApp poți atașa direct planurile și fișierele proiectului.",
+    contact: "01 — Date de contact",
+    name: "Nume *",
+    email: "Email *",
+    phone: "Telefon / WhatsApp (opțional)",
+    company: "Companie / birou (opțional)",
+    type: "02 — Tip proiect",
+    available: "03 — Fișiere disponibile",
+    sheets: "04 — Nr. aproximativ de planșe",
+    sheetsHint: "ex: 5",
+    deadline: "05 — Termen",
+    deadlineHint: "ex: 20 august",
+    details: "06 — Descrierea lucrării *",
+    detailsHint: "Ce trebuie modelat / desenat, discipline, nivel de detaliu.",
+    sending: "Se trimite…",
+    submit: "Trimite cererea",
+    after:
+      "Răspund de regulă în 1–2 zile lucrătoare. După trimitere poți continua pe WhatsApp, unde poți atașa direct fișierele.",
+    privacy:
+      "Prin trimiterea cererii, datele sunt prelucrate pentru a răspunde solicitării tale. Detalii în",
+    privacyLink: "Politica de confidențialitate",
+    privacyHref: "/politica-de-confidentialitate",
+  },
+  en: {
+    types: [
+      "Revit MEP modelling",
+      "HVAC",
+      "Heating",
+      "Electrical",
+      "Drawings / documentation",
+      "Existing model or drawings",
+      "Other",
+    ],
+    files: ["RVT", "DWG", "PDF", "Sketches / markups", "No files yet"],
+    waMessage: (tip: string, files: string) =>
+      [
+        "Hello, I have sent a project request via nodbim.com.",
+        `Scope: ${tip}`,
+        `Available files: ${files}`,
+        "",
+        "Can I share the project files here?",
+      ].join("\n"),
+    errName: "Please enter your name.",
+    errPhone: "This phone number does not look valid.",
+    errEmail: "Please enter a valid email address.",
+    errDetails: "Please add a short project brief (at least 10 characters).",
+    errFormWa: "Sending failed. Please try again or contact me directly on WhatsApp.",
+    errForm: "Sending failed. Please try again.",
+    okLabel: "Confirmation · request received",
+    okTitle: "Your request has been sent.",
+    okText: "I have received your project details and will reply within 1–2 working days.",
+    okWa: " If you prefer, you can continue on WhatsApp and share the files there.",
+    okWaButton: "Continue on WhatsApp",
+    okWaNote: "Your request is already saved; WhatsApp is just a faster channel for files.",
+    contact: "01 — Contact details",
+    name: "Name *",
+    email: "Work email *",
+    phone: "Phone, with country code (optional)",
+    company: "Company / engineering office (optional)",
+    type: "02 — Scope",
+    available: "03 — Available files",
+    sheets: "04 — Approx. number of drawings",
+    sheetsHint: "e.g. 12",
+    deadline: "05 — Target date",
+    deadlineHint: "e.g. end of March",
+    details: "06 — Project brief *",
+    detailsHint:
+      "Building type, disciplines, Revit version, template or BIM standards to follow, level of detail.",
+    sending: "Sending…",
+    submit: "Request a project estimate",
+    after:
+      "I reply within 1–2 working days with scope, timeline and cost. An NDA can be signed before you share files.",
+    privacy: "Your details are used only to reply to this request. See the",
+    privacyLink: "privacy policy",
+    privacyHref: "/en/privacy",
+  },
+};
 
-const fisiere = ["RVT", "DWG", "PDF", "Schițe / imagini", "Nu există încă fișiere"];
-
-type Errors = Partial<Record<"name" | "phone" | "email" | "form", string>>;
+type Errors = Partial<Record<"name" | "phone" | "email" | "details" | "form", string>>;
 
 export function QuoteForm() {
+  const t = copy[useLocale()];
   const send = useServerFn(submitLead);
   const honeypotRef = useRef<HTMLInputElement>(null);
   // Token de idempotență: generat la prima încercare de trimitere, refolosit
@@ -33,7 +132,8 @@ export function QuoteForm() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
-  const [tip, setTip] = useState("Revit MEP");
+  const [company, setCompany] = useState("");
+  const [tip, setTip] = useState(t.types[0] ?? "");
   const [files, setFiles] = useState<string[]>(["DWG"]);
   const [planse, setPlanse] = useState("");
   const [termen, setTermen] = useState("");
@@ -86,30 +186,17 @@ export function QuoteForm() {
     return submissionIdRef.current;
   }
 
-  const message = [
-    `Salut! Aș avea nevoie de ajutor pentru un proiect Revit MEP.`,
-    ``,
-    `Nume: ${name || "—"}`,
-    `Telefon: ${phone || "—"}`,
-    ...(email ? [`Email: ${email}`] : []),
-    `Tip proiect: ${tip}`,
-    `Fișiere disponibile: ${files.length ? files.join(" + ") : "—"}`,
-    `Număr aproximativ de planșe: ${planse || "—"}`,
-    `Termen: ${termen || "—"}`,
-    ``,
-    `Detalii:`,
-    detalii || "—",
-    ``,
-    `Pot să îți trimit fișierele pentru o estimare?`,
-  ].join("\n");
+  // Doar valori din listele fixe: linkul wa.me poate ajunge în Analytics
+  // (clic extern), deci fără nume, telefon, email sau text liber.
+  const message = t.waMessage(tip, files.length ? files.join(" + ") : "—");
 
   function validate(): boolean {
     const next: Errors = {};
-    if (name.trim().length < 2) next.name = "Completează numele.";
+    if (name.trim().length < 2) next.name = t.errName;
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) next.email = t.errEmail;
     const cleanedPhone = phone.replace(/[\s().-]/g, "");
-    if (!/^\+?\d{6,15}$/.test(cleanedPhone)) next.phone = "Completează un număr de telefon valid.";
-    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim()))
-      next.email = "Adresa de email nu pare validă.";
+    if (cleanedPhone && !/^\+?\d{6,15}$/.test(cleanedPhone)) next.phone = t.errPhone;
+    if (detalii.trim().length < 10) next.details = t.errDetails;
     setErrors(next);
     return Object.keys(next).length === 0;
   }
@@ -137,6 +224,7 @@ export function QuoteForm() {
           name: name.trim(),
           phone: phone.trim(),
           email: email.trim(),
+          company: company.trim(),
           project_type: tip,
           available_files: files,
           approximate_sheet_count: planse.trim(),
@@ -151,12 +239,16 @@ export function QuoteForm() {
       submissionIdRef.current = undefined;
       if (result.saved && !quoteSuccessEventSentRef.current) {
         quoteSuccessEventSentRef.current = true;
-        track("quote_form_success", {
-          form_name: "quote_contact",
-          lead_type: "project_quote",
-          value: 1,
-          currency: "RON",
-        });
+        trackConversion(
+          "lead_form_success",
+          {
+            form_name: "quote_contact",
+            lead_type: "project_quote",
+            value: 1,
+            currency: "RON",
+          },
+          { dedupeKey: submissionId },
+        );
       }
       setSent(true);
       track("quote_submit", { project_type: tip });
@@ -165,9 +257,7 @@ export function QuoteForm() {
       // idempotent pe server (nu creează un al doilea rând).
       console.error(error);
       setErrors({
-        form: hasWhatsapp
-          ? "Trimiterea a eșuat. Reîncearcă sau scrie-mi direct pe WhatsApp."
-          : "Trimiterea a eșuat. Reîncearcă.",
+        form: hasWhatsapp ? t.errFormWa : t.errForm,
       });
     } finally {
       setSubmitting(false);
@@ -198,20 +288,18 @@ export function QuoteForm() {
               className="check-mark text-primary"
             />
           </svg>
-          <p className="tech-label text-mep">Confirmare · cerere înregistrată</p>
+          <p className="tech-label text-mep">{t.okLabel}</p>
         </div>
         <h3
           className="reveal mt-5 text-3xl uppercase md:text-4xl"
           style={{ animationDelay: "120ms" }}
         >
-          Cererea a fost trimisă.
+          {t.okTitle}
         </h3>
         <div className="reveal" style={{ animationDelay: "220ms" }}>
           <p className="mt-4 max-w-md text-sm leading-relaxed text-muted-foreground">
-            Am primit informațiile proiectului.
-            {hasWhatsapp
-              ? " Pentru un răspuns mai rapid, poți continua conversația direct pe WhatsApp."
-              : ""}
+            {t.okText}
+            {hasWhatsapp ? t.okWa : ""}
           </p>
           {hasWhatsapp && (
             <>
@@ -220,17 +308,13 @@ export function QuoteForm() {
                 target="_blank"
                 rel="noreferrer noopener"
                 onClick={() => {
-                  track("whatsapp_click", { source: "quote_success" });
                   trackConversion("whatsapp_click", { source: "quote_success" });
                 }}
                 className="tech-label mt-8 inline-block border border-foreground bg-foreground px-6 py-4 text-background transition-colors hover:border-primary hover:bg-primary"
               >
-                Continuă pe WhatsApp
+                {t.okWaButton}
               </a>
-              <p className="mt-4 text-xs leading-relaxed text-muted-foreground">
-                Mesajul conține deja detaliile completate. Fișierele le poți atașa direct în
-                conversație.
-              </p>
+              <p className="mt-4 text-xs leading-relaxed text-muted-foreground">{t.okWaNote}</p>
             </>
           )}
         </div>
@@ -253,20 +337,20 @@ export function QuoteForm() {
       </div>
 
       <fieldset className="border-0 p-0">
-        <legend className="tech-label text-muted-foreground">01 — Date de contact</legend>
+        <legend className="tech-label text-muted-foreground">{t.contact}</legend>
         <div className="mt-3 grid gap-5 sm:grid-cols-2">
           <div>
             <label htmlFor="lead-name" className="tech-label text-muted-foreground">
-              Nume *
+              {t.name}
             </label>
             <input
               id="lead-name"
+              autoComplete="name"
               value={name}
               onChange={(e) => {
                 changed();
                 setName(e.target.value);
               }}
-              autoComplete="name"
               aria-invalid={!!errors.name}
               aria-describedby={errors.name ? "lead-name-error" : undefined}
               className="mt-2 w-full border border-input bg-background px-3 py-3 text-sm outline-none focus:border-primary"
@@ -278,42 +362,18 @@ export function QuoteForm() {
             )}
           </div>
           <div>
-            <label htmlFor="lead-phone" className="tech-label text-muted-foreground">
-              Telefon / WhatsApp *
-            </label>
-            <input
-              id="lead-phone"
-              type="tel"
-              inputMode="tel"
-              value={phone}
-              onChange={(e) => {
-                changed();
-                setPhone(e.target.value);
-              }}
-              autoComplete="tel"
-              aria-invalid={!!errors.phone}
-              aria-describedby={errors.phone ? "lead-phone-error" : undefined}
-              className="mt-2 w-full border border-input bg-background px-3 py-3 text-sm outline-none focus:border-primary"
-            />
-            {errors.phone && (
-              <p id="lead-phone-error" className="mt-1 text-xs text-destructive">
-                {errors.phone}
-              </p>
-            )}
-          </div>
-          <div className="sm:col-span-2">
             <label htmlFor="lead-email" className="tech-label text-muted-foreground">
-              Email (opțional)
+              {t.email}
             </label>
             <input
               id="lead-email"
               type="email"
+              autoComplete="email"
               value={email}
               onChange={(e) => {
                 changed();
                 setEmail(e.target.value);
               }}
-              autoComplete="email"
               aria-invalid={!!errors.email}
               aria-describedby={errors.email ? "lead-email-error" : undefined}
               className="mt-2 w-full border border-input bg-background px-3 py-3 text-sm outline-none focus:border-primary"
@@ -324,37 +384,76 @@ export function QuoteForm() {
               </p>
             )}
           </div>
+          <div>
+            <label htmlFor="lead-phone" className="tech-label text-muted-foreground">
+              {t.phone}
+            </label>
+            <input
+              id="lead-phone"
+              type="tel"
+              inputMode="tel"
+              autoComplete="tel"
+              value={phone}
+              onChange={(e) => {
+                changed();
+                setPhone(e.target.value);
+              }}
+              aria-invalid={!!errors.phone}
+              aria-describedby={errors.phone ? "lead-phone-error" : undefined}
+              className="mt-2 w-full border border-input bg-background px-3 py-3 text-sm outline-none focus:border-primary"
+            />
+            {errors.phone && (
+              <p id="lead-phone-error" className="mt-1 text-xs text-destructive">
+                {errors.phone}
+              </p>
+            )}
+          </div>
+          <div>
+            <label htmlFor="lead-company" className="tech-label text-muted-foreground">
+              {t.company}
+            </label>
+            <input
+              id="lead-company"
+              autoComplete="organization"
+              value={company}
+              onChange={(e) => {
+                changed();
+                setCompany(e.target.value);
+              }}
+              className="mt-2 w-full border border-input bg-background px-3 py-3 text-sm outline-none focus:border-primary"
+            />
+          </div>
         </div>
       </fieldset>
 
       <fieldset className="mt-8 border-0 p-0">
-        <legend className="tech-label text-muted-foreground">02 — Tip proiect</legend>
+        <legend className="tech-label text-muted-foreground">{t.type}</legend>
         <div className="mt-3 flex flex-wrap gap-2">
-          {tipuri.map((t) => (
+          {t.types.map((option) => (
             <button
-              key={t}
+              key={option}
               type="button"
               onClick={() => {
                 changed();
-                setTip(t);
+                setTip(option);
               }}
-              aria-pressed={tip === t}
+              aria-pressed={tip === option}
               className={`tech-label border px-3 py-2 transition-colors ${
-                tip === t
+                tip === option
                   ? "border-foreground bg-foreground text-background"
                   : "border-input hover:border-foreground"
               }`}
             >
-              {t}
+              {option}
             </button>
           ))}
         </div>
       </fieldset>
 
       <fieldset className="mt-8 border-0 p-0">
-        <legend className="tech-label text-muted-foreground">03 — Fișiere disponibile</legend>
+        <legend className="tech-label text-muted-foreground">{t.available}</legend>
         <div className="mt-3 flex flex-wrap gap-2">
-          {fisiere.map((f) => (
+          {t.files.map((f) => (
             <button
               key={f}
               type="button"
@@ -378,7 +477,7 @@ export function QuoteForm() {
       <div className="mt-8 grid gap-5 sm:grid-cols-2">
         <div>
           <label htmlFor="planse" className="tech-label text-muted-foreground">
-            04 — Nr. aproximativ de planșe
+            {t.sheets}
           </label>
           <input
             id="planse"
@@ -387,13 +486,13 @@ export function QuoteForm() {
               changed();
               setPlanse(e.target.value);
             }}
-            placeholder="ex: 5"
+            placeholder={t.sheetsHint}
             className="mt-2 w-full border border-input bg-background px-3 py-3 text-sm outline-none focus:border-primary"
           />
         </div>
         <div>
           <label htmlFor="termen" className="tech-label text-muted-foreground">
-            05 — Termen
+            {t.deadline}
           </label>
           <input
             id="termen"
@@ -402,7 +501,7 @@ export function QuoteForm() {
               changed();
               setTermen(e.target.value);
             }}
-            placeholder="ex: 20 august"
+            placeholder={t.deadlineHint}
             className="mt-2 w-full border border-input bg-background px-3 py-3 text-sm outline-none focus:border-primary"
           />
         </div>
@@ -410,7 +509,7 @@ export function QuoteForm() {
 
       <div className="mt-5">
         <label htmlFor="detalii" className="tech-label text-muted-foreground">
-          06 — Descriere scurtă
+          {t.details}
         </label>
         <textarea
           id="detalii"
@@ -420,9 +519,16 @@ export function QuoteForm() {
             changed();
             setDetalii(e.target.value);
           }}
-          placeholder="Ce trebuie modelat / desenat, discipline, nivel de detaliu."
+          placeholder={t.detailsHint}
+          aria-invalid={!!errors.details}
+          aria-describedby={errors.details ? "detalii-error" : undefined}
           className="mt-2 w-full resize-y border border-input bg-background px-3 py-3 text-sm outline-none focus:border-primary"
         />
+        {errors.details && (
+          <p id="detalii-error" className="mt-1 text-xs text-destructive">
+            {errors.details}
+          </p>
+        )}
       </div>
 
       {errors.form && (
@@ -439,20 +545,13 @@ export function QuoteForm() {
         disabled={submitting}
         className="tech-label mt-7 w-full border border-foreground bg-foreground px-6 py-4 text-background transition-colors hover:border-primary hover:bg-primary disabled:cursor-not-allowed disabled:opacity-60"
       >
-        {submitting ? "Se trimite…" : "Trimite cererea"}
+        {submitting ? t.sending : t.submit}
       </button>
-      <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
-        Cererea ajunge direct la mine. După trimitere poți continua conversația pe WhatsApp, cu
-        detaliile deja completate.
-      </p>
+      <p className="mt-3 text-xs leading-relaxed text-muted-foreground">{t.after}</p>
       <p className="mt-4 border-t border-border pt-4 text-xs leading-relaxed text-muted-foreground">
-        Prin trimiterea cererii, datele sunt prelucrate pentru a răspunde solicitării tale. Detalii
-        în{" "}
-        <a
-          href="/politica-de-confidentialitate"
-          className="underline underline-offset-4 hover:text-primary"
-        >
-          Politica de confidențialitate
+        {t.privacy}{" "}
+        <a href={t.privacyHref} className="underline underline-offset-4 hover:text-primary">
+          {t.privacyLink}
         </a>
         .
       </p>

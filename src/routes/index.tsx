@@ -15,13 +15,12 @@ import {
   defaultWhatsappMessage,
   hasWhatsapp,
   hasEmail,
-  hasSiteUrl,
+  brandSchema,
   canonicalUrl,
   formatPhoneDisplay,
 } from "@/lib/site-config";
 import { services, process, faq, serviceHref } from "@/lib/home-content";
 import { track, trackConversion } from "@/lib/analytics";
-import { referrals } from "@/lib/referrals";
 import { articles } from "@/lib/blog";
 
 import hero3d from "@/assets/hero-3d-professional.webp";
@@ -37,9 +36,9 @@ import projSectiune640 from "@/assets/proj-sectiune-640.webp";
 import projSheet from "@/assets/proj-sheet.webp";
 import projSheet640 from "@/assets/proj-sheet-640.webp";
 
-const title = "NOD BIM · Revit MEP & Modelare BIM · Planșe HVAC, Termice, Electrice";
+const title = "Modelare Revit MEP și planșe de instalații pentru proiectanți · NOD BIM";
 const description =
-  "Modelare Revit MEP și documentație tehnică pentru instalații HVAC, termice și electrice. Planșe, secțiuni, sheet-uri, export RVT / DWG / PDF. AutoCAD disponibil complementar.";
+  "Externalizare Revit MEP și desenare AutoCAD pentru birouri de proiectare: modele și planșe HVAC, termice și electrice, livrate RVT / DWG / PDF. Cost stabilit înainte de start.";
 const url = canonicalUrl("/");
 
 export const Route = createFileRoute("/")({
@@ -69,48 +68,18 @@ export const Route = createFileRoute("/")({
         type: "application/ld+json",
         children: JSON.stringify({
           "@context": "https://schema.org",
-          "@type": "ProfessionalService",
-          name: site.businessName,
+          "@type": "Service",
+          name: "Modelare Revit MEP și desenare AutoCAD pentru instalații",
           description,
-          slogan: site.tagline,
-          areaServed: "RO",
-          dateModified: "2026-08-22",
+          brand: brandSchema,
+          availableLanguage: ["ro", "en"],
           serviceType: [
-            "Modelare Revit MEP",
-            "Modelare BIM",
-            "Desenare instalații HVAC",
-            "Desenare instalații termice",
-            "Desenare instalații electrice",
-            "Desenare AutoCAD / DWG",
+            "Externalizare Revit MEP",
+            "Modelare BIM instalații",
+            "Planșe instalații HVAC, termice și electrice",
+            "Redesenare AutoCAD și conversie PDF în DWG",
           ],
-          ...(hasSiteUrl ? { url: canonicalUrl("/"), image: canonicalUrl("/og-image.jpg") } : {}),
-          ...(hasWhatsapp ? { telephone: site.whatsappNumber } : {}),
-          ...(hasEmail ? { email: site.email } : {}),
-        }),
-      },
-      {
-        type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "Organization",
-          name: site.businessName,
           url: canonicalUrl("/"),
-          description,
-          dateModified: "2026-08-22",
-          email: hasEmail ? site.email : undefined,
-          ...(hasWhatsapp ? { telephone: site.whatsappNumber } : {}),
-          contactPoint: {
-            "@type": "ContactPoint",
-            contactType: "customer service",
-            ...(hasEmail ? { email: site.email } : {}),
-            ...(hasWhatsapp ? { telephone: site.whatsappNumber } : {}),
-            availableLanguage: ["ro", "en"],
-          },
-          address: {
-            "@type": "PostalAddress",
-            addressLocality: "București",
-            addressCountry: "RO",
-          },
         }),
       },
       {
@@ -155,22 +124,18 @@ function Home() {
               <p className="tech-label text-primary">
                 Revit MEP · Modelare BIM · <Typewriter words={["HVAC", "Termice", "Electrice"]} />
               </p>
-              <h1 className="display-xl mt-6 text-[3.1rem] sm:text-[4rem] lg:text-[4.6rem] xl:text-[5.4rem]">
-                Modelare
-                <br />
-                Revit MEP.
-                <br />
-                <span className="text-primary">Planșe tehnice</span>
-                <br />
-                clare.
-                <br />
-                Gata de predare.
+              <h1 className="display-xl mt-6 text-[2.4rem] sm:text-[3.4rem] lg:text-[4rem] xl:text-[4.6rem]">
+                Modelare Revit MEP și <span className="text-primary">planșe de instalații</span>,
+                gata de predare.
               </h1>
-              <p className="mt-7 max-w-md text-base leading-relaxed text-foreground/80 md:text-lg">
-                Modelare BIM și documentație tehnică pentru instalații HVAC, termice și electrice.
+              <p className="mt-6 max-w-md text-base leading-relaxed text-foreground/80 md:text-lg">
+                Pentru birouri de proiectare din România și din străinătate care au soluția tehnică,
+                dar nu au capacitate pentru modelare și planșe. HVAC, instalații termice și
+                electrice, în română sau engleză.
               </p>
               <p className="mt-3 max-w-md text-sm leading-relaxed text-muted-foreground">
-                AutoCAD / DWG disponibil pentru completări, corectări, conversii și livrare.
+                Trimiți RVT, DWG sau PDF; primești model și planșe RVT / DWG / PDF. Redesenare
+                AutoCAD și conversie PDF în DWG pentru lucrări punctuale.
               </p>
 
               <div className="mt-9 flex flex-wrap gap-3">
@@ -186,7 +151,6 @@ function Home() {
                     target="_blank"
                     rel="noreferrer noopener"
                     onClick={() => {
-                      track("whatsapp_click", { source: "homepage" });
                       trackConversion("whatsapp_click", { source: "homepage" });
                     }}
                     className="tech-label border border-foreground px-6 py-4 transition-colors hover:bg-foreground hover:text-background"
@@ -388,7 +352,7 @@ function Home() {
                     className={`p-6 md:p-8 ${
                       s.featured
                         ? "bg-graphite text-graphite-foreground md:col-span-2 lg:col-span-2 lg:row-span-2"
-                        : "bg-sheet"
+                        : "bg-sheet md:last:col-span-2 lg:last:col-span-1"
                     }`}
                   >
                     <div className="flex items-start justify-between">
@@ -617,7 +581,7 @@ function Home() {
         {/* PENTRU CINE LUCREZ */}
         <section className="mx-auto max-w-[1400px] px-5 py-16 md:px-8 md:py-24">
           <Reveal>
-            <SectionLabel index="07">Clienți</SectionLabel>
+            <SectionLabel index="07">Pentru cine</SectionLabel>
             <h2 className="mt-8 text-4xl uppercase md:text-6xl">Pentru cine lucrez</h2>
           </Reveal>
           <Reveal
@@ -626,17 +590,20 @@ function Home() {
           >
             {[
               [
-                "Proiectanți / birouri",
-                "Suport pentru modelare Revit și pregătirea documentației atunci când volumul de lucru crește.",
+                "Birouri de proiectare instalații",
+                "Capacitate Revit MEP când volumul crește: modelare, planșe și revizii pe tema, template-ul și standardele biroului.",
               ],
               [
-                "Arhitecți",
-                "Modelare și documentație MEP pe baza cerințelor și informațiilor tehnice furnizate.",
+                "Arhitecți și firme de construcții",
+                "Model și planșe MEP pe baza informațiilor tehnice furnizate de proiectantul de specialitate.",
               ],
-              ["Beneficiari", "Corectarea, redesenarea sau organizarea documentațiilor existente."],
               [
-                "Studenți",
-                "Suport tehnic pentru modelare, planșe și organizarea proiectelor academice.",
+                "Birouri din străinătate",
+                "Externalizare Revit MEP și CAD complet online, în engleză, cu livrare RVT / DWG / PDF.",
+              ],
+              [
+                "Documentație existentă",
+                "Preluarea proiectelor începute, redesenare, conversie PDF în DWG și reorganizarea planșelor.",
               ],
             ].map(([t, d]) => (
               <div key={t} className="bg-background p-6 md:p-8">
@@ -647,58 +614,10 @@ function Home() {
           </Reveal>
         </section>
 
-        {/* REFERINȚE */}
-        <section
-          id="referinte"
-          className="border-y border-border-strong bg-graphite text-graphite-foreground"
-        >
-          <div className="relative mx-auto max-w-[1400px] px-5 py-16 md:px-8 md:py-24">
-            <div
-              className="cad-grid pointer-events-none absolute inset-0 opacity-60"
-              aria-hidden="true"
-            />
-            <div className="relative">
-              <Reveal>
-                <div className="flex items-baseline gap-4">
-                  <span className="tech-label text-accent">08</span>
-                  <span className="tech-label text-graphite-foreground/50">Referințe</span>
-                  <span className="h-px flex-1 bg-graphite-foreground/20" />
-                </div>
-                <h2 className="mt-8 max-w-2xl text-4xl uppercase md:text-6xl">
-                  Dosar de referințe
-                </h2>
-              </Reveal>
-              <Reveal
-                delay={80}
-                className="mt-12 grid gap-px bg-graphite-foreground/15 md:grid-cols-2"
-              >
-                {referrals.slice(0, 2).map((r) => (
-                  <figure key={r.fisa} className="bg-graphite p-6 md:p-8">
-                    <blockquote className="text-lg leading-relaxed text-graphite-foreground/90">
-                      „{r.citat}"
-                    </blockquote>
-                    <figcaption className="tech-label mt-5 text-graphite-foreground/60">
-                      {r.client} · {r.loc} — {r.lucrare}
-                    </figcaption>
-                  </figure>
-                ))}
-              </Reveal>
-              <Reveal delay={160}>
-                <Link
-                  to="/referinte"
-                  className="tech-label mt-8 inline-flex items-center gap-2 border-b border-graphite-foreground/50 pb-1 transition-colors hover:border-primary hover:text-primary"
-                >
-                  Vezi dosarul complet <ArrowUpRight size={14} />
-                </Link>
-              </Reveal>
-            </div>
-          </div>
-        </section>
-
         {/* JURNAL TEHNIC */}
         <section id="jurnal" className="mx-auto max-w-[1400px] px-5 py-16 md:px-8 md:py-24">
           <Reveal>
-            <SectionLabel index="09">Jurnal tehnic</SectionLabel>
+            <SectionLabel index="08">Jurnal tehnic</SectionLabel>
             <div className="mt-8 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
               <h2 className="max-w-2xl text-4xl uppercase md:text-6xl">
                 Articole cu probe, nu păreri
@@ -737,7 +656,7 @@ function Home() {
         <section id="faq" className="border-y border-border-strong bg-sheet">
           <div className="mx-auto max-w-[1400px] px-5 py-16 md:px-8 md:py-24">
             <Reveal>
-              <SectionLabel index="10">Întrebări frecvente</SectionLabel>
+              <SectionLabel index="09">Întrebări frecvente</SectionLabel>
             </Reveal>
             <Reveal delay={80} className="mt-8 grid gap-10 lg:grid-cols-12">
               <h2 className="text-4xl uppercase md:text-5xl lg:col-span-4">
@@ -768,13 +687,14 @@ function Home() {
         {/* ESTIMARE / WHATSAPP */}
         <section id="estimare" className="mx-auto max-w-[1400px] px-5 py-16 md:px-8 md:py-24">
           <Reveal>
-            <SectionLabel index="11">Estimare</SectionLabel>
+            <SectionLabel index="10">Estimare</SectionLabel>
           </Reveal>
           <Reveal delay={80} className="mt-8 grid gap-10 lg:grid-cols-12">
             <div className="lg:col-span-5">
               <h2 className="text-4xl uppercase md:text-5xl">Solicită o estimare</h2>
               <p className="mt-5 max-w-md text-sm leading-relaxed text-muted-foreground">
-                Completează câteva detalii, iar cererea ajunge la mine pentru o estimare.
+                Disciplina, formatul fișierelor și termenul sunt suficiente pentru început. Primești
+                scopul lucrării, termenul și costul, de regulă în 1–2 zile lucrătoare.
                 {hasWhatsapp ? " Fișierele le poți trimite direct pe WhatsApp." : ""}
               </p>
               {hasWhatsapp && (
@@ -783,7 +703,6 @@ function Home() {
                   target="_blank"
                   rel="noreferrer noopener"
                   onClick={() => {
-                    track("whatsapp_click", { source: "homepage" });
                     trackConversion("whatsapp_click", { source: "homepage" });
                   }}
                   className="tech-label mt-8 inline-block border border-foreground px-6 py-4 transition-colors hover:bg-foreground hover:text-background"
@@ -811,8 +730,8 @@ function Home() {
 
         {/* CTA FINAL */}
         <CtaSection
-          title="Ai un proiect de terminat?"
-          description="Trimite planurile și cerințele, iar eu îți pot spune ce presupune lucrarea, termenul și costul."
+          title="Ai un proiect cu termen apropiat?"
+          description="Trimite planurile și cerințele. Primești scopul lucrării, termenul și costul înainte de începere — în română sau engleză."
           source="homepage"
         />
       </main>

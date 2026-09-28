@@ -20,15 +20,20 @@ const phoneSchema = z
     message: "Număr de telefon invalid",
   });
 
+/**
+ * Primul contact cere nume, email și o descriere a lucrării; telefonul și
+ * compania sunt opționale (clienții internaționali răspund de regulă pe email).
+ */
 export const leadSchema = z.object({
   name: z.string().trim().min(2).max(120),
-  phone: phoneSchema,
-  email: z.string().trim().email().max(160).or(z.literal("")).optional(),
+  email: z.string().trim().email().max(160),
+  phone: phoneSchema.or(z.literal("")).optional(),
+  company: z.string().trim().max(160).optional(),
   project_type: z.string().trim().max(120).optional(),
   available_files: z.array(z.string().trim().max(60)).max(20).default([]),
   approximate_sheet_count: z.string().trim().max(60).optional(),
   deadline: z.string().trim().max(120).optional(),
-  description: z.string().trim().max(4000).optional(),
+  description: z.string().trim().min(10).max(4000),
   page_path: z.string().trim().max(500).optional(),
   referrer: z.string().trim().max(500).optional(),
   utm_source: z.string().trim().max(200).optional(),

@@ -4,6 +4,9 @@ import { leadSchema } from "../src/lib/lead-schema";
 
 const SUBMISSION_ID = "123e4567-e89b-42d3-a456-426614174000";
 
+/** Câmpurile obligatorii în afară de nume și submission_id. */
+const base = { email: "ana@exemplu.ro", description: "Planșe HVAC pentru un birou." };
+
 const validPayload = {
   name: "Ion Popescu",
   phone: "0722123456",
@@ -28,60 +31,66 @@ describe("leadSchema", () => {
     expect(() => leadSchema.parse(validPayload)).not.toThrow();
   });
 
-  test("acceptă minimum necesar (nume + telefon + submission_id)", () => {
+  test("acceptă minimum necesar (nume + email + descriere + submission_id)", () => {
     expect(() =>
-      leadSchema.parse({ name: "Ana", phone: "0722123456", submission_id: SUBMISSION_ID }),
+      leadSchema.parse({ ...base, name: "Ana", phone: "0722123456", submission_id: SUBMISSION_ID }),
     ).not.toThrow();
   });
 
   test("RESPINGE cererea fără submission_id (obligatoriu server-side)", () => {
-    expect(() => leadSchema.parse({ name: "Ana", phone: "0722123456" })).toThrow();
+    expect(() => leadSchema.parse({ ...base, name: "Ana", phone: "0722123456" })).toThrow();
   });
 
   test("RESPINGE submission_id invalid (nu e UUID)", () => {
     expect(() =>
-      leadSchema.parse({ name: "Ana", phone: "0722123456", submission_id: "abc" }),
+      leadSchema.parse({ ...base, name: "Ana", phone: "0722123456", submission_id: "abc" }),
     ).toThrow();
     expect(() =>
-      leadSchema.parse({ name: "Ana", phone: "0722123456", submission_id: "1234" }),
+      leadSchema.parse({ ...base, name: "Ana", phone: "0722123456", submission_id: "1234" }),
     ).toThrow();
     expect(() =>
-      leadSchema.parse({ name: "Ana", phone: "0722123456", submission_id: "1".repeat(40) }),
+      leadSchema.parse({
+        ...base,
+        name: "Ana",
+        phone: "0722123456",
+        submission_id: "1".repeat(40),
+      }),
     ).toThrow();
   });
 
   test("respinge nume prea scurt", () => {
     expect(() =>
-      leadSchema.parse({ name: "A", phone: "0722123456", submission_id: SUBMISSION_ID }),
+      leadSchema.parse({ ...base, name: "A", phone: "0722123456", submission_id: SUBMISSION_ID }),
     ).toThrow();
   });
 
   test("respinge telefon prea scurt", () => {
     expect(() =>
-      leadSchema.parse({ name: "Ana", phone: "123", submission_id: SUBMISSION_ID }),
+      leadSchema.parse({ ...base, name: "Ana", phone: "123", submission_id: SUBMISSION_ID }),
     ).toThrow();
   });
 
   test("respinge telefoane fără cifre (doar simboluri)", () => {
     expect(() =>
-      leadSchema.parse({ name: "Ana", phone: "!!!!!!", submission_id: SUBMISSION_ID }),
+      leadSchema.parse({ ...base, name: "Ana", phone: "!!!!!!", submission_id: SUBMISSION_ID }),
     ).toThrow();
     expect(() =>
-      leadSchema.parse({ name: "Ana", phone: "---", submission_id: SUBMISSION_ID }),
+      leadSchema.parse({ ...base, name: "Ana", phone: "---", submission_id: SUBMISSION_ID }),
     ).toThrow();
   });
 
   test("respinge telefoane doar cu litere", () => {
     expect(() =>
-      leadSchema.parse({ name: "Ana", phone: "abcdefg", submission_id: SUBMISSION_ID }),
+      leadSchema.parse({ ...base, name: "Ana", phone: "abcdefg", submission_id: SUBMISSION_ID }),
     ).toThrow();
     expect(() =>
-      leadSchema.parse({ name: "Ana", phone: "0722abcde", submission_id: SUBMISSION_ID }),
+      leadSchema.parse({ ...base, name: "Ana", phone: "0722abcde", submission_id: SUBMISSION_ID }),
     ).toThrow();
   });
 
   test("acceptă telefon românesc simplu", () => {
     const parsed = leadSchema.parse({
+      ...base,
       name: "Ana",
       phone: "0722123456",
       submission_id: SUBMISSION_ID,
@@ -91,6 +100,7 @@ describe("leadSchema", () => {
 
   test("acceptă telefon românesc cu spații și cratime", () => {
     const parsed = leadSchema.parse({
+      ...base,
       name: "Ana",
       phone: "0722 123 456",
       submission_id: SUBMISSION_ID,
@@ -100,16 +110,27 @@ describe("leadSchema", () => {
 
   test("acceptă telefon internațional cu prefix +", () => {
     expect(() =>
-      leadSchema.parse({ name: "Ana", phone: "+40722123456", submission_id: SUBMISSION_ID }),
+      leadSchema.parse({
+        ...base,
+        name: "Ana",
+        phone: "+40722123456",
+        submission_id: SUBMISSION_ID,
+      }),
     ).not.toThrow();
     expect(() =>
-      leadSchema.parse({ name: "Ana", phone: "+44 7911 123456", submission_id: SUBMISSION_ID }),
+      leadSchema.parse({
+        ...base,
+        name: "Ana",
+        phone: "+44 7911 123456",
+        submission_id: SUBMISSION_ID,
+      }),
     ).not.toThrow();
   });
 
   test("respinge email invalid", () => {
     expect(() =>
       leadSchema.parse({
+        ...base,
         name: "Ana",
         phone: "0722123456",
         email: "nu-e-email",
@@ -118,19 +139,68 @@ describe("leadSchema", () => {
     ).toThrow();
   });
 
-  test("acceptă email gol ca lipsă", () => {
+  test("respinge cererea fără email (obligatoriu)", () => {
+    expect(() =>
+      leadSchema.parse({ ...base, name: "Ana", email: "", submission_id: SUBMISSION_ID }),
+    ).toThrow();
+    expect(() =>
+      leadSchema.parse({
+        name: "Ana",
+        description: base.description,
+        submission_id: SUBMISSION_ID,
+      }),
+    ).toThrow();
+  });
+
+  test("telefonul este opțional: lipsă sau gol", () => {
+    expect(() =>
+      leadSchema.parse({ ...base, name: "Ana", submission_id: SUBMISSION_ID }),
+    ).not.toThrow();
     const parsed = leadSchema.parse({
+      ...base,
       name: "Ana",
-      phone: "0722123456",
-      email: "",
+      phone: "",
       submission_id: SUBMISSION_ID,
     });
-    expect(parsed.email).toBe("");
+    expect(parsed.phone).toBe("");
+  });
+
+  test("respinge cererea fără descriere sau cu descriere prea scurtă", () => {
+    expect(() =>
+      leadSchema.parse({ name: "Ana", email: base.email, submission_id: SUBMISSION_ID }),
+    ).toThrow();
+    expect(() =>
+      leadSchema.parse({
+        ...base,
+        name: "Ana",
+        description: "  scurt  ",
+        submission_id: SUBMISSION_ID,
+      }),
+    ).toThrow();
+  });
+
+  test("compania este opțională și limitată", () => {
+    const parsed = leadSchema.parse({
+      ...base,
+      name: "Ana",
+      company: " Birou Instal SRL ",
+      submission_id: SUBMISSION_ID,
+    });
+    expect(parsed.company).toBe("Birou Instal SRL");
+    expect(() =>
+      leadSchema.parse({
+        ...base,
+        name: "Ana",
+        company: "x".repeat(161),
+        submission_id: SUBMISSION_ID,
+      }),
+    ).toThrow();
   });
 
   test("respinge descriere peste 4000 de caractere", () => {
     expect(() =>
       leadSchema.parse({
+        ...base,
         name: "Ana",
         phone: "0722123456",
         description: "x".repeat(4001),
@@ -143,6 +213,7 @@ describe("leadSchema", () => {
     const files = Array.from({ length: 21 }, (_, i) => `fisier-${i}`);
     expect(() =>
       leadSchema.parse({
+        ...base,
         name: "Ana",
         phone: "0722123456",
         available_files: files,
@@ -154,6 +225,7 @@ describe("leadSchema", () => {
   test("respinge UTM peste limita de 200 de caractere", () => {
     expect(() =>
       leadSchema.parse({
+        ...base,
         name: "Ana",
         phone: "0722123456",
         utm_source: "x".repeat(201),
@@ -164,6 +236,7 @@ describe("leadSchema", () => {
 
   test("permite câmpul honeypot website, dar îl limitează", () => {
     const parsed = leadSchema.parse({
+      ...base,
       name: "Ana",
       phone: "0722123456",
       website: "bot.com",
@@ -172,6 +245,7 @@ describe("leadSchema", () => {
     expect(parsed.website).toBe("bot.com");
     expect(() =>
       leadSchema.parse({
+        ...base,
         name: "Ana",
         phone: "0722123456",
         website: "x".repeat(201),
@@ -182,6 +256,7 @@ describe("leadSchema", () => {
 
   test("taie spațiile din nume și telefon", () => {
     const parsed = leadSchema.parse({
+      ...base,
       name: "  Ana  ",
       phone: " 0722123456 ",
       submission_id: SUBMISSION_ID,
@@ -192,10 +267,11 @@ describe("leadSchema", () => {
 
   test("respinge tipuri greșite", () => {
     expect(() =>
-      leadSchema.parse({ name: "Ana", phone: 12345678, submission_id: SUBMISSION_ID }),
+      leadSchema.parse({ ...base, name: "Ana", phone: 12345678, submission_id: SUBMISSION_ID }),
     ).toThrow();
     expect(() =>
       leadSchema.parse({
+        ...base,
         name: "Ana",
         phone: "0722123456",
         available_files: "DWG",

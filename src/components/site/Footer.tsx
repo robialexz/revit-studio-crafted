@@ -1,14 +1,15 @@
-import { Link } from "@tanstack/react-router";
 import { Mail } from "lucide-react";
 import {
   site,
   disclaimer,
   whatsappLink,
   defaultWhatsappMessage,
+  defaultWhatsappMessageEn,
   hasWhatsapp,
   hasEmail,
   formatPhoneDisplay,
 } from "@/lib/site-config";
+import { enHomePath, useLocale } from "@/lib/i18n";
 
 /** Iconița oficială WhatsApp (SVG inline, fără dependențe externe). */
 function WhatsAppIcon({ size = 16 }: { size?: number }) {
@@ -19,7 +20,59 @@ function WhatsAppIcon({ size = 16 }: { size?: number }) {
   );
 }
 
+const copy = {
+  ro: {
+    tagline: site.tagline,
+    description:
+      "Externalizare Revit MEP și servicii CAD pentru birouri de proiectare: modele și planșe HVAC, termice și electrice, livrate RVT / DWG / PDF.",
+    nav: "Navigație footer",
+    siteTitle: "Site",
+    site: [
+      { label: "Externalizare Revit MEP", href: "/revit-mep" },
+      { label: "AutoCAD / DWG", href: "/autocad-dwg" },
+      { label: "Portofoliu", href: "/portofoliu" },
+      { label: "Jurnal tehnic", href: "/blog" },
+      { label: "Magazin", href: "/magazin" },
+      { label: "Despre", href: "/despre" },
+      { label: "Contact", href: "/contact" },
+      { label: "English", href: enHomePath },
+    ],
+    legal: [
+      { label: "Politica de confidențialitate", href: "/politica-de-confidentialitate" },
+      { label: "Politica de cookies", href: "/politica-cookies" },
+      { label: "Termeni și condiții", href: "/termeni-si-conditii" },
+      { label: "Informații legale", href: "/informatii-legale" },
+    ],
+    cookies: "Preferințe cookies",
+    whatsapp: defaultWhatsappMessage,
+    disclaimer,
+  },
+  en: {
+    tagline: "BIM · REVIT MEP · CAD PRODUCTION",
+    description:
+      "Revit MEP outsourcing and BIM production support for engineering teams: models, drawings and documentation delivered as RVT, DWG and PDF.",
+    nav: "Footer navigation",
+    siteTitle: "Site",
+    site: [
+      { label: "Revit MEP outsourcing", href: enHomePath },
+      { label: "How it works", href: `${enHomePath}#process` },
+      { label: "Contact", href: `${enHomePath}#estimate` },
+      { label: "Română", href: "/" },
+    ],
+    legal: [
+      { label: "Privacy policy", href: "/en/privacy" },
+      { label: "Cookie policy", href: "/en/cookies" },
+      { label: "Legal information (Romanian)", href: "/informatii-legale" },
+    ],
+    cookies: "Cookie preferences",
+    whatsapp: defaultWhatsappMessageEn,
+    disclaimer:
+      "Services cover BIM modelling, drafting and documentation. Engineering design, calculations, checking and sign-off remain with the client's responsible engineer.",
+  },
+};
+
 export function Footer() {
+  const t = copy[useLocale()];
   return (
     <footer className="border-t border-border-strong bg-graphite text-graphite-foreground">
       <div className="mx-auto max-w-[1400px] px-5 py-14 md:px-8 md:py-20">
@@ -28,92 +81,49 @@ export function Footer() {
             <p className="font-display text-3xl font-semibold uppercase tracking-tight md:text-4xl">
               {site.businessName}
             </p>
-            <p className="tech-label mt-3 text-graphite-foreground/60">{site.tagline}</p>
+            <p className="tech-label mt-3 text-graphite-foreground/60">{t.tagline}</p>
             <p className="mt-6 max-w-sm text-sm leading-relaxed text-graphite-foreground/70">
-              Modelare Revit MEP, documentație tehnică și planșe pentru instalații HVAC, termice și
-              electrice.
+              {t.description}
             </p>
           </div>
 
-          <nav className="md:col-span-4" aria-label="Navigație footer">
+          <nav className="md:col-span-4" aria-label={t.nav}>
             <div className="grid grid-cols-2 gap-8">
               <div>
-                <p className="tech-label text-graphite-foreground/60">Site</p>
+                <p className="tech-label text-graphite-foreground/60">{t.siteTitle}</p>
                 <ul className="mt-4 space-y-2.5 text-sm">
-                  <li>
-                    <a href="/#servicii" className="hover:text-primary">
-                      Servicii
-                    </a>
-                  </li>
-                  <li>
-                    <Link to="/portofoliu" className="hover:text-primary">
-                      Portofoliu
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/referinte" className="hover:text-primary">
-                      Referințe
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/magazin" className="hover:text-primary">
-                      Magazin
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/blog" className="hover:text-primary">
-                      Jurnal tehnic
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/despre" className="hover:text-primary">
-                      Despre
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/contact" className="hover:text-primary">
-                      Contact
-                    </Link>
-                  </li>
+                  {t.site.map((l) => (
+                    <li key={l.href}>
+                      <a href={l.href} className="hover:text-primary">
+                        {l.label}
+                      </a>
+                    </li>
+                  ))}
                 </ul>
               </div>
               <div>
                 <p className="tech-label text-graphite-foreground/60">Legal</p>
                 <ul className="mt-4 space-y-2.5 text-sm">
-                  <li>
-                    <Link to="/politica-de-confidentialitate" className="hover:text-primary">
-                      Politica de confidențialitate
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/politica-cookies" className="hover:text-primary">
-                      Politica de cookies
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/termeni-si-conditii" className="hover:text-primary">
-                      Termeni și condiții
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/informatii-legale" className="hover:text-primary">
-                      Informații legale
-                    </Link>
-                  </li>
+                  {t.legal.map((l) => (
+                    <li key={l.href}>
+                      <a href={l.href} className="hover:text-primary">
+                        {l.label}
+                      </a>
+                    </li>
+                  ))}
                   <li>
                     <button
                       type="button"
                       onClick={() => window.dispatchEvent(new Event("nod:open-consent"))}
                       className="hover:text-primary"
                     >
-                      Preferințe cookies
+                      {t.cookies}
                     </button>
                   </li>
                 </ul>
               </div>
             </div>
           </nav>
-
           {(hasWhatsapp || hasEmail) && (
             <div className="md:col-span-3">
               <p className="tech-label text-graphite-foreground/60">Contact</p>
@@ -121,7 +131,7 @@ export function Footer() {
                 {hasWhatsapp && (
                   <li>
                     <a
-                      href={whatsappLink(defaultWhatsappMessage)}
+                      href={whatsappLink(t.whatsapp)}
                       target="_blank"
                       rel="noreferrer noopener"
                       className="group flex items-center gap-3 transition-colors hover:text-primary"
@@ -148,7 +158,7 @@ export function Footer() {
                 )}
               </ul>
               <p className="mt-8 max-w-sm text-xs leading-relaxed text-graphite-foreground/55">
-                {disclaimer}
+                {t.disclaimer}
               </p>
             </div>
           )}

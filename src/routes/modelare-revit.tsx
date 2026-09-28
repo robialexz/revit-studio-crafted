@@ -4,7 +4,7 @@ import { canonicalUrl } from "@/lib/site-config";
 import hero2d from "@/assets/hero-2d.webp";
 import projSheet from "@/assets/proj-sheet.webp";
 
-const title = "Modelare Revit și desenare planșe — modelare BIM 3D · NOD BIM";
+const title = "Modelare BIM în Revit: model 3D și planșe tehnice · NOD BIM";
 const description =
   "Modelare Revit și desenare tehnică: model 3D, planuri, secțiuni și planșe organizate. Când merită modelarea BIM, ce trimiți la început și ce primești la final.";
 const url = canonicalUrl("/modelare-revit");
@@ -28,7 +28,7 @@ export const Route = createFileRoute("/modelare-revit")({
   component: () => (
     <ServicePage
       label="Modelare Revit"
-      h1="Modelare Revit și desenare planșe"
+      h1="Modelare BIM în Revit: model 3D și planșe tehnice"
       intro="Serviciu de modelare 3D și desenare în Revit, pentru situațiile în care ai nevoie de un model coerent și de planșe care se pot preda, nu doar de desene separate."
       lead="Dacă interesul tău este strict partea de instalații, pagina dedicată este modelarea Revit MEP."
       sections={[

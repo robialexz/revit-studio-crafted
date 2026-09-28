@@ -50,8 +50,9 @@ export interface LeadRecordForNotification {
   submission_id: string | null;
   created_at: string;
   name: string;
-  phone: string;
+  phone: string | null;
   email: string | null;
+  company?: string | null;
   project_type: string | null;
   available_files: string[];
   approximate_sheet_count: string | null;
@@ -79,8 +80,28 @@ function isUniqueViolation(error: LeadErrorLike | null): boolean {
   return error?.code === "23505";
 }
 
-function isMissingColumn(error: LeadErrorLike | null): boolean {
-  return error?.code === "42703";
+/**
+ * Baza are încă schema veche: lipsește o coloană nouă (42703) sau `phone`
+ * este încă NOT NULL (23502). Vezi supabase/pending-migrations/.
+ */
+function isOldSchema(error: LeadErrorLike | null): boolean {
+  return error?.code === "42703" || error?.code === "23502";
+}
+
+/**
+ * Payload compatibil cu schema veche: fără coloanele noi, telefon gol în loc
+ * de NULL, iar compania trece în descriere ca să nu se piardă.
+ */
+function legacyPayload(payload: Record<string, unknown>, data: LeadInput): Record<string, unknown> {
+  const legacy = Object.fromEntries(
+    Object.entries(payload).filter(
+      ([key]) => !["submission_id", "notification_status", "company"].includes(key),
+    ),
+  );
+  const description = [data.company ? `Companie: ${data.company}` : "", data.description]
+    .filter(Boolean)
+    .join("\n");
+  return { ...legacy, phone: data.phone || "", description };
 }
 
 function isRow(error: unknown): error is LeadRecordForNotification {
@@ -175,13 +196,14 @@ function emailFallbackRecord(data: LeadInput): LeadRecordForNotification {
     submission_id: data.submission_id,
     created_at: new Date().toISOString(),
     name: data.name,
-    phone: data.phone,
-    email: data.email || null,
+    phone: data.phone || null,
+    email: data.email,
+    company: data.company || null,
     project_type: data.project_type || null,
     available_files: data.available_files ?? [],
     approximate_sheet_count: data.approximate_sheet_count || null,
     deadline: data.deadline || null,
-    description: data.description || null,
+    description: data.description,
     page_path: data.page_path || null,
     referrer: data.referrer || null,
     utm_source: data.utm_source || null,
@@ -219,13 +241,14 @@ export async function handleSubmitLead(data: LeadInput, deps: LeadDeps): Promise
 
   const payload: Record<string, unknown> = {
     name: data.name,
-    phone: data.phone,
-    email: data.email || null,
+    phone: data.phone || null,
+    email: data.email,
+    company: data.company || null,
     project_type: data.project_type || null,
     available_files: data.available_files ?? [],
     approximate_sheet_count: data.approximate_sheet_count || null,
     deadline: data.deadline || null,
-    description: data.description || null,
+    description: data.description,
     page_path: data.page_path || null,
     referrer: data.referrer || null,
     utm_source: data.utm_source || null,
@@ -263,17 +286,10 @@ export async function handleSubmitLead(data: LeadInput, deps: LeadDeps): Promise
     return { id: `email:${data.submission_id}`, duplicate: false, saved: false };
   }
 
-  // Fallback: migrarea nu e aplicată (coloanele noi lipsesc) — salvăm fără
-  // câmpurile de idempotență/status, degradat dar funcțional.
-  if (isMissingColumn(inserted.failed)) {
-    const legacyInsert = await insertLead(
-      deps.supabase,
-      Object.fromEntries(
-        Object.entries(payload).filter(
-          ([key]) => !["submission_id", "notification_status"].includes(key),
-        ),
-      ),
-    );
+  // Fallback: migrările nu sunt aplicate (schema veche) — salvăm fără
+  // câmpurile noi, degradat dar funcțional.
+  if (isOldSchema(inserted.failed)) {
+    const legacyInsert = await insertLead(deps.supabase, legacyPayload(payload, data));
 
     if ("row" in legacyInsert) {
       // Fără coloană de status: notificăm fără a putea înregistra rezultatul.
