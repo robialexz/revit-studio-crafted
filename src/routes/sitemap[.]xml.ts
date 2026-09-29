@@ -30,6 +30,8 @@ const entries: SitemapEntry[] = [
     changefreq: "monthly",
     priority: "0.9",
   },
+  { path: "/en/autocad-drafting", lastmod: LAST_MODIFIED, changefreq: "monthly", priority: "0.7" },
+  { path: "/en/about", lastmod: LAST_MODIFIED, changefreq: "monthly", priority: "0.6" },
   { path: "/portofoliu", lastmod: LAST_MODIFIED, changefreq: "monthly", priority: "0.8" },
   { path: "/magazin", lastmod: LAST_MODIFIED, changefreq: "weekly", priority: "0.7" },
   { path: "/blog", lastmod: LAST_MODIFIED, changefreq: "weekly", priority: "0.8" },

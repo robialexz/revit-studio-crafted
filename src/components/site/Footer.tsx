@@ -55,7 +55,8 @@ const copy = {
     siteTitle: "Site",
     site: [
       { label: "Revit MEP outsourcing", href: enHomePath },
-      { label: "How it works", href: `${enHomePath}#process` },
+      { label: "AutoCAD drafting", href: "/en/autocad-drafting" },
+      { label: "About", href: "/en/about" },
       { label: "Contact", href: `${enHomePath}#estimate` },
       { label: "Română", href: "/" },
     ],

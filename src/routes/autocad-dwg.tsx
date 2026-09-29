@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ServicePage } from "@/components/site/ServicePage";
 import { canonicalUrl } from "@/lib/site-config";
+import { hreflangLinks } from "@/lib/i18n";
 import projDwg from "@/assets/proj-dwg.webp";
 
 const title = "Servicii AutoCAD: redesenare, conversie PDF în DWG, corectare planșe · NOD BIM";
@@ -21,6 +22,7 @@ export const Route = createFileRoute("/autocad-dwg")({
     ],
     links: [
       { rel: "canonical", href: url },
+      ...hreflangLinks("/autocad-dwg"),
       { rel: "preload", as: "image", href: projDwg },
     ],
   }),

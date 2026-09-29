@@ -13,7 +13,8 @@ const base = () => site.siteUrl;
 const staticPaths = new Set([
   "/",
   "/despre",
-  "/about",
+  "/en/about",
+  "/en/autocad-drafting",
   "/en/privacy",
   "/en/cookies",
   "/contact",
@@ -57,7 +58,7 @@ function simpleMdResponse(body: string, status = 200): Response {
 export function markdownResponseForPath(pathname: string): Response | null {
   const clean = pathname.replace(/\/+$/, "") || "/";
   if (clean === "/") return simpleMdResponse(homeMarkdown());
-  if (clean === "/despre" || clean === "/about") return simpleMdResponse(aboutMarkdown());
+  if (clean === "/despre") return simpleMdResponse(aboutMarkdown());
   if (clean === "/contact") return simpleMdResponse(contactMarkdown());
   if (clean === "/magazin") return simpleMdResponse(shopMarkdown());
   if (clean === "/portofoliu") return simpleMdResponse(portfolioMarkdown());

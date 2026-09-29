@@ -11,7 +11,6 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as R09cc0f49373bfe3e74afbd962e8ac392DottxtRouteImport } from './routes/09cc0f49373bfe3e74afbd962e8ac392[.]txt'
-import { Route as AboutRouteImport } from './routes/about'
 import { Route as AgentInstructionsDottxtRouteImport } from './routes/agent-instructions[.]txt'
 import { Route as AgentDotjsonRouteImport } from './routes/agent[.]json'
 import { Route as AutocadDwgRouteImport } from './routes/autocad-dwg'
@@ -33,6 +32,8 @@ import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as TermeniSiConditiiRouteImport } from './routes/termeni-si-conditii'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
+import { Route as EnAboutRouteImport } from './routes/en.about'
+import { Route as EnAutocadDraftingRouteImport } from './routes/en.autocad-drafting'
 import { Route as EnCookiesRouteImport } from './routes/en.cookies'
 import { Route as EnPrivacyRouteImport } from './routes/en.privacy'
 import { Route as EnRevitMepOutsourcingRouteImport } from './routes/en.revit-mep-outsourcing'
@@ -48,11 +49,6 @@ const R09cc0f49373bfe3e74afbd962e8ac392DottxtRoute =
     path: '/09cc0f49373bfe3e74afbd962e8ac392.txt',
     getParentRoute: () => rootRouteImport,
   } as any)
-const AboutRoute = AboutRouteImport.update({
-  id: '/about',
-  path: '/about',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const AgentInstructionsDottxtRoute = AgentInstructionsDottxtRouteImport.update({
   id: '/agent-instructions.txt',
   path: '/agent-instructions.txt',
@@ -159,6 +155,16 @@ const BlogSlugRoute = BlogSlugRouteImport.update({
   path: '/blog/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EnAboutRoute = EnAboutRouteImport.update({
+  id: '/en/about',
+  path: '/en/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnAutocadDraftingRoute = EnAutocadDraftingRouteImport.update({
+  id: '/en/autocad-drafting',
+  path: '/en/autocad-drafting',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const EnCookiesRoute = EnCookiesRouteImport.update({
   id: '/en/cookies',
   path: '/en/cookies',
@@ -178,7 +184,6 @@ const EnRevitMepOutsourcingRoute = EnRevitMepOutsourcingRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/09cc0f49373bfe3e74afbd962e8ac392.txt': typeof R09cc0f49373bfe3e74afbd962e8ac392DottxtRoute
-  '/about': typeof AboutRoute
   '/agent-instructions.txt': typeof AgentInstructionsDottxtRoute
   '/agent.json': typeof AgentDotjsonRoute
   '/autocad-dwg': typeof AutocadDwgRoute
@@ -199,6 +204,8 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/termeni-si-conditii': typeof TermeniSiConditiiRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/en/about': typeof EnAboutRoute
+  '/en/autocad-drafting': typeof EnAutocadDraftingRoute
   '/en/cookies': typeof EnCookiesRoute
   '/en/privacy': typeof EnPrivacyRoute
   '/en/revit-mep-outsourcing': typeof EnRevitMepOutsourcingRoute
@@ -207,7 +214,6 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/09cc0f49373bfe3e74afbd962e8ac392.txt': typeof R09cc0f49373bfe3e74afbd962e8ac392DottxtRoute
-  '/about': typeof AboutRoute
   '/agent-instructions.txt': typeof AgentInstructionsDottxtRoute
   '/agent.json': typeof AgentDotjsonRoute
   '/autocad-dwg': typeof AutocadDwgRoute
@@ -228,6 +234,8 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/termeni-si-conditii': typeof TermeniSiConditiiRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/en/about': typeof EnAboutRoute
+  '/en/autocad-drafting': typeof EnAutocadDraftingRoute
   '/en/cookies': typeof EnCookiesRoute
   '/en/privacy': typeof EnPrivacyRoute
   '/en/revit-mep-outsourcing': typeof EnRevitMepOutsourcingRoute
@@ -237,7 +245,6 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/09cc0f49373bfe3e74afbd962e8ac392.txt': typeof R09cc0f49373bfe3e74afbd962e8ac392DottxtRoute
-  '/about': typeof AboutRoute
   '/agent-instructions.txt': typeof AgentInstructionsDottxtRoute
   '/agent.json': typeof AgentDotjsonRoute
   '/autocad-dwg': typeof AutocadDwgRoute
@@ -258,6 +265,8 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/termeni-si-conditii': typeof TermeniSiConditiiRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/en/about': typeof EnAboutRoute
+  '/en/autocad-drafting': typeof EnAutocadDraftingRoute
   '/en/cookies': typeof EnCookiesRoute
   '/en/privacy': typeof EnPrivacyRoute
   '/en/revit-mep-outsourcing': typeof EnRevitMepOutsourcingRoute
@@ -268,7 +277,6 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/09cc0f49373bfe3e74afbd962e8ac392.txt'
-    | '/about'
     | '/agent-instructions.txt'
     | '/agent.json'
     | '/autocad-dwg'
@@ -289,6 +297,8 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/termeni-si-conditii'
     | '/blog/$slug'
+    | '/en/about'
+    | '/en/autocad-drafting'
     | '/en/cookies'
     | '/en/privacy'
     | '/en/revit-mep-outsourcing'
@@ -297,7 +307,6 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/09cc0f49373bfe3e74afbd962e8ac392.txt'
-    | '/about'
     | '/agent-instructions.txt'
     | '/agent.json'
     | '/autocad-dwg'
@@ -318,6 +327,8 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/termeni-si-conditii'
     | '/blog/$slug'
+    | '/en/about'
+    | '/en/autocad-drafting'
     | '/en/cookies'
     | '/en/privacy'
     | '/en/revit-mep-outsourcing'
@@ -326,7 +337,6 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/09cc0f49373bfe3e74afbd962e8ac392.txt'
-    | '/about'
     | '/agent-instructions.txt'
     | '/agent.json'
     | '/autocad-dwg'
@@ -347,6 +357,8 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/termeni-si-conditii'
     | '/blog/$slug'
+    | '/en/about'
+    | '/en/autocad-drafting'
     | '/en/cookies'
     | '/en/privacy'
     | '/en/revit-mep-outsourcing'
@@ -356,7 +368,6 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   R09cc0f49373bfe3e74afbd962e8ac392DottxtRoute: typeof R09cc0f49373bfe3e74afbd962e8ac392DottxtRoute
-  AboutRoute: typeof AboutRoute
   AgentInstructionsDottxtRoute: typeof AgentInstructionsDottxtRoute
   AgentDotjsonRoute: typeof AgentDotjsonRoute
   AutocadDwgRoute: typeof AutocadDwgRoute
@@ -377,6 +388,8 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TermeniSiConditiiRoute: typeof TermeniSiConditiiRoute
   BlogSlugRoute: typeof BlogSlugRoute
+  EnAboutRoute: typeof EnAboutRoute
+  EnAutocadDraftingRoute: typeof EnAutocadDraftingRoute
   EnCookiesRoute: typeof EnCookiesRoute
   EnPrivacyRoute: typeof EnPrivacyRoute
   EnRevitMepOutsourcingRoute: typeof EnRevitMepOutsourcingRoute
@@ -397,13 +410,6 @@ declare module '@tanstack/react-router' {
       path: '/09cc0f49373bfe3e74afbd962e8ac392.txt'
       fullPath: '/09cc0f49373bfe3e74afbd962e8ac392.txt'
       preLoaderRoute: typeof R09cc0f49373bfe3e74afbd962e8ac392DottxtRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/agent-instructions.txt': {
@@ -553,6 +559,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/en/about': {
+      id: '/en/about'
+      path: '/en/about'
+      fullPath: '/en/about'
+      preLoaderRoute: typeof EnAboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en/autocad-drafting': {
+      id: '/en/autocad-drafting'
+      path: '/en/autocad-drafting'
+      fullPath: '/en/autocad-drafting'
+      preLoaderRoute: typeof EnAutocadDraftingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/en/cookies': {
       id: '/en/cookies'
       path: '/en/cookies'
@@ -581,7 +601,6 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   R09cc0f49373bfe3e74afbd962e8ac392DottxtRoute:
     R09cc0f49373bfe3e74afbd962e8ac392DottxtRoute,
-  AboutRoute: AboutRoute,
   AgentInstructionsDottxtRoute: AgentInstructionsDottxtRoute,
   AgentDotjsonRoute: AgentDotjsonRoute,
   AutocadDwgRoute: AutocadDwgRoute,
@@ -602,6 +621,8 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TermeniSiConditiiRoute: TermeniSiConditiiRoute,
   BlogSlugRoute: BlogSlugRoute,
+  EnAboutRoute: EnAboutRoute,
+  EnAutocadDraftingRoute: EnAutocadDraftingRoute,
   EnCookiesRoute: EnCookiesRoute,
   EnPrivacyRoute: EnPrivacyRoute,
   EnRevitMepOutsourcingRoute: EnRevitMepOutsourcingRoute,

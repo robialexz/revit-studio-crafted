@@ -10,6 +10,8 @@ export type Locale = "ro" | "en";
 /** Pagini echivalente RO ↔ EN, folosite pentru hreflang și comutatorul de limbă. */
 const pagePairs: { ro: string; en: string }[] = [
   { ro: "/revit-mep", en: "/en/revit-mep-outsourcing" },
+  { ro: "/autocad-dwg", en: "/en/autocad-drafting" },
+  { ro: "/despre", en: "/en/about" },
   { ro: "/politica-de-confidentialitate", en: "/en/privacy" },
   { ro: "/politica-cookies", en: "/en/cookies" },
 ];

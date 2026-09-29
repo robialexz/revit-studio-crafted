@@ -13,9 +13,11 @@ describe("limba paginii", () => {
   test("comutatorul duce la pagina echivalentă sau la intrarea în limbă", () => {
     expect(alternatePath("/revit-mep", "en")).toBe("/en/revit-mep-outsourcing");
     expect(alternatePath("/en/revit-mep-outsourcing/", "ro")).toBe("/revit-mep");
-    expect(alternatePath("/despre", "en")).toBe("/en/revit-mep-outsourcing");
-    expect(alternatePath("/despre", "ro")).toBe("/despre");
+    expect(alternatePath("/hvac", "en")).toBe("/en/revit-mep-outsourcing");
+    expect(alternatePath("/hvac", "ro")).toBe("/hvac");
     expect(alternatePath("/politica-cookies", "en")).toBe("/en/cookies");
+    expect(alternatePath("/autocad-dwg", "en")).toBe("/en/autocad-drafting");
+    expect(alternatePath("/en/about", "ro")).toBe("/despre");
     expect(alternatePath("/en/privacy", "ro")).toBe("/politica-de-confidentialitate");
   });
 
@@ -26,6 +28,6 @@ describe("limba paginii", () => {
     expect(ro.map((l) => l.hrefLang)).toEqual(["ro", "en", "x-default"]);
     expect(ro[0]?.href).toBe("https://nodbim.com/revit-mep");
     expect(ro[1]?.href).toBe("https://nodbim.com/en/revit-mep-outsourcing");
-    expect(hreflangLinks("/despre")).toEqual([]);
+    expect(hreflangLinks("/hvac")).toEqual([]);
   });
 });

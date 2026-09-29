@@ -16,8 +16,8 @@ const nav: Record<Locale, { label: string; href: string }[]> = {
   ],
   en: [
     { label: "Revit MEP outsourcing", href: enHomePath },
-    { label: "How it works", href: `${enHomePath}#process` },
-    { label: "FAQ", href: `${enHomePath}#faq` },
+    { label: "AutoCAD drafting", href: "/en/autocad-drafting" },
+    { label: "About", href: "/en/about" },
   ],
 };
 

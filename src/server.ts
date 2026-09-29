@@ -119,6 +119,7 @@ function redirectHttpHost(request: Request): Response | undefined {
 const removedPaths: Record<string, string> = {
   "/referinte": "/portofoliu",
   "/privacy": "/en/privacy",
+  "/about": "/en/about",
 };
 
 /**

@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Header } from "@/components/site/Header";
 import { DespreContent } from "@/components/site/DespreContent";
 import { canonicalUrl } from "@/lib/site-config";
+import { hreflangLinks } from "@/lib/i18n";
 
 const title = "Despre NOD BIM · Servicii BIM și CAD oferite de un inginer de instalații";
 const description =
@@ -22,7 +23,7 @@ export const Route = createFileRoute("/despre")({
       { name: "twitter:title", content: title },
       { name: "twitter:description", content: description },
     ],
-    links: [{ rel: "canonical", href: url }],
+    links: [{ rel: "canonical", href: url }, ...hreflangLinks("/despre")],
   }),
   component: Despre,
 });
