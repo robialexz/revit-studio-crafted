@@ -14,7 +14,7 @@ interface SitemapEntry {
  * Data ultimei modificări de conținut — actualizează manual când
  * modifici substanțial textele/paginile (Google o folosește la recrawl).
  */
-const LAST_MODIFIED = "2026-09-28";
+const LAST_MODIFIED = "2026-10-02";
 
 const entries: SitemapEntry[] = [
   { path: "/", lastmod: LAST_MODIFIED, changefreq: "weekly", priority: "1.0" },

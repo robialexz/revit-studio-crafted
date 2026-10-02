@@ -364,14 +364,13 @@ function RevitMepOutsourcing() {
             <Reveal delay={80} className="lg:col-span-7">
               <p className="text-base leading-relaxed text-graphite-foreground/85">
                 NOD BIM is the brand of an installations engineer with a building services degree
-                and a professional background in MEP design and coordination for data centres. The
-                person who prepares your estimate is the person who does the work — no account
-                managers in between.
+                and a professional background in MEP design and coordination. The person who
+                prepares your estimate is the person who does the work — no account managers in
+                between.
               </p>
               <p className="mt-4 text-base leading-relaxed text-graphite-foreground/85">
-                Personal accreditations: Uptime Institute Accredited Tier Designer (ATD) and
-                Accredited Tier Specialist (ATS). Projects from employment belong to the employer
-                and are not presented as NOD BIM work.
+                Projects from employment belong to the employer and are not presented as NOD BIM
+                work.
               </p>
               <p className="mt-4 text-sm leading-relaxed text-graphite-foreground/65">
                 As a single specialist, I take on a limited number of projects at a time and confirm

@@ -12,15 +12,11 @@ const path = "/en/about";
 const url = canonicalUrl(path);
 const title = "About NOD BIM · Revit MEP and CAD Support from an Installations Engineer";
 const description =
-  "NOD BIM is the brand of an installations engineer providing Revit MEP modelling and AutoCAD drafting for engineering teams, with a data centre background and personal Uptime ATD and ATS accreditations.";
+  "NOD BIM is the brand of an installations engineer providing Revit MEP modelling and AutoCAD drafting for engineering teams, working to your standards with an NDA on request.";
 
 const profile: [string, string][] = [
   ["Education", "Building services (installations) engineering degree"],
-  [
-    "Personal accreditations",
-    "Uptime Institute — Accredited Tier Designer (ATD), Accredited Tier Specialist (ATS)",
-  ],
-  ["Professional background", "MEP design and coordination for data centres"],
+  ["Professional background", "MEP design and coordination"],
   ["Software", "Revit MEP · AutoCAD"],
   ["Disciplines", "HVAC · heating · electrical"],
   ["Deliverables", "RVT · DWG · PDF"],
@@ -46,7 +42,7 @@ export const Route = createFileRoute("/en/about")({
 
 /**
  * Versiunea EN a /despre. NOD BIM este un brand, nu o societate:
- * experiența și acreditările sunt ale specialistului.
+ * experiența este a specialistului.
  */
 function About() {
   return (
@@ -76,10 +72,8 @@ function About() {
               <h2 className="text-3xl uppercase md:text-4xl">The engineer behind the brand</h2>
               <p className="mt-5 text-base leading-relaxed text-foreground/85">
                 I studied building services engineering and work professionally in MEP design and
-                coordination for data centres — projects where redundancy, precise documentation and
-                coordination between disciplines are requirements, not extras. I hold the Uptime
-                Institute Accredited Tier Designer (ATD) and Accredited Tier Specialist (ATS)
-                accreditations personally; they are not accreditations of NOD BIM.
+                coordination, where precise documentation and coordination between disciplines are
+                requirements, not extras.
               </p>
               <p className="mt-4 text-base leading-relaxed text-foreground/85">
                 Projects from employment belong to the employer and its clients and are not

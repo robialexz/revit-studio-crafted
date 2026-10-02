@@ -6,11 +6,7 @@ import { CtaSection } from "@/components/site/CtaSection";
 
 const profile: [string, string][] = [
   ["Formare", "Inginer de instalații — facultatea de inginerie a instalațiilor"],
-  [
-    "Acreditări personale",
-    "Uptime Institute — Accredited Tier Designer (ATD) și Accredited Tier Specialist (ATS)",
-  ],
-  ["Experiență profesională", "Proiectarea și coordonarea instalațiilor pentru centre de date"],
+  ["Experiență profesională", "Proiectarea și coordonarea instalațiilor"],
   ["Software", "Revit MEP · AutoCAD"],
   ["Discipline", "HVAC · instalații termice · instalații electrice"],
   ["Livrabile", "RVT · DWG · PDF"],
@@ -20,8 +16,8 @@ const profile: [string, string][] = [
 /**
  * Conținutul paginii „Despre” — reutilizat de /despre (canonical) și
  * /about (alias pentru agenți AI, canonical către /despre).
- * NOD BIM este un brand, nu o societate: experiența și acreditările sunt
- * ale specialistului, iar lucrările angajatorului nu apar ca lucrări NOD BIM.
+ * NOD BIM este un brand, nu o societate: experiența este a specialistului,
+ * iar lucrările angajatorului nu apar ca lucrări NOD BIM.
  */
 export function DespreContent() {
   return (
@@ -50,10 +46,8 @@ export function DespreContent() {
               <h2 className="text-3xl uppercase md:text-4xl">Specialistul din spatele brandului</h2>
               <p className="mt-5 text-base leading-relaxed text-foreground/85">
                 Sunt inginer, absolvent al facultății de inginerie a instalațiilor. Profesional
-                lucrez în proiectarea și coordonarea instalațiilor pentru centre de date — proiecte
-                în care redundanța, documentația exactă și coordonarea între discipline sunt
-                obligatorii. Am acreditările personale Uptime Institute Accredited Tier Designer
-                (ATD) și Accredited Tier Specialist (ATS), obținute pe nume propriu, nu de NOD BIM.
+                lucrez în proiectarea și coordonarea instalațiilor, unde documentația exactă și
+                coordonarea între discipline sunt obligatorii.
               </p>
               <p className="mt-4 text-base leading-relaxed text-foreground/85">
                 Proiectele din activitatea profesională aparțin angajatorului și clienților săi și
