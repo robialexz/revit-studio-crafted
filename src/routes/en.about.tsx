@@ -4,6 +4,7 @@ import { Footer } from "@/components/site/Footer";
 import { MobileCta } from "@/components/site/MobileCta";
 import { Reveal } from "@/components/site/Reveal";
 import { EnEstimate } from "@/components/site/EnSections";
+import { enAbout } from "@/lib/en-content";
 import { enMailHref } from "@/lib/en-page";
 import { canonicalUrl } from "@/lib/site-config";
 import { hreflangLinks } from "@/lib/i18n";
@@ -11,17 +12,7 @@ import { hreflangLinks } from "@/lib/i18n";
 const path = "/en/about";
 const url = canonicalUrl(path);
 const title = "About NOD BIM · Revit MEP and CAD Support from an Installations Engineer";
-const description =
-  "NOD BIM is the brand of an installations engineer providing Revit MEP modelling and AutoCAD drafting for engineering teams, working to your standards with an NDA on request.";
-
-const profile: [string, string][] = [
-  ["Education", "Building services (installations) engineering degree"],
-  ["Professional background", "MEP design and coordination"],
-  ["Software", "Revit MEP · AutoCAD"],
-  ["Disciplines", "HVAC · heating · electrical"],
-  ["Deliverables", "RVT · DWG · PDF"],
-  ["Collaboration", "Remote · English or Romanian · NDA available"],
-];
+const { h1, description, facts: profile, howIWork } = enAbout;
 
 export const Route = createFileRoute("/en/about")({
   head: () => ({
@@ -55,7 +46,7 @@ function About() {
             <Reveal>
               <p className="tech-label text-primary">About NOD BIM</p>
               <h1 className="display-xl mt-6 max-w-4xl text-[2.6rem] sm:text-6xl lg:text-7xl">
-                BIM and CAD production support for engineering teams
+                {h1}
               </h1>
               <p className="mt-7 max-w-2xl text-base leading-relaxed text-foreground/80 md:text-lg">
                 NOD BIM provides Revit MEP modelling and AutoCAD drafting, delivered directly by an
@@ -83,24 +74,12 @@ function About() {
 
               <h2 className="mt-12 text-3xl uppercase md:text-4xl">How I work</h2>
               <ul className="mt-5 space-y-3 text-base leading-relaxed text-foreground/85">
-                <li>
-                  <span className="tech-label text-mep">01 · </span>
-                  Scope, deliverables, timeline and a fixed price agreed in writing before work
-                  starts.
-                </li>
-                <li>
-                  <span className="tech-label text-mep">02 · </span>
-                  Work in your Revit template, families and CAD standards; NDA on request.
-                </li>
-                <li>
-                  <span className="tech-label text-mep">03 · </span>
-                  Modelling and drafting only: engineering design, checking and sign-off remain with
-                  your responsible engineer.
-                </li>
-                <li>
-                  <span className="tech-label text-mep">04 · </span>A limited number of projects at
-                  a time, with availability confirmed before a scope is accepted.
-                </li>
+                {howIWork.map((item, i) => (
+                  <li key={item}>
+                    <span className="tech-label text-mep">0{i + 1} · </span>
+                    {item}
+                  </li>
+                ))}
               </ul>
 
               <h2 className="mt-12 text-3xl uppercase md:text-4xl">A brand, not a company</h2>

@@ -5,7 +5,7 @@ import { configuredLegalFields, isLegalConfigured, legal } from "@/lib/legal-con
 
 const title = "Informații legale — NOD BIM";
 const description =
-  "Informații legale NOD BIM: identificarea operatorului site-ului nodbim.com, date de contact și informații despre serviciile de modelare Revit MEP și desenare tehnică.";
+  "Informații legale NOD BIM: operatorul site-ului nodbim.com, date de contact și informații despre serviciile de modelare Revit MEP și desenare tehnică.";
 const url = canonicalUrl("/informatii-legale");
 
 export const Route = createFileRoute("/informatii-legale")({
@@ -65,7 +65,7 @@ function LegalInfoPage() {
         {
           title: "Proprietate intelectuală a site-ului",
           body: [
-            "Conținutul site-ului (texte, structură, identitate vizuală) aparține operatorului și nu poate fi copiat sau reutilizat fără acord. Imaginile din portofoliu marcate ca demonstrative au caracter ilustrativ.",
+            "Conținutul site-ului (texte, structură, identitate vizuală) aparține operatorului și nu poate fi copiat sau reutilizat fără acord. Imaginile din portofoliu au caracter ilustrativ.",
           ],
         },
         {

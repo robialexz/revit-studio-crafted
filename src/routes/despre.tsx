@@ -4,9 +4,9 @@ import { DespreContent } from "@/components/site/DespreContent";
 import { canonicalUrl } from "@/lib/site-config";
 import { hreflangLinks } from "@/lib/i18n";
 
-const title = "Despre NOD BIM · Servicii BIM și CAD oferite de un inginer de instalații";
+const title = "Despre NOD BIM · Inginer de instalații, servicii BIM și CAD";
 const description =
-  "NOD BIM oferă modelare Revit MEP, planșe de instalații și lucrări AutoCAD, realizate direct de un inginer de instalații, în standardele biroului tău, cu NDA la cerere.";
+  "Modelare Revit MEP, planșe de instalații și lucrări AutoCAD, realizate direct de un inginer de instalații, în standardele biroului tău. NDA la cerere.";
 const url = canonicalUrl("/despre");
 
 export const Route = createFileRoute("/despre")({

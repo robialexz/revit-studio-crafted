@@ -36,3 +36,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# liste de prospectare (date de contact, nu se publica)
+prospectare/

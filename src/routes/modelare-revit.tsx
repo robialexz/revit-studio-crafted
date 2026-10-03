@@ -6,7 +6,7 @@ import projSheet from "@/assets/proj-sheet.webp";
 
 const title = "Modelare BIM în Revit: model 3D și planșe tehnice · NOD BIM";
 const description =
-  "Modelare Revit și desenare tehnică: model 3D, planuri, secțiuni și planșe organizate. Când merită modelarea BIM, ce trimiți la început și ce primești la final.";
+  "Modelare Revit și desenare tehnică: model 3D, planuri, secțiuni și planșe organizate. Când merită modelarea BIM, ce trimiți și ce primești la final.";
 const url = canonicalUrl("/modelare-revit");
 
 export const Route = createFileRoute("/modelare-revit")({

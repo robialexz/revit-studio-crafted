@@ -3,6 +3,7 @@ import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { MobileCta } from "@/components/site/MobileCta";
 import { EnEstimate, EnFaq } from "@/components/site/EnSections";
+import { enOutsourcing } from "@/lib/en-content";
 import { enFaqSchema, enMailHref } from "@/lib/en-page";
 import { Reveal } from "@/components/site/Reveal";
 import { brandSchema, canonicalUrl } from "@/lib/site-config";
@@ -14,124 +15,7 @@ import projSheet from "@/assets/proj-sheet.webp";
 const path = "/en/revit-mep-outsourcing";
 const url = canonicalUrl(path);
 const title = "Revit MEP Outsourcing for Engineering Teams · NOD BIM";
-const description =
-  "Revit MEP outsourcing for MEP consultancies and engineering teams: modelling and drawings in your template, delivered as RVT, DWG and PDF. NDA available.";
-
-const facts: [string, string][] = [
-  ["Disciplines", "HVAC · heating · electrical"],
-  ["Software", "Revit MEP · AutoCAD"],
-  ["Deliverables", "RVT · DWG · PDF"],
-  ["Collaboration", "Remote · English · NDA available"],
-];
-
-const useCases: [string, string][] = [
-  [
-    "Overflow capacity",
-    "Your team has the design but not the hours. External Revit MEP production covers the peak without hiring.",
-  ],
-  [
-    "2D design to Revit model",
-    "Your engineers issue layouts, markups or DWG drawings; I build the Revit MEP model and the drawing set from them.",
-  ],
-  [
-    "Taking over a model",
-    "A model started by someone else needs to be checked, cleaned up and brought to issue.",
-  ],
-  [
-    "Drawings and revisions",
-    "Sheets, sections, schedules and annotation for an issue, or a revision round after comments.",
-  ],
-];
-
-const process: { n: string; title: string; body: string; items: string[] }[] = [
-  {
-    n: "01",
-    title: "What you send",
-    body: "The engineering input the model is built from. Your design decisions stay yours.",
-    items: [
-      "architectural background (RVT, DWG or PDF)",
-      "MEP layouts, markups or schematics",
-      "your Revit template, families and BIM standards",
-      "scope, level of detail and target date",
-    ],
-  },
-  {
-    n: "02",
-    title: "What I do",
-    body: "Model and document to the agreed scope, inside your standards.",
-    items: [
-      "Revit MEP modelling: ducts, pipes, equipment, electrical layouts",
-      "views, sections and sheets set up in your template",
-      "tags, annotation and schedules",
-      "model and sheet checks before issue",
-    ],
-  },
-  {
-    n: "03",
-    title: "What you receive",
-    body: "Files your team can continue working on, not just prints.",
-    items: [
-      "editable RVT model",
-      "DWG exports to your layer standards",
-      "PDF drawing set ready for issue",
-      "a short issue note: what was modelled and any open questions",
-    ],
-  },
-  {
-    n: "04",
-    title: "How we collaborate",
-    body: "Remote, in English, with one point of contact who also does the work.",
-    items: [
-      "written scope, timeline and price before work starts",
-      "NDA signed before you share files, on request",
-      "files via your shared folder, cloud platform or transfer link",
-      "progress updates at agreed milestones",
-    ],
-  },
-];
-
-const standards = [
-  "your project template and view templates",
-  "your families and type naming",
-  "your sheet sizes, title blocks and numbering",
-  "your DWG export and layer settings",
-  "your file naming and folder structure",
-];
-
-const faq: [string, string][] = [
-  [
-    "Do you provide engineering design or calculations?",
-    "No. The service is BIM production: modelling, drawings and documentation based on the design your engineers provide. Sizing, calculations, checking and sign-off remain with your team.",
-  ],
-  [
-    "Can you work in our Revit template, with our families and BIM standards?",
-    "Yes. Send the template, families and any BIM execution plan or modelling guide at the start, and the model and sheets are produced to them.",
-  ],
-  [
-    "Which Revit version do you use?",
-    "The version is confirmed in the estimate so the model matches your project. Revit files cannot be saved back to an older version, so this is agreed before work starts.",
-  ],
-  [
-    "Will you sign an NDA?",
-    "Yes. An NDA can be signed before you share any project files. Files are not published or passed on.",
-  ],
-  [
-    "How is the price set?",
-    "After reviewing the files, you receive a fixed price for the agreed scope, with the timeline and number of revision rounds included. Extra scope is quoted before it is done.",
-  ],
-  [
-    "What time zone do you work in?",
-    "Romania (EET, UTC+2 / UTC+3 in summer), which overlaps with UK and central European working hours.",
-  ],
-  [
-    "Which disciplines do you cover?",
-    "HVAC, heating and electrical. Plumbing and drainage are not currently included.",
-  ],
-  [
-    "How is the work contracted?",
-    "Scope, deliverables, timeline and price are confirmed in writing before work starts. Contracting and invoicing details are agreed together with the estimate.",
-  ],
-];
+const { h1, description, facts, useCases, process, standards, responsibility, faq } = enOutsourcing;
 
 export const Route = createFileRoute("/en/revit-mep-outsourcing")({
   head: () => ({
@@ -193,7 +77,7 @@ function RevitMepOutsourcing() {
                 Revit MEP outsourcing · BIM production support
               </p>
               <h1 className="display-xl mt-6 max-w-4xl text-[2.4rem] sm:text-[3.4rem] lg:text-[4.2rem]">
-                Revit MEP outsourcing for engineering teams
+                {h1}
               </h1>
               <p className="mt-6 max-w-2xl text-base leading-relaxed text-foreground/80 md:text-lg">
                 Extra Revit MEP production capacity for MEP consultancies, engineering offices and
@@ -302,20 +186,12 @@ function RevitMepOutsourcing() {
                 Scope, revisions, responsibility
               </h2>
               <ul className="mt-5 space-y-3 text-sm leading-relaxed text-foreground/80 md:text-base">
-                <li>
-                  <span className="tech-label text-mep">01 · </span>
-                  Scope, deliverables, timeline and price agreed in writing before work starts.
-                </li>
-                <li>
-                  <span className="tech-label text-mep">02 · </span>
-                  The number of revision rounds is defined in the estimate; extra scope is quoted
-                  before it is done.
-                </li>
-                <li>
-                  <span className="tech-label text-mep">03 · </span>
-                  Engineering design, calculations, checking and sign-off remain with your
-                  responsible engineer.
-                </li>
+                {responsibility.map((item, i) => (
+                  <li key={item}>
+                    <span className="tech-label text-mep">0{i + 1} · </span>
+                    {item}
+                  </li>
+                ))}
               </ul>
             </Reveal>
 

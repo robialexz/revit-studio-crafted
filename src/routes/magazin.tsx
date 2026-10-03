@@ -4,12 +4,12 @@ import { Footer } from "@/components/site/Footer";
 import { MobileCta } from "@/components/site/MobileCta";
 import { Reveal } from "@/components/site/Reveal";
 import { CtaSection } from "@/components/site/CtaSection";
-import { brandSchema, canonicalUrl, hasWhatsapp, site, whatsappLink } from "@/lib/site-config";
+import { brandSchema, canonicalUrl, hasWhatsapp, whatsappLink } from "@/lib/site-config";
 import { products, type ShopProduct } from "@/lib/products";
 
-const title = "Magazin BIM · Audit Revit, kituri MEP și modele didactice · NOD BIM";
+const title = "Magazin BIM: audit Revit și kituri MEP · NOD BIM";
 const description =
-  "Resurse BIM pentru birouri din România: RVT/DWG Health Check, Revit MEP Office Starter Kit, automatizări Dynamo/pyRevit, externalizare Revit MEP și modele didactice.";
+  "Resurse BIM pentru birouri din România: RVT/DWG Health Check, Revit MEP Office Starter Kit, automatizări Dynamo/pyRevit și modele didactice.";
 const url = canonicalUrl("/magazin");
 
 const shopFaq: [string, string][] = [
@@ -31,7 +31,7 @@ const shopFaq: [string, string][] = [
   ],
   [
     "Pot comanda un model didactic MEP personalizat?",
-    "Da. Putem porni de la o pompă, vană, ventiloconvector, distribuitor sau un ansamblu CRAH/CDU. Stabilim împreună nivelul de secționare, codurile de culoare, dimensiunea, suportul și termenul înainte de print.",
+    "Da. Putem porni de la o pompă, vană, ventiloconvector sau distribuitor. Stabilim împreună nivelul de secționare, codurile de culoare, dimensiunea, suportul și termenul înainte de print.",
   ],
   [
     "Cum se face comanda și livrarea?",
@@ -266,8 +266,7 @@ function Magazin() {
               ))}
             </div>
             <p className="mt-8 max-w-3xl text-xs leading-relaxed text-muted-foreground">
-              Pentru proiectare completă, coordonare sau mai mult de un pachet de capacitate, mergi
-              la{" "}
+              Pentru modelare completă, coordonare sau mai mult de un pachet de capacitate, mergi la{" "}
               <Link to="/revit-mep" className="text-foreground underline hover:text-primary">
                 serviciile Revit MEP
               </Link>
@@ -390,11 +389,9 @@ function ProductCard({
             height={860}
             className="aspect-[16/9] w-full object-cover"
           />
-          {site.showDemoImageLabels && (
-            <figcaption className="absolute bottom-3 left-3 bg-background/90 px-2 py-1 tech-label text-mep">
-              {product.imageCaption}
-            </figcaption>
-          )}
+          <figcaption className="absolute bottom-3 left-3 bg-background/90 px-2 py-1 tech-label text-mep">
+            {product.imageCaption}
+          </figcaption>
         </figure>
         <div className="flex flex-1 flex-col px-5 py-5 md:px-6">
           <h2 className={featured ? "text-2xl uppercase" : "text-3xl uppercase"}>{product.name}</h2>

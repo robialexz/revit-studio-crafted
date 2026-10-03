@@ -4,6 +4,9 @@
  * Funcții pure, testabile; partea de negociere e în server.ts.
  */
 import { articles } from "./blog";
+import { enAbout, enDrafting, enOutsourcing } from "./en-content";
+import { serviceHref, services } from "./home-content";
+import { enHomePath } from "./i18n";
 import { products } from "./products";
 import { site } from "./site-config";
 
@@ -63,6 +66,11 @@ export function markdownResponseForPath(pathname: string): Response | null {
   if (clean === "/magazin") return simpleMdResponse(shopMarkdown());
   if (clean === "/portofoliu") return simpleMdResponse(portfolioMarkdown());
   if (clean === "/blog") return simpleMdResponse(blogIndexMarkdown());
+  if (clean === enHomePath) return simpleMdResponse(enOutsourcingMarkdown());
+  if (clean === "/en/autocad-drafting") return simpleMdResponse(enDraftingMarkdown());
+  if (clean === "/en/about") return simpleMdResponse(enAboutMarkdown());
+  const service = services.find((s) => serviceHref[s.title] === clean);
+  if (service) return simpleMdResponse(serviceMarkdown(service));
   if (clean.startsWith("/blog/")) {
     const slug = clean.replace("/blog/", "");
     const article = articles.find((a) => a.slug === slug);
@@ -141,7 +149,7 @@ function homeMarkdown(): string {
     ``,
     `## Portofoliu`,
     ``,
-    `- [Portofoliu](${base()}/portofoliu): exemple de modelare și documentație (proiect demonstrativ propriu)`,
+    `- [Portofoliu](${base()}/portofoliu): exemple de modelare și documentație`,
     ``,
     `## Întrebări frecvente`,
     ``,
@@ -249,10 +257,103 @@ function portfolioMarkdown(): string {
     ``,
     `> Exemple de modelare Revit MEP și documentație pentru instalații HVAC, termice și electrice.`,
     ``,
-    `Imaginile provin dintr-un proiect demonstrativ propriu: model 3D, planuri HVAC și termice, secțiuni, sheet-uri și lucrări DWG.`,
+    `Imaginile arată: model 3D, planuri HVAC și termice, secțiuni, sheet-uri și lucrări DWG.`,
     ``,
     `Pentru imagini și detalii complete, vezi pagina [Portofoliu](${base()}/portofoliu).`,
     ``,
+  ].join("\n");
+}
+
+/** Paginile de serviciu RO: rezumatul serviciului din home-content. */
+function serviceMarkdown(service: (typeof services)[number]): string {
+  return [
+    `# ${service.title}`,
+    ``,
+    `> ${service.lead}`,
+    ``,
+    `## Ce include`,
+    ``,
+    ...service.items.map((item) => `- ${item}`),
+    ``,
+    `---`,
+    ``,
+    `[Solicită o estimare](${base()}/#estimare) · [Toate serviciile](${base()}/) · [Contact](${base()}/contact)`,
+    ``,
+  ].join("\n");
+}
+
+const mdList = (items: string[]) => [...items.map((item) => `- ${item}`), ``];
+const mdPairs = (pairs: [string, string][]) => mdList(pairs.map(([k, v]) => `**${k}**: ${v}`));
+const mdBlocks = (blocks: { title: string; body: string; items: string[] }[]) =>
+  blocks.flatMap((b) => [`### ${b.title}`, ``, b.body, ``, ...mdList(b.items)]);
+const mdFaq = (faq: [string, string][]) => faq.flatMap(([q, a]) => [`### ${q}`, ``, a, ``]);
+const enFooter = () => [
+  `---`,
+  ``,
+  `[Revit MEP outsourcing](${base()}${enHomePath}) · [AutoCAD drafting](${base()}/en/autocad-drafting) · [About](${base()}/en/about) · [Request an estimate](${base()}${enHomePath}#estimate)`,
+  ``,
+];
+
+function enOutsourcingMarkdown(): string {
+  const p = enOutsourcing;
+  return [
+    `# ${p.h1}`,
+    ``,
+    `> ${p.description}`,
+    ``,
+    ...mdPairs(p.facts),
+    `## When teams bring in external Revit MEP capacity`,
+    ``,
+    ...mdPairs(p.useCases),
+    `## How it works`,
+    ``,
+    ...mdBlocks(p.process),
+    `## Working inside your standards`,
+    ``,
+    ...mdList(p.standards),
+    `## Scope, revisions, responsibility`,
+    ``,
+    ...mdList(p.responsibility),
+    `## Questions before you send files`,
+    ``,
+    ...mdFaq(p.faq),
+    ...enFooter(),
+  ].join("\n");
+}
+
+function enDraftingMarkdown(): string {
+  const p = enDrafting;
+  return [
+    `# ${p.h1}`,
+    ``,
+    `> ${p.description}`,
+    ``,
+    ...mdPairs(p.facts),
+    `## Services`,
+    ``,
+    ...mdBlocks(p.services),
+    `## What you receive`,
+    ``,
+    ...mdList(p.received),
+    `## Questions before you send drawings`,
+    ``,
+    ...mdFaq(p.faq),
+    ...enFooter(),
+  ].join("\n");
+}
+
+function enAboutMarkdown(): string {
+  const p = enAbout;
+  return [
+    `# ${p.h1}`,
+    ``,
+    `> ${p.description}`,
+    ``,
+    ...mdPairs(p.facts),
+    `## How I work`,
+    ``,
+    ...mdList(p.howIWork),
+    ...enFooter(),
   ].join("\n");
 }
 
@@ -260,7 +361,7 @@ function blogIndexMarkdown(): string {
   return [
     `# Jurnal tehnic — ${site.businessName}`,
     ``,
-    `> Articole de inginerie cu probe practice: costuri descompuse, experimente Revit vs AutoCAD, proiectarea instalațiilor în centre de date.`,
+    `> Articole de inginerie cu probe practice: costuri descompuse, experimente Revit vs AutoCAD, LOD, clash detection.`,
     ``,
     ...articles.map((a) => `- [${a.title}](${base()}/blog/${a.slug}): ${a.description}`),
     ``,
@@ -306,6 +407,10 @@ function notFoundText(pathname: string): string {
   return `# Pagina nu există (404)\n\n> ${pathname} nu corespunde niciunei pagini. Vezi [sitemap](${base()}/sitemap.xml) sau [llms.txt](${base()}/llms.txt).\n`;
 }
 
+/** Ce pagini au variantă markdown — aceeași afirmație în llms.txt, agent.json și agent-instructions.txt. */
+const markdownClaim =
+  "Service, portfolio, shop, journal, about and contact pages are also available as Markdown at the same URL via `Accept: text/markdown` content negotiation. /modelare-revit and the legal pages are HTML only.";
+
 /** /llms.txt conform spec-ului llmstxt.org (H1, blockquote, detalii, secțiuni cu linkuri). */
 export function llmsTxt(): string {
   return [
@@ -315,22 +420,24 @@ export function llmsTxt(): string {
     ``,
     `## When to use this`,
     ``,
-    `This is a service site for a freelance MEP design engineer. Reach for it when a user needs:`,
+    `This is the site of a B2B Revit MEP / BIM production outsourcing service for MEP consultancies, engineering offices and design teams: modelling and drawing production inside the client's template and standards. Engineering design, calculations, checking and sign-off stay with the client's engineers. Reach for it when a user needs:`,
     ``,
-    `- **Revit MEP / BIM modeling** — HVAC, heating or electrical installation models, 3D views, sections, sheets, quantities`,
-    `- **Technical documentation** — drafting installation plans, corrections, DWG cleanup or PDF redraw`,
-    `- **Estimates** — price and deadline for a modeling job; send the user to the estimate form or contact page`,
-    `- **Domain knowledge** — pricing breakdowns, LOD levels, Revit vs AutoCAD, data center installations; answers are in the journal`,
+    `- **Revit MEP / BIM modelling** — HVAC, heating or electrical models built from the client's design: 3D model, views, sections, sheets, schedules`,
+    `- **AutoCAD / DWG drafting** — PDF or scan to DWG redrafting, drawing cleanup to the client's CAD standards, markups and revisions`,
+    `- **Estimates** — price and timeline for a defined scope; send the user to the estimate form or contact page`,
+    `- **Domain knowledge** — pricing breakdowns, LOD levels, Revit vs AutoCAD, clash detection; answers are in the journal`,
     `- **BIM resources** — RVT/DWG health checks, Revit MEP office kits, Dynamo/pyRevit automation packs, external capacity packages and MEP training models`,
     ``,
-    `Do NOT use this site for: sanitary/plumbing design (explicitly out of scope), construction execution, or Revit training courses (not offered).`,
+    `Do NOT use this site for: engineering design, calculations or sign-off (they stay with the client's engineer), plumbing/drainage (out of scope), construction execution, or Revit training courses (not offered).`,
     ``,
-    `All pages are also available as Markdown at the same URL via \`Accept: text/markdown\` content negotiation.`,
+    markdownClaim,
     ``,
     `## Servicii`,
     ``,
     `- [Externalizare Revit MEP](${base()}/revit-mep): modelare și planșe de instalații pe tema biroului, export RVT/DWG/PDF`,
-    `- [Revit MEP outsourcing (English)](${base()}/en/revit-mep-outsourcing): BIM production support for engineering teams, remote, NDA available`,
+    `- [Modelare Revit](${base()}/modelare-revit): model 3D, planuri, secțiuni și planșe organizate`,
+    `- [Revit MEP outsourcing (English)](${base()}${enHomePath}): ${enOutsourcing.description}`,
+    `- [AutoCAD drafting (English)](${base()}/en/autocad-drafting): ${enDrafting.description}`,
     `- [Instalații HVAC](${base()}/hvac): tubulaturi, echipamente, grile, scheme`,
     `- [Instalații termice](${base()}/instalatii-termice): conducte, radiatoare, centrale, distribuitoare`,
     `- [Instalații electrice](${base()}/instalatii-electrice): iluminat, prize, circuite, tablouri`,
@@ -352,6 +459,7 @@ export function llmsTxt(): string {
     `## Despre`,
     ``,
     `- [Despre](${base()}/despre): brand operat de un inginer de instalații`,
+    `- [About (English)](${base()}/en/about): ${enAbout.description}`,
     `- [Contact](${base()}/contact): formular, WhatsApp, email`,
     ``,
     `## Optional`,
@@ -370,23 +478,23 @@ export function agentInstructionsTxt(): string {
     ``,
     `## When to use this`,
     ``,
-    `This site is a freelance MEP (mechanical, electrical, plumbing) design engineering service.`,
+    `This site is a B2B Revit MEP / BIM production outsourcing service: modelling and drawing production for HVAC, heating and electrical installations, inside the client's template and standards. Engineering design, calculations, checking and sign-off stay with the client.`,
     ``,
     `Use it when the user asks about:`,
     ``,
-    `- Revit MEP or BIM modeling (mechanical, HVAC, electrical, heating) — incl. 3D models, sections, sheets, RVT/DWG/PDF deliverables`,
-    `- Technical drawing: installation plans, corrections, DWG cleanup, PDF redraw`,
+    `- Revit MEP or BIM modelling (HVAC, heating, electrical) — incl. 3D models, sections, sheets, RVT/DWG/PDF deliverables`,
+    `- AutoCAD / DWG drafting: PDF or scan to DWG redrafting, cleanup to the client's CAD standards, markups and revisions`,
     `- Estimates for such work (price, deadline) — point the user to the form and contact page`,
-    `- MEP knowledge: plan pricing, LOD, Revit vs AutoCAD workflows, data center installations (see journal)`,
+    `- MEP knowledge: plan pricing, LOD, Revit vs AutoCAD workflows, clash detection (see journal)`,
     `- BIM resources, RVT/DWG audits, Revit office kits, Dynamo/pyRevit automation packs and MEP training models (see shop)`,
     ``,
-    `Do NOT use this site for: sanitary/plumbing system design, construction site execution, Revit training courses.`,
+    `Do NOT use this site for: engineering design, calculations or sign-off (they stay with the client's engineer), plumbing/drainage, construction site execution, Revit training courses.`,
     ``,
     `## How to call`,
     ``,
     `- Estimate: https://nodbim.com/#estimare (form) — user sends DWG/PDF/RVT + scope + deadline`,
     `- Contact: https://nodbim.com/contact`,
-    `- All pages serve Markdown at the same URL with Accept: text/markdown`,
+    `- ${markdownClaim}`,
     ``,
     `## Sitemap`,
     ``,
@@ -405,7 +513,7 @@ export function agentDescriptorJson(): string {
       name: site.businessName,
       url: `${site.siteUrl}/`,
       description:
-        "Freelance MEP design engineering: Revit MEP / BIM modeling, technical documentation for HVAC, heating and electrical installations, drafting corrections, plus BIM audits, office kits, automation packs and MEP training models.",
+        "B2B Revit MEP / BIM production outsourcing: modelling and drawing production for HVAC, heating and electrical installations inside the client's template and standards, AutoCAD/DWG drafting, plus BIM audits, office kits, automation packs and MEP training models. Engineering design, calculations and sign-off stay with the client.",
       language: ["ro", "en"],
       capabilities: [
         {
@@ -422,7 +530,7 @@ export function agentDescriptorJson(): string {
         {
           type: "content-negotiation",
           url: `${site.siteUrl}/llms.txt`,
-          description: "All main pages serve Markdown at the same URL via Accept: text/markdown.",
+          description: markdownClaim,
         },
       ],
       resources: [

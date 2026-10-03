@@ -2,6 +2,7 @@ import "./lib/error-capture";
 
 import { consumeLastCapturedError } from "./lib/error-capture";
 import { renderErrorPage } from "./lib/error-page";
+import { enHomePath } from "./lib/i18n";
 import { canonicalHostname } from "./lib/site-config";
 import {
   agentDescriptorJson,
@@ -115,16 +116,17 @@ function redirectHttpHost(request: Request): Response | undefined {
   });
 }
 
-/** Pagini eliminate, redirecționate permanent către cel mai apropiat conținut. */
+/** Pagini eliminate sau fără conținut propriu, redirecționate permanent către cel mai apropiat conținut. */
 const removedPaths: Record<string, string> = {
   "/referinte": "/portofoliu",
   "/privacy": "/en/privacy",
   "/about": "/en/about",
+  "/en": enHomePath,
 };
 
 /**
  * Returnează URL-ul țintă de redirect permanent pentru slash final
- * („/revit-mep/” → „/revit-mep”) sau pentru pagini eliminate, cu query
+ * („/revit-mep/” → „/revit-mep”) sau pentru căile din removedPaths, cu query
  * păstrat; undefined altfel. Pură, pentru testare.
  */
 export function redirectPathUrl(requestUrl: string): string | undefined {

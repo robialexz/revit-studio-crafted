@@ -5,7 +5,7 @@ import { legal, isLegalConfigured } from "@/lib/legal-config";
 
 const title = "Termeni și condiții — NOD BIM";
 const description =
-  "Termenii și condițiile NOD BIM: procesul de estimare, stabilirea scopului lucrării, livrabile, confidențialitate și responsabilități pentru serviciile de modelare Revit MEP și desenare tehnică.";
+  "Termenii și condițiile NOD BIM: estimare, scopul lucrării, livrabile, confidențialitate și responsabilități pentru modelare Revit MEP și desenare tehnică.";
 const url = canonicalUrl("/termeni-si-conditii");
 
 export const Route = createFileRoute("/termeni-si-conditii")({

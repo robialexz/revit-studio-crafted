@@ -6,9 +6,9 @@ import hero3d from "@/assets/hero-3d.webp";
 import projSectiune from "@/assets/proj-sectiune.webp";
 import projSheet from "@/assets/proj-sheet.webp";
 
-const title = "Externalizare Revit MEP pentru birouri de proiectare · NOD BIM";
+const title = "Externalizare Revit MEP pentru proiectanți · NOD BIM";
 const description =
-  "Modelare Revit MEP pe tema proiectantului: model 3D și planșe HVAC, termice și electrice, livrate RVT / DWG / PDF. Preiau și proiecte începute. Cost stabilit înainte de start.";
+  "Modelare Revit MEP pe tema proiectantului: model 3D și planșe HVAC, termice și electrice, în RVT / DWG / PDF. Preiau și proiecte începute.";
 const url = canonicalUrl("/revit-mep");
 
 export const Route = createFileRoute("/revit-mep")({

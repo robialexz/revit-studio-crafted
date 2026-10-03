@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { MobileCta } from "@/components/site/MobileCta";
+import { QuoteForm } from "@/components/site/QuoteForm";
 import { Reveal } from "@/components/site/Reveal";
 import { trackConversion } from "@/lib/analytics";
 import {
@@ -14,9 +15,9 @@ import {
   hasEmail,
 } from "@/lib/site-config";
 
-const title = "Contact — NOD BIM · Estimare și suport Revit MEP";
+const title = "Cere o estimare Revit MEP · Contact NOD BIM";
 const description =
-  "Trimite proiectul pentru externalizare Revit MEP sau lucrări AutoCAD: estimare cu scop, termen și cost în 1–2 zile lucrătoare. WhatsApp, email sau formular; română sau engleză.";
+  "Trimite proiectul prin formular, WhatsApp sau email: estimare cu scop, termen și cost pentru Revit MEP sau AutoCAD, de regulă în 1–2 zile lucrătoare.";
 const url = canonicalUrl("/contact");
 
 export const Route = createFileRoute("/contact")({
@@ -58,7 +59,7 @@ function ContactPage() {
                 <span className="text-foreground">Contact</span>
               </nav>
               <h1 className="display-xl mt-8 max-w-4xl text-[2.6rem] sm:text-[3.4rem] lg:text-[4.2rem]">
-                Contact
+                Cere o estimare Revit MEP
               </h1>
               <p className="mt-7 max-w-2xl text-base leading-relaxed text-foreground/80 md:text-lg">
                 Trimite tema, planurile existente și cerințele proiectului. Primești scopul
@@ -67,6 +68,12 @@ function ContactPage() {
               </p>
             </Reveal>
           </div>
+        </section>
+
+        <section id="estimare" className="mx-auto max-w-[1400px] px-5 pt-14 md:px-8 md:pt-20">
+          <Reveal className="max-w-3xl">
+            <QuoteForm />
+          </Reveal>
         </section>
 
         <section className="mx-auto max-w-[1400px] px-5 py-14 md:px-8 md:py-20">
@@ -119,24 +126,16 @@ function ContactPage() {
                   </span>
                 </li>
               </ul>
-              <div className="mt-8 flex flex-wrap gap-3">
+              {hasWhatsapp && (
                 <a
-                  href="/#estimare"
-                  className="tech-label border border-foreground bg-foreground px-6 py-4 text-background transition-colors hover:border-primary hover:bg-primary"
+                  href={waHref}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className="tech-label mt-8 inline-block border border-foreground px-6 py-4 transition-colors hover:bg-foreground hover:text-background"
                 >
-                  Formular de estimare
+                  Scrie pe WhatsApp
                 </a>
-                {hasWhatsapp && (
-                  <a
-                    href={waHref}
-                    target="_blank"
-                    rel="noreferrer noopener"
-                    className="tech-label border border-foreground px-6 py-4 transition-colors hover:bg-foreground hover:text-background"
-                  >
-                    Scrie pe WhatsApp
-                  </a>
-                )}
-              </div>
+              )}
               <p className="mt-8 max-w-xl text-xs leading-relaxed text-muted-foreground">
                 Pentru o estimare corectă sunt utile: planurile de arhitectură (DWG / PDF), tema
                 proiectului, disciplinele vizate, numărul aproximativ de planșe și termenul dorit.
@@ -171,7 +170,7 @@ function ContactPage() {
         </section>
       </main>
       <Footer />
-      <MobileCta />
+      <MobileCta estimateHref="#estimare" />
     </div>
   );
 }

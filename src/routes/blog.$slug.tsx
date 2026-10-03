@@ -19,7 +19,7 @@ export const Route = createFileRoute("/blog/$slug")({
     if (!article) return {};
     return {
       meta: [
-        { title: `${article.title} · Jurnal NOD BIM` },
+        { title: `${article.metaTitle} · NOD BIM` },
         { name: "description", content: article.description },
         { property: "og:title", content: article.title },
         { property: "og:description", content: article.description },

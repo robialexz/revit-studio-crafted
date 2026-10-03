@@ -249,9 +249,6 @@ export function ServicePage({
                       height={860}
                       className="mt-2 w-full object-cover"
                     />
-                    {site.showDemoImageLabels && (
-                      <p className="tech-label px-2 pt-2 text-mep">Proiect demonstrativ</p>
-                    )}
                   </figure>
                 ))}
                 <Link

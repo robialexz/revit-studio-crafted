@@ -5,7 +5,7 @@ import { hreflangLinks } from "@/lib/i18n";
 
 const title = "Politica de cookies — NOD BIM";
 const description =
-  "Politica de cookies NOD BIM: stocare strict necesară + consimțământ explicit pentru statistici anonime și măsurarea reclamelor, prin banner de consimțământ și Google Consent Mode.";
+  "Politica de cookies NOD BIM: stocare strict necesară și consimțământ explicit pentru statistici anonime și măsurarea reclamelor, prin Google Consent Mode.";
 const url = canonicalUrl("/politica-cookies");
 
 export const Route = createFileRoute("/politica-cookies")({

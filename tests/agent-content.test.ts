@@ -82,6 +82,65 @@ describe("agent-content — negotiere markdown", () => {
     expect(txt).toContain("/llms.txt");
   });
 
+  const htmlOnly = [
+    "/modelare-revit",
+    "/politica-de-confidentialitate",
+    "/politica-cookies",
+    "/termeni-si-conditii",
+    "/informatii-legale",
+    "/en/privacy",
+    "/en/cookies",
+  ];
+
+  test("paginile de serviciu și cele EN au variantă markdown din conținutul paginii", async () => {
+    for (const path of [
+      "/revit-mep",
+      "/hvac",
+      "/instalatii-termice",
+      "/instalatii-electrice",
+      "/autocad-dwg",
+      "/en/revit-mep-outsourcing",
+      "/en/autocad-drafting",
+      "/en/about/",
+    ]) {
+      const res = markdownResponseForPath(path);
+      expect(res?.status, path).toBe(200);
+      expect(await res?.text(), path).toMatch(/^# \S/);
+    }
+    const en = await markdownResponseForPath("/en/revit-mep-outsourcing")?.text();
+    expect(en).toContain("### Do you provide engineering design or calculations?");
+  });
+
+  test("afirmația despre markdown corespunde comportamentului", () => {
+    for (const path of htmlOnly) {
+      expect(isKnownPath(path), path).toBe(true);
+      expect(markdownResponseForPath(path), path).toBeNull();
+    }
+    // Orice pagină legată din llms.txt servește markdown sau e numită ca excepție.
+    const linked = [...llmsTxt().matchAll(/\]\(https:\/\/nodbim\.com(\/[^)#]*)\)/g)]
+      .map((m) => m[1] ?? "")
+      .filter((path) => path !== "/sitemap.xml");
+    expect(linked).toContain("/en/autocad-drafting");
+    expect(linked).toContain("/en/about");
+    expect(linked).toContain("/modelare-revit");
+    for (const path of linked) {
+      expect(markdownResponseForPath(path) !== null || htmlOnly.includes(path), path).toBe(true);
+    }
+    const claim = "/modelare-revit and the legal pages are HTML only.";
+    expect(llmsTxt()).toContain(claim);
+    expect(agentInstructionsTxt()).toContain(claim);
+    expect(agentDescriptorJson()).toContain(claim);
+  });
+
+  test("poziționarea: producție BIM externalizată, fără proiectare și fără sanitare", () => {
+    for (const txt of [llmsTxt(), agentInstructionsTxt(), agentDescriptorJson()]) {
+      expect(txt).not.toMatch(/freelance/i);
+      expect(txt).not.toContain("mechanical, electrical, plumbing");
+      expect(txt).toContain("production outsourcing");
+      expect(txt).toContain("sign-off stay with the client");
+    }
+  });
+
   test("agent.json descriptor descrie site-ul și capabilitățile", () => {
     const parsed = JSON.parse(agentDescriptorJson()) as {
       name?: string;

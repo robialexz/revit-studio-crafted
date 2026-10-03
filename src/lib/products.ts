@@ -138,7 +138,7 @@ export const products: ShopProduct[] = [
       "model secționat cu componente vizibile",
       "coduri de culoare pentru componente sau fluxuri",
       "suport de prezentare, când este necesar",
-      "variante: pompă, vană, ventiloconvector, distribuitor, CRAH/CDU",
+      "variante: pompă, vană, ventiloconvector, distribuitor",
     ],
     image: shopDidacticModel,
     imageAlt: "Model fizic secționat pentru instruirea instalațiilor HVAC și MEP",

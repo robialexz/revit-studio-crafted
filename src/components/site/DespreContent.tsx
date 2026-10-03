@@ -52,7 +52,7 @@ export function DespreContent() {
               <p className="mt-4 text-base leading-relaxed text-foreground/85">
                 Proiectele din activitatea profesională aparțin angajatorului și clienților săi și
                 nu sunt prezentate aici ca lucrări NOD BIM. Pe site apar doar lucrări pe care am
-                dreptul să le arăt, iar exemplele demonstrative sunt marcate ca atare.
+                dreptul să le arăt.
               </p>
 
               <h2 className="mt-12 text-3xl uppercase md:text-4xl">Cum lucrez</h2>

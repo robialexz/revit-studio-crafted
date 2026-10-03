@@ -4,6 +4,7 @@ import { Footer } from "@/components/site/Footer";
 import { MobileCta } from "@/components/site/MobileCta";
 import { Reveal } from "@/components/site/Reveal";
 import { EnEstimate, EnFaq } from "@/components/site/EnSections";
+import { enDrafting } from "@/lib/en-content";
 import { enFaqSchema, enMailHref } from "@/lib/en-page";
 import { brandSchema, canonicalUrl } from "@/lib/site-config";
 import { hreflangLinks } from "@/lib/i18n";
@@ -12,80 +13,7 @@ import projDwg from "@/assets/proj-dwg.webp";
 const path = "/en/autocad-drafting";
 const url = canonicalUrl(path);
 const title = "AutoCAD Drafting Services for Engineering Offices · NOD BIM";
-const description =
-  "AutoCAD drafting support for engineering and design offices: PDF and scan to DWG redrafting, drawing cleanup to your CAD standards, markups and revisions. Remote, in English.";
-
-const facts: [string, string][] = [
-  ["Input", "PDF · scans · DWG · markups"],
-  ["Output", "DWG · PDF"],
-  ["Standards", "Your layers, blocks and title blocks"],
-  ["Collaboration", "Remote · English · NDA available"],
-];
-
-const services: { title: string; body: string; items: string[] }[] = [
-  {
-    title: "PDF and scan to DWG",
-    body: "Legacy drawings that only exist as PDFs or scans are redrafted as clean, editable DWG. Vector PDFs can be converted and then corrected; scans are redrafted to scale.",
-    items: [
-      "redrafting to scale",
-      "dimensions and text",
-      "hatches and linetypes",
-      "checked against the source",
-    ],
-  },
-  {
-    title: "Cleanup and standardisation",
-    body: "Drawings received from third parties are brought into a state your team can work with: consistent layers, blocks, text styles and xrefs.",
-    items: [
-      "layer mapping to your standard",
-      "block and text cleanup",
-      "xref and image repair",
-      "purge and audit",
-    ],
-  },
-  {
-    title: "Markups and revisions",
-    body: "Redline markups from your engineers are incorporated into existing drawings, with revision clouds and title block updates where your process needs them.",
-    items: [
-      "redline incorporation",
-      "revision clouds and tables",
-      "title block updates",
-      "batch updates across sheets",
-    ],
-  },
-  {
-    title: "Layouts and plot setup",
-    body: "Paper space layouts, viewports, scales and plot settings prepared so the set prints the same way every time.",
-    items: ["layouts and viewports", "annotation scales", "plot styles", "PDF sets for issue"],
-  },
-];
-
-const faq: [string, string][] = [
-  [
-    "Can you work to our CAD standards?",
-    "Yes. Send your template, layer standard, blocks and title blocks at the start and the drawings are produced to them.",
-  ],
-  [
-    "Can you convert any PDF to DWG?",
-    "A vector PDF can be converted and then corrected. A scan or image is redrafted manually, so the estimate depends on the number and complexity of the drawings.",
-  ],
-  [
-    "Do you also model in Revit?",
-    "Yes. For MEP projects that need a model and coordinated sheets, see Revit MEP outsourcing. AutoCAD drafting suits 2D-only work and existing DWG sets.",
-  ],
-  [
-    "Will you sign an NDA?",
-    "Yes. An NDA can be signed before you share any drawings. Files are not published or passed on.",
-  ],
-  [
-    "How is the price set?",
-    "After reviewing the files, you receive a fixed price for the agreed scope and timeline. Extra scope is quoted before it is done.",
-  ],
-  [
-    "Do you check the engineering content?",
-    "No. Drafting follows the information you provide; engineering design, calculations and sign-off remain with your team.",
-  ],
-];
+const { h1, description, facts, services, received, faq } = enDrafting;
 
 export const Route = createFileRoute("/en/autocad-drafting")({
   head: () => ({
@@ -134,7 +62,7 @@ function AutocadDrafting() {
             <Reveal className="lg:col-span-7">
               <p className="tech-label text-primary">AutoCAD drafting · CAD production support</p>
               <h1 className="display-xl mt-6 max-w-4xl text-[2.4rem] sm:text-[3.4rem] lg:text-[4.2rem]">
-                AutoCAD drafting for engineering offices
+                {h1}
               </h1>
               <p className="mt-6 max-w-2xl text-base leading-relaxed text-foreground/80 md:text-lg">
                 Redrafting, cleanup and revisions for teams with more drawings than drafting time.
@@ -212,11 +140,7 @@ function AutocadDrafting() {
               <div className="mt-10 border border-border-strong bg-graphite p-6 text-graphite-foreground md:p-8">
                 <p className="tech-label text-accent">What you receive</p>
                 <ul className="mt-5 space-y-2 text-sm text-graphite-foreground/85">
-                  {[
-                    "editable DWG files to your CAD standard",
-                    "PDF set ready for issue",
-                    "a short note of assumptions and open questions",
-                  ].map((d) => (
+                  {received.map((d) => (
                     <li key={d} className="border-b border-graphite-foreground/15 pb-2">
                       {d}
                     </li>

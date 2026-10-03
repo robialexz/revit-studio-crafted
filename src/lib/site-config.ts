@@ -28,8 +28,6 @@ export const site = {
   adsConversionLabel: envValue("VITE_GOOGLE_ADS_CONVERSION_LABEL"),
   /** Containerul public Google Tag Manager folosit pentru conversii. */
   gtmContainerId: "GTM-TZKXJ7KW",
-  /** Etichete „imagine demonstrativă" — pune pe false când ai capturi reale. */
-  showDemoImageLabels: true,
 } as const;
 
 const placeholderPattern = /^\[[A-Z0-9_]+\]$/;

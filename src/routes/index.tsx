@@ -36,9 +36,9 @@ import projSectiune640 from "@/assets/proj-sectiune-640.webp";
 import projSheet from "@/assets/proj-sheet.webp";
 import projSheet640 from "@/assets/proj-sheet-640.webp";
 
-const title = "Modelare Revit MEP și planșe de instalații pentru proiectanți · NOD BIM";
+const title = "Modelare Revit MEP și planșe de instalații · NOD BIM";
 const description =
-  "Externalizare Revit MEP și desenare AutoCAD pentru birouri de proiectare: modele și planșe HVAC, termice și electrice, livrate RVT / DWG / PDF. Cost stabilit înainte de start.";
+  "Externalizare Revit MEP și desenare AutoCAD pentru birouri de proiectare: modele și planșe HVAC, termice și electrice. Cost stabilit înainte de start.";
 const url = canonicalUrl("/");
 
 export const Route = createFileRoute("/")({
@@ -190,7 +190,7 @@ function Home() {
                   />
                   <div className="flex items-center justify-between px-2 pt-2">
                     <span className="tech-label text-muted-foreground">MEP-3D-01</span>
-                    <span className="tech-label text-mep">Proiect demonstrativ</span>
+                    <span className="tech-label text-mep">Tubulatură · conducte · echipamente</span>
                   </div>
                 </div>
 
@@ -324,9 +324,6 @@ function Home() {
               </figure>
             </Reveal>
           </div>
-          <p className="tech-label mt-6 text-muted-foreground">
-            Imagini dintr-un proiect demonstrativ propriu.
-          </p>
         </section>
 
         {/* SERVICII */}

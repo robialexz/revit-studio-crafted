@@ -4,9 +4,9 @@ import { canonicalUrl } from "@/lib/site-config";
 import { hreflangLinks } from "@/lib/i18n";
 import projDwg from "@/assets/proj-dwg.webp";
 
-const title = "Servicii AutoCAD: redesenare, conversie PDF în DWG, corectare planșe · NOD BIM";
+const title = "Servicii AutoCAD: redesenare, conversie PDF în DWG · NOD BIM";
 const description =
-  "Servicii CAD pentru birouri de proiectare: redesenare din PDF sau scanări în DWG, corectarea planșelor existente, curățare layere și layout de print. Lucru online, în română sau engleză.";
+  "Servicii CAD pentru birouri de proiectare: redesenare din PDF sau scanări în DWG, corectarea planșelor, curățare layere și layout de print. Lucru online.";
 const url = canonicalUrl("/autocad-dwg");
 
 export const Route = createFileRoute("/autocad-dwg")({
