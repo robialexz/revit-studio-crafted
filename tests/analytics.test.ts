@@ -92,4 +92,42 @@ describe("Google Ads conversion payload", () => {
       globalThis.localStorage = savedStorage;
     }
   });
+
+  test("phone_click respectă consimțământul", () => {
+    const savedWindow = globalThis.window;
+    const savedStorage = globalThis.localStorage;
+    const store = new Map<string, string>();
+    const calls: unknown[][] = [];
+    const dataLayer: unknown[] = [];
+    const mutableSite = site as unknown as { gaMeasurementId: string };
+    const savedGa = mutableSite.gaMeasurementId;
+
+    // @ts-expect-error polyfill minimal pentru test
+    globalThis.localStorage = {
+      getItem: (key: string) => store.get(key) ?? null,
+      setItem: (key: string, value: string) => void store.set(key, value),
+      removeItem: (key: string) => void store.delete(key),
+    };
+    // @ts-expect-error simulăm window
+    globalThis.window = { dataLayer, gtag: (...args: unknown[]) => calls.push(args) };
+    mutableSite.gaMeasurementId = "G-TEST";
+
+    try {
+      trackConversion("phone_click", { source: "header" });
+      writeConsent("necessary");
+      trackConversion("phone_click", { source: "header" });
+      expect(dataLayer).toEqual([]);
+      expect(calls).toEqual([]);
+
+      writeConsent("all");
+      trackConversion("phone_click", { source: "header" });
+      expect(dataLayer).toEqual([{ event: "phone_click", source: "header" }]);
+      expect(calls).toEqual([["event", "phone_click", { source: "header" }]]);
+    } finally {
+      mutableSite.gaMeasurementId = savedGa;
+      clearConsent();
+      globalThis.window = savedWindow;
+      globalThis.localStorage = savedStorage;
+    }
+  });
 });

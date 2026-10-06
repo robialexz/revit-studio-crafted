@@ -14,7 +14,7 @@ const configuredSiteUrl = normalizeSiteUrl(envValue("VITE_SITE_URL"));
 
 export const site = {
   businessName: "NOD BIM",
-  tagline: "MODELARE BIM · REVIT MEP · DESENARE TEHNICĂ",
+  tagline: "DESENARE TEHNICĂ · AUTOCAD · REVIT MEP",
   whatsappNumber: envValue("VITE_WHATSAPP_NUMBER"),
   phone: envValue("VITE_PHONE_NUMBER"),
   email: envValue("VITE_PUBLIC_EMAIL"),
@@ -97,8 +97,24 @@ export function formatPhoneDisplay(raw: string | undefined): string {
   }
 }
 
+/**
+ * Link tel: din număr brut (07… devine +40…). Gol când numărul lipsește,
+ * este placeholder sau nu are 8–15 cifre.
+ */
+export function buildPhoneHref(raw: string): string {
+  if (!isConfigured(raw)) return "";
+  const digits = raw.replace(/\D/g, "");
+  const international = /^07\d{8}$/.test(digits) ? `40${digits.slice(1)}` : digits;
+  return /^\d{8,15}$/.test(international) ? `tel:+${international}` : "";
+}
+
+/** Numărul de telefon: VITE_PHONE_NUMBER, cu rezervă numărul de WhatsApp. */
+const phoneSource = isConfigured(site.phone) ? site.phone : site.whatsappNumber;
+export const phoneHref = buildPhoneHref(phoneSource);
+export const phoneDisplay = phoneHref ? formatPhoneDisplay(phoneSource) : "";
+
 export const defaultWhatsappMessage =
-  "Salut! Aș avea nevoie de ajutor pentru un proiect Revit MEP. Pot să îți trimit fișierele pentru o estimare?";
+  "Salut! Am găsit NOD BIM pe site și am un plan de desenat. Pot să îți trimit fișierele pentru o ofertă?";
 
 export const defaultWhatsappMessageEn =
   "Hello, I found NOD BIM online and would like to discuss a Revit MEP project. Can I send you the files for an estimate?";

@@ -1,6 +1,14 @@
 import { describe, expect, test } from "bun:test";
 
-import { canonicalUrl, formatPhoneDisplay, site, whatsappLink } from "../src/lib/site-config";
+import {
+  buildPhoneHref,
+  canonicalUrl,
+  formatPhoneDisplay,
+  phoneDisplay,
+  phoneHref,
+  site,
+  whatsappLink,
+} from "../src/lib/site-config";
 
 describe("site-config", () => {
   test("domeniul canonical de producție este nodbim.com", () => {
@@ -47,5 +55,19 @@ describe("formatPhoneDisplay", () => {
   test("link-ul wa.me rămâne cu cifre internaționale", () => {
     // Afișarea se formatează, dar linkul folosește cifrele brute.
     expect(formatPhoneDisplay("40750485793")).not.toBe("40750485793");
+  });
+});
+
+describe("buildPhoneHref", () => {
+  test("normalizează la +40 și respinge valorile invalide", () => {
+    expect(buildPhoneHref("40750485793")).toBe("tel:+40750485793");
+    expect(buildPhoneHref("+40 750 485 793")).toBe("tel:+40750485793");
+    expect(buildPhoneHref("0750485793")).toBe("tel:+40750485793");
+    for (const bad of ["", "12345", "[WHATSAPP_NUMBER]"]) expect(buildPhoneHref(bad)).toBe("");
+  });
+
+  test("phoneHref și phoneDisplay există împreună", () => {
+    expect(phoneHref === "").toBe(phoneDisplay === "");
+    expect(phoneHref === "" || /^tel:\+\d{8,15}$/.test(phoneHref)).toBe(true);
   });
 });
