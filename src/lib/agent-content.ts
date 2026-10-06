@@ -393,6 +393,8 @@ export function articleMarkdown(slug: string): string {
       parts.push(``);
     }
     if (s.note) parts.push(`> **Notă:** ${s.note}`, ``);
+    for (const link of s.links ?? []) parts.push(`- [${link.label}](${link.href})`);
+    if (s.links?.length) parts.push(``);
   }
   parts.push(
     `---`,

@@ -7,6 +7,7 @@ export type ArticleSection = {
   heading?: string;
   paragraphs?: string[];
   list?: string[];
+  links?: { label: string; href: string }[];
   table?: { head: string[]; rows: string[][] };
   note?: string;
 };
@@ -24,6 +25,343 @@ export type Article = {
 };
 
 export const articles: Article[] = [
+  {
+    slug: "corecturi-dwg-pdf-redline-layout-predare",
+    title: "Corecturi DWG după PDF redline: ce ceri înainte de predare",
+    metaTitle: "Corecturi DWG după PDF redline: layout și predare",
+    description:
+      "Ai un DWG și observații pe PDF? Vezi ce trimiți pentru corecturi AutoCAD, cum se verifică layouturile și ce trebuie să conțină predarea.",
+    date: "2026-10-05",
+    readingTime: 5,
+    tags: ["AutoCAD", "Corecturi DWG", "Layout", "Predare documentație"],
+    sections: [
+      {
+        paragraphs: [
+          "Ai deja desenul DWG, dar proiectantul sau beneficiarul a trimis un PDF cu observații: texte de corectat, elemente de mutat, cote de actualizat sau planșe de reorganizat. Acest PDF comentat este numit adesea redline. Lucrarea pornește de la fișierul editabil existent și cere aplicarea observațiilor, apoi controlul documentelor predate.",
+          "Pentru o ofertă clară, descrie atât modificările, cât și rezultatul dorit: DWG editabil, layouturi pregătite și PDF-uri care pot fi verificate. Corectarea desenului și pregătirea tipăririi sunt etape distincte ale aceleiași livrări.",
+        ],
+      },
+      {
+        heading: "Ce trimiți pentru corecturi AutoCAD",
+        paragraphs: [
+          "Indică fișierul de bază și PDF-ul căruia îi corespund observațiile. Un comentariu făcut pe o emitere mai veche poate cere o schimbare deja aplicată sau poate contrazice desenul curent.",
+        ],
+        list: [
+          "DWG-ul de lucru și fișierele la care se referă: alte DWG-uri, imagini ori PDF-uri atașate.",
+          "PDF-ul redline complet, cu data sau codul emiterii și observații lizibile pe planșele afectate.",
+          "Lista modificărilor și informațiile aprobate pentru implementare; marchează separat întrebările încă deschise.",
+          "Template-ul, indicatorul și regulile pentru layere, texte, cote și denumirea fișierelor, dacă există.",
+          "Lista layouturilor de predat, formatele de hârtie, scările cerute și setările de tipărire disponibile.",
+          "Versiunea DWG necesară, termenul dorit și persoana care confirmă rezultatul înainte de emitere.",
+        ],
+      },
+      {
+        heading: "O observație utilă spune ce se schimbă și unde",
+        paragraphs: [
+          "Numerotează comentariile și precizează planșa, zona și intervenția cerută. «Corectează planul» lasă prea multe interpretări. O cerere precum «actualizează denumirea echipamentului în această vedere și în legendă» permite verificarea rezultatului în locurile relevante.",
+          "Separă modificarea geometrică de schimbarea unui text. Dacă o observație cere o altă dimensiune, trebuie clarificat dacă se modifică elementul desenat, cota sau ambele. Valorile și soluțiile tehnice se transmit de către persoana responsabilă de proiectare; nu se deduc dintr-o săgeată ambiguă.",
+          "O listă cu stări precum «de aplicat», «în clarificare» și «verificat» poate ajuta. Este o propunere de organizare, adaptabilă procesului clientului. Închiderea unui comentariu trebuie să indice și documentul în care poate fi controlat.",
+        ],
+      },
+      {
+        heading: "Layoutul trebuie verificat împreună cu geometria",
+        paragraphs: [
+          "În fluxul standard AutoCAD, geometria din Model Space se desenează la dimensiunea reală, în unitățile stabilite. Layoutul din Paper Space organizează foaia, indicatorul și vederile modelului. Scara unei vederi se stabilește prin viewport; schimbarea dimensiunii foii nu justifică scalarea întregii geometrii.",
+          "După o corectură, verifică dacă zona modificată rămâne vizibilă în toate layouturile necesare. Controlează încadrarea, scara, textele, cotele, legenda și indicatorul. O modificare corectă în Model Space poate apărea tăiată sau greu de citit pe foaia predată.",
+          "După stabilirea scării, blocarea afișării viewportului previne schimbarea accidentală a acesteia la zoom. Autodesk precizează că zoomul se aplică atunci întregului layout, păstrând scara din viewport. Confirmă setarea fiecărui viewport relevant, nu doar a primei planșe.",
+        ],
+        links: [
+          {
+            label: "Autodesk: Model Space și Paper Space",
+            href: "https://help.autodesk.com/cloudhelp/2026/ENU/AutoCAD-MAC-Core/files/GUID-990538B6-DDA1-4190-BCC0-BB5BA94C9879.htm",
+          },
+          {
+            label: "Autodesk: blocarea scării unui layout viewport",
+            href: "https://help.autodesk.com/cloudhelp/2026/ENU/AutoCAD-Core/files/GUID-F9A37755-68A8-489D-B508-253EDD88F356.htm",
+          },
+        ],
+      },
+      {
+        heading: "Compararea DWG-urilor ajută, dar nu verifică întreaga predare",
+        paragraphs: [
+          "DWG Compare poate evidenția obiecte adăugate, eliminate sau modificate între două desene. Compararea fișierului inițial cu cel corectat este utilă pentru identificarea intervențiilor și a schimbărilor neintenționate.",
+          "Există însă o limită importantă: instrumentul operează numai în Model Space. Layouturile trebuie controlate separat. De asemenea, layerele oprite sau înghețate în desenul curent nu intră în rezultatul comparației. Un rezultat fără diferențe vizibile nu demonstrează că toate observațiile sunt rezolvate.",
+          "Folosește comparația împreună cu lista comentariilor și verificarea PDF-urilor finale, nu drept confirmare automată a acceptării documentației.",
+        ],
+        links: [
+          {
+            label: "Autodesk: DWG Compare și limitele comparației",
+            href: "https://help.autodesk.com/cloudhelp/2026/ENU/AutoCAD-Core/files/GUID-2D69E78D-5C82-464F-B864-CD29D5720EB9.htm",
+          },
+        ],
+      },
+      {
+        heading: "Predă un pachet care poate fi deschis și tipărit",
+        paragraphs: [
+          "Un DWG poate depinde de referințe externe și de fișiere pentru afișare sau tipărire. eTransmit ajută la pregătirea unui pachet de transmitere. Verifică lista efectivă a fișierelor incluse și evită amestecarea unor versiuni vechi cu documentația curentă.",
+          "Documentația Autodesk enumeră între fișierele adăugate automat referințe DWG, imagini, PDF-uri atașate și fișiere CTB, STB sau PC3 folosite de desene. Aceeași referință listează fonturile SHX și TTF între tipurile care nu sunt adăugate automat. Nu presupune că arhiva conține tot ce este necesar; controlează dependențele și eventualele lipsuri.",
+          "Include o listă a planșelor, modificările aplicate și întrebările rămase. Această notă permite clientului să verifice pachetul fără să caute explicații în conversații separate.",
+        ],
+        links: [
+          {
+            label: "Autodesk: fișierele incluse într-un pachet eTransmit",
+            href: "https://help.autodesk.com/cloudhelp/2026/ENU/AutoCAD-Core/files/GUID-C32FA153-88D6-41D9-B868-0DFF59509CD2.htm",
+          },
+        ],
+      },
+      {
+        heading: "Checklist înainte de acceptarea corecturilor",
+        list: [
+          "Fiecare comentariu are o intervenție verificabilă sau o clarificare explicită.",
+          "DWG-ul corectat se deschide, iar referințele necesare sunt disponibile.",
+          "Geometria, cotele, textele și legendele corespund observațiilor confirmate.",
+          "Layouturile păstrează formatul, scara și încadrarea cerute.",
+          "PDF-urile finale au fost deschise și controlate pentru lizibilitate și conținut.",
+          "Codurile din indicator și denumirile fișierelor identifică aceeași emitere.",
+          "Lista livrabilelor precizează ce a fost inclus și ce rămâne de confirmat.",
+        ],
+      },
+      {
+        heading: "Ai un DWG cu observații de implementat?",
+        paragraphs: [
+          "Serviciile AutoCAD NOD BIM includ corecturi pe planșe existente, implementarea observațiilor, organizarea layerelor și pregătirea layouturilor pentru predarea DWG/PDF. Trimite desenul, PDF-ul comentat și cerințele de livrare pentru evaluarea lucrării. Scopul și costul se stabilesc după verificarea documentației; calculele, verificarea și semnătura de specialitate rămân la proiectanții responsabili.",
+        ],
+        links: [
+          {
+            label: "Servicii AutoCAD: corecturi DWG și layouturi",
+            href: "/autocad-dwg",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "revizii-revit-mep-observatii-predare-rvt-dwg-pdf",
+    title: "Revizii Revit MEP: de la observații la predarea RVT, DWG și PDF",
+    metaTitle: "Revizii Revit MEP: observații și predare RVT, DWG, PDF",
+    description:
+      "Cum organizezi observațiile într-un model Revit MEP, marchezi reviziile și verifici predarea RVT, DWG și PDF pentru biroul de proiectare.",
+    date: "2026-10-04",
+    readingTime: 5,
+    tags: ["Revit MEP", "Revizii", "Documentație", "RVT DWG PDF"],
+    sections: [
+      {
+        paragraphs: [
+          "Ai un model Revit MEP și un PDF cu observații de la proiectant. Unele cer mutarea traseelor, altele modificarea adnotărilor sau refacerea planșelor. Pentru a externaliza această rundă de lucru, trebuie să fie clar ce se modifică, unde se verifică și ce documente se predau.",
+          "Acest ghid propune o organizare practică a reviziilor pentru modele HVAC, termice și electrice. Nu este un standard obligatoriu: regulile biroului de proiectare și scopul convenit au prioritate. Soluția tehnică rămâne responsabilitatea proiectantului.",
+        ],
+      },
+      {
+        heading: "Ce pregătești înainte să trimiți observațiile",
+        paragraphs: [
+          "Identifică pachetul de referință asupra căruia au fost formulate comentariile. O observație pe un PDF vechi poate intra în conflict cu modelul actual.",
+        ],
+        list: [
+          "Modelul RVT relevant, versiunea Revit și referințele necesare pentru zonele afectate.",
+          "PDF-ul comentat, cu data sau codul emiterii, și o listă lizibilă a observațiilor.",
+          "Deciziile tehnice aprobate: poziții, dimensiuni și informații furnizate de proiectant pentru implementare.",
+          "Planșele și vederile care intră în rundă, inclusiv secțiunile sau listele afectate.",
+          "Regulile pentru indicator, numerotarea reviziilor, denumirea fișierelor și exportul DWG.",
+          "Formatele cerute, termenul dorit și persoana care confirmă închiderea observațiilor.",
+        ],
+      },
+      {
+        heading: "Un registru simplu păstrează întrebările deschise vizibile",
+        paragraphs: [
+          "Poți atribui fiecărei observații un identificator și o stare. «Implementat» arată că intervenția a fost făcută; «verificat» cere controlul rezultatului. Un comentariu neclar rămâne în clarificare până când proiectantul transmite decizia.",
+          "Exemplul de mai jos este ipotetic, fără legătură cu un proiect realizat. Stările sunt o propunere de organizare, nu categorii impuse de Revit.",
+        ],
+        table: {
+          head: ["ID", "Observație", "Verificare", "Stare"],
+          rows: [
+            [
+              "OBS-01",
+              "Mutarea unui traseu de ventilare",
+              "Plan HVAC și secțiune",
+              "În clarificare: poziție de confirmat",
+            ],
+            [
+              "OBS-02",
+              "Corectarea unei etichete de echipament",
+              "Vedere și planșă termice",
+              "De implementat",
+            ],
+            [
+              "OBS-03",
+              "Actualizarea legendei electrice",
+              "Planșele care folosesc legenda",
+              "De verificat",
+            ],
+          ],
+        },
+      },
+      {
+        heading: "Implementează observația și verifică toate documentele afectate",
+        paragraphs: [
+          "Leagă intervenția de observația primită. Dacă se mută un traseu, controlează vederile în care apare, cotele, etichetele și reprezentarea pe planșe. Dacă se schimbă o informație de echipament, verifică și listele în care este folosită.",
+          "O modificare vizibilă în model nu închide singură comentariul. Poate rămâne o notă veche, o vedere nepotrivită sau o planșă omisă din export. În registru, consemnează ce ai modificat și unde poate fi verificat. Separă corectarea documentației de o schimbare nouă de temă, care necesită clarificarea scopului.",
+        ],
+      },
+      {
+        heading: "Marchează reviziile fără să confunzi norul cu verificarea",
+        paragraphs: [
+          "Fluxul Autodesk include introducerea informațiilor în Sheet Issues/Revisions, implementarea schimbării, adăugarea norilor de revizie și verificarea informațiilor afișate pe planșe. Un nor nou primește implicit cea mai recentă revizie; atribuirea poate fi schimbată și trebuie controlată.",
+          "Norul indică zona modificată, iar eticheta identifică revizia atribuită. Aceste adnotări nu confirmă acceptarea soluției tehnice. Verifică istoricul din indicator și numerotarea conform regulilor proiectului înainte de emitere.",
+          "Un tabel din categoria Revision Clouds permite examinarea norilor și a vederilor sau planșelor asociate. Este un instrument distinct de istoricul reviziilor din indicator.",
+        ],
+        note: "Norii de revizie din modele Revit legate nu sunt incluși în tabelul Revision Clouds creat în modelul gazdă. Verifică separat documentația modelelor legate.",
+        links: [
+          {
+            label: "Autodesk: Workflow — Revisions",
+            href: "https://help.autodesk.com/cloudhelp/2026/ENU/Revit-DocumentPresent/files/GUID-312CD63E-12FD-4CA7-A05B-CD7DADBAACA7.htm",
+          },
+          {
+            label: "Autodesk: Revision Clouds",
+            href: "https://help.autodesk.com/cloudhelp/2026/ENU/Revit-DocumentPresent/files/GUID-73DF5264-6C8B-4E58-AE5B-007FB54C1FDA.htm",
+          },
+          {
+            label: "Autodesk: Create a Revision Cloud Schedule",
+            href: "https://help.autodesk.com/cloudhelp/2026/ENU/Revit-DocumentPresent/files/GUID-D7A5FFC1-E6B3-4FC1-A764-4BF26F543EC5.htm",
+          },
+        ],
+      },
+      {
+        heading: "Pregătește o predare coerentă în RVT, DWG și PDF",
+        paragraphs: [
+          "Stabilește un pachet de emitere: modelul de referință, lista planșelor și exporturile aferente. O structură cu directoare RVT, DWG și PDF, plus o notă de predare, poate ajuta la identificarea versiunii curente. Folosește însă convenția de fișiere a clientului.",
+          "Revit poate exporta vederi și planșe în PDF, salva seturi pentru reutilizare și aplica reguli de denumire. Confirmă lista selectată și verifică PDF-urile rezultate: indicator, codul reviziei, lizibilitatea și zonele modificate.",
+          "Pentru DWG, controlează configurația de export, versiunea AutoCAD și opțiunea de export al vederilor și legăturilor ca referințe externe. Aceasta influențează dacă pachetul conține fișiere care se referă unele la altele. Predă referințele necesare și verifică rezultatul în aplicația destinatarului.",
+        ],
+        links: [
+          {
+            label: "Autodesk: Exporting to PDF",
+            href: "https://help.autodesk.com/cloudhelp/2026/ENU/Revit-DocumentPresent/files/GUID-E9058256-8A36-4FB8-9809-5AA896FC2237.htm",
+          },
+          {
+            label: "Autodesk: Export to DWG or DXF",
+            href: "https://help.autodesk.com/cloudhelp/2026/ENU/Revit-DocumentPresent/files/GUID-42C75024-4D71-4831-8910-2747168624A3.htm",
+          },
+        ],
+      },
+      {
+        heading: "Checklist pentru primirea rundei de revizie",
+        list: [
+          "Fiecare observație are un răspuns, o verificare indicată sau o întrebare încă deschisă.",
+          "Lista planșelor din pachet corespunde scopului și nu amestecă exporturi vechi cu cele curente.",
+          "Modelul, indicatorii și fișierele exportate permit identificarea aceleiași emiteri.",
+          "DWG-urile includ referințele necesare, iar PDF-urile au fost deschise și controlate.",
+          "Nota de predare precizează modificările, excluderile și punctele care așteaptă confirmarea proiectantului.",
+        ],
+      },
+      {
+        heading: "Ai nevoie de implementarea observațiilor în Revit MEP?",
+        paragraphs: [
+          "NOD BIM preia corectări și completări pe modele existente, implementarea observațiilor și reorganizarea planșelor HVAC, termice și electrice. Trimite modelul, comentariile și livrabilele dorite pentru evaluarea lucrării. Fișierul RVT editabil se include când face parte din scopul convenit; calculele, verificarea și semnătura de specialitate rămân la proiectanții responsabili.",
+        ],
+        links: [
+          {
+            label: "Externalizare Revit MEP și implementarea observațiilor",
+            href: "/revit-mep",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "pdf-in-dwg-vectorial-scanare-scara-oferta",
+    title: "PDF în DWG: ce se poate converti și ce trebuie redesenat",
+    metaTitle: "PDF în DWG: vectorial, scanare și verificarea scării",
+    description:
+      "Ai un plan doar în PDF? Află diferența dintre conversie și redesenare, cum se verifică scara și ce fișiere trimiți pentru o ofertă AutoCAD.",
+    date: "2026-10-03",
+    readingTime: 4,
+    tags: ["AutoCAD", "PDF în DWG", "Redesenare", "Pregătire fișiere"],
+    sections: [
+      {
+        paragraphs: [
+          "Ai un plan vechi în PDF și ai nevoie să modifici compartimentarea, să aplici observații sau să predai un DWG editabil. Prima întrebare este ce informație există în PDF. Două documente care arată asemănător pe ecran pot necesita lucrări diferite: import și curățare pentru geometrie vectorială, respectiv redesenare pentru o scanare.",
+          "Înainte să ceri o ofertă, merită să clarifici sursa, dimensiunile de referință și rezultatul dorit. Astfel, estimarea se bazează pe documentația reală și pe modificările necesare.",
+        ],
+      },
+      {
+        heading: "PDF vectorial sau scanare: de ce contează",
+        paragraphs: [
+          "Un PDF vectorial poate conține trasee geometrice și text pe care AutoCAD le importă ca obiecte. O scanare conține o imagine formată din pixeli; funcția obișnuită PDFIMPORT poate atașa imaginea, dar nu o transformă automat în linii CAD editabile. Pentru serviciul de redesenare, imaginea devine o referință.",
+          "Mărirea documentului poate oferi indicii: contururile pixelate sugerează o imagine. Verificarea vizuală nu este însă suficientă, iar aceeași pagină poate combina imagine, geometrie și text. Nu trebuie să identifici singur formatul înainte să ceri o evaluare; trimite PDF-ul original, fără capturi de ecran sau fotografii suplimentare.",
+        ],
+      },
+      {
+        heading: "De ce importul nu înseamnă recuperarea DWG-ului original",
+        paragraphs: [
+          "Autodesk explică faptul că exportul în PDF pierde informație și precizie. La import, cote, tabele sau hașuri pot deveni mai multe obiecte separate. Un număr vizibil pe plan nu garantează existența unei cote asociate geometriei.",
+          "De aceea, solicită un rezultat descris clar: geometrie care poate fi modificată, layere organizate și texte verificate. Dacă ai și DWG-ul sursă, trimite-l. El poate evita reconstruirea unor informații pierdute în PDF. Un fișier care se deschide în AutoCAD trebuie evaluat și după felul în care poate fi folosit.",
+        ],
+      },
+      {
+        heading: "Scara se verifică după dimensiuni cunoscute",
+        paragraphs: [
+          "Mențiunea «1:100» de pe planșă descrie scara prevăzută pentru tipărire; nu dovedește dimensiunea geometriei importate. Documentul poate fi redimensionat la export sau la imprimare. Setarea unităților și compararea cu o cotă cunoscută sunt verificări separate.",
+          "În AutoCAD, redimensionarea se poate face cu SCALE și opțiunea Reference, folosind o distanță existentă și lungimea corectă. Verifică apoi o altă cotă, într-o altă zonă a planului. Pentru o scanare, această a doua verificare este utilă pentru a observa diferențe care nu se rezolvă printr-o singură scalare.",
+          "Ca exemplu ipotetic, dacă o distanță notată de 5 metri măsoară 4.800 de unități într-un DWG lucrat în milimetri, există o neconcordanță de clarificat. Nu modifica doar textul cotei. Geometria și dimensiunea de referință trebuie reconciliate înainte de continuarea desenului.",
+        ],
+      },
+      {
+        heading: "Ce trimiți pentru o ofertă de conversie sau redesenare",
+        paragraphs: [
+          "O cerere completă permite separarea importului, curățării și redesenării. Pentru evaluare, pregătește următoarele:",
+        ],
+        list: [
+          "PDF-ul original, cu toate paginile relevante, și orice DWG disponibil. Precizează ce planșe intră în lucrare și care sunt doar referințe.",
+          "Cotele lizibile și cel puțin o dimensiune de referință verificată. Dacă dimensiunile lipsesc sau se contrazic, menționează problema.",
+          "Lista modificărilor: redesenare fidelă, corecturi punctuale, completări sau aplicarea observațiilor. Marchează clar observațiile pe o copie a planului.",
+          "Livrabilul cerut: DWG editabil, PDF pentru tipărire, versiunea DWG necesară și eventuale reguli pentru layere, texte sau indicator.",
+          "Termenul dorit și modul în care vrei să verifici rezultatul. Numărul de planșe și reviziile trebuie precizate în ofertă.",
+          "Scopul utilizării: bază de lucru, documentație de coordonare ori actualizarea unui desen existent. Semnalează zonele neclare care necesită confirmare.",
+        ],
+      },
+      {
+        heading: "Ce verifici la predarea DWG-ului",
+        paragraphs: [
+          "Deschide fișierul și verifică dacă elementele necesare sunt editabile, dacă unitățile sunt cele convenite și dacă dimensiunile de referință corespund. Controlează și textele, layerele, lizibilitatea PDF-ului final și prezența eventualelor imagini externe.",
+          "În fluxul obișnuit AutoCAD, geometria se desenează la dimensiunea reală în Model Space; scara vederilor pentru tipărire se stabilește în layout. Un DWG util trebuie să permită continuarea lucrului și reproducerea previzibilă a planșei.",
+          "Redesenarea reproduce informația furnizată. Ea nu confirmă că planul descrie situația actuală din teren și nu înlocuiește calculele, verificarea sau semnătura proiectantului de specialitate.",
+        ],
+      },
+      {
+        heading: "Ai un PDF și ai nevoie de un DWG editabil?",
+        paragraphs: [
+          "Serviciile AutoCAD NOD BIM includ redesenare din PDF sau scanări, corectarea planșelor, organizarea layerelor și pregătirea PDF-ului pentru tipărire. Trimite documentația și descrierea rezultatului dorit pentru evaluare. Costul se stabilește după verificarea fișierelor, înainte de începerea lucrării.",
+        ],
+        links: [
+          {
+            label: "Servicii AutoCAD: redesenare PDF în DWG",
+            href: "/autocad-dwg",
+          },
+        ],
+      },
+      {
+        heading: "Surse tehnice",
+        links: [
+          {
+            label: "Autodesk: limitele importului PDF în AutoCAD",
+            href: "https://help.autodesk.com/cloudhelp/2026/ENU/AutoCAD-Core/files/GUID-1202CC8A-364F-4E93-8E86-6F476CD83C72.htm",
+          },
+          {
+            label: "Autodesk: opțiuni de import, scară și layere",
+            href: "https://help.autodesk.com/cloudhelp/2026/ENU/AutoCAD-Core/files/GUID-F94D7059-5B4A-4396-97FE-765B1D037D56.htm",
+          },
+          {
+            label: "Autodesk: calibrarea unei imagini sau a unui PDF după o cotă cunoscută",
+            href: "https://www.autodesk.com/support/technical/article/caas/sfdcarticles/sfdcarticles/How-to-properly-scale-an-image-after-inserting-into-AutoCAD.html",
+          },
+          {
+            label: "Autodesk: Model Space și Paper Space",
+            href: "https://help.autodesk.com/cloudhelp/2026/ENU/AutoCAD-MAC-Core/files/GUID-990538B6-DDA1-4190-BCC0-BB5BA94C9879.htm",
+          },
+        ],
+      },
+    ],
+  },
   {
     slug: "cat-costa-o-plansa-de-instalatii",
     title: "Cât costă cu adevărat o planșă de instalații? Anatomia unui preț",

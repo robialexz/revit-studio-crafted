@@ -52,6 +52,14 @@ describe("agent-content — negotiere markdown", () => {
     expect(md).toContain("[Înapoi la jurnal]");
   });
 
+  test("articolul PDF în DWG păstrează serviciul și sursele în varianta Markdown", () => {
+    const slug = "pdf-in-dwg-vectorial-scanare-scara-oferta";
+    expect(isKnownPath(`/blog/${slug}`)).toBe(true);
+    const md = articleMarkdown(slug);
+    expect(md).toContain("[Servicii AutoCAD: redesenare PDF în DWG](/autocad-dwg)");
+    expect(md).toContain("https://help.autodesk.com/cloudhelp/2026/ENU/AutoCAD-Core/");
+  });
+
   test("404 markdown conține sitemap și llms.txt și status 404", () => {
     const res = notFoundMarkdown("/nu-exista");
     expect(res.status).toBe(404);

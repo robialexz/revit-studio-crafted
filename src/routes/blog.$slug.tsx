@@ -179,6 +179,17 @@ function Section({ section }: { section: ArticleSection }) {
           {section.note}
         </p>
       )}
+      {section.links && (
+        <ul className="mt-4 space-y-2">
+          {section.links.map((link) => (
+            <li key={link.href}>
+              <a href={link.href} className="text-primary underline underline-offset-4">
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
     </section>
   );
 }
