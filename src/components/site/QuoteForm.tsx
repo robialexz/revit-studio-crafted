@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
-import { hasWhatsapp, whatsappLink } from "@/lib/site-config";
+import { useLocation } from "@tanstack/react-router";
+import { hasWhatsapp, quoteContextForPath, whatsappLink } from "@/lib/site-config";
 import { getAttribution } from "@/lib/attribution";
 import { track, trackOnce, trackConversion } from "@/lib/analytics";
 import { submitLead } from "@/lib/leads.functions";
@@ -62,6 +63,7 @@ const copy = {
   en: {
     types: [
       "Revit MEP modelling",
+      "AutoCAD / PDF to DWG",
       "HVAC",
       "Heating",
       "Electrical",
@@ -125,6 +127,7 @@ type Errors = Partial<Record<"name" | "phone" | "email" | "details" | "form", st
 
 export function QuoteForm() {
   const t = copy[useLocale()];
+  const context = quoteContextForPath(useLocation().pathname);
   const send = useServerFn(submitLead);
   const honeypotRef = useRef<HTMLInputElement>(null);
   // Token de idempotență: generat la prima încercare de trimitere, refolosit
@@ -138,7 +141,8 @@ export function QuoteForm() {
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [company, setCompany] = useState("");
-  const [tip, setTip] = useState(t.types[0] ?? "");
+  const [selectedType, setTip] = useState<string>();
+  const tip = selectedType ?? context?.projectType ?? t.types[0] ?? "";
   const [files, setFiles] = useState<string[]>(["PDF"]);
   const [planse, setPlanse] = useState("");
   const [termen, setTermen] = useState("");

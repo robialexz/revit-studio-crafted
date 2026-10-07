@@ -119,5 +119,37 @@ export const defaultWhatsappMessage =
 export const defaultWhatsappMessageEn =
   "Hello, I found NOD BIM online and would like to discuss a Revit MEP project. Can I send you the files for an estimate?";
 
+/** Același serviciu în formular și în primul mesaj, inclusiv pe paginile EN. */
+export function quoteContextForPath(pathname: string) {
+  const path = pathname.replace(/\/+$/, "");
+  const autocad = path === "/autocad-dwg" || path === "/en/autocad-drafting";
+  if (
+    !autocad &&
+    ![
+      "/revit-mep",
+      "/modelare-revit",
+      "/hvac",
+      "/instalatii-termice",
+      "/instalatii-electrice",
+      "/en/revit-mep-outsourcing",
+    ].includes(path)
+  ) {
+    return undefined;
+  }
+  const en = path.startsWith("/en/");
+  return {
+    projectType: autocad
+      ? en
+        ? "AutoCAD / PDF to DWG"
+        : "Redesenare / PDF în DWG"
+      : en
+        ? "Revit MEP modelling"
+        : "Modelare Revit MEP",
+    whatsappMessage: en
+      ? `Hello, I need ${autocad ? "AutoCAD drafting / PDF to DWG" : "Revit MEP modelling"}. Can I send you the files for an estimate?`
+      : `Salut! Am nevoie de ${autocad ? "redesenare / PDF în DWG sau corecturi AutoCAD" : "modelare Revit MEP"}. Pot să îți trimit fișierele pentru o ofertă?`,
+  };
+}
+
 export const disclaimer =
   "Serviciile constau în desenare tehnică, modelare BIM și pregătirea documentației. Documentațiile care necesită verificare, autorizare sau semnătură de specialitate trebuie validate de profesioniști autorizați.";

@@ -10,6 +10,7 @@ import {
   disclaimer,
   whatsappLink,
   defaultWhatsappMessage,
+  quoteContextForPath,
   hasWhatsapp,
   hasEmail,
   formatPhoneDisplay,
@@ -122,9 +123,13 @@ export function ServicePage({
   related: ServicePath[];
   note?: string;
 }) {
-  const waHref = hasWhatsapp ? whatsappLink(defaultWhatsappMessage) : "";
-  const relatedItems = serviceLinks.filter((s) => related.includes(s.to));
   const location = useLocation();
+  const waHref = hasWhatsapp
+    ? whatsappLink(
+        quoteContextForPath(location.pathname)?.whatsappMessage ?? defaultWhatsappMessage,
+      )
+    : "";
+  const relatedItems = serviceLinks.filter((s) => related.includes(s.to));
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",

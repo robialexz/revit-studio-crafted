@@ -31,7 +31,7 @@ export const Route = createFileRoute("/autocad-dwg")({
       label="AutoCAD / DWG"
       h1="Redesenare AutoCAD, conversie PDF în DWG și corectare planșe"
       intro="Ai documentație veche în PDF, scanări sau DWG-uri greu de folosit? Planurile sunt redesenate sau corectate în AutoCAD și primești DWG editabil, organizat pe layere, plus PDF gata de print."
-      lead="Pentru birouri de proiectare, arhitecți și firme care au nevoie de documentație curată ca bază de lucru, inclusiv pentru modelarea ulterioară în Revit. Costul se stabilește după ce văd fișierele, înainte de începere."
+      lead="Pentru persoane, birouri de proiectare, arhitecți și firme care au un plan de redesenat sau corectat. Costul se stabilește după ce văd fișierele, înainte de începere."
       sections={[
         {
           title: "Curățare și organizare DWG",

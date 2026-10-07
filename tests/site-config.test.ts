@@ -6,11 +6,37 @@ import {
   formatPhoneDisplay,
   phoneDisplay,
   phoneHref,
+  quoteContextForPath,
   site,
   whatsappLink,
 } from "../src/lib/site-config";
 
 describe("site-config", () => {
+  test("formularul și WhatsApp păstrează serviciul paginii în RO și EN", () => {
+    for (const [path, projectType, subject] of [
+      ["/autocad-dwg", "Redesenare / PDF în DWG", "corecturi AutoCAD"],
+      ["/en/autocad-drafting", "AutoCAD / PDF to DWG", "AutoCAD drafting / PDF to DWG"],
+      ["/revit-mep", "Modelare Revit MEP", "modelare Revit MEP"],
+      ["/en/revit-mep-outsourcing", "Revit MEP modelling", "Revit MEP modelling"],
+    ] as const) {
+      const context = quoteContextForPath(path);
+      expect(context?.projectType).toBe(projectType);
+      expect(context?.whatsappMessage).toContain(subject);
+      expect(quoteContextForPath(`${path}/`)).toEqual(context);
+    }
+    for (const path of [
+      "/modelare-revit",
+      "/hvac",
+      "/instalatii-termice",
+      "/instalatii-electrice",
+    ]) {
+      expect(quoteContextForPath(path)?.projectType).toBe("Modelare Revit MEP");
+    }
+    expect(quoteContextForPath("/")).toBeUndefined();
+    expect(quoteContextForPath("/contact")).toBeUndefined();
+    expect(quoteContextForPath("/en/about")).toBeUndefined();
+  });
+
   test("domeniul canonical de producție este nodbim.com", () => {
     expect(site.siteUrl).toBe("https://nodbim.com");
   });

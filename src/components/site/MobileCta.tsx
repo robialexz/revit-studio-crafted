@@ -1,9 +1,11 @@
+import { useLocation } from "@tanstack/react-router";
 import {
   hasWhatsapp,
   phoneHref,
   whatsappLink,
   defaultWhatsappMessage,
   defaultWhatsappMessageEn,
+  quoteContextForPath,
 } from "@/lib/site-config";
 import { useLocale } from "@/lib/i18n";
 import { trackConversion } from "@/lib/analytics";
@@ -15,6 +17,9 @@ const buttonClass =
 /** Bara fixă de jos pe mobil: Sună și WhatsApp; cu un singur canal, acela ocupă tot rândul. */
 export function MobileCta() {
   const en = useLocale() === "en";
+  const message =
+    quoteContextForPath(useLocation().pathname)?.whatsappMessage ??
+    (en ? defaultWhatsappMessageEn : defaultWhatsappMessage);
   if (!phoneHref && !hasWhatsapp) return null;
   return (
     <div className="fixed inset-x-0 bottom-0 z-40 border-t border-border-strong bg-background pb-[env(safe-area-inset-bottom)] lg:hidden">
@@ -27,7 +32,7 @@ export function MobileCta() {
         </PhoneLink>
         {hasWhatsapp && (
           <a
-            href={whatsappLink(en ? defaultWhatsappMessageEn : defaultWhatsappMessage)}
+            href={whatsappLink(message)}
             target="_blank"
             rel="noreferrer noopener"
             onClick={() => trackConversion("whatsapp_click", { source: "mobile_cta" })}

@@ -6,6 +6,7 @@ import {
   whatsappLink,
   defaultWhatsappMessage,
   defaultWhatsappMessageEn,
+  quoteContextForPath,
   hasWhatsapp,
   hasEmail,
   phoneHref,
@@ -87,6 +88,7 @@ const copy = {
 export function Footer() {
   const t = copy[useLocale()];
   const pathname = useRouterState({ select: (st) => st.location.pathname });
+  const message = quoteContextForPath(pathname)?.whatsappMessage ?? t.whatsapp;
   return (
     <footer className="border-t border-border-strong bg-graphite pb-[calc(3.5rem+env(safe-area-inset-bottom))] text-graphite-foreground lg:pb-0">
       <div className="mx-auto max-w-[1400px] px-5 py-14 md:px-8 md:py-20">
@@ -177,7 +179,7 @@ export function Footer() {
                 {hasWhatsapp && (
                   <li>
                     <a
-                      href={whatsappLink(t.whatsapp)}
+                      href={whatsappLink(message)}
                       target="_blank"
                       rel="noreferrer noopener"
                       className="group flex items-center gap-3"
