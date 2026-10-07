@@ -147,7 +147,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "icon", href: "/favicon-48.png", type: "image/png", sizes: "48x48" },
       { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
       { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
-      ...["archivo-var-latin", "archivo-var-latin-ext"].map((font) => ({
+      ...[
+        "ibm-plex-sans-400-latin",
+        "ibm-plex-sans-400-latin-ext",
+        "archivo-var-latin",
+        "archivo-var-latin-ext",
+      ].map((font) => ({
         rel: "preload",
         href: `/fonts/${font}.woff2`,
         as: "font",
