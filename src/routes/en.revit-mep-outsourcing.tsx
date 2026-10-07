@@ -68,7 +68,7 @@ function RevitMepOutsourcing() {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <main className="pb-16 lg:pb-0">
+      <main id="continut">
         <section className="relative overflow-hidden border-b border-border-strong">
           <div className="cad-grid-lg pointer-events-none absolute inset-0" aria-hidden="true" />
           <div className="relative mx-auto grid max-w-[1400px] gap-10 px-5 py-12 md:px-8 md:py-20 lg:grid-cols-12">
@@ -261,7 +261,7 @@ function RevitMepOutsourcing() {
         <EnEstimate mailHref={mailHref} source="en_estimate" />
       </main>
       <Footer />
-      <MobileCta estimateHref="#estimate" />
+      <MobileCta />
     </div>
   );
 }

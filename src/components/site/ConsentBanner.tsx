@@ -6,7 +6,7 @@ import { useLocale } from "@/lib/i18n";
 const copy = {
   ro: {
     label: "Consimțământ cookies",
-    text: "Folosim cookies doar pentru funcționarea site-ului și, cu acordul tău, pentru statistici anonime și măsurarea eficienței reclamelor. Detalii în",
+    text: "Site-ul folosește cookies doar pentru funcționare și, cu acordul tău, pentru statistici anonime și măsurarea reclamelor. Detalii în",
     policy: "Politica de cookies",
     policyHref: "/politica-cookies",
     necessary: "Doar necesare",
@@ -58,7 +58,7 @@ export function ConsentBanner() {
     <div
       role="dialog"
       aria-label={t.label}
-      className="fixed inset-x-0 bottom-0 z-50 border-t border-border-strong bg-graphite text-graphite-foreground"
+      className="fixed inset-x-0 bottom-[calc(3.5rem+env(safe-area-inset-bottom))] z-50 border-t border-border-strong bg-graphite text-graphite-foreground lg:bottom-0"
     >
       <div className="mx-auto flex max-w-[1400px] flex-col gap-4 px-5 py-4 md:flex-row md:items-center md:justify-between md:gap-8 md:px-8">
         <p className="max-w-2xl text-xs leading-relaxed text-graphite-foreground/80">

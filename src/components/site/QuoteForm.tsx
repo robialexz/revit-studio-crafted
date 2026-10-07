@@ -9,13 +9,11 @@ import { useLocale } from "@/lib/i18n";
 const copy = {
   ro: {
     types: [
-      "Revit MEP",
-      "HVAC",
-      "Termice",
-      "Electrice",
-      "AutoCAD / DWG",
-      "Corectare proiect existent",
-      "Altul",
+      "Redesenare / PDF în DWG",
+      "Corectare planșă",
+      "Planșe de instalații",
+      "Modelare Revit MEP",
+      "Altceva",
     ],
     files: ["RVT", "DWG", "PDF", "Schițe / imagini", "Nu există încă fișiere"],
     waMessage: (tip: string, files: string) =>
@@ -39,19 +37,19 @@ const copy = {
     okWaButton: "Continuă pe WhatsApp",
     okWaNote:
       "Cererea ta e deja salvată; pe WhatsApp poți atașa direct planurile și fișierele proiectului.",
-    contact: "01 — Date de contact",
+    contact: "Date de contact",
     name: "Nume *",
     email: "Email *",
-    phone: "Telefon / WhatsApp (opțional)",
+    phone: "Telefon / WhatsApp (opțional, pentru răspuns mai rapid)",
     company: "Companie / birou (opțional)",
-    type: "02 — Tip proiect",
-    available: "03 — Fișiere disponibile",
-    sheets: "04 — Nr. aproximativ de planșe",
+    type: "Tip proiect",
+    available: "Fișiere disponibile",
+    sheets: "Nr. aproximativ de planșe",
     sheetsHint: "ex: 5",
-    deadline: "05 — Termen",
+    deadline: "Termen",
     deadlineHint: "ex: 20 august",
-    details: "06 — Descrierea lucrării *",
-    detailsHint: "Ce trebuie modelat / desenat, discipline, nivel de detaliu.",
+    details: "Descrierea lucrării *",
+    detailsHint: "Ex.: plan apartament cu 2 camere, scanat; îl vreau în DWG, la scară.",
     sending: "Se trimite…",
     submit: "Trimite cererea",
     after:
@@ -92,18 +90,18 @@ const copy = {
     okWa: " If you prefer, you can continue on WhatsApp and share the files there.",
     okWaButton: "Continue on WhatsApp",
     okWaNote: "Your request is already saved; WhatsApp is just a faster channel for files.",
-    contact: "01 — Contact details",
+    contact: "Contact details",
     name: "Name *",
     email: "Work email *",
     phone: "Phone, with country code (optional)",
     company: "Company / engineering office (optional)",
-    type: "02 — Scope",
-    available: "03 — Available files",
-    sheets: "04 — Approx. number of drawings",
+    type: "Scope",
+    available: "Available files",
+    sheets: "Approx. number of drawings",
     sheetsHint: "e.g. 12",
-    deadline: "05 — Target date",
+    deadline: "Target date",
     deadlineHint: "e.g. end of March",
-    details: "06 — Project brief *",
+    details: "Project brief *",
     detailsHint:
       "Building type, disciplines, Revit version, template or BIM standards to follow, level of detail.",
     sending: "Sending…",
@@ -115,6 +113,13 @@ const copy = {
     privacyHref: "/en/privacy",
   },
 };
+
+const fieldIds = {
+  name: "lead-name",
+  phone: "lead-phone",
+  email: "lead-email",
+  details: "detalii",
+} as const;
 
 type Errors = Partial<Record<"name" | "phone" | "email" | "details" | "form", string>>;
 
@@ -134,7 +139,7 @@ export function QuoteForm() {
   const [email, setEmail] = useState("");
   const [company, setCompany] = useState("");
   const [tip, setTip] = useState(t.types[0] ?? "");
-  const [files, setFiles] = useState<string[]>(["DWG"]);
+  const [files, setFiles] = useState<string[]>(["PDF"]);
   const [planse, setPlanse] = useState("");
   const [termen, setTermen] = useState("");
   const [detalii, setDetalii] = useState("");
@@ -198,7 +203,9 @@ export function QuoteForm() {
     if (cleanedPhone && !/^\+?\d{6,15}$/.test(cleanedPhone)) next.phone = t.errPhone;
     if (detalii.trim().length < 10) next.details = t.errDetails;
     setErrors(next);
-    return Object.keys(next).length === 0;
+    const firstInvalid = (["name", "phone", "email", "details"] as const).find((k) => next[k]);
+    if (firstInvalid) document.getElementById(fieldIds[firstInvalid])?.focus();
+    return !firstInvalid;
   }
 
   async function onSubmit(e: React.FormEvent) {
@@ -353,34 +360,11 @@ export function QuoteForm() {
               }}
               aria-invalid={!!errors.name}
               aria-describedby={errors.name ? "lead-name-error" : undefined}
-              className="mt-2 w-full border border-input bg-background px-3 py-3 text-sm outline-none focus:border-primary"
+              className="mt-2 w-full border border-input bg-background px-3 py-3 text-base focus:border-primary md:text-sm"
             />
             {errors.name && (
               <p id="lead-name-error" className="mt-1 text-xs text-destructive">
                 {errors.name}
-              </p>
-            )}
-          </div>
-          <div>
-            <label htmlFor="lead-email" className="tech-label text-muted-foreground">
-              {t.email}
-            </label>
-            <input
-              id="lead-email"
-              type="email"
-              autoComplete="email"
-              value={email}
-              onChange={(e) => {
-                changed();
-                setEmail(e.target.value);
-              }}
-              aria-invalid={!!errors.email}
-              aria-describedby={errors.email ? "lead-email-error" : undefined}
-              className="mt-2 w-full border border-input bg-background px-3 py-3 text-sm outline-none focus:border-primary"
-            />
-            {errors.email && (
-              <p id="lead-email-error" className="mt-1 text-xs text-destructive">
-                {errors.email}
               </p>
             )}
           </div>
@@ -400,11 +384,34 @@ export function QuoteForm() {
               }}
               aria-invalid={!!errors.phone}
               aria-describedby={errors.phone ? "lead-phone-error" : undefined}
-              className="mt-2 w-full border border-input bg-background px-3 py-3 text-sm outline-none focus:border-primary"
+              className="mt-2 w-full border border-input bg-background px-3 py-3 text-base focus:border-primary md:text-sm"
             />
             {errors.phone && (
               <p id="lead-phone-error" className="mt-1 text-xs text-destructive">
                 {errors.phone}
+              </p>
+            )}
+          </div>
+          <div>
+            <label htmlFor="lead-email" className="tech-label text-muted-foreground">
+              {t.email}
+            </label>
+            <input
+              id="lead-email"
+              type="email"
+              autoComplete="email"
+              value={email}
+              onChange={(e) => {
+                changed();
+                setEmail(e.target.value);
+              }}
+              aria-invalid={!!errors.email}
+              aria-describedby={errors.email ? "lead-email-error" : undefined}
+              className="mt-2 w-full border border-input bg-background px-3 py-3 text-base focus:border-primary md:text-sm"
+            />
+            {errors.email && (
+              <p id="lead-email-error" className="mt-1 text-xs text-destructive">
+                {errors.email}
               </p>
             )}
           </div>
@@ -420,7 +427,7 @@ export function QuoteForm() {
                 changed();
                 setCompany(e.target.value);
               }}
-              className="mt-2 w-full border border-input bg-background px-3 py-3 text-sm outline-none focus:border-primary"
+              className="mt-2 w-full border border-input bg-background px-3 py-3 text-base focus:border-primary md:text-sm"
             />
           </div>
         </div>
@@ -438,7 +445,7 @@ export function QuoteForm() {
                 setTip(option);
               }}
               aria-pressed={tip === option}
-              className={`tech-label border px-3 py-2 transition-colors ${
+              className={`tech-label border px-3 py-3 transition-colors ${
                 tip === option
                   ? "border-foreground bg-foreground text-background"
                   : "border-input hover:border-foreground"
@@ -462,7 +469,7 @@ export function QuoteForm() {
                 toggleFile(f);
               }}
               aria-pressed={files.includes(f)}
-              className={`tech-label border px-3 py-2 transition-colors ${
+              className={`tech-label border px-3 py-3 transition-colors ${
                 files.includes(f)
                   ? "border-primary bg-accent text-accent-foreground"
                   : "border-input hover:border-foreground"
@@ -481,13 +488,14 @@ export function QuoteForm() {
           </label>
           <input
             id="planse"
+            inputMode="numeric"
             value={planse}
             onChange={(e) => {
               changed();
               setPlanse(e.target.value);
             }}
             placeholder={t.sheetsHint}
-            className="mt-2 w-full border border-input bg-background px-3 py-3 text-sm outline-none focus:border-primary"
+            className="mt-2 w-full border border-input bg-background px-3 py-3 text-base focus:border-primary md:text-sm"
           />
         </div>
         <div>
@@ -502,7 +510,7 @@ export function QuoteForm() {
               setTermen(e.target.value);
             }}
             placeholder={t.deadlineHint}
-            className="mt-2 w-full border border-input bg-background px-3 py-3 text-sm outline-none focus:border-primary"
+            className="mt-2 w-full border border-input bg-background px-3 py-3 text-base focus:border-primary md:text-sm"
           />
         </div>
       </div>
@@ -522,7 +530,7 @@ export function QuoteForm() {
           placeholder={t.detailsHint}
           aria-invalid={!!errors.details}
           aria-describedby={errors.details ? "detalii-error" : undefined}
-          className="mt-2 w-full resize-y border border-input bg-background px-3 py-3 text-sm outline-none focus:border-primary"
+          className="mt-2 w-full resize-y border border-input bg-background px-3 py-3 text-base focus:border-primary md:text-sm"
         />
         {errors.details && (
           <p id="detalii-error" className="mt-1 text-xs text-destructive">

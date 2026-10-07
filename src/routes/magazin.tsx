@@ -165,7 +165,7 @@ function Magazin() {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <main className="pb-16 lg:pb-0">
+      <main id="continut">
         <section className="relative overflow-hidden border-b border-border-strong">
           <div className="cad-grid-lg pointer-events-none absolute inset-0" aria-hidden="true" />
           <div className="relative mx-auto max-w-[1400px] px-5 py-12 md:px-8 md:py-20">

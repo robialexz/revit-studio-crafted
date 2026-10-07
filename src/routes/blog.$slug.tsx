@@ -55,7 +55,7 @@ function ArticleNotFound() {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <main className="mx-auto max-w-2xl px-5 py-24 text-center">
+      <main id="continut" className="mx-auto max-w-2xl px-5 py-24 text-center">
         <p className="tech-label text-primary">Jurnal tehnic</p>
         <h1 className="mt-4 text-4xl uppercase">Articolul nu există</h1>
         <Link
@@ -83,7 +83,7 @@ function ArticlePage() {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <main className="pb-16 lg:pb-0">
+      <main id="continut">
         <article className="mx-auto max-w-[760px] px-5 py-12 md:px-8 md:py-16">
           <Reveal>
             <Link

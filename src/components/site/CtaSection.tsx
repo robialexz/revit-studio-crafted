@@ -1,6 +1,6 @@
-import { Link } from "@tanstack/react-router";
-import { hasWhatsapp, whatsappLink, defaultWhatsappMessage } from "@/lib/site-config";
+import { hasWhatsapp, whatsappLink, defaultWhatsappMessage, phoneDisplay } from "@/lib/site-config";
 import { trackConversion } from "@/lib/analytics";
+import { PhoneLink } from "./PhoneLink";
 import { Reveal } from "./Reveal";
 
 /**
@@ -32,13 +32,12 @@ export function CtaSection({
               {description}
             </p>
             <div className="mt-10 flex flex-wrap gap-3">
-              <Link
-                to="/"
-                hash="estimare"
+              <PhoneLink
+                source="cta"
                 className="tech-label border border-primary bg-primary px-6 py-4 text-primary-foreground transition-opacity hover:opacity-90"
               >
-                Solicită o estimare
-              </Link>
+                Sună {phoneDisplay}
+              </PhoneLink>
               {hasWhatsapp && (
                 <a
                   href={waHref || undefined}

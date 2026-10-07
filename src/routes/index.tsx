@@ -115,7 +115,7 @@ function Home() {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <main className="pb-16 lg:pb-0">
+      <main id="continut">
         {/* HERO */}
         <section className="relative overflow-hidden border-b border-border-strong">
           <div className="cad-grid-lg pointer-events-none absolute inset-0" aria-hidden="true" />

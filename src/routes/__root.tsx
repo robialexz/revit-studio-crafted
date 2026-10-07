@@ -15,6 +15,10 @@ import { captureAttribution } from "../lib/attribution";
 import { site, canonicalUrl, hasSiteUrl, hasTracking } from "../lib/site-config";
 import { consentModeBootstrapScript } from "../lib/consent";
 import { ConsentBanner } from "../components/site/ConsentBanner";
+import { Header } from "../components/site/Header";
+import { Footer } from "../components/site/Footer";
+import { MobileCta } from "../components/site/MobileCta";
+import { PhoneLink } from "../components/site/PhoneLink";
 import { useLocale } from "../lib/i18n";
 
 const gtmHeadScript = `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer',${JSON.stringify(site.gtmContainerId)});`;
@@ -34,55 +38,40 @@ const trackingInlineScript = [consentModeBootstrapScript(), gtagConfigScript, gt
 
 function NotFoundComponent() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="max-w-md text-center">
-        <h1 className="text-7xl font-bold text-foreground">404</h1>
-        <h2 className="mt-4 text-xl font-semibold text-foreground">Pagină inexistentă</h2>
-        <p className="mt-2 text-sm text-muted-foreground">
+    <div className="min-h-screen bg-background">
+      <Header />
+      <main id="continut" className="mx-auto max-w-xl px-5 py-20 text-center md:py-28">
+        <p className="tech-label text-muted-foreground">404</p>
+        <h1 className="mt-4 text-4xl md:text-5xl">Pagină inexistentă</h1>
+        <p className="mt-4 text-sm text-muted-foreground">
           Pagina căutată nu există sau a fost mutată.
         </p>
-        <div className="mt-6">
-          <Link
-            to="/"
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
-          >
-            Înapoi la pagina principală
-          </Link>
-        </div>
-        <p className="tech-label mt-10 text-muted-foreground">Unde poți continua:</p>
-        <ul className="mt-4 space-y-2 text-sm">
+        <ul className="mt-8 space-y-3 text-base">
           <li>
-            <a href="/sitemap.xml" className="hover:text-primary">
-              sitemap.xml
-            </a>{" "}
-            — harta completă a site-ului
-          </li>
-          <li>
-            <a href="/llms.txt" className="hover:text-primary">
-              llms.txt
-            </a>{" "}
-            — index pentru agenți AI
-          </li>
-          <li>
-            <Link to="/revit-mep" className="hover:text-primary">
-              Servicii
+            <Link to="/" className="underline underline-offset-4 hover:text-primary">
+              Pagina principală
             </Link>
           </li>
           <li>
-            <Link to="/blog" className="hover:text-primary">
-              Jurnal tehnic
+            <Link to="/autocad-dwg" className="underline underline-offset-4 hover:text-primary">
+              Desenare AutoCAD
+            </Link>
+          </li>
+          <li>
+            <Link to="/portofoliu" className="underline underline-offset-4 hover:text-primary">
+              Lucrări
+            </Link>
+          </li>
+          <li>
+            <Link to="/contact" className="underline underline-offset-4 hover:text-primary">
+              Contact
             </Link>
           </li>
         </ul>
-        <pre className="mt-8 overflow-x-auto border border-border bg-sheet p-4 text-left text-xs leading-relaxed text-muted-foreground">{`# Pagina nu există (404)
-
-Vezi unde să continui:
-- /sitemap.xml
-- /llms.txt
-- /revit-mep
-- /blog
-- /contact`}</pre>
-      </div>
+        <PhoneLink source="404" className="btn btn-primary mt-8" />
+      </main>
+      <Footer />
+      <MobileCta />
     </div>
   );
 }
@@ -129,9 +118,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   head: () => ({
     meta: [
       { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
       { name: "theme-color", content: "#f4f4f1" },
-      { title: `${site.businessName} — Modelare Revit MEP & BIM` },
+      { title: `${site.businessName} · Desenare tehnică în AutoCAD și Revit` },
       { property: "og:type", content: "website" },
       { property: "og:locale", content: "ro_RO" },
       { property: "og:site_name", content: site.businessName },
@@ -140,7 +129,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         ? [
             { property: "og:image", content: canonicalUrl("/og-image.jpg") },
             { property: "og:image:width", content: "1200" },
-            { property: "og:image:height", content: "912" },
+            { property: "og:image:height", content: "630" },
             { name: "twitter:image", content: canonicalUrl("/og-image.jpg") },
           ]
         : []),
@@ -150,7 +139,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: appCss,
       },
-      { rel: "icon", href: "/branding/nod-bim-mark.png", type: "image/png" },
+      { rel: "icon", href: "/favicon-48.png", type: "image/png", sizes: "48x48" },
+      { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
+      { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
+      ...["archivo-var-latin", "archivo-var-latin-ext"].map((font) => ({
+        rel: "preload",
+        href: `/fonts/${font}.woff2`,
+        as: "font",
+        type: "font/woff2",
+        crossOrigin: "anonymous" as const,
+      })),
     ],
     scripts: [
       {

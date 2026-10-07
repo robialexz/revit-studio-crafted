@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { MobileCta } from "@/components/site/MobileCta";
+import { PhoneLink } from "@/components/site/PhoneLink";
 import { QuoteForm } from "@/components/site/QuoteForm";
 import { Reveal } from "@/components/site/Reveal";
 import { trackConversion } from "@/lib/analytics";
@@ -9,13 +10,14 @@ import {
   site,
   canonicalUrl,
   formatPhoneDisplay,
+  phoneHref,
   whatsappLink,
   defaultWhatsappMessage,
   hasWhatsapp,
   hasEmail,
 } from "@/lib/site-config";
 
-const title = "Cere o estimare Revit MEP · Contact NOD BIM";
+const title = "Contact și ofertă · NOD BIM";
 const description =
   "Trimite proiectul prin formular, WhatsApp sau email: estimare cu scop, termen și cost pentru Revit MEP sau AutoCAD, de regulă în 1–2 zile lucrătoare.";
 const url = canonicalUrl("/contact");
@@ -45,8 +47,8 @@ function ContactPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <Header />
-      <main className="pb-16 lg:pb-0">
+      <Header ctaHref="#estimare" />
+      <main id="continut">
         <section className="relative overflow-hidden border-b border-border-strong">
           <div className="cad-grid-lg pointer-events-none absolute inset-0" aria-hidden="true" />
           <div className="relative mx-auto max-w-[1400px] px-5 py-12 md:px-8 md:py-20">
@@ -59,7 +61,7 @@ function ContactPage() {
                 <span className="text-foreground">Contact</span>
               </nav>
               <h1 className="display-xl mt-8 max-w-4xl text-[2.6rem] sm:text-[3.4rem] lg:text-[4.2rem]">
-                Cere o estimare Revit MEP
+                Contact și ofertă
               </h1>
               <p className="mt-7 max-w-2xl text-base leading-relaxed text-foreground/80 md:text-lg">
                 Trimite tema, planurile existente și cerințele proiectului. Primești scopul
@@ -70,27 +72,15 @@ function ContactPage() {
           </div>
         </section>
 
-        <section id="estimare" className="mx-auto max-w-[1400px] px-5 pt-14 md:px-8 md:pt-20">
-          <Reveal className="max-w-3xl">
-            <QuoteForm />
-          </Reveal>
-        </section>
-
-        <section className="mx-auto max-w-[1400px] px-5 py-14 md:px-8 md:py-20">
+        <section className="mx-auto max-w-[1400px] px-5 pt-14 md:px-8 md:pt-20">
           <Reveal className="grid gap-6 lg:grid-cols-12">
             <div className="sheet-frame p-6 md:p-8 lg:col-span-7">
               <p className="tech-label text-mep">Canale de contact</p>
               <ul className="mt-6 space-y-4 text-sm md:text-base">
-                {hasWhatsapp && (
+                {phoneHref && (
                   <li className="flex flex-wrap items-baseline gap-x-4 gap-y-1 border-b border-border pb-4">
                     <span className="tech-label w-28 shrink-0 text-muted-foreground">Telefon</span>
-                    <a
-                      href={`tel:+${site.whatsappNumber}`}
-                      onClick={() => trackConversion("phone_click")}
-                      className="hover:text-primary"
-                    >
-                      {phoneDisplay}
-                    </a>
+                    <PhoneLink source="contact" className="hover:text-primary" />
                   </li>
                 )}
                 {hasWhatsapp && (
@@ -168,9 +158,14 @@ function ContactPage() {
             </div>
           </Reveal>
         </section>
+        <section id="estimare" className="mx-auto max-w-[1400px] px-5 py-14 md:px-8 md:py-20">
+          <Reveal className="max-w-3xl">
+            <QuoteForm />
+          </Reveal>
+        </section>
       </main>
       <Footer />
-      <MobileCta estimateHref="#estimare" />
+      <MobileCta />
     </div>
   );
 }

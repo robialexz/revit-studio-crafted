@@ -151,8 +151,8 @@ export function ServicePage({
     <div className="min-h-screen bg-background">
       <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
       <script type="application/ld+json">{JSON.stringify(serviceSchema)}</script>
-      <Header />
-      <main className="pb-16 lg:pb-0">
+      <Header ctaHref="#estimare" />
+      <main id="continut">
         <section className="relative overflow-hidden border-b border-border-strong">
           <div className="cad-grid-lg pointer-events-none absolute inset-0" aria-hidden="true" />
           <div className="relative mx-auto max-w-[1400px] px-5 py-12 md:px-8 md:py-20">
@@ -366,7 +366,7 @@ export function ServicePage({
         </section>
       </main>
       <Footer />
-      <MobileCta estimateHref="#estimare" />
+      <MobileCta />
     </div>
   );
 }

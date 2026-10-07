@@ -1,4 +1,5 @@
-import { Mail } from "lucide-react";
+import { Mail, Phone } from "lucide-react";
+import { useRouterState } from "@tanstack/react-router";
 import {
   site,
   disclaimer,
@@ -7,9 +8,10 @@ import {
   defaultWhatsappMessageEn,
   hasWhatsapp,
   hasEmail,
-  formatPhoneDisplay,
+  phoneHref,
 } from "@/lib/site-config";
-import { enHomePath, useLocale } from "@/lib/i18n";
+import { alternatePath, enHomePath, useLocale } from "@/lib/i18n";
+import { PhoneLink } from "@/components/site/PhoneLink";
 
 /** Iconița oficială WhatsApp (SVG inline, fără dependențe externe). */
 function WhatsAppIcon({ size = 16 }: { size?: number }) {
@@ -24,19 +26,27 @@ const copy = {
   ro: {
     tagline: site.tagline,
     description:
-      "Externalizare Revit MEP și servicii CAD pentru birouri de proiectare: modele și planșe HVAC, termice și electrice, livrate RVT / DWG / PDF.",
+      "Desenare tehnică în AutoCAD și Revit: planuri redesenate, PDF în DWG și planșe de instalații.",
     nav: "Navigație footer",
+    servicesTitle: "Servicii",
+    services: [
+      { label: "Desenare AutoCAD", href: "/autocad-dwg" },
+      { label: "Revit MEP și instalații", href: "/revit-mep" },
+      { label: "Modelare Revit", href: "/modelare-revit" },
+      { label: "HVAC", href: "/hvac" },
+      { label: "Instalații termice", href: "/instalatii-termice" },
+      { label: "Instalații electrice", href: "/instalatii-electrice" },
+    ],
     siteTitle: "Site",
     site: [
-      { label: "Externalizare Revit MEP", href: "/revit-mep" },
-      { label: "AutoCAD / DWG", href: "/autocad-dwg" },
-      { label: "Portofoliu", href: "/portofoliu" },
+      { label: "Lucrări", href: "/portofoliu" },
       { label: "Jurnal tehnic", href: "/blog" },
       { label: "Magazin", href: "/magazin" },
       { label: "Despre", href: "/despre" },
       { label: "Contact", href: "/contact" },
-      { label: "English", href: enHomePath },
+      { label: "Întrebări frecvente", href: "/#faq" },
     ],
+    language: { label: "English", lang: "en" as const },
     legal: [
       { label: "Politica de confidențialitate", href: "/politica-de-confidentialitate" },
       { label: "Politica de cookies", href: "/politica-cookies" },
@@ -52,13 +62,15 @@ const copy = {
     description:
       "Revit MEP outsourcing and BIM production support for engineering teams: models, drawings and documentation delivered as RVT, DWG and PDF.",
     nav: "Footer navigation",
+    servicesTitle: "",
+    services: [],
     siteTitle: "Site",
+    language: { label: "Română", lang: "ro" as const },
     site: [
       { label: "Revit MEP outsourcing", href: enHomePath },
       { label: "AutoCAD drafting", href: "/en/autocad-drafting" },
       { label: "About", href: "/en/about" },
       { label: "Contact", href: `${enHomePath}#estimate` },
-      { label: "Română", href: "/" },
     ],
     legal: [
       { label: "Privacy policy", href: "/en/privacy" },
@@ -74,12 +86,13 @@ const copy = {
 
 export function Footer() {
   const t = copy[useLocale()];
+  const pathname = useRouterState({ select: (st) => st.location.pathname });
   return (
-    <footer className="border-t border-border-strong bg-graphite text-graphite-foreground">
+    <footer className="border-t border-border-strong bg-graphite pb-[calc(3.5rem+env(safe-area-inset-bottom))] text-graphite-foreground lg:pb-0">
       <div className="mx-auto max-w-[1400px] px-5 py-14 md:px-8 md:py-20">
         <div className="grid gap-12 md:grid-cols-12">
-          <div className="md:col-span-5">
-            <p className="font-display text-3xl font-semibold uppercase tracking-tight md:text-4xl">
+          <div className="md:col-span-4">
+            <p className="font-display text-3xl font-semibold tracking-tight md:text-4xl">
               {site.businessName}
             </p>
             <p className="tech-label mt-3 text-graphite-foreground/60">{t.tagline}</p>
@@ -88,18 +101,42 @@ export function Footer() {
             </p>
           </div>
 
-          <nav className="md:col-span-4" aria-label={t.nav}>
-            <div className="grid grid-cols-2 gap-8">
+          <nav className="md:col-span-5" aria-label={t.nav}>
+            <div className={`grid grid-cols-2 gap-8 ${t.services.length ? "sm:grid-cols-3" : ""}`}>
+              {t.services.length > 0 && (
+                <div>
+                  <p className="tech-label text-graphite-foreground/60">{t.servicesTitle}</p>
+                  <ul className="mt-4 space-y-2.5 text-sm">
+                    {t.services.map((l) => (
+                      <li key={l.href}>
+                        <a href={l.href} className="hover:underline">
+                          {l.label}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
               <div>
                 <p className="tech-label text-graphite-foreground/60">{t.siteTitle}</p>
                 <ul className="mt-4 space-y-2.5 text-sm">
                   {t.site.map((l) => (
                     <li key={l.href}>
-                      <a href={l.href} className="hover:text-primary">
+                      <a href={l.href} className="hover:underline">
                         {l.label}
                       </a>
                     </li>
                   ))}
+                  <li>
+                    <a
+                      href={alternatePath(pathname, t.language.lang)}
+                      hrefLang={t.language.lang}
+                      lang={t.language.lang}
+                      className="hover:underline"
+                    >
+                      {t.language.label}
+                    </a>
+                  </li>
                 </ul>
               </div>
               <div>
@@ -107,7 +144,7 @@ export function Footer() {
                 <ul className="mt-4 space-y-2.5 text-sm">
                   {t.legal.map((l) => (
                     <li key={l.href}>
-                      <a href={l.href} className="hover:text-primary">
+                      <a href={l.href} className="hover:underline">
                         {l.label}
                       </a>
                     </li>
@@ -116,7 +153,7 @@ export function Footer() {
                     <button
                       type="button"
                       onClick={() => window.dispatchEvent(new Event("nod:open-consent"))}
-                      className="hover:text-primary"
+                      className="hover:underline"
                     >
                       {t.cookies}
                     </button>
@@ -125,35 +162,40 @@ export function Footer() {
               </div>
             </div>
           </nav>
-          {(hasWhatsapp || hasEmail) && (
+          {(phoneHref || hasWhatsapp || hasEmail) && (
             <div className="md:col-span-3">
               <p className="tech-label text-graphite-foreground/60">Contact</p>
               <ul className="mt-4 space-y-3 text-sm">
+                {phoneHref && (
+                  <li className="flex items-center gap-3">
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center border border-graphite-foreground/25">
+                      <Phone size={16} aria-hidden="true" />
+                    </span>
+                    <PhoneLink source="footer" className="hover:underline" />
+                  </li>
+                )}
                 {hasWhatsapp && (
                   <li>
                     <a
                       href={whatsappLink(t.whatsapp)}
                       target="_blank"
                       rel="noreferrer noopener"
-                      className="group flex items-center gap-3 transition-colors hover:text-primary"
+                      className="group flex items-center gap-3"
                     >
-                      <span className="flex h-8 w-8 shrink-0 items-center justify-center border border-graphite-foreground/25 transition-colors group-hover:border-primary">
+                      <span className="flex h-8 w-8 shrink-0 items-center justify-center border border-graphite-foreground/25">
                         <WhatsAppIcon />
                       </span>
-                      <span>{formatPhoneDisplay(site.whatsappNumber)}</span>
+                      <span className="group-hover:underline">WhatsApp</span>
                     </a>
                   </li>
                 )}
                 {hasEmail && (
                   <li>
-                    <a
-                      href={`mailto:${site.email}`}
-                      className="group flex items-center gap-3 transition-colors hover:text-primary"
-                    >
-                      <span className="flex h-8 w-8 shrink-0 items-center justify-center border border-graphite-foreground/25 transition-colors group-hover:border-primary">
+                    <a href={`mailto:${site.email}`} className="group flex items-center gap-3">
+                      <span className="flex h-8 w-8 shrink-0 items-center justify-center border border-graphite-foreground/25">
                         <Mail size={16} />
                       </span>
-                      <span>{site.email}</span>
+                      <span className="group-hover:underline">{site.email}</span>
                     </a>
                   </li>
                 )}
