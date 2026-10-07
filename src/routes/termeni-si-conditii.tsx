@@ -94,7 +94,7 @@ function TermsPage() {
           title: "Limitarea responsabilității și declinare tehnică",
           body: [
             "Serviciile sunt servicii de desenare și modelare tehnică. Documentațiile care necesită verificare, autorizare sau semnătură de specialitate trebuie validate de profesioniști autorizați — această validare nu face parte din servicii. Furnizorul nu răspunde pentru deciziile de proiectare luate de client sau de specialiștii săi, și nici pentru utilizarea livrabilelor în alte scopuri decât cele confirmate.",
-            "Site-ul este oferit „ca atare”; nu garantăm disponibilitatea neîntreruptă a acestuia.",
+            "Site-ul este oferit „ca atare”; nu garantez disponibilitatea neîntreruptă a acestuia.",
           ],
         },
         {

@@ -139,7 +139,7 @@ function ContactPage() {
                   {[
                     "Desenare AutoCAD — planșe, corecturi, desene după schiță",
                     "PDF în DWG — redesenare manuală",
-                    "Externalizare Revit MEP",
+                    "Modelare Revit MEP",
                     "Planșe HVAC, termice, electrice",
                     "Vederi, secțiuni, sheet-uri",
                     "Export RVT / DWG / PDF",
@@ -153,7 +153,7 @@ function ContactPage() {
                   to="/portofoliu"
                   className="tech-label mt-6 inline-block border-b border-graphite-foreground/50 pb-1 transition-colors hover:border-primary hover:text-primary"
                 >
-                  Vezi portofoliul
+                  Vezi exemple
                 </Link>
               </div>
             </div>

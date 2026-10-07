@@ -50,7 +50,7 @@ export function LegalPage({
       <main id="continut">
         <section className="border-b border-border-strong">
           <div className="mx-auto max-w-[1200px] px-5 py-12 md:px-8 md:py-20">
-            <Reveal>
+            <div>
               <nav aria-label="Breadcrumb" className="tech-label text-muted-foreground">
                 <a href={t.home.href} className="hover:text-primary">
                   {t.home.label}
@@ -69,7 +69,7 @@ export function LegalPage({
               <p className="tech-label mt-8 text-muted-foreground">
                 {t.updated}: {updatedAt}
               </p>
-            </Reveal>
+            </div>
           </div>
         </section>
 

@@ -19,7 +19,7 @@ export function renderErrorPage(): string {
   <body>
     <div class="card">
       <h1>Pagina nu a putut fi încărcată</h1>
-      <p>A apărut o problemă din partea noastră. Poți reîncerca sau te poți întoarce la pagina principală.</p>
+      <p>A apărut o problemă din partea mea. Poți reîncerca sau te poți întoarce la pagina principală.</p>
       <div class="actions">
         <button class="primary" onclick="location.reload()">Reîncearcă</button>
         <a class="secondary" href="/">Pagina principală</a>

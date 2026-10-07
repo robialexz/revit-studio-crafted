@@ -5,7 +5,7 @@ import { hreflangLinks } from "@/lib/i18n";
 
 const title = "Politica de confidențialitate — NOD BIM";
 const description =
-  "Politica de confidențialitate NOD BIM: ce date colectăm prin formularul de estimare, scopuri, temeiuri legale, destinatari și drepturile tale GDPR.";
+  "Politica de confidențialitate NOD BIM: ce date colectez prin formularul de estimare, scopuri, temeiuri legale, destinatari și drepturile tale GDPR.";
 const url = canonicalUrl("/politica-de-confidentialitate");
 
 export const Route = createFileRoute("/politica-de-confidentialitate")({

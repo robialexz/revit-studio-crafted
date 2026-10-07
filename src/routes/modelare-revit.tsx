@@ -58,7 +58,7 @@ export const Route = createFileRoute("/modelare-revit")({
         },
         {
           title: "Nivelul de detaliu se stabilește la început",
-          body: "Nivelul de detaliu influențează direct timpul de lucru și costul. Stabilim de la început cât de detaliat trebuie modelul și ce planșe intră în livrare, ca să nu apară surprize pe parcurs.",
+          body: "Nivelul de detaliu influențează direct timpul de lucru și costul. Stabilesc cu tine de la început cât de detaliat trebuie modelul și ce planșe intră în livrare, ca să nu apară surprize pe parcurs.",
         },
       ]}
       images={[

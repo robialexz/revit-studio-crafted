@@ -43,7 +43,7 @@ function CookiesPage() {
         {
           title: "Cookie-uri neesențiale — doar cu consimțământ",
           body: [
-            "Dacă activezi „Accept toate”, putem folosi: cookie-uri de statistică anonimă (Google Analytics 4) pentru a înțelege cum este folosit site-ul și cookie-uri de măsurare a reclamelor (Google Ads) pentru a ști dacă reclamele noastre își ating scopul. Acestea nu sunt activate fără alegerea ta prealabilă.",
+            "Dacă activezi „Accept toate”, pot fi folosite: cookie-uri de statistică anonimă (Google Analytics 4) pentru a înțelege cum este folosit site-ul și cookie-uri de măsurare a reclamelor (Google Ads) pentru a ști dacă reclamele își ating scopul. Acestea nu sunt activate fără alegerea ta prealabilă.",
             "Site-ul implementează Google Consent Mode v2: până când alegi, toate categoriile (analytics, publicitate, personalizare) rămân „denied” — nu se setează cookie-uri de analiză sau publicitate. Alegerea ta este transmisă serviciilor Google și poate fi schimbată oricând.",
           ],
         },

@@ -32,18 +32,18 @@ export function PrivacyContent() {
           ],
         },
         {
-          title: "Ce date colectăm",
+          title: "Ce date colectez",
           body: [
-            "Prin formularul de estimare colectăm doar datele pe care ni le furnizezi voluntar: numele și adresa de email (obligatorii), numărul de telefon / WhatsApp și compania sau biroul (opționale) și informații despre proiect: tipul proiectului, fișierele disponibile, numărul aproximativ de planșe, termenul dorit și descrierea proiectului.",
-            "Colectăm automat, pentru funcționarea tehnică a site-ului: pagina vizitată (page_path), referrer-ul (pagina de proveniență), parametrii UTM (sursa campaniei), precum și date tehnice uzuale necesare securității și funcționării serviciului (adrese IP, anteturi HTTP) — prelucrate de infrastructura de găzduire.",
+            "Prin formularul de estimare colectez doar datele pe care mi le furnizezi voluntar: numele și adresa de email (obligatorii), numărul de telefon / WhatsApp și compania sau biroul (opționale) și informații despre proiect: tipul proiectului, fișierele disponibile, numărul aproximativ de planșe, termenul dorit și descrierea proiectului.",
+            "Colectez automat, pentru funcționarea tehnică a site-ului: pagina vizitată (page_path), referrer-ul (pagina de proveniență), parametrii UTM (sursa campaniei), precum și date tehnice uzuale necesare securității și funcționării serviciului (adrese IP, anteturi HTTP) — prelucrate de infrastructura de găzduire.",
             "Datele marcate ca obligatorii în formular sunt necesare pentru a-ți putea răspunde solicitării. Câmpurile opționale le completezi doar dacă dorești.",
           ],
         },
         {
           title: "Scopuri și temeiuri legale",
           body: [
-            "Prelucrăm datele tale pentru: (1) a răspunde solicitării tale de estimare și a comunica oferta, volumul și termenul lucrării — temei: executarea măsurilor precontractuale la cererea ta (art. 6 alin. (1) lit. b) GDPR); (2) păstrarea evidenței solicitărilor și îmbunătățirea serviciului — temei: interesul legitim (art. 6 alin. (1) lit. f) GDPR); (3) respectarea obligațiilor legale, dacă este cazul (art. 6 alin. (1) lit. c) GDPR).",
-            "Nu folosim datele tale pentru decizii individuale automatizate sau pentru crearea de profiluri.",
+            "Prelucrez datele tale pentru: (1) a răspunde solicitării tale de estimare și a comunica oferta, volumul și termenul lucrării — temei: executarea măsurilor precontractuale la cererea ta (art. 6 alin. (1) lit. b) GDPR); (2) păstrarea evidenței solicitărilor și îmbunătățirea serviciului — temei: interesul legitim (art. 6 alin. (1) lit. f) GDPR); (3) respectarea obligațiilor legale, dacă este cazul (art. 6 alin. (1) lit. c) GDPR).",
+            "Nu folosesc datele tale pentru decizii individuale automatizate sau pentru crearea de profiluri.",
           ],
         },
         {
@@ -51,7 +51,7 @@ export function PrivacyContent() {
           body: [
             "Datele sunt stocate și prelucrate cu ajutorul unor furnizori de infrastructură: Cloudflare (găzduire și securitate), Supabase (baza de date unde se salvează solicitările) și Resend (trimiterea notificării interne de solicitare nouă). Acești furnizori acționează ca împuterniciți (procesatori) și prelucrează datele doar în scopul furnizării serviciilor, în baza unor obligații contractuale de confidențialitate.",
             "Dacă alegi tu să continui conversația pe WhatsApp, datele pe care le transmiți acolo sunt prelucrate conform politicilor WhatsApp / Meta — doar atunci când inițiezi tu această comunicare.",
-            "Nu vindem și nu închiriem datele tale personale către terți.",
+            "Nu vând și nu închiriez datele tale personale către terți.",
           ],
         },
         {
@@ -70,13 +70,13 @@ export function PrivacyContent() {
         {
           title: "Securitate",
           body: [
-            "Folosim măsuri tehnice și organizatorice rezonabile pentru protejarea datelor: transmisie criptată (HTTPS), acces restricționat la baza de date, politici de acces ale infrastructurii de găzduire. Nicio metodă de transmitere sau stocare nu este însă absolut sigură.",
+            "Sunt folosite măsuri tehnice și organizatorice rezonabile pentru protejarea datelor: transmisie criptată (HTTPS), acces restricționat la baza de date, politici de acces ale infrastructurii de găzduire. Nicio metodă de transmitere sau stocare nu este însă absolut sigură.",
           ],
         },
         {
           title: "Drepturile tale",
           body: [
-            "Conform GDPR, ai dreptul de acces, rectificare, ștergere („dreptul de a fi uitat”), restricționare a prelucrării, portabilitate a datelor și dreptul de a te opune prelucrării. Pentru exercitarea lor, scrie-ne folosind datele de contact de mai sus; răspundem fără întârzieri nejustificate, în maximum 30 de zile.",
+            "Conform GDPR, ai dreptul de acces, rectificare, ștergere („dreptul de a fi uitat”), restricționare a prelucrării, portabilitate a datelor și dreptul de a te opune prelucrării. Pentru exercitarea lor, scrie-mi folosind datele de contact de mai sus; răspund fără întârzieri nejustificate, în maximum 30 de zile.",
             "Dacă consideri că prelucrarea încalcă legislația, ai dreptul de a depune o plângere la Autoritatea Națională de Supraveghere a Prelucrării Datelor cu Caracter Personal (ANSPDCP) — www.dataprotection.ro.",
           ],
         },

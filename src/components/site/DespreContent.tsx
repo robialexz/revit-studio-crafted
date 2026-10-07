@@ -25,7 +25,7 @@ export function DespreContent() {
       <main id="continut">
         <section className="border-b border-border-strong">
           <div className="mx-auto max-w-[1200px] px-5 py-14 md:px-8 md:py-20">
-            <Reveal>
+            <div>
               <p className="tech-label text-primary">Despre NOD BIM</p>
               <h1 className="display-xl mt-6 max-w-4xl text-[2.8rem] sm:text-6xl lg:text-7xl">
                 Lucrezi direct cu mine, inginer de instalații
@@ -35,7 +35,7 @@ export function DespreContent() {
                 realizate direct de un inginer de instalații. Nu există intermediari: cine face
                 estimarea este și cine lucrează pe fișierele tale.
               </p>
-            </Reveal>
+            </div>
           </div>
         </section>
 
@@ -102,13 +102,13 @@ export function DespreContent() {
                 </dl>
                 <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2">
                   <Link to="/revit-mep" className="tech-label text-primary hover:underline">
-                    Externalizare Revit MEP
+                    Modelare Revit MEP
                   </Link>
                   <Link to="/autocad-dwg" className="tech-label text-primary hover:underline">
                     Redesenare AutoCAD / DWG
                   </Link>
                   <Link to="/portofoliu" className="tech-label text-primary hover:underline">
-                    Portofoliu
+                    Exemple
                   </Link>
                 </div>
               </div>

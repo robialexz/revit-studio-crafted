@@ -71,7 +71,7 @@ function RevitMepOutsourcing() {
       <main id="continut">
         <section className="border-b border-border-strong">
           <div className="mx-auto grid max-w-[1200px] gap-10 px-5 py-12 md:px-8 md:py-20 lg:grid-cols-12">
-            <Reveal className="lg:col-span-7">
+            <div className="lg:col-span-7">
               <p className="tech-label text-primary">
                 Revit MEP outsourcing · BIM production support
               </p>
@@ -104,9 +104,9 @@ function RevitMepOutsourcing() {
                   </a>
                 )}
               </div>
-            </Reveal>
+            </div>
 
-            <Reveal delay={80} className="lg:col-span-5">
+            <div className="lg:col-span-5">
               <dl className="sheet-frame divide-y divide-border p-6 md:p-8">
                 {facts.map(([k, v]) => (
                   <div key={k} className="grid grid-cols-5 gap-4 py-3 first:pt-0 last:pb-0">
@@ -118,7 +118,7 @@ function RevitMepOutsourcing() {
               <p className="mt-4 text-xs leading-relaxed text-muted-foreground">
                 Reply with scope, timeline and cost within 1–2 working days.
               </p>
-            </Reveal>
+            </div>
           </div>
         </section>
 

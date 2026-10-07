@@ -12,7 +12,7 @@ export type ServiceItem = {
 
 export const services: ServiceItem[] = [
   {
-    title: "Externalizare Revit MEP",
+    title: "Modelare Revit MEP",
     lead: "Modelare BIM și planșe de instalații pe tema biroului tău, livrate RVT / DWG / PDF.",
     items: [
       "modelare instalații",
@@ -185,7 +185,7 @@ export const faq: [string, string][] = [
 
 /** Linkuri interne crawlabile de la blocurile de servicii către paginile dedicate. */
 export const serviceHref: Record<string, ServicePath | undefined> = {
-  "Externalizare Revit MEP": "/revit-mep",
+  "Modelare Revit MEP": "/revit-mep",
   "Instalații HVAC": "/hvac",
   "Instalații termice": "/instalatii-termice",
   "Instalații electrice": "/instalatii-electrice",

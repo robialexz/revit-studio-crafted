@@ -44,7 +44,7 @@ function BlogIndex() {
       <main id="continut">
         <section className="border-b border-border-strong">
           <div className="mx-auto max-w-[1200px] px-5 py-14 md:px-8 md:py-20">
-            <Reveal>
+            <div>
               <p className="tech-label text-primary">Jurnal tehnic · Inginerie aplicată</p>
               <h1 className="display-xl mt-6 max-w-4xl text-[2.8rem] sm:text-6xl lg:text-7xl">
                 Articole cu probe, nu păreri
@@ -54,7 +54,7 @@ function BlogIndex() {
                 costuri descompuse, experimente măsurate, principii de proiectare pe care nu le
                 găsești explicate în română.
               </p>
-            </Reveal>
+            </div>
           </div>
         </section>
 

@@ -134,8 +134,8 @@ function Portofoliu() {
       <main id="continut">
         <section className="border-b border-border-strong">
           <div className="mx-auto max-w-[1200px] px-5 py-14 md:px-8 md:py-20">
-            <Reveal>
-              <p className="tech-label text-primary">Portofoliu · Revit MEP · BIM</p>
+            <div>
+              <p className="tech-label text-primary">Exemple · Revit MEP · BIM</p>
               <h1 className="display-xl mt-6 max-w-4xl text-[2.8rem] sm:text-6xl lg:text-7xl">
                 Exemple de planșe și modele
               </h1>
@@ -143,7 +143,7 @@ function Portofoliu() {
                 Exemple de modelare Revit MEP și documentație pentru instalații HVAC, termice și
                 electrice, plus exemple de corectare și pregătire DWG.
               </p>
-            </Reveal>
+            </div>
           </div>
         </section>
 

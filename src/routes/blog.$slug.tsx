@@ -3,7 +3,6 @@ import { ArrowLeft } from "lucide-react";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { MobileCta } from "@/components/site/MobileCta";
-import { Reveal } from "@/components/site/Reveal";
 import { CtaSection } from "@/components/site/CtaSection";
 import { canonicalUrl } from "@/lib/site-config";
 import { getArticle, type ArticleSection } from "@/lib/blog";
@@ -85,7 +84,7 @@ function ArticlePage() {
       <Header />
       <main id="continut">
         <article className="mx-auto max-w-[760px] px-5 py-12 md:px-8 md:py-16">
-          <Reveal>
+          <div>
             <Link
               to="/blog"
               className="tech-label inline-flex items-center gap-2 text-muted-foreground transition-colors hover:text-primary"
@@ -108,7 +107,7 @@ function ArticlePage() {
                 ))}
               </span>
             </div>
-          </Reveal>
+          </div>
 
           <div className="mt-8 space-y-8">
             {article.sections.map((s, i) => (

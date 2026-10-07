@@ -31,7 +31,7 @@ const shopFaq: [string, string][] = [
   ],
   [
     "Pot comanda un model didactic MEP personalizat?",
-    "Da. Putem porni de la o pompă, vană, ventiloconvector sau distribuitor. Stabilim împreună nivelul de secționare, codurile de culoare, dimensiunea, suportul și termenul înainte de print.",
+    "Da. Pot porni de la o pompă, vană, ventiloconvector sau distribuitor. Stabilesc cu tine nivelul de secționare, codurile de culoare, dimensiunea, suportul și termenul înainte de print.",
   ],
   [
     "Cum se face comanda și livrarea?",
@@ -168,7 +168,7 @@ function Magazin() {
       <main id="continut">
         <section className="border-b border-border-strong">
           <div className="mx-auto max-w-[1200px] px-5 py-12 md:px-8 md:py-20">
-            <Reveal>
+            <div>
               <nav aria-label="Breadcrumb" className="tech-label text-muted-foreground">
                 <Link to="/" className="hover:text-primary">
                   Acasă
@@ -195,8 +195,8 @@ function Magazin() {
                   </p>
                   <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted-foreground">
                     Sunt oferte cu scop clar și livrabile definite — nu un catalog general de
-                    papetărie. Pentru modele didactice MEP, alegem împreună nivelul de detaliu și
-                    forma finală.
+                    papetărie. Pentru modele didactice MEP, aleg împreună cu tine nivelul de detaliu
+                    și forma finală.
                   </p>
                 </div>
               </div>
@@ -223,7 +223,7 @@ function Magazin() {
                   </a>
                 ))}
               </div>
-            </Reveal>
+            </div>
           </div>
         </section>
 
@@ -253,9 +253,9 @@ function Magazin() {
               <div className="mt-8 max-w-2xl">
                 <h2 className="text-4xl md:text-5xl">Când ai nevoie de o mână în plus</h2>
                 <p className="mt-4 text-sm leading-relaxed text-muted-foreground md:text-base">
-                  Pentru lucrări care nu încap într-un pachet standard, stabilim scopul, termenul și
-                  livrabilele înainte de începere. Astfel magazinul poate fi primul pas către o
-                  colaborare de externalizare Revit MEP.
+                  Pentru lucrări care nu încap într-un pachet standard, stabilesc cu tine scopul,
+                  termenul și livrabilele înainte de începere. Astfel magazinul poate fi primul pas
+                  către o colaborare de externalizare Revit MEP.
                 </p>
               </div>
             </Reveal>
@@ -293,7 +293,7 @@ function Magazin() {
               [
                 "03",
                 "Primești livrabilele",
-                "Confirmăm prețul și termenul înainte de plată; livrarea se face digital sau prin curier.",
+                "Confirm prețul și termenul înainte de plată; livrarea se face digital sau prin curier.",
               ],
             ].map(([index, title, text]) => (
               <div key={index} className="bg-sheet p-6 md:p-8">

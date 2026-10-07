@@ -35,7 +35,7 @@ export type ServicePath =
 const serviceLinks: { to: ServicePath; label: string; blurb: string }[] = [
   {
     to: "/revit-mep",
-    label: "Externalizare Revit MEP pentru birouri",
+    label: "Modelare Revit MEP pentru birouri de proiectare",
     blurb: "Model și planșe HVAC, termice și electrice pe tema biroului tău.",
   },
   {

@@ -42,7 +42,7 @@ function About() {
       <main id="continut">
         <section className="border-b border-border-strong">
           <div className="mx-auto max-w-[1200px] px-5 py-14 md:px-8 md:py-20">
-            <Reveal>
+            <div>
               <p className="tech-label text-primary">About NOD BIM</p>
               <h1 className="display-xl mt-6 max-w-4xl text-[2.6rem] sm:text-6xl lg:text-7xl">
                 {h1}
@@ -52,7 +52,7 @@ function About() {
                 installations engineer. The person who prepares your estimate is the person who
                 works on your files.
               </p>
-            </Reveal>
+            </div>
           </div>
         </section>
 
