@@ -6,7 +6,7 @@ import projSheet from "@/assets/proj-sheet.webp";
 
 const title = "Planșe instalații termice în Revit și AutoCAD · NOD BIM";
 const description =
-  "Desenez planșe de instalații termice în Revit și AutoCAD, pe proiectul tău: trasee, radiatoare, centrală, pardoseală. Ofertă în 1–2 zile lucrătoare.";
+  "Desenez planșe de instalații termice în Revit și AutoCAD, pe proiectul tău: trasee, radiatoare, centrală. Ofertă de regulă în 1–2 zile lucrătoare.";
 const url = canonicalUrl("/instalatii-termice");
 
 export const Route = createFileRoute("/instalatii-termice")({
@@ -20,10 +20,7 @@ export const Route = createFileRoute("/instalatii-termice")({
       { property: "og:locale", content: "ro_RO" },
       { property: "og:url", content: url },
     ],
-    links: [
-      { rel: "canonical", href: url },
-      { rel: "preload", as: "image", href: projTermice },
-    ],
+    links: [{ rel: "canonical", href: url }],
   }),
   component: () => (
     <ServicePage

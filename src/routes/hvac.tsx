@@ -6,7 +6,7 @@ import projSectiune from "@/assets/proj-sectiune.webp";
 
 const title = "Planșe HVAC în Revit: ventilare și climatizare · NOD BIM";
 const description =
-  "Modelez în Revit și desenez planșe HVAC pentru birouri de proiectare: tubulaturi, echipamente, grile, secțiuni și scheme. Ofertă în 1–2 zile lucrătoare.";
+  "Planșe HVAC modelate în Revit pentru birouri de proiectare: tubulaturi, echipamente, grile, secțiuni. Ofertă de regulă în 1–2 zile lucrătoare.";
 const url = canonicalUrl("/hvac");
 
 export const Route = createFileRoute("/hvac")({
@@ -20,10 +20,7 @@ export const Route = createFileRoute("/hvac")({
       { property: "og:locale", content: "ro_RO" },
       { property: "og:url", content: url },
     ],
-    links: [
-      { rel: "canonical", href: url },
-      { rel: "preload", as: "image", href: projHvac },
-    ],
+    links: [{ rel: "canonical", href: url }],
   }),
   component: () => (
     <ServicePage

@@ -19,7 +19,7 @@ import {
 
 const title = "Contact și ofertă · NOD BIM";
 const description =
-  "Trimite proiectul prin formular, WhatsApp sau email: estimare cu scop, termen și cost pentru Revit MEP sau AutoCAD, de regulă în 1–2 zile lucrătoare.";
+  "Sună, scrie pe WhatsApp sau trimite formularul: desenare AutoCAD, PDF în DWG și planșe de instalații. Răspuns de regulă în 1–2 zile lucrătoare.";
 const url = canonicalUrl("/contact");
 
 export const Route = createFileRoute("/contact")({
@@ -51,7 +51,7 @@ function ContactPage() {
       <main id="continut">
         <section className="border-b border-border-strong">
           <div className="mx-auto max-w-[1200px] px-5 py-12 md:px-8 md:py-20">
-            <Reveal>
+            <div>
               <nav aria-label="Breadcrumb" className="tech-label text-muted-foreground">
                 <Link to="/" className="hover:text-primary">
                   Acasă
@@ -63,16 +63,16 @@ function ContactPage() {
                 Contact și ofertă
               </h1>
               <p className="mt-7 max-w-2xl text-base leading-relaxed text-foreground/80 md:text-lg">
-                Trimite tema, planurile existente și cerințele proiectului. Primești scopul
-                lucrării, termenul și costul înainte de începere. Lucrez în română sau engleză, iar
-                la cerere semnez un NDA înainte de a primi fișierele.
+                Trimite PDF-ul, scanarea sau DWG-ul existent, tema și cerințele proiectului.
+                Primești scopul lucrării, termenul și costul înainte de începere. Lucrez în română
+                sau engleză, iar la cerere semnez un NDA înainte de a primi fișierele.
               </p>
-            </Reveal>
+            </div>
           </div>
         </section>
 
         <section className="mx-auto max-w-[1200px] px-5 pt-14 md:px-8 md:pt-20">
-          <Reveal className="grid gap-6 lg:grid-cols-12">
+          <div className="grid gap-6 lg:grid-cols-12">
             <div className="sheet-frame p-6 md:p-8 lg:col-span-7">
               <p className="tech-label text-muted-foreground">Canale de contact</p>
               <ul className="mt-6 space-y-4 text-sm md:text-base">
@@ -101,7 +101,7 @@ function ContactPage() {
                     <span className="tech-label w-28 shrink-0 text-muted-foreground">Email</span>
                     <a
                       href={`mailto:${site.email}`}
-                      onClick={() => trackConversion("email_click")}
+                      onClick={() => trackConversion("email_click", { source: "contact" })}
                       className="hover:text-primary"
                     >
                       {site.email}
@@ -120,6 +120,7 @@ function ContactPage() {
                   href={waHref}
                   target="_blank"
                   rel="noreferrer noopener"
+                  onClick={() => trackConversion("whatsapp_click", { source: "contact" })}
                   className="tech-label mt-8 inline-block border border-foreground px-6 py-4 transition-colors hover:bg-foreground hover:text-background"
                 >
                   Scrie pe WhatsApp
@@ -136,11 +137,12 @@ function ContactPage() {
                 <p className="tech-label text-accent">Servicii</p>
                 <ul className="mt-5 space-y-2 text-sm text-graphite-foreground/85">
                   {[
+                    "Desenare AutoCAD — planșe, corecturi, desene după schiță",
+                    "PDF în DWG — redesenare manuală",
                     "Externalizare Revit MEP",
                     "Planșe HVAC, termice, electrice",
                     "Vederi, secțiuni, sheet-uri",
                     "Export RVT / DWG / PDF",
-                    "AutoCAD — redesenare și conversie PDF în DWG",
                   ].map((item) => (
                     <li key={item} className="border-b border-graphite-foreground/15 pb-2">
                       {item}
@@ -155,7 +157,7 @@ function ContactPage() {
                 </Link>
               </div>
             </div>
-          </Reveal>
+          </div>
         </section>
         <section id="estimare" className="mx-auto max-w-[1200px] px-5 py-14 md:px-8 md:py-20">
           <Reveal className="max-w-3xl">

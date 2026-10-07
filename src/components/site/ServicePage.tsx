@@ -60,8 +60,8 @@ const serviceLinks: { to: ServicePath; label: string; blurb: string }[] = [
   },
   {
     to: "/autocad-dwg",
-    label: "AutoCAD — redesenare și conversie PDF în DWG",
-    blurb: "Curățare DWG, layere, layout, conversii, pregătire print.",
+    label: "Desenare AutoCAD — planșe, corecturi, desene după schiță",
+    blurb: "Curățare DWG, layere, layout, corecturi, pregătire print.",
   },
   {
     to: "/pdf-in-dwg",
@@ -74,7 +74,7 @@ const serviceLinks: { to: ServicePath; label: string; blurb: string }[] = [
 const workingTerms: [string, string][] = [
   [
     "Ce trimiți",
-    "Planurile de arhitectură (DWG sau PDF), tema sau schițele tehnice, disciplina și termenul dorit. Modelul RVT, dacă există.",
+    "PDF-ul, scanarea sau DWG-ul existent, ce trebuie desenat sau corectat și termenul dorit. Pentru instalații: planurile de arhitectură și tema.",
   ],
   [
     "Răspuns și ofertă",
@@ -204,30 +204,32 @@ export function ServicePage({
                 ))}
               </ul>
             )}
-            <div className="mt-7 flex flex-wrap gap-3">
-              <PhoneLink source={label} className="btn btn-primary">
-                {`Sună: ${phoneDisplay}`}
-              </PhoneLink>
-              {hasWhatsapp && (
-                <a
-                  href={waHref}
-                  target="_blank"
-                  rel="noreferrer noopener"
-                  onClick={() => {
-                    trackConversion("whatsapp_click", { source: label });
-                  }}
-                  className="btn"
-                >
-                  Scrie pe WhatsApp
-                </a>
-              )}
-            </div>
+            {(phoneHref || hasWhatsapp) && (
+              <div className="mt-7 flex flex-wrap gap-3">
+                <PhoneLink source={label} className="btn btn-primary">
+                  {`Sună: ${phoneDisplay}`}
+                </PhoneLink>
+                {hasWhatsapp && (
+                  <a
+                    href={waHref}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    onClick={() => {
+                      trackConversion("whatsapp_click", { source: label });
+                    }}
+                    className="btn"
+                  >
+                    Scrie pe WhatsApp
+                  </a>
+                )}
+              </div>
+            )}
             <p className="mt-4 text-sm">
               <a
                 href="#estimare"
                 className="inline-flex min-h-11 items-center font-medium underline decoration-border-strong underline-offset-4 transition-colors hover:text-primary hover:decoration-primary"
               >
-                sau trimite detaliile în formular
+                {phoneHref || hasWhatsapp ? "sau trimite" : "Trimite"} detaliile în formular
               </a>
             </p>
             {lead && (
@@ -285,7 +287,7 @@ export function ServicePage({
 
             <Reveal delay={80} className="lg:col-span-5">
               <div className="grid gap-4">
-                {images.map((img, index) => (
+                {images.map((img) => (
                   <figure key={img.src + img.caption} className="sheet-frame p-2 md:p-3">
                     <div className="flex items-center justify-between border-b border-border px-2 pb-2">
                       <span className="tech-label text-muted-foreground">{img.caption}</span>
@@ -294,21 +296,21 @@ export function ServicePage({
                     <img
                       src={img.src}
                       alt={img.alt}
-                      // Prima imagine (de regulă LCP) se încarcă imediat,
-                      // restul doar la scroll.
-                      loading={index === 0 ? "eager" : "lazy"}
-                      fetchPriority={index === 0 ? "high" : undefined}
+                      loading="lazy"
                       width={1200}
                       height={860}
                       className="mt-2 w-full object-cover"
                     />
+                    <figcaption className="tech-label px-2 pt-2 text-muted-foreground">
+                      Ilustrație de prezentare
+                    </figcaption>
                   </figure>
                 ))}
                 <Link
                   to="/portofoliu"
                   className="tech-label inline-flex items-center gap-2 border-b border-foreground pb-1 transition-colors hover:border-primary hover:text-primary"
                 >
-                  Vezi portofoliul de modelare și planșe <ArrowUpRight size={14} />
+                  Vezi exemple de planșe și modele <ArrowUpRight size={14} />
                 </Link>
               </div>
 
@@ -410,7 +412,20 @@ export function ServicePage({
                         />
                       </p>
                     )}
-                    {hasEmail && <p className="text-sm">Email: {site.email}</p>}
+                    {hasEmail && (
+                      <p className="text-sm">
+                        Email:{" "}
+                        <a
+                          href={`mailto:${site.email}`}
+                          onClick={() => {
+                            trackConversion("email_click", { source: label });
+                          }}
+                          className="inline-flex min-h-11 items-center font-medium underline underline-offset-4"
+                        >
+                          {site.email}
+                        </a>
+                      </p>
+                    )}
                   </div>
                 )}
                 <p className="mt-8 max-w-md text-xs leading-relaxed text-muted-foreground">

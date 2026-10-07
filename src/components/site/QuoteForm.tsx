@@ -299,12 +299,9 @@ export function QuoteForm() {
               className="check-mark text-primary"
             />
           </svg>
-          <p className="tech-label text-mep">{t.okLabel}</p>
+          <p className="tech-label text-muted-foreground">{t.okLabel}</p>
         </div>
-        <h3
-          className="reveal mt-5 text-3xl uppercase md:text-4xl"
-          style={{ animationDelay: "120ms" }}
-        >
+        <h3 className="reveal mt-5 text-3xl md:text-4xl" style={{ animationDelay: "120ms" }}>
           {t.okTitle}
         </h3>
         <div className="reveal" style={{ animationDelay: "220ms" }}>

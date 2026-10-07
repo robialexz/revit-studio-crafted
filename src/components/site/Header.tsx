@@ -28,7 +28,7 @@ const copy = {
       },
     ],
     links: [
-      { label: "Lucrări", href: "/portofoliu" },
+      { label: "Exemple", href: "/portofoliu" },
       { label: "Prețuri", href: "/#preturi" },
       { label: "Despre", href: "/despre" },
     ],

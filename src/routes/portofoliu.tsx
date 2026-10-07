@@ -17,7 +17,7 @@ import portfolioThermal from "@/assets/portfolio-thermal-plan.webp";
 
 const title = "Exemple de planșe și modele Revit MEP · NOD BIM";
 const description =
-  "Exemple de modelare Revit MEP și documentație tehnică: modele 3D, planuri HVAC, termice și electrice, secțiuni, sheet-uri și lucrări AutoCAD / DWG.";
+  "Exemple de modelare Revit MEP și documentație tehnică: modele 3D, planuri HVAC, termice și electrice, secțiuni și planșe. Ilustrații de prezentare.";
 const url = canonicalUrl("/portofoliu");
 
 export const Route = createFileRoute("/portofoliu")({
@@ -141,7 +141,7 @@ function Portofoliu() {
               </h1>
               <p className="mt-6 max-w-xl text-base leading-relaxed text-foreground/80">
                 Exemple de modelare Revit MEP și documentație pentru instalații HVAC, termice și
-                electrice, plus lucrări de corectare și pregătire DWG.
+                electrice, plus exemple de corectare și pregătire DWG.
               </p>
             </Reveal>
           </div>
@@ -158,7 +158,7 @@ function Portofoliu() {
                 className="w-full object-cover"
               />
               <figcaption className="flex flex-wrap items-center justify-between gap-3 border-t border-graphite-foreground/15 px-5 py-4 text-graphite-foreground">
-                <span className="font-display text-2xl uppercase">Model 3D Revit MEP</span>
+                <span className="font-display text-2xl">Model 3D Revit MEP</span>
                 <span className="tech-label text-graphite-foreground/55">
                   HVAC · Termice · Electrice · Model BIM
                 </span>

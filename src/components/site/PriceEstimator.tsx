@@ -114,7 +114,7 @@ export function PriceEstimator({ defaultType = "redesenare" }: { defaultType?: J
           )}
           {phoneHref && (
             <p className="text-sm text-graphite-foreground/70">
-              sau sună la{" "}
+              {hasWhatsapp ? "sau sună la" : "Sună la"}{" "}
               <PhoneLink
                 source="estimator"
                 className="inline-flex min-h-11 items-center font-medium text-graphite-foreground underline underline-offset-4"

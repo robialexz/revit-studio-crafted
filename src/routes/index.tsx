@@ -187,27 +187,29 @@ function Home() {
                 scris înainte să încep.
               </p>
 
-              <div className="mt-8 flex flex-wrap gap-3">
-                <PhoneLink source="hero" className="btn btn-primary">
-                  {`Sună: ${phoneDisplay}`}
-                </PhoneLink>
-                {hasWhatsapp && (
-                  <a
-                    href={waHref}
-                    target="_blank"
-                    rel="noreferrer noopener"
-                    onClick={() => {
-                      trackConversion("whatsapp_click", { source: "hero" });
-                    }}
-                    className="btn"
-                  >
-                    Scrie pe WhatsApp
-                  </a>
-                )}
-              </div>
+              {(phoneHref || hasWhatsapp) && (
+                <div className="mt-8 flex flex-wrap gap-3">
+                  <PhoneLink source="hero" className="btn btn-primary">
+                    {`Sună: ${phoneDisplay}`}
+                  </PhoneLink>
+                  {hasWhatsapp && (
+                    <a
+                      href={waHref}
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      onClick={() => {
+                        trackConversion("whatsapp_click", { source: "hero" });
+                      }}
+                      className="btn"
+                    >
+                      Scrie pe WhatsApp
+                    </a>
+                  )}
+                </div>
+              )}
               <p className="mt-4 text-sm">
                 <a href="#preturi" className={`inline-flex min-h-11 items-center ${textLink}`}>
-                  sau calculează un preț orientativ
+                  {phoneHref || hasWhatsapp ? "sau calculează" : "Calculează"} un preț orientativ
                 </a>
               </p>
 
@@ -448,27 +450,29 @@ function Home() {
                 Trimite-l acum și primești oferta de regulă în 1–2 zile lucrătoare. Fișierele rămân
                 confidențiale.
               </p>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <PhoneLink source="final_cta" className={`btn btn-primary ${onGraphiteHover}`}>
-                  {`Sună: ${phoneDisplay}`}
-                </PhoneLink>
-                {hasWhatsapp && (
-                  <a
-                    href={waHref}
-                    target="_blank"
-                    rel="noreferrer noopener"
-                    onClick={() => {
-                      trackConversion("whatsapp_click", { source: "final_cta" });
-                    }}
-                    className={`btn border-graphite-foreground/50 text-graphite-foreground ${onGraphiteHover}`}
-                  >
-                    Scrie pe WhatsApp
-                  </a>
-                )}
-              </div>
+              {(phoneHref || hasWhatsapp) && (
+                <div className="mt-8 flex flex-wrap gap-3">
+                  <PhoneLink source="final_cta" className={`btn btn-primary ${onGraphiteHover}`}>
+                    {`Sună: ${phoneDisplay}`}
+                  </PhoneLink>
+                  {hasWhatsapp && (
+                    <a
+                      href={waHref}
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      onClick={() => {
+                        trackConversion("whatsapp_click", { source: "final_cta" });
+                      }}
+                      className={`btn border-graphite-foreground/50 text-graphite-foreground ${onGraphiteHover}`}
+                    >
+                      Scrie pe WhatsApp
+                    </a>
+                  )}
+                </div>
+              )}
               {hasEmail && (
                 <p className="mt-5 text-sm text-graphite-foreground/75">
-                  sau scrie la{" "}
+                  {phoneHref || hasWhatsapp ? "sau scrie" : "Scrie"} la{" "}
                   <a
                     href={`mailto:${site.email}`}
                     onClick={() => {

@@ -13,6 +13,7 @@ import {
 } from "@/lib/site-config";
 import { alternatePath, enHomePath, useLocale } from "@/lib/i18n";
 import { PhoneLink } from "@/components/site/PhoneLink";
+import { trackConversion } from "@/lib/analytics";
 
 /** Iconița oficială WhatsApp (SVG inline, fără dependențe externe). */
 function WhatsAppIcon({ size = 16 }: { size?: number }) {
@@ -41,7 +42,7 @@ const copy = {
     ],
     siteTitle: "Site",
     site: [
-      { label: "Lucrări", href: "/portofoliu" },
+      { label: "Exemple", href: "/portofoliu" },
       { label: "Jurnal tehnic", href: "/blog" },
       { label: "Magazin", href: "/magazin" },
       { label: "Despre", href: "/despre" },
@@ -183,6 +184,7 @@ export function Footer() {
                       href={whatsappLink(message)}
                       target="_blank"
                       rel="noreferrer noopener"
+                      onClick={() => trackConversion("whatsapp_click", { source: "footer" })}
                       className="group flex items-center gap-3"
                     >
                       <span className="flex h-8 w-8 shrink-0 items-center justify-center border border-graphite-foreground/25">
@@ -194,7 +196,11 @@ export function Footer() {
                 )}
                 {hasEmail && (
                   <li>
-                    <a href={`mailto:${site.email}`} className="group flex items-center gap-3">
+                    <a
+                      href={`mailto:${site.email}`}
+                      onClick={() => trackConversion("email_click", { source: "footer" })}
+                      className="group flex items-center gap-3"
+                    >
                       <span className="flex h-8 w-8 shrink-0 items-center justify-center border border-graphite-foreground/25">
                         <Mail size={16} />
                       </span>

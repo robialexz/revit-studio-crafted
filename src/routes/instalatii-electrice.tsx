@@ -6,7 +6,7 @@ import hero2d from "@/assets/hero-2d.webp";
 
 const title = "Planșe instalații electrice în AutoCAD și Revit · NOD BIM";
 const description =
-  "Desenez planșe de instalații electrice în AutoCAD și Revit, pe proiectul tău: iluminat, prize, circuite, tablouri, legende. Ofertă în 1–2 zile lucrătoare.";
+  "Desenez planșe de instalații electrice în AutoCAD și Revit, pe proiectul tău: iluminat, prize, circuite. Ofertă de regulă în 1–2 zile lucrătoare.";
 const url = canonicalUrl("/instalatii-electrice");
 
 export const Route = createFileRoute("/instalatii-electrice")({
@@ -20,10 +20,7 @@ export const Route = createFileRoute("/instalatii-electrice")({
       { property: "og:locale", content: "ro_RO" },
       { property: "og:url", content: url },
     ],
-    links: [
-      { rel: "canonical", href: url },
-      { rel: "preload", as: "image", href: projElectrice },
-    ],
+    links: [{ rel: "canonical", href: url }],
   }),
   component: () => (
     <ServicePage

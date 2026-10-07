@@ -25,13 +25,18 @@ describe("site-config", () => {
       expect(context?.whatsappMessage).toContain(subject);
       expect(quoteContextForPath(`${path}/`)).toEqual(context);
     }
-    for (const path of [
-      "/modelare-revit",
-      "/hvac",
-      "/instalatii-termice",
-      "/instalatii-electrice",
-    ]) {
-      expect(quoteContextForPath(path)?.projectType).toBe("Modelare Revit MEP");
+    expect(quoteContextForPath("/revit-mep")?.whatsappMessage).toBe(
+      "Salut! Am găsit NOD BIM pe site și am nevoie de planșe de instalații sau modelare Revit MEP. Pot să îți trimit fișierele pentru o ofertă?",
+    );
+    expect(quoteContextForPath("/en/autocad-drafting")?.whatsappMessage).toStartWith(
+      "Hello, I found NOD BIM online and need ",
+    );
+    expect(quoteContextForPath("/en/revit-mep-outsourcing")?.whatsappMessage).toStartWith(
+      "Hello, I found NOD BIM online and need ",
+    );
+    expect(quoteContextForPath("/modelare-revit")?.projectType).toBe("Modelare Revit MEP");
+    for (const path of ["/hvac", "/instalatii-termice", "/instalatii-electrice"]) {
+      expect(quoteContextForPath(path)?.projectType).toBe("Planșe de instalații");
     }
     expect(quoteContextForPath("/")).toBeUndefined();
     expect(quoteContextForPath("/contact")).toBeUndefined();

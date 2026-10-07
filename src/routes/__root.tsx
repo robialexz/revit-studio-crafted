@@ -64,7 +64,7 @@ function NotFoundComponent() {
           </li>
           <li>
             <Link to="/portofoliu" className="underline underline-offset-4 hover:text-primary">
-              Lucrări
+              Exemple
             </Link>
           </li>
           <li>

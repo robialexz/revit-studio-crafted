@@ -39,7 +39,7 @@ export const Route = createFileRoute("/pdf-in-dwg")({
         },
         {
           title: "Cum verific scara",
-          body: "Aduc desenul la scară după o cotă cunoscută din original, apoi verific și alte cote, pe ambele direcții. Dacă scanarea este deformată și cotele nu se potrivesc între ele, îți semnalez diferențele înainte de predare.",
+          body: "Aduc desenul la scară după o cotă cunoscută din original și o verific pe alte cote din plan. Dacă cotele nu se potrivesc între ele, îți spun înainte de predare.",
         },
       ]}
       images={[]}
@@ -51,7 +51,7 @@ export const Route = createFileRoute("/pdf-in-dwg")({
       faq={[
         [
           "Cu ce diferă de un convertor gratuit?",
-          "Un convertor automat transformă doar ce găsește în PDF: dintr-o scanare scoate o imagine sau linii fragmentate, fără layere și fără scară verificată. Eu redesenez planul manual, element cu element, pe layere denumite, și verific scara după cote.",
+          "Un convertor automat transformă doar ce găsește în PDF: dintr-o scanare scoate de regulă o imagine sau linii fragmentate, fără layere ordonate și fără scară verificată. Eu redesenez planul manual, element cu element, pe layere denumite, și verific scara după cote.",
         ],
         [
           "Ce se întâmplă când lipsesc cote?",
