@@ -15,7 +15,7 @@ import portfolioSection from "@/assets/portfolio-section.webp";
 import portfolioSheet from "@/assets/portfolio-sheet.webp";
 import portfolioThermal from "@/assets/portfolio-thermal-plan.webp";
 
-const title = "Portofoliu Revit MEP: modele BIM și planșe tehnice · NOD BIM";
+const title = "Exemple de planșe și modele Revit MEP · NOD BIM";
 const description =
   "Exemple de modelare Revit MEP și documentație tehnică: modele 3D, planuri HVAC, termice și electrice, secțiuni, sheet-uri și lucrări AutoCAD / DWG.";
 const url = canonicalUrl("/portofoliu");
@@ -132,13 +132,12 @@ function Portofoliu() {
     <div className="min-h-screen bg-background">
       <Header />
       <main id="continut">
-        <section className="relative overflow-hidden border-b border-border-strong">
-          <div className="cad-grid-lg pointer-events-none absolute inset-0" aria-hidden="true" />
-          <div className="relative mx-auto max-w-[1400px] px-5 py-14 md:px-8 md:py-20">
+        <section className="border-b border-border-strong">
+          <div className="mx-auto max-w-[1200px] px-5 py-14 md:px-8 md:py-20">
             <Reveal>
               <p className="tech-label text-primary">Portofoliu · Revit MEP · BIM</p>
               <h1 className="display-xl mt-6 max-w-4xl text-[2.8rem] sm:text-6xl lg:text-7xl">
-                Modele BIM și planșe tehnice
+                Exemple de planșe și modele
               </h1>
               <p className="mt-6 max-w-xl text-base leading-relaxed text-foreground/80">
                 Exemple de modelare Revit MEP și documentație pentru instalații HVAC, termice și
@@ -148,7 +147,7 @@ function Portofoliu() {
           </div>
         </section>
 
-        <section className="mx-auto max-w-[1400px] px-5 py-12 md:px-8 md:py-16">
+        <section className="mx-auto max-w-[1200px] px-5 py-12 md:px-8 md:py-16">
           <Reveal>
             <figure className="border border-border-strong bg-graphite">
               <img
@@ -162,6 +161,9 @@ function Portofoliu() {
                 <span className="font-display text-2xl uppercase">Model 3D Revit MEP</span>
                 <span className="tech-label text-graphite-foreground/55">
                   HVAC · Termice · Electrice · Model BIM
+                </span>
+                <span className="tech-label basis-full text-graphite-foreground/55">
+                  Ilustrație de prezentare
                 </span>
               </figcaption>
             </figure>
@@ -204,6 +206,13 @@ function Portofoliu() {
                       }`}
                     >
                       {it.meta}
+                    </span>
+                    <span
+                      className={`tech-label basis-full ${
+                        it.dark ? "text-graphite-foreground/50" : "text-muted-foreground"
+                      }`}
+                    >
+                      Ilustrație de prezentare
                     </span>
                   </figcaption>
                 </figure>
@@ -268,6 +277,9 @@ function Portofoliu() {
               </span>
               <span className="text-graphite-foreground/50">
                 {openIndex + 1} / {items.length}
+              </span>
+              <span className="basis-full text-graphite-foreground/50">
+                Ilustrație de prezentare
               </span>
             </figcaption>
           </figure>

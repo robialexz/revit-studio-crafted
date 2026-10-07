@@ -5,16 +5,16 @@ import { trackConversion } from "@/lib/analytics";
 
 export function EnFaq({ faq, title }: { faq: [string, string][]; title: string }) {
   return (
-    <section id="faq" className="mx-auto max-w-[1400px] px-5 py-16 md:px-8 md:py-20">
+    <section id="faq" className="mx-auto max-w-[1200px] px-5 py-16 md:px-8 md:py-20">
       <Reveal>
-        <h2 className="text-3xl uppercase md:text-4xl">{title}</h2>
+        <h2 className="text-3xl md:text-4xl">{title}</h2>
         <div className="mt-8 max-w-3xl">
           {faq.map(([q, a]) => (
             <details key={q} className="group border-b border-border-strong first:border-t">
-              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-5 font-display text-lg font-semibold uppercase tracking-tight">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-5 font-display text-lg font-semibold tracking-tight">
                 {q}
                 <span
-                  className="tech-label text-mep transition-transform group-open:rotate-45"
+                  className="tech-label text-muted-foreground transition-transform group-open:rotate-45"
                   aria-hidden="true"
                 >
                   +
@@ -32,10 +32,10 @@ export function EnFaq({ faq, title }: { faq: [string, string][]; title: string }
 export function EnEstimate({ mailHref, source }: { mailHref: string; source: string }) {
   return (
     <section id="estimate" className="border-t border-border-strong bg-sheet">
-      <div className="mx-auto max-w-[1400px] px-5 py-16 md:px-8 md:py-24">
+      <div className="mx-auto max-w-[1200px] px-5 py-16 md:px-8 md:py-24">
         <Reveal className="grid gap-10 lg:grid-cols-12">
           <div className="lg:col-span-5">
-            <h2 className="text-4xl uppercase md:text-5xl">Request a project estimate</h2>
+            <h2 className="text-4xl md:text-5xl">Request a project estimate</h2>
             <p className="mt-5 max-w-md text-sm leading-relaxed text-muted-foreground">
               A short brief is enough to start: disciplines, file formats, approximate number of
               drawings and target date. You receive scope, timeline and cost within 1–2 working

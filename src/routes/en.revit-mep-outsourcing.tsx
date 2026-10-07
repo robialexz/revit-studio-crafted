@@ -69,9 +69,8 @@ function RevitMepOutsourcing() {
     <div className="min-h-screen bg-background">
       <Header />
       <main id="continut">
-        <section className="relative overflow-hidden border-b border-border-strong">
-          <div className="cad-grid-lg pointer-events-none absolute inset-0" aria-hidden="true" />
-          <div className="relative mx-auto grid max-w-[1400px] gap-10 px-5 py-12 md:px-8 md:py-20 lg:grid-cols-12">
+        <section className="border-b border-border-strong">
+          <div className="mx-auto grid max-w-[1200px] gap-10 px-5 py-12 md:px-8 md:py-20 lg:grid-cols-12">
             <Reveal className="lg:col-span-7">
               <p className="tech-label text-primary">
                 Revit MEP outsourcing · BIM production support
@@ -123,9 +122,9 @@ function RevitMepOutsourcing() {
           </div>
         </section>
 
-        <section className="mx-auto max-w-[1400px] px-5 py-16 md:px-8 md:py-24">
+        <section className="mx-auto max-w-[1200px] px-5 py-16 md:px-8 md:py-24">
           <Reveal>
-            <h2 className="max-w-3xl text-3xl uppercase md:text-5xl">
+            <h2 className="max-w-3xl text-3xl md:text-5xl">
               When teams bring in external Revit MEP capacity
             </h2>
           </Reveal>
@@ -135,7 +134,7 @@ function RevitMepOutsourcing() {
           >
             {useCases.map(([t, d]) => (
               <div key={t} className="bg-background p-6 md:p-8">
-                <h3 className="text-xl uppercase">{t}</h3>
+                <h3 className="text-xl">{t}</h3>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{d}</p>
               </div>
             ))}
@@ -143,15 +142,15 @@ function RevitMepOutsourcing() {
         </section>
 
         <section id="process" className="border-y border-border-strong bg-sheet">
-          <div className="mx-auto max-w-[1400px] px-5 py-16 md:px-8 md:py-24">
+          <div className="mx-auto max-w-[1200px] px-5 py-16 md:px-8 md:py-24">
             <Reveal>
-              <h2 className="text-3xl uppercase md:text-5xl">How it works</h2>
+              <h2 className="text-3xl md:text-5xl">How it works</h2>
             </Reveal>
             <Reveal delay={80} className="mt-10 grid gap-px bg-border-strong md:grid-cols-2">
               {process.map((step) => (
                 <article key={step.n} className="bg-background p-6 md:p-8">
-                  <p className="tech-label text-mep">{step.n}</p>
-                  <h3 className="mt-3 text-2xl uppercase">{step.title}</h3>
+                  <p className="tech-label text-muted-foreground">{step.n}</p>
+                  <h3 className="mt-3 text-2xl">{step.title}</h3>
                   <p className="mt-3 text-sm leading-relaxed text-foreground/80">{step.body}</p>
                   <ul className="mt-5 space-y-2 text-sm leading-relaxed text-muted-foreground">
                     {step.items.map((it) => (
@@ -166,10 +165,10 @@ function RevitMepOutsourcing() {
           </div>
         </section>
 
-        <section className="mx-auto max-w-[1400px] px-5 py-16 md:px-8 md:py-24">
+        <section className="mx-auto max-w-[1200px] px-5 py-16 md:px-8 md:py-24">
           <div className="grid gap-12 lg:grid-cols-12">
             <Reveal className="lg:col-span-6">
-              <h2 className="text-3xl uppercase md:text-4xl">Working inside your standards</h2>
+              <h2 className="text-3xl md:text-4xl">Working inside your standards</h2>
               <p className="mt-5 max-w-xl text-sm leading-relaxed text-foreground/80 md:text-base">
                 The output should look like your team produced it. Send your standards at the start
                 and the model and sheets follow them:
@@ -182,13 +181,11 @@ function RevitMepOutsourcing() {
                 ))}
               </ul>
 
-              <h2 className="mt-14 text-3xl uppercase md:text-4xl">
-                Scope, revisions, responsibility
-              </h2>
+              <h2 className="mt-14 text-3xl md:text-4xl">Scope, revisions, responsibility</h2>
               <ul className="mt-5 space-y-3 text-sm leading-relaxed text-foreground/80 md:text-base">
                 {responsibility.map((item, i) => (
                   <li key={item}>
-                    <span className="tech-label text-mep">0{i + 1} · </span>
+                    <span className="tech-label text-muted-foreground">0{i + 1} · </span>
                     {item}
                   </li>
                 ))}
@@ -212,7 +209,9 @@ function RevitMepOutsourcing() {
                   <figure key={img.caption} className="sheet-frame p-2 md:p-3">
                     <div className="flex items-center justify-between border-b border-border px-2 pb-2">
                       <span className="tech-label text-muted-foreground">{img.caption}</span>
-                      <span className="tech-label text-mep">Demonstration project</span>
+                      <span className="tech-label text-muted-foreground">
+                        Demonstration project
+                      </span>
                     </div>
                     <img
                       src={img.src}
@@ -230,12 +229,10 @@ function RevitMepOutsourcing() {
         </section>
 
         <section className="border-y border-border-strong bg-graphite text-graphite-foreground">
-          <div className="mx-auto grid max-w-[1400px] gap-10 px-5 py-16 md:px-8 md:py-20 lg:grid-cols-12">
+          <div className="mx-auto grid max-w-[1200px] gap-10 px-5 py-16 md:px-8 md:py-20 lg:grid-cols-12">
             <Reveal className="lg:col-span-5">
               <p className="tech-label text-accent">Who you work with</p>
-              <h2 className="mt-5 text-3xl uppercase md:text-4xl">
-                One engineer, from estimate to issue
-              </h2>
+              <h2 className="mt-5 text-3xl md:text-4xl">One engineer, from estimate to issue</h2>
             </Reveal>
             <Reveal delay={80} className="lg:col-span-7">
               <p className="text-base leading-relaxed text-graphite-foreground/85">

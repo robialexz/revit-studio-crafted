@@ -42,9 +42,8 @@ function BlogIndex() {
     <div className="min-h-screen bg-background">
       <Header />
       <main id="continut">
-        <section className="relative overflow-hidden border-b border-border-strong">
-          <div className="cad-grid-lg pointer-events-none absolute inset-0" aria-hidden="true" />
-          <div className="relative mx-auto max-w-[1400px] px-5 py-14 md:px-8 md:py-20">
+        <section className="border-b border-border-strong">
+          <div className="mx-auto max-w-[1200px] px-5 py-14 md:px-8 md:py-20">
             <Reveal>
               <p className="tech-label text-primary">Jurnal tehnic · Inginerie aplicată</p>
               <h1 className="display-xl mt-6 max-w-4xl text-[2.8rem] sm:text-6xl lg:text-7xl">
@@ -59,20 +58,20 @@ function BlogIndex() {
           </div>
         </section>
 
-        <section className="mx-auto max-w-[1400px] px-5 py-12 md:px-8 md:py-16">
+        <section className="mx-auto max-w-[1200px] px-5 py-12 md:px-8 md:py-16">
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {articles.map((a, i) => (
               <Reveal key={a.slug} delay={(i % 3) * 80} className="h-full">
                 <Link to="/blog/$slug" params={{ slug: a.slug }} className="block h-full">
                   <article className="sheet-frame flex h-full flex-col transition-colors hover:border-primary">
                     <div className="flex items-center justify-between border-b border-border px-5 py-3">
-                      <span className="tech-label text-mep">
+                      <span className="tech-label text-muted-foreground">
                         {fmtDate.format(new Date(a.date))}
                       </span>
                       <span className="tech-label text-muted-foreground">{a.readingTime} min</span>
                     </div>
                     <div className="flex flex-1 flex-col px-5 py-4">
-                      <h2 className="text-2xl uppercase leading-tight">{a.title}</h2>
+                      <h2 className="text-2xl leading-tight">{a.title}</h2>
                       <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
                         {a.description}
                       </p>

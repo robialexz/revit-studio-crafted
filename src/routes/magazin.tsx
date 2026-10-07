@@ -151,7 +151,7 @@ function orderLink(productName: string): string {
 function SectionLabel({ index, children }: { index: string; children: string }) {
   return (
     <div className="flex items-baseline gap-4">
-      <span className="tech-label text-mep">{index}</span>
+      <span className="tech-label text-muted-foreground">{index}</span>
       <span className="tech-label text-muted-foreground">{children}</span>
       <span className="h-px flex-1 bg-border-strong" />
     </div>
@@ -166,9 +166,8 @@ function Magazin() {
     <div className="min-h-screen bg-background">
       <Header />
       <main id="continut">
-        <section className="relative overflow-hidden border-b border-border-strong">
-          <div className="cad-grid-lg pointer-events-none absolute inset-0" aria-hidden="true" />
-          <div className="relative mx-auto max-w-[1400px] px-5 py-12 md:px-8 md:py-20">
+        <section className="border-b border-border-strong">
+          <div className="mx-auto max-w-[1200px] px-5 py-12 md:px-8 md:py-20">
             <Reveal>
               <nav aria-label="Breadcrumb" className="tech-label text-muted-foreground">
                 <Link to="/" className="hover:text-primary">
@@ -218,8 +217,8 @@ function Magazin() {
                     }
                     className="bg-background p-5 transition-colors hover:bg-sheet"
                   >
-                    <span className="tech-label text-mep">{index}</span>
-                    <h2 className="mt-5 text-xl uppercase">{label}</h2>
+                    <span className="tech-label text-muted-foreground">{index}</span>
+                    <h2 className="mt-5 text-xl">{label}</h2>
                     <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{text}</p>
                   </a>
                 ))}
@@ -228,11 +227,11 @@ function Magazin() {
           </div>
         </section>
 
-        <section id="resurse-bim" className="mx-auto max-w-[1400px] px-5 py-12 md:px-8 md:py-20">
+        <section id="resurse-bim" className="mx-auto max-w-[1200px] px-5 py-12 md:px-8 md:py-20">
           <Reveal>
             <SectionLabel index="01" children="Resurse BIM pentru birouri" />
             <div className="mt-8 max-w-2xl">
-              <h2 className="text-4xl uppercase md:text-5xl">Cumpără o rezolvare, nu un obiect</h2>
+              <h2 className="text-4xl md:text-5xl">Cumpără o rezolvare, nu un obiect</h2>
               <p className="mt-4 text-sm leading-relaxed text-muted-foreground md:text-base">
                 Primele trei oferte sunt gândite pentru o problemă concretă: să afli dacă un fișier
                 poate fi predat, să pornești un template de birou sau să elimini o sarcină
@@ -248,11 +247,11 @@ function Magazin() {
         </section>
 
         <section id="comenzi-speciale" className="border-y border-border-strong bg-sheet">
-          <div className="mx-auto max-w-[1400px] px-5 py-12 md:px-8 md:py-20">
+          <div className="mx-auto max-w-[1200px] px-5 py-12 md:px-8 md:py-20">
             <Reveal>
               <SectionLabel index="02" children="Capacitate și modele la comandă" />
               <div className="mt-8 max-w-2xl">
-                <h2 className="text-4xl uppercase md:text-5xl">Când ai nevoie de o mână în plus</h2>
+                <h2 className="text-4xl md:text-5xl">Când ai nevoie de o mână în plus</h2>
                 <p className="mt-4 text-sm leading-relaxed text-muted-foreground md:text-base">
                   Pentru lucrări care nu încap într-un pachet standard, stabilim scopul, termenul și
                   livrabilele înainte de începere. Astfel magazinul poate fi primul pas către o
@@ -275,7 +274,7 @@ function Magazin() {
           </div>
         </section>
 
-        <section className="mx-auto max-w-[1400px] px-5 py-12 md:px-8 md:py-20">
+        <section className="mx-auto max-w-[1200px] px-5 py-12 md:px-8 md:py-20">
           <Reveal>
             <SectionLabel index="03" children="Cum funcționează" />
           </Reveal>
@@ -298,8 +297,8 @@ function Magazin() {
               ],
             ].map(([index, title, text]) => (
               <div key={index} className="bg-sheet p-6 md:p-8">
-                <span className="tech-label text-mep">{index}</span>
-                <h3 className="mt-6 text-2xl uppercase">{title}</h3>
+                <span className="tech-label text-muted-foreground">{index}</span>
+                <h3 className="mt-6 text-2xl">{title}</h3>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{text}</p>
               </div>
             ))}
@@ -307,9 +306,7 @@ function Magazin() {
           <div className="mt-8 border border-border-strong bg-sheet p-6 md:p-8">
             <p className="tech-label text-primary">De ce există magazinul</p>
             <div className="mt-5 grid gap-6 lg:grid-cols-2 lg:gap-12">
-              <h2 className="text-3xl uppercase md:text-4xl">
-                O intrare mică într-o colaborare mai mare
-              </h2>
+              <h2 className="text-3xl md:text-4xl">O intrare mică într-o colaborare mai mare</h2>
               <p className="text-sm leading-relaxed text-muted-foreground md:text-base">
                 Un health check poate arăta ce trebuie reparat într-un model. Un starter kit poate
                 pune ordine în birou. Un pachet de capacitate poate acoperi un vârf de lucru. Dacă
@@ -321,20 +318,20 @@ function Magazin() {
         </section>
 
         <section id="intrebari" className="border-y border-border-strong bg-sheet">
-          <div className="mx-auto max-w-[1400px] px-5 py-12 md:px-8 md:py-20">
+          <div className="mx-auto max-w-[1200px] px-5 py-12 md:px-8 md:py-20">
             <Reveal>
               <SectionLabel index="04" children="Întrebări despre comandă" />
-              <h2 className="mt-8 max-w-2xl text-4xl uppercase md:text-5xl">Întrebări frecvente</h2>
+              <h2 className="mt-8 max-w-2xl text-4xl md:text-5xl">Întrebări frecvente</h2>
               <div className="mt-8 max-w-4xl">
                 {shopFaq.map(([question, answer]) => (
                   <details
                     key={question}
                     className="group border-b border-border-strong first:border-t"
                   >
-                    <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-5 font-display text-lg font-semibold uppercase tracking-tight">
+                    <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-5 font-display text-lg font-semibold tracking-tight">
                       {question}
                       <span
-                        className="tech-label text-mep transition-transform group-open:rotate-45"
+                        className="tech-label text-muted-foreground transition-transform group-open:rotate-45"
                         aria-hidden="true"
                       >
                         +
@@ -377,7 +374,7 @@ function ProductCard({
     <Reveal delay={(index % 3) * 80} className="h-full">
       <article className="sheet-frame flex h-full flex-col">
         <div className="flex items-center justify-between gap-4 border-b border-border px-5 py-3">
-          <span className="tech-label text-mep">{product.category}</span>
+          <span className="tech-label text-muted-foreground">{product.category}</span>
           <span className="tech-label text-right text-muted-foreground">{product.kind}</span>
         </div>
         <figure className="relative overflow-hidden border-b border-border bg-sheet">
@@ -389,12 +386,12 @@ function ProductCard({
             height={860}
             className="aspect-[16/9] w-full object-cover"
           />
-          <figcaption className="absolute bottom-3 left-3 bg-background/90 px-2 py-1 tech-label text-mep">
+          <figcaption className="absolute bottom-3 left-3 bg-background/90 px-2 py-1 tech-label text-muted-foreground">
             {product.imageCaption}
           </figcaption>
         </figure>
         <div className="flex flex-1 flex-col px-5 py-5 md:px-6">
-          <h2 className={featured ? "text-2xl uppercase" : "text-3xl uppercase"}>{product.name}</h2>
+          <h2 className={featured ? "text-2xl" : "text-3xl"}>{product.name}</h2>
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
             {product.description}
           </p>
@@ -415,7 +412,7 @@ function ProductCard({
             <ul className="mt-3 space-y-2 text-sm leading-relaxed text-foreground/80">
               {product.deliverables.map((deliverable) => (
                 <li key={deliverable} className="flex gap-2">
-                  <span className="text-mep" aria-hidden="true">
+                  <span className="text-muted-foreground" aria-hidden="true">
                     ·
                   </span>
                   <span>{deliverable}</span>

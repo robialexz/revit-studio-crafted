@@ -48,9 +48,8 @@ export function LegalPage({
     <div className="min-h-screen bg-background">
       <Header />
       <main id="continut">
-        <section className="relative overflow-hidden border-b border-border-strong">
-          <div className="cad-grid-lg pointer-events-none absolute inset-0" aria-hidden="true" />
-          <div className="relative mx-auto max-w-[1400px] px-5 py-12 md:px-8 md:py-20">
+        <section className="border-b border-border-strong">
+          <div className="mx-auto max-w-[1200px] px-5 py-12 md:px-8 md:py-20">
             <Reveal>
               <nav aria-label="Breadcrumb" className="tech-label text-muted-foreground">
                 <a href={t.home.href} className="hover:text-primary">
@@ -74,7 +73,7 @@ export function LegalPage({
           </div>
         </section>
 
-        <section className="mx-auto max-w-[1400px] px-5 py-14 md:px-8 md:py-20">
+        <section className="mx-auto max-w-[1200px] px-5 py-14 md:px-8 md:py-20">
           <Reveal className="grid gap-12 lg:grid-cols-12">
             <div className="lg:col-span-8">
               {sections.map((section) => (
@@ -82,7 +81,7 @@ export function LegalPage({
                   key={section.title}
                   className="border-b border-border-strong py-8 first:pt-0"
                 >
-                  <h2 className="text-2xl uppercase md:text-3xl">{section.title}</h2>
+                  <h2 className="text-2xl md:text-3xl">{section.title}</h2>
                   {section.body.map((paragraph, index) => (
                     <p
                       key={index}
@@ -97,7 +96,7 @@ export function LegalPage({
 
             <aside className="lg:col-span-4">
               <div className="sheet-frame p-6 md:p-8 lg:sticky lg:top-24">
-                <p className="tech-label text-mep">{t.navTitle}</p>
+                <p className="tech-label text-muted-foreground">{t.navTitle}</p>
                 <ul className="mt-5 space-y-3 text-sm">
                   {t.nav.map((l) => (
                     <li key={l.href}>

@@ -49,9 +49,8 @@ function ContactPage() {
     <div className="min-h-screen bg-background">
       <Header ctaHref="#estimare" />
       <main id="continut">
-        <section className="relative overflow-hidden border-b border-border-strong">
-          <div className="cad-grid-lg pointer-events-none absolute inset-0" aria-hidden="true" />
-          <div className="relative mx-auto max-w-[1400px] px-5 py-12 md:px-8 md:py-20">
+        <section className="border-b border-border-strong">
+          <div className="mx-auto max-w-[1200px] px-5 py-12 md:px-8 md:py-20">
             <Reveal>
               <nav aria-label="Breadcrumb" className="tech-label text-muted-foreground">
                 <Link to="/" className="hover:text-primary">
@@ -72,10 +71,10 @@ function ContactPage() {
           </div>
         </section>
 
-        <section className="mx-auto max-w-[1400px] px-5 pt-14 md:px-8 md:pt-20">
+        <section className="mx-auto max-w-[1200px] px-5 pt-14 md:px-8 md:pt-20">
           <Reveal className="grid gap-6 lg:grid-cols-12">
             <div className="sheet-frame p-6 md:p-8 lg:col-span-7">
-              <p className="tech-label text-mep">Canale de contact</p>
+              <p className="tech-label text-muted-foreground">Canale de contact</p>
               <ul className="mt-6 space-y-4 text-sm md:text-base">
                 {phoneHref && (
                   <li className="flex flex-wrap items-baseline gap-x-4 gap-y-1 border-b border-border pb-4">
@@ -158,7 +157,7 @@ function ContactPage() {
             </div>
           </Reveal>
         </section>
-        <section id="estimare" className="mx-auto max-w-[1400px] px-5 py-14 md:px-8 md:py-20">
+        <section id="estimare" className="mx-auto max-w-[1200px] px-5 py-14 md:px-8 md:py-20">
           <Reveal className="max-w-3xl">
             <QuoteForm />
           </Reveal>

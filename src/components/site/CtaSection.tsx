@@ -20,13 +20,9 @@ export function CtaSection({
 
   return (
     <section className="border-t border-border-strong bg-graphite text-graphite-foreground">
-      <div className="relative mx-auto max-w-[1400px] px-5 py-20 md:px-8 md:py-24">
-        <div
-          className="cad-grid-lg pointer-events-none absolute inset-0 opacity-70"
-          aria-hidden="true"
-        />
+      <div className="mx-auto max-w-[1200px] px-5 py-20 md:px-8 md:py-24">
         <Reveal>
-          <div className="relative max-w-3xl">
+          <div className="max-w-3xl">
             <h2 className="display-xl text-5xl md:text-7xl">{title}</h2>
             <p className="mt-6 max-w-xl text-base leading-relaxed text-graphite-foreground/75">
               {description}

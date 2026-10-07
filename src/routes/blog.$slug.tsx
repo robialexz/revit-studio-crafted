@@ -57,7 +57,7 @@ function ArticleNotFound() {
       <Header />
       <main id="continut" className="mx-auto max-w-2xl px-5 py-24 text-center">
         <p className="tech-label text-primary">Jurnal tehnic</p>
-        <h1 className="mt-4 text-4xl uppercase">Articolul nu există</h1>
+        <h1 className="mt-4 text-4xl">Articolul nu există</h1>
         <Link
           to="/blog"
           className="tech-label mt-8 inline-block border border-foreground bg-foreground px-6 py-4 text-background"
@@ -132,7 +132,7 @@ function ArticlePage() {
 function Section({ section }: { section: ArticleSection }) {
   return (
     <section>
-      {section.heading && <h2 className="text-2xl uppercase md:text-3xl">{section.heading}</h2>}
+      {section.heading && <h2 className="text-2xl md:text-3xl">{section.heading}</h2>}
       {section.paragraphs?.map((p, i) => (
         <p key={i} className="mt-4 text-base leading-relaxed text-foreground/85">
           {p}
@@ -142,7 +142,7 @@ function Section({ section }: { section: ArticleSection }) {
         <ul className="mt-4 space-y-2.5">
           {section.list.map((li, i) => (
             <li key={i} className="flex gap-3 text-base leading-relaxed text-foreground/85">
-              <span className="tech-label mt-1 shrink-0 text-mep">0{i + 1}</span>
+              <span className="tech-label mt-1 shrink-0 text-muted-foreground">0{i + 1}</span>
               <span>{li}</span>
             </li>
           ))}

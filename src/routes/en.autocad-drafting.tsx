@@ -56,9 +56,8 @@ function AutocadDrafting() {
     <div className="min-h-screen bg-background">
       <Header />
       <main id="continut">
-        <section className="relative overflow-hidden border-b border-border-strong">
-          <div className="cad-grid-lg pointer-events-none absolute inset-0" aria-hidden="true" />
-          <div className="relative mx-auto grid max-w-[1400px] gap-10 px-5 py-12 md:px-8 md:py-20 lg:grid-cols-12">
+        <section className="border-b border-border-strong">
+          <div className="mx-auto grid max-w-[1200px] gap-10 px-5 py-12 md:px-8 md:py-20 lg:grid-cols-12">
             <Reveal className="lg:col-span-7">
               <p className="tech-label text-primary">AutoCAD drafting · CAD production support</p>
               <h1 className="display-xl mt-6 max-w-4xl text-[2.4rem] sm:text-[3.4rem] lg:text-[4.2rem]">
@@ -100,12 +99,12 @@ function AutocadDrafting() {
           </div>
         </section>
 
-        <section className="mx-auto max-w-[1400px] px-5 py-16 md:px-8 md:py-24">
+        <section className="mx-auto max-w-[1200px] px-5 py-16 md:px-8 md:py-24">
           <div className="grid gap-12 lg:grid-cols-12">
             <Reveal className="lg:col-span-7">
               {services.map((s) => (
                 <article key={s.title} className="border-b border-border-strong py-8 first:pt-0">
-                  <h2 className="text-3xl uppercase md:text-4xl">{s.title}</h2>
+                  <h2 className="text-3xl md:text-4xl">{s.title}</h2>
                   <p className="mt-4 max-w-2xl text-sm leading-relaxed text-foreground/80 md:text-base">
                     {s.body}
                   </p>
@@ -126,7 +125,7 @@ function AutocadDrafting() {
               <figure className="sheet-frame p-2 md:p-3">
                 <div className="flex items-center justify-between border-b border-border px-2 pb-2">
                   <span className="tech-label text-muted-foreground">DWG cleanup and layout</span>
-                  <span className="tech-label text-mep">Demonstration project</span>
+                  <span className="tech-label text-muted-foreground">Demonstration project</span>
                 </div>
                 <img
                   src={projDwg}

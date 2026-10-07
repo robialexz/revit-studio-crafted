@@ -40,9 +40,8 @@ function About() {
     <div className="min-h-screen bg-background">
       <Header />
       <main id="continut">
-        <section className="relative overflow-hidden border-b border-border-strong">
-          <div className="cad-grid-lg pointer-events-none absolute inset-0" aria-hidden="true" />
-          <div className="relative mx-auto max-w-[1400px] px-5 py-14 md:px-8 md:py-20">
+        <section className="border-b border-border-strong">
+          <div className="mx-auto max-w-[1200px] px-5 py-14 md:px-8 md:py-20">
             <Reveal>
               <p className="tech-label text-primary">About NOD BIM</p>
               <h1 className="display-xl mt-6 max-w-4xl text-[2.6rem] sm:text-6xl lg:text-7xl">
@@ -57,10 +56,10 @@ function About() {
           </div>
         </section>
 
-        <section className="mx-auto max-w-[1400px] px-5 py-12 md:px-8 md:py-16">
+        <section className="mx-auto max-w-[1200px] px-5 py-12 md:px-8 md:py-16">
           <div className="grid gap-10 lg:grid-cols-12">
             <Reveal className="lg:col-span-7">
-              <h2 className="text-3xl uppercase md:text-4xl">The engineer behind the brand</h2>
+              <h2 className="text-3xl md:text-4xl">The engineer behind the brand</h2>
               <p className="mt-5 text-base leading-relaxed text-foreground/85">
                 I studied building services engineering and work professionally in MEP design and
                 coordination, where precise documentation and coordination between disciplines are
@@ -72,17 +71,17 @@ function About() {
                 and demonstration examples are labelled as such.
               </p>
 
-              <h2 className="mt-12 text-3xl uppercase md:text-4xl">How I work</h2>
+              <h2 className="mt-12 text-3xl md:text-4xl">How I work</h2>
               <ul className="mt-5 space-y-3 text-base leading-relaxed text-foreground/85">
                 {howIWork.map((item, i) => (
                   <li key={item}>
-                    <span className="tech-label text-mep">0{i + 1} · </span>
+                    <span className="tech-label text-muted-foreground">0{i + 1} · </span>
                     {item}
                   </li>
                 ))}
               </ul>
 
-              <h2 className="mt-12 text-3xl uppercase md:text-4xl">A brand, not a company</h2>
+              <h2 className="mt-12 text-3xl md:text-4xl">A brand, not a company</h2>
               <p className="mt-5 text-base leading-relaxed text-foreground/85">
                 NOD BIM is the name under which I offer these services; it is not a registered
                 company. Contracting and invoicing details are agreed together with each estimate.
@@ -91,7 +90,7 @@ function About() {
 
             <Reveal delay={80} className="lg:col-span-5">
               <div className="sheet-frame p-6 md:p-8">
-                <p className="tech-label text-mep">Profile</p>
+                <p className="tech-label text-muted-foreground">Profile</p>
                 <dl className="mt-5 divide-y divide-border border-y border-border">
                   {profile.map(([k, v]) => (
                     <div key={k} className="grid grid-cols-2 gap-4 py-3">
