@@ -8,6 +8,7 @@ import {
   jobRates,
   offerSchema,
   packagePrice,
+  rateLabel,
   sheetsLabel,
 } from "../src/lib/pricing";
 
@@ -76,4 +77,10 @@ test("offerSchema", () => {
     },
   });
   expect(offerSchema("corectare")).not.toHaveProperty("priceSpecification.maxPrice");
+});
+
+test("rateLabel: interval, preț de pornire și separator", () => {
+  expect(rateLabel("redesenare")).toBe("350–800 lei / plan");
+  expect(rateLabel("redesenare", " pe ")).toBe("350–800 lei pe plan");
+  expect(rateLabel("corectare", "/")).toBe("de la 250 lei/planșă");
 });

@@ -6,6 +6,7 @@ import {
   formatLei,
   jobRates,
   packagePrice,
+  rateLabel,
   sheetsLabel,
   type JobType,
 } from "@/lib/pricing";
@@ -13,12 +14,6 @@ import { trackConversion } from "@/lib/analytics";
 import { PhoneLink } from "./PhoneLink";
 
 const jobTypes: JobType[] = ["redesenare", "corectare", "instalatii"];
-
-/** Tariful pe unitate: „350–800 lei / plan”, „de la 250 lei / planșă”. */
-function rateLabel(type: JobType): string {
-  const { min, max, unit } = jobRates[type];
-  return `${max === null ? `de la ${min}` : `${min}–${max}`} lei / ${unit}`;
-}
 
 /**
  * Estimator de preț orientativ. Prețul implicit este randat pe server;

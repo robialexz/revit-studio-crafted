@@ -174,7 +174,6 @@
   --border-strong: oklch(0.72 0.008 240);
   --input: oklch(0.62 0.008 240);
   --ring: oklch(0.46 0.115 247);
-  --grid-line: oklch(0.21 0.012 250 / 6%);
 }
 
 .dark {
@@ -197,7 +196,6 @@
   --border: oklch(1 0 0 / 12%);
   --border-strong: oklch(1 0 0 / 24%);
   --input: oklch(1 0 0 / 18%);
-  --grid-line: oklch(1 0 0 / 7%);
 }
 
 @layer base {
@@ -242,13 +240,6 @@
     background: var(--accent);
     color: var(--accent-foreground);
   }
-}
-
-@utility cad-grid-lg {
-  background-image:
-    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
-  background-size: 96px 96px;
 }
 
 /* Etichetă tehnică — mic text mono, spațiat */

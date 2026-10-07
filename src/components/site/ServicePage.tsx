@@ -1,9 +1,12 @@
+import type { ReactNode } from "react";
 import { Link, useLocation } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { MobileCta } from "@/components/site/MobileCta";
 import { QuoteForm } from "@/components/site/QuoteForm";
+import { PhoneLink } from "@/components/site/PhoneLink";
+import { PriceEstimator } from "@/components/site/PriceEstimator";
 import { Reveal } from "@/components/site/Reveal";
 import {
   site,
@@ -13,10 +16,11 @@ import {
   quoteContextForPath,
   hasWhatsapp,
   hasEmail,
-  formatPhoneDisplay,
   canonicalUrl,
-  brandSchema,
+  phoneHref,
+  phoneDisplay,
 } from "@/lib/site-config";
+import { jobRates, offerSchema, rateLabel, type JobType } from "@/lib/pricing";
 import { trackConversion } from "@/lib/analytics";
 
 export type ServicePath =
@@ -25,7 +29,8 @@ export type ServicePath =
   | "/hvac"
   | "/instalatii-termice"
   | "/instalatii-electrice"
-  | "/autocad-dwg";
+  | "/autocad-dwg"
+  | "/pdf-in-dwg";
 
 const serviceLinks: { to: ServicePath; label: string; blurb: string }[] = [
   {
@@ -57,6 +62,11 @@ const serviceLinks: { to: ServicePath; label: string; blurb: string }[] = [
     to: "/autocad-dwg",
     label: "AutoCAD — redesenare și conversie PDF în DWG",
     blurb: "Curățare DWG, layere, layout, conversii, pregătire print.",
+  },
+  {
+    to: "/pdf-in-dwg",
+    label: "PDF în DWG — redesenare manuală",
+    blurb: "Plan în PDF sau scanat, redesenat linie cu linie în DWG editabil.",
   },
 ];
 
@@ -111,6 +121,8 @@ export function ServicePage({
   faq,
   related,
   note,
+  offers,
+  children,
 }: {
   label: string;
   h1: string;
@@ -122,6 +134,10 @@ export function ServicePage({
   faq: [string, string][];
   related: ServicePath[];
   note?: string;
+  /** Tarifele afișate în primul ecran, în estimator și în datele structurate. */
+  offers?: JobType[];
+  /** Conținut propriu paginii, afișat între introducere și secțiuni. */
+  children?: ReactNode;
 }) {
   const location = useLocation();
   const waHref = hasWhatsapp
@@ -130,6 +146,7 @@ export function ServicePage({
       )
     : "";
   const relatedItems = serviceLinks.filter((s) => related.includes(s.to));
+  const firstOffer = offers?.[0];
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
@@ -146,7 +163,9 @@ export function ServicePage({
     serviceType: label,
     name: h1,
     description: intro,
-    brand: brandSchema,
+    provider: { "@id": `${canonicalUrl("/")}#org` },
+    areaServed: { "@type": "Country", name: "România" },
+    ...(offers ? { offers: offers.map(offerSchema) } : {}),
     ...(deliverables.length
       ? { serviceOutput: deliverables.map((d) => ({ "@type": "Thing", name: d })) }
       : {}),
@@ -158,59 +177,88 @@ export function ServicePage({
       <script type="application/ld+json">{JSON.stringify(serviceSchema)}</script>
       <Header ctaHref="#estimare" />
       <main id="continut">
-        <section className="relative overflow-hidden border-b border-border-strong">
-          <div className="cad-grid-lg pointer-events-none absolute inset-0" aria-hidden="true" />
-          <div className="relative mx-auto max-w-[1400px] px-5 py-12 md:px-8 md:py-20">
-            <Reveal>
-              <nav aria-label="Breadcrumb" className="tech-label text-muted-foreground">
-                <Link to="/" className="hover:text-primary">
-                  Acasă
-                </Link>
-                <span className="px-2">/</span>
-                <span className="text-foreground">{label}</span>
-              </nav>
-              <h1 className="display-xl mt-8 max-w-4xl text-[2.6rem] sm:text-[3.4rem] lg:text-[4.2rem]">
-                {h1}
-              </h1>
-              <p className="mt-7 max-w-2xl text-base leading-relaxed text-foreground/80 md:text-lg">
-                {intro}
-              </p>
-              {lead && (
-                <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">
-                  {lead}
-                </p>
-              )}
-              <div className="mt-9 flex flex-wrap gap-3">
+        <section className="border-b border-border-strong">
+          <div className="mx-auto max-w-[1200px] px-5 py-10 md:px-8 md:py-20">
+            <nav aria-label="Breadcrumb" className="tech-label text-muted-foreground">
+              <Link to="/" className="hover:text-primary">
+                Acasă
+              </Link>
+              <span className="px-2">/</span>
+              <span className="text-foreground">{label}</span>
+            </nav>
+            <h1 className="display-xl mt-5 max-w-4xl text-[2rem] sm:text-5xl lg:text-[3.6rem]">
+              {h1}
+            </h1>
+            <p className="mt-5 max-w-2xl text-base leading-relaxed text-foreground/80 md:text-lg">
+              {intro}
+            </p>
+            {offers && (
+              <ul className="mt-5 grid max-w-2xl gap-1.5 border-l-2 border-primary pl-4 text-sm">
+                {offers.map((type) => (
+                  <li key={type}>
+                    {jobRates[type].label}:{" "}
+                    <strong className="whitespace-nowrap font-semibold">
+                      {rateLabel(type, " pe ")}
+                    </strong>
+                  </li>
+                ))}
+              </ul>
+            )}
+            <div className="mt-7 flex flex-wrap gap-3">
+              <PhoneLink source={label} className="btn btn-primary">
+                {`Sună: ${phoneDisplay}`}
+              </PhoneLink>
+              {hasWhatsapp && (
                 <a
-                  href="#estimare"
-                  className="tech-label border border-foreground bg-foreground px-6 py-4 text-background transition-colors hover:border-primary hover:bg-primary"
+                  href={waHref}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  onClick={() => {
+                    trackConversion("whatsapp_click", { source: label });
+                  }}
+                  className="btn"
                 >
-                  Solicită o estimare
+                  Scrie pe WhatsApp
                 </a>
-                {hasWhatsapp && (
-                  <a
-                    href={waHref || undefined}
-                    target="_blank"
-                    rel="noreferrer noopener"
-                    onClick={() => {
-                      trackConversion("whatsapp_click", { source: label });
-                    }}
-                    className="tech-label border border-foreground px-6 py-4 transition-colors hover:bg-foreground hover:text-background"
-                  >
-                    Scrie pe WhatsApp
-                  </a>
-                )}
-              </div>
-            </Reveal>
+              )}
+            </div>
+            <p className="mt-4 text-sm">
+              <a
+                href="#estimare"
+                className="inline-flex min-h-11 items-center font-medium underline decoration-border-strong underline-offset-4 transition-colors hover:text-primary hover:decoration-primary"
+              >
+                sau trimite detaliile în formular
+              </a>
+            </p>
+            {lead && (
+              <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">{lead}</p>
+            )}
           </div>
         </section>
 
-        <section className="mx-auto max-w-[1400px] px-5 py-16 md:px-8 md:py-24">
+        {children && (
+          <section className="border-b border-border-strong bg-sheet">
+            <div className="mx-auto max-w-[1200px] px-5 py-16 md:px-8 md:py-20">{children}</div>
+          </section>
+        )}
+
+        {firstOffer && (
+          <section id="preturi" className="border-b border-border-strong">
+            <div className="mx-auto max-w-[1200px] px-5 py-16 md:px-8 md:py-20">
+              <h2 className="text-3xl md:text-4xl">Află cam cât costă înainte să suni</h2>
+              <div className="mt-8">
+                <PriceEstimator defaultType={firstOffer} />
+              </div>
+            </div>
+          </section>
+        )}
+
+        <section className="mx-auto max-w-[1200px] px-5 py-16 md:px-8 md:py-24">
           <div className="grid gap-12 lg:grid-cols-12">
             <Reveal className="lg:col-span-7">
               {sections.map((s) => (
                 <article key={s.title} className="border-b border-border-strong py-8 first:pt-0">
-                  <h2 className="text-3xl uppercase md:text-4xl">{s.title}</h2>
+                  <h2 className="text-3xl md:text-4xl">{s.title}</h2>
                   <p className="mt-4 max-w-2xl text-sm leading-relaxed text-foreground/80 md:text-base">
                     {s.body}
                   </p>
@@ -279,13 +327,13 @@ export function ServicePage({
         </section>
 
         <section className="border-t border-border-strong">
-          <div className="mx-auto max-w-[1400px] px-5 py-16 md:px-8 md:py-20">
+          <div className="mx-auto max-w-[1200px] px-5 py-16 md:px-8 md:py-20">
             <Reveal>
-              <h2 className="text-3xl uppercase md:text-4xl">Înainte să trimiți fișierele</h2>
+              <h2 className="text-3xl md:text-4xl">Înainte să trimiți fișierele</h2>
               <dl className="mt-8 grid gap-px bg-border-strong md:grid-cols-2 lg:grid-cols-4">
                 {workingTerms.map(([k, v]) => (
                   <div key={k} className="bg-background p-6">
-                    <dt className="tech-label text-mep">{k}</dt>
+                    <dt className="tech-label text-muted-foreground">{k}</dt>
                     <dd className="mt-3 text-sm leading-relaxed text-foreground/80">{v}</dd>
                   </div>
                 ))}
@@ -295,16 +343,16 @@ export function ServicePage({
         </section>
 
         <section className="border-y border-border-strong bg-sheet">
-          <div className="mx-auto max-w-[1400px] px-5 py-16 md:px-8 md:py-20">
+          <div className="mx-auto max-w-[1200px] px-5 py-16 md:px-8 md:py-20">
             <Reveal>
-              <h2 className="text-3xl uppercase md:text-4xl">Întrebări frecvente</h2>
+              <h2 className="text-3xl md:text-4xl">Întrebări frecvente</h2>
               <div className="mt-8 max-w-3xl">
                 {faq.map(([q, a]) => (
                   <details key={q} className="group border-b border-border-strong first:border-t">
-                    <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-5 font-display text-lg font-semibold uppercase tracking-tight">
+                    <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-5 text-lg font-medium [&::-webkit-details-marker]:hidden">
                       {q}
                       <span
-                        className="tech-label text-mep transition-transform group-open:rotate-45"
+                        className="font-mono text-xl leading-none text-primary transition-transform group-open:rotate-45"
                         aria-hidden="true"
                       >
                         +
@@ -318,17 +366,19 @@ export function ServicePage({
           </div>
         </section>
 
-        <section className="mx-auto max-w-[1400px] px-5 py-16 md:px-8 md:py-20">
+        <section className="mx-auto max-w-[1200px] px-5 py-16 md:px-8 md:py-20">
           <Reveal>
-            <h2 className="text-3xl uppercase md:text-4xl">Servicii conexe</h2>
-            <div className="mt-8 grid gap-px bg-border-strong md:grid-cols-2 lg:grid-cols-3">
+            <h2 className="text-3xl md:text-4xl">Servicii conexe</h2>
+            <div
+              className={`mt-8 grid gap-px bg-border-strong md:grid-cols-2 ${relatedItems.length % 3 === 0 ? "lg:grid-cols-3" : ""}`}
+            >
               {relatedItems.map((s) => (
                 <Link
                   key={s.to}
                   to={s.to}
                   className="group bg-background p-6 transition-colors hover:bg-sheet md:p-8"
                 >
-                  <h3 className="text-xl uppercase group-hover:text-primary">{s.label}</h3>
+                  <h3 className="text-xl group-hover:text-primary">{s.label}</h3>
                   <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{s.blurb}</p>
                   <span className="tech-label mt-5 inline-flex items-center gap-2 text-primary">
                     Detalii <ArrowUpRight size={14} />
@@ -340,20 +390,24 @@ export function ServicePage({
         </section>
 
         <section id="estimare" className="border-t border-border-strong bg-sheet">
-          <div className="mx-auto max-w-[1400px] px-5 py-16 md:px-8 md:py-24">
+          <div className="mx-auto max-w-[1200px] px-5 py-16 md:px-8 md:py-24">
             <Reveal className="grid gap-10 lg:grid-cols-12">
               <div className="lg:col-span-5">
-                <h2 className="text-4xl uppercase md:text-5xl">Solicită o estimare</h2>
+                <h2 className="text-4xl md:text-5xl">Solicită o estimare</h2>
                 <p className="mt-5 max-w-md text-sm leading-relaxed text-muted-foreground">
                   Trimite câteva detalii despre proiect. Îți răspund cu ce presupune lucrarea,
                   termenul și costul, stabilite înainte de începere.
                 </p>
-                {(hasWhatsapp || hasEmail) && (
+                {(phoneHref || hasEmail) && (
                   <div className="mt-10 border-t border-border-strong pt-6">
                     <p className="tech-label text-muted-foreground">Contact</p>
-                    {hasWhatsapp && (
+                    {phoneHref && (
                       <p className="mt-3 text-sm">
-                        WhatsApp: {formatPhoneDisplay(site.whatsappNumber)}
+                        Telefon:{" "}
+                        <PhoneLink
+                          source={label}
+                          className="inline-flex min-h-11 items-center font-medium underline underline-offset-4"
+                        />
                       </p>
                     )}
                     {hasEmail && <p className="text-sm">Email: {site.email}</p>}

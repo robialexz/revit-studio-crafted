@@ -18,6 +18,7 @@ describe("agent-content — negotiere markdown", () => {
     expect(isKnownPath("/despre")).toBe(true);
     expect(isKnownPath("/en/about")).toBe(true);
     expect(isKnownPath("/en/privacy")).toBe(true);
+    expect(isKnownPath("/pdf-in-dwg")).toBe(true);
     expect(isKnownPath("/n-avem-asa-ceva")).toBe(false);
   });
 
@@ -107,6 +108,7 @@ describe("agent-content — negotiere markdown", () => {
       "/instalatii-termice",
       "/instalatii-electrice",
       "/autocad-dwg",
+      "/pdf-in-dwg",
       "/en/revit-mep-outsourcing",
       "/en/autocad-drafting",
       "/en/about/",
@@ -131,6 +133,7 @@ describe("agent-content — negotiere markdown", () => {
     expect(linked).toContain("/en/autocad-drafting");
     expect(linked).toContain("/en/about");
     expect(linked).toContain("/modelare-revit");
+    expect(linked).toContain("/pdf-in-dwg");
     for (const path of linked) {
       expect(markdownResponseForPath(path) !== null || htmlOnly.includes(path), path).toBe(true);
     }

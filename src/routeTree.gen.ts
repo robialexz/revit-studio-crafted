@@ -23,6 +23,7 @@ import { Route as InstalatiiTermiceRouteImport } from './routes/instalatii-termi
 import { Route as LlmsDottxtRouteImport } from './routes/llms[.]txt'
 import { Route as MagazinRouteImport } from './routes/magazin'
 import { Route as ModelareRevitRouteImport } from './routes/modelare-revit'
+import { Route as PdfInDwgRouteImport } from './routes/pdf-in-dwg'
 import { Route as PoliticaCookiesRouteImport } from './routes/politica-cookies'
 import { Route as PoliticaDeConfidentialitateRouteImport } from './routes/politica-de-confidentialitate'
 import { Route as PortofoliuRouteImport } from './routes/portofoliu'
@@ -107,6 +108,11 @@ const MagazinRoute = MagazinRouteImport.update({
 const ModelareRevitRoute = ModelareRevitRouteImport.update({
   id: '/modelare-revit',
   path: '/modelare-revit',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PdfInDwgRoute = PdfInDwgRouteImport.update({
+  id: '/pdf-in-dwg',
+  path: '/pdf-in-dwg',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PoliticaCookiesRoute = PoliticaCookiesRouteImport.update({
@@ -196,6 +202,7 @@ export interface FileRoutesByFullPath {
   '/llms.txt': typeof LlmsDottxtRoute
   '/magazin': typeof MagazinRoute
   '/modelare-revit': typeof ModelareRevitRoute
+  '/pdf-in-dwg': typeof PdfInDwgRoute
   '/politica-cookies': typeof PoliticaCookiesRoute
   '/politica-de-confidentialitate': typeof PoliticaDeConfidentialitateRoute
   '/portofoliu': typeof PortofoliuRoute
@@ -226,6 +233,7 @@ export interface FileRoutesByTo {
   '/llms.txt': typeof LlmsDottxtRoute
   '/magazin': typeof MagazinRoute
   '/modelare-revit': typeof ModelareRevitRoute
+  '/pdf-in-dwg': typeof PdfInDwgRoute
   '/politica-cookies': typeof PoliticaCookiesRoute
   '/politica-de-confidentialitate': typeof PoliticaDeConfidentialitateRoute
   '/portofoliu': typeof PortofoliuRoute
@@ -257,6 +265,7 @@ export interface FileRoutesById {
   '/llms.txt': typeof LlmsDottxtRoute
   '/magazin': typeof MagazinRoute
   '/modelare-revit': typeof ModelareRevitRoute
+  '/pdf-in-dwg': typeof PdfInDwgRoute
   '/politica-cookies': typeof PoliticaCookiesRoute
   '/politica-de-confidentialitate': typeof PoliticaDeConfidentialitateRoute
   '/portofoliu': typeof PortofoliuRoute
@@ -289,6 +298,7 @@ export interface FileRouteTypes {
     | '/llms.txt'
     | '/magazin'
     | '/modelare-revit'
+    | '/pdf-in-dwg'
     | '/politica-cookies'
     | '/politica-de-confidentialitate'
     | '/portofoliu'
@@ -319,6 +329,7 @@ export interface FileRouteTypes {
     | '/llms.txt'
     | '/magazin'
     | '/modelare-revit'
+    | '/pdf-in-dwg'
     | '/politica-cookies'
     | '/politica-de-confidentialitate'
     | '/portofoliu'
@@ -349,6 +360,7 @@ export interface FileRouteTypes {
     | '/llms.txt'
     | '/magazin'
     | '/modelare-revit'
+    | '/pdf-in-dwg'
     | '/politica-cookies'
     | '/politica-de-confidentialitate'
     | '/portofoliu'
@@ -380,6 +392,7 @@ export interface RootRouteChildren {
   LlmsDottxtRoute: typeof LlmsDottxtRoute
   MagazinRoute: typeof MagazinRoute
   ModelareRevitRoute: typeof ModelareRevitRoute
+  PdfInDwgRoute: typeof PdfInDwgRoute
   PoliticaCookiesRoute: typeof PoliticaCookiesRoute
   PoliticaDeConfidentialitateRoute: typeof PoliticaDeConfidentialitateRoute
   PortofoliuRoute: typeof PortofoliuRoute
@@ -494,6 +507,13 @@ declare module '@tanstack/react-router' {
       path: '/modelare-revit'
       fullPath: '/modelare-revit'
       preLoaderRoute: typeof ModelareRevitRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pdf-in-dwg': {
+      id: '/pdf-in-dwg'
+      path: '/pdf-in-dwg'
+      fullPath: '/pdf-in-dwg'
+      preLoaderRoute: typeof PdfInDwgRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/politica-cookies': {
@@ -613,6 +633,7 @@ const rootRouteChildren: RootRouteChildren = {
   LlmsDottxtRoute: LlmsDottxtRoute,
   MagazinRoute: MagazinRoute,
   ModelareRevitRoute: ModelareRevitRoute,
+  PdfInDwgRoute: PdfInDwgRoute,
   PoliticaCookiesRoute: PoliticaCookiesRoute,
   PoliticaDeConfidentialitateRoute: PoliticaDeConfidentialitateRoute,
   PortofoliuRoute: PortofoliuRoute,

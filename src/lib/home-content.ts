@@ -82,6 +82,17 @@ export const services: ServiceItem[] = [
     ],
   },
   {
+    title: "PDF în DWG",
+    lead: "Plan în PDF sau scanat, redesenat manual, linie cu linie, în AutoCAD.",
+    items: [
+      "redesenare manuală, nu conversie automată",
+      "DWG editabil, pe layere",
+      "scară verificată după cote",
+      "PDF de tipărit",
+      "lista cotelor care nu au putut fi citite",
+    ],
+  },
+  {
     title: "Corectare & completare",
     lead: "Preluarea unui proiect început și ducerea documentației la formă finală.",
     items: [
@@ -179,4 +190,5 @@ export const serviceHref: Record<string, ServicePath | undefined> = {
   "Instalații termice": "/instalatii-termice",
   "Instalații electrice": "/instalatii-electrice",
   "AutoCAD / DWG": "/autocad-dwg",
+  "PDF în DWG": "/pdf-in-dwg",
 };

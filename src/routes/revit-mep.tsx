@@ -6,9 +6,9 @@ import hero3d from "@/assets/hero-3d.webp";
 import projSectiune from "@/assets/proj-sectiune.webp";
 import projSheet from "@/assets/proj-sheet.webp";
 
-const title = "Externalizare Revit MEP pentru proiectanți · NOD BIM";
+const title = "Modelare Revit MEP pentru birouri de proiectare · NOD BIM";
 const description =
-  "Modelare Revit MEP pe tema proiectantului: model 3D și planșe HVAC, termice și electrice, în RVT / DWG / PDF. Preiau și proiecte începute.";
+  "Model și planșe HVAC, termice și electrice pe template-ul biroului, plus relevee de instalații existente din datele tale. Livrare RVT, DWG și PDF.";
 const url = canonicalUrl("/revit-mep");
 
 export const Route = createFileRoute("/revit-mep")({
@@ -65,6 +65,10 @@ export const Route = createFileRoute("/revit-mep")({
           ],
         },
         {
+          title: "Releveu de instalații existente (as-built)",
+          body: "Desenez instalațiile HVAC, termice și electrice existente, în AutoCAD sau Revit, pe baza măsurătorilor, fotografiilor și schițelor tale. Pentru birouri de proiectare și executanți.",
+        },
+        {
           title: "Formate de lucru și livrare",
           body: "Fișierele de intrare pot fi RVT, DWG, PDF sau schițe. Livrarea se stabilește înainte de începerea lucrării și poate include fișierul editabil.",
           items: ["RVT", "DWG", "PDF", "capturi 3D pentru prezentare"],
@@ -109,6 +113,10 @@ export const Route = createFileRoute("/revit-mep")({
         [
           "Poți lucra pe un model Revit făcut de altcineva?",
           "Da. Preiau modelul, verific cum e structurat și continui modelarea sau documentația de acolo.",
+        ],
+        [
+          "Faci și relevee de instalații existente?",
+          "Da. Desenez instalațiile existente în AutoCAD sau Revit, pe baza măsurătorilor, fotografiilor și schițelor pe care le trimiți.",
         ],
         [
           "Faci și instalații sanitare?",

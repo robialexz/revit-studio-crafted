@@ -14,7 +14,8 @@ import {
 describe("site-config", () => {
   test("formularul și WhatsApp păstrează serviciul paginii în RO și EN", () => {
     for (const [path, projectType, subject] of [
-      ["/autocad-dwg", "Redesenare / PDF în DWG", "corecturi AutoCAD"],
+      ["/autocad-dwg", "Redesenare / PDF în DWG", "am un plan de desenat în AutoCAD"],
+      ["/pdf-in-dwg", "Redesenare / PDF în DWG", "am un plan PDF de redesenat în DWG"],
       ["/en/autocad-drafting", "AutoCAD / PDF to DWG", "AutoCAD drafting / PDF to DWG"],
       ["/revit-mep", "Modelare Revit MEP", "modelare Revit MEP"],
       ["/en/revit-mep-outsourcing", "Revit MEP modelling", "Revit MEP modelling"],

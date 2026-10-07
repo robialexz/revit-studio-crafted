@@ -4,9 +4,9 @@ import { canonicalUrl } from "@/lib/site-config";
 import projElectrice from "@/assets/proj-electrice.webp";
 import hero2d from "@/assets/hero-2d.webp";
 
-const title = "Instalații electrice: desenare și modelare tehnică · NOD BIM";
+const title = "Planșe instalații electrice în AutoCAD și Revit · NOD BIM";
 const description =
-  "Desenare și modelare tehnică pentru instalații electrice: iluminat, prize, circuite, trasee, tablouri, simboluri și legende, pe baza datelor de proiect.";
+  "Desenez planșe de instalații electrice în AutoCAD și Revit, pe proiectul tău: iluminat, prize, circuite, tablouri, legende. Ofertă în 1–2 zile lucrătoare.";
 const url = canonicalUrl("/instalatii-electrice");
 
 export const Route = createFileRoute("/instalatii-electrice")({
@@ -29,8 +29,7 @@ export const Route = createFileRoute("/instalatii-electrice")({
     <ServicePage
       label="Instalații electrice"
       h1="Desenare și modelare tehnică pentru instalații electrice"
-      intro="Realizez partea de desenare și modelare pentru instalații electrice: amplasări, circuite, trasee și planșe organizate, pe baza temei și a informațiilor tehnice primite."
-      lead="Este un serviciu de desenare tehnică și modelare, nu de proiectare electrică autorizată."
+      intro="Desenez și modelez după proiectul tău; nu fac proiect autorizat sau semnat. Amplasări, circuite, trasee și planșe organizate pentru instalații electrice, în AutoCAD și Revit."
       sections={[
         {
           title: "Amplasări și consumatori",

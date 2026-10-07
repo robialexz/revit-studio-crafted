@@ -122,7 +122,8 @@ export const defaultWhatsappMessageEn =
 /** Același serviciu în formular și în primul mesaj, inclusiv pe paginile EN. */
 export function quoteContextForPath(pathname: string) {
   const path = pathname.replace(/\/+$/, "");
-  const autocad = path === "/autocad-dwg" || path === "/en/autocad-drafting";
+  const pdf = path === "/pdf-in-dwg";
+  const autocad = pdf || path === "/autocad-dwg" || path === "/en/autocad-drafting";
   if (
     !autocad &&
     ![
@@ -147,7 +148,11 @@ export function quoteContextForPath(pathname: string) {
         : "Modelare Revit MEP",
     whatsappMessage: en
       ? `Hello, I need ${autocad ? "AutoCAD drafting / PDF to DWG" : "Revit MEP modelling"}. Can I send you the files for an estimate?`
-      : `Salut! Am nevoie de ${autocad ? "redesenare / PDF în DWG sau corecturi AutoCAD" : "modelare Revit MEP"}. Pot să îți trimit fișierele pentru o ofertă?`,
+      : pdf
+        ? "Salut! Am găsit NOD BIM pe site și am un plan PDF de redesenat în DWG. Pot să îți trimit fișierul pentru o ofertă?"
+        : autocad
+          ? "Salut! Am găsit NOD BIM pe site și am un plan de desenat în AutoCAD. Pot să îți trimit fișierele pentru o ofertă?"
+          : "Salut! Am nevoie de modelare Revit MEP. Pot să îți trimit fișierele pentru o ofertă?",
   };
 }
 

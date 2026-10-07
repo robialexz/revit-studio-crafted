@@ -60,7 +60,7 @@ export function ConsentBanner() {
       aria-label={t.label}
       className="fixed inset-x-0 bottom-[calc(3.5rem+env(safe-area-inset-bottom))] z-50 border-t border-border-strong bg-graphite text-graphite-foreground lg:bottom-0"
     >
-      <div className="mx-auto flex max-w-[1400px] flex-col gap-4 px-5 py-4 md:flex-row md:items-center md:justify-between md:gap-8 md:px-8">
+      <div className="mx-auto flex max-w-[1200px] flex-col gap-4 px-5 py-4 md:flex-row md:items-center md:justify-between md:gap-8 md:px-8">
         <p className="max-w-2xl text-xs leading-relaxed text-graphite-foreground/80">
           {t.text}{" "}
           <a href={t.policyHref} className="underline underline-offset-4 hover:text-primary">

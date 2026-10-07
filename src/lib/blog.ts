@@ -414,10 +414,10 @@ export const articles: Article[] = [
   },
   {
     slug: "pdf-in-dwg-vectorial-scanare-scara-oferta",
-    title: "PDF în DWG: ce se poate converti și ce trebuie redesenat",
-    metaTitle: "PDF în DWG: vectorial, scanare și verificarea scării",
+    title: "Cum transformi un PDF în DWG: ce se convertește și ce se redesenează",
+    metaTitle: "Cum transformi un PDF în DWG și când nu merge",
     description:
-      "Ai un plan doar în PDF? Află diferența dintre conversie și redesenare, cum se verifică scara și ce fișiere trimiți pentru o ofertă AutoCAD.",
+      "Ce importă AutoCAD dintr-un PDF vectorial, de ce o scanare trebuie redesenată și cum verifici scara în DWG. Ghid practic, înainte să ceri o ofertă.",
     date: "2026-10-03",
     readingTime: 4,
     tags: ["AutoCAD", "PDF în DWG", "Redesenare", "Pregătire fișiere"],
@@ -482,6 +482,7 @@ export const articles: Article[] = [
             label: "Servicii AutoCAD: redesenare PDF în DWG",
             href: "/autocad-dwg",
           },
+          { label: "Redesenare PDF în DWG: serviciul", href: "/pdf-in-dwg" },
         ],
       },
       {
@@ -580,6 +581,7 @@ export const articles: Article[] = [
         paragraphs: [
           "Costul real al unei planșe este suma dintre starea fișierelor tale, complexitatea instalațiilor și standardul de predare. Poți reduce costul fără să reduci calitatea: trimite fișiere curate, cere explicit ce include livrabilul și stabilește termenul realist. Restul e muncă de inginerie — și aia merită plătită corect.",
         ],
+        links: [{ label: "Modelare Revit MEP și planșe de instalații", href: "/revit-mep" }],
       },
     ],
   },
@@ -663,6 +665,7 @@ export const articles: Article[] = [
           "Niciun instrument nu este „mai bun” în absolut. Regula practică pe care o folosesc: pentru o lucrare care va suferi modificări, care se predă în mai multe vederi sau care trebuie să rămână coerentă — modelul Revit plătește investiția inițială de fiecare dată. Pentru o corectură punctuală, o conversie sau un desen de unică folosință — DWG-ul rămâne unealta potrivită.",
           "De aceea ofer ambele: Revit MEP ca flux principal de modelare și documentație, AutoCAD/DWG pentru lucrările care se rezolvă cel mai curat în 2D. Dacă nu ești sigur care se potrivește lucrării tale, trimite-mi fișierele și îți spun exact ce aș folosi și de ce.",
         ],
+        links: [{ label: "Desenare AutoCAD la comandă", href: "/autocad-dwg" }],
       },
     ],
   },
@@ -1071,6 +1074,7 @@ export const articles: Article[] = [
           "Pregătește de la început documentația ca un set coerent: același template, aceleași simboluri, numerotare unică a planșelor. Dacă arhitectura este la final, instalațiile se pot desena pe un ACAS curat, fără dubluri.",
           "Aceasta este exact tipul de lucrare pe care o predau ca livrabil de sine stătător — documentația iese din model, cu planșe, legende și indicator gata de depunere.",
         ],
+        links: [{ label: "Modelare Revit MEP și planșe de instalații", href: "/revit-mep" }],
       },
     ],
   },

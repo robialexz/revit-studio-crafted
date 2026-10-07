@@ -4,9 +4,9 @@ import { canonicalUrl } from "@/lib/site-config";
 import projTermice from "@/assets/proj-termice.webp";
 import projSheet from "@/assets/proj-sheet.webp";
 
-const title = "Instalații termice: modelare Revit și planșe · NOD BIM";
+const title = "Planșe instalații termice în Revit și AutoCAD · NOD BIM";
 const description =
-  "Modelare Revit și planșe pentru instalații termice: conducte, radiatoare, centrale, pompe, distribuitoare, încălzire în pardoseală. RVT / DWG / PDF.";
+  "Desenez planșe de instalații termice în Revit și AutoCAD, pe proiectul tău: trasee, radiatoare, centrală, pardoseală. Ofertă în 1–2 zile lucrătoare.";
 const url = canonicalUrl("/instalatii-termice");
 
 export const Route = createFileRoute("/instalatii-termice")({
@@ -29,7 +29,7 @@ export const Route = createFileRoute("/instalatii-termice")({
     <ServicePage
       label="Instalații termice"
       h1="Modelare Revit și planșe pentru instalații termice"
-      intro="Trasee, echipamente și planșe pentru instalații de încălzire, modelate în Revit MEP și livrate ca documentație coerentă."
+      intro="Desenez și modelez după proiectul tău; nu fac proiect autorizat sau semnat. Trasee, echipamente și planșe pentru instalații de încălzire, în Revit și AutoCAD."
       sections={[
         {
           title: "Trasee și conducte",

@@ -4,9 +4,9 @@ import { canonicalUrl } from "@/lib/site-config";
 import { hreflangLinks } from "@/lib/i18n";
 import projDwg from "@/assets/proj-dwg.webp";
 
-const title = "Servicii AutoCAD: redesenare, conversie PDF în DWG · NOD BIM";
+const title = "Desenator AutoCAD la comandă: planșe și corecturi DWG";
 const description =
-  "Servicii CAD pentru birouri de proiectare: redesenare din PDF sau scanări în DWG, corectarea planșelor, curățare layere și layout de print. Lucru online.";
+  "Desenez la comandă în AutoCAD: planșe după schiță, corecturi pe DWG-ul tău, layere și layout de print. Trimiți fișierele, primești prețul înainte de start.";
 const url = canonicalUrl("/autocad-dwg");
 
 export const Route = createFileRoute("/autocad-dwg")({
@@ -29,9 +29,10 @@ export const Route = createFileRoute("/autocad-dwg")({
   component: () => (
     <ServicePage
       label="AutoCAD / DWG"
-      h1="Redesenare AutoCAD, conversie PDF în DWG și corectare planșe"
-      intro="Ai documentație veche în PDF, scanări sau DWG-uri greu de folosit? Planurile sunt redesenate sau corectate în AutoCAD și primești DWG editabil, organizat pe layere, plus PDF gata de print."
-      lead="Pentru persoane, birouri de proiectare, arhitecți și firme care au un plan de redesenat sau corectat. Costul se stabilește după ce văd fișierele, înainte de începere."
+      h1="Desenator AutoCAD pentru planșe, corecturi și desene după schiță"
+      intro="Ai o schiță, un plan vechi sau un DWG de corectat? Fac desenare în AutoCAD pentru persoane fizice și firme mici, dar și pentru arhitecți și birouri de proiectare: desene la comandă, redesenare planuri și corecturi pe planșe existente."
+      lead="Costul îl stabilesc după ce văd fișierele, înainte de începere. Primești DWG editabil, organizat pe layere, plus PDF gata de tipărit."
+      offers={["corectare", "redesenare"]}
       sections={[
         {
           title: "Curățare și organizare DWG",
@@ -87,6 +88,10 @@ export const Route = createFileRoute("/autocad-dwg")({
       ]}
       faq={[
         [
+          "Cauți un proiectant AutoCAD?",
+          "Fac desenarea, nu proiectarea autorizată: desenez după proiectul, schița sau observațiile tale.",
+        ],
+        [
           "Poți converti un PDF în DWG?",
           "Depinde de PDF. Un export vectorial se poate converti util; o scanare se redesenează, iar în acest caz estimarea se face în funcție de volum.",
         ],
@@ -99,7 +104,7 @@ export const Route = createFileRoute("/autocad-dwg")({
           "Pentru proiecte cu multe vederi și modificări, modelul reduce erorile între planșe. Pentru o planșă izolată, AutoCAD e adesea soluția potrivită.",
         ],
       ]}
-      related={["/revit-mep", "/modelare-revit", "/instalatii-termice"]}
+      related={["/pdf-in-dwg", "/revit-mep", "/modelare-revit"]}
     />
   ),
 });

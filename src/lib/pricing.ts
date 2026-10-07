@@ -57,6 +57,12 @@ export function estimateLabel(type: JobType, sheets: number): string {
   return max === null ? `de la ${formatLei(min)} lei` : `${formatLei(min)} – ${formatLei(max)} lei`;
 }
 
+/** Tariful pe unitate: „350–800 lei / plan”, „de la 250 lei / planșă”. */
+export function rateLabel(type: JobType, separator = " / "): string {
+  const { min, max, unit } = jobRates[type];
+  return `${max === null ? `de la ${min}` : `${min}–${max}`} lei${separator}${unit}`;
+}
+
 /** „1 planșă”, „3 planșe”, „20 de planșe”. */
 export function sheetsLabel(sheets: number): string {
   const n = clampSheets(sheets);

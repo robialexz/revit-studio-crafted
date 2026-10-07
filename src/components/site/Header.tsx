@@ -17,6 +17,11 @@ const copy = {
         href: "/autocad-dwg",
       },
       {
+        label: "PDF în DWG",
+        description: "Plan PDF sau scanat, redesenat manual",
+        href: "/pdf-in-dwg",
+      },
+      {
         label: "Revit MEP și instalații",
         description: "Model 3D și planșe pentru birouri de proiectare",
         href: "/revit-mep",
@@ -132,7 +137,7 @@ export function Header({ ctaHref }: { ctaHref?: string }) {
         {t.skip}
       </a>
       <header className="sticky top-0 z-50 border-b border-border bg-background">
-        <div className="mx-auto flex max-w-[1400px] items-center gap-4 px-5 py-3 md:px-8">
+        <div className="mx-auto flex max-w-[1200px] items-center gap-4 px-5 py-3 md:px-8">
           <a
             href={t.home}
             className="flex items-center gap-2.5 whitespace-nowrap font-display text-xl font-semibold tracking-tight"

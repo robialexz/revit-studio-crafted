@@ -14,6 +14,7 @@ const EXPECTED_ROUTES = [
   "/instalatii-termice",
   "/instalatii-electrice",
   "/autocad-dwg",
+  "/pdf-in-dwg",
   "/portofoliu",
   "/contact",
   "/politica-de-confidentialitate",

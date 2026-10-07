@@ -58,6 +58,11 @@ function NotFoundComponent() {
             </Link>
           </li>
           <li>
+            <Link to="/pdf-in-dwg" className="underline underline-offset-4 hover:text-primary">
+              PDF în DWG
+            </Link>
+          </li>
+          <li>
             <Link to="/portofoliu" className="underline underline-offset-4 hover:text-primary">
               Lucrări
             </Link>

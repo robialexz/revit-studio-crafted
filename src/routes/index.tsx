@@ -150,7 +150,7 @@ export const Route = createFileRoute("/")({
   component: Home,
 });
 
-const wrap = "mx-auto max-w-[1400px] px-5 md:px-8";
+const wrap = "mx-auto max-w-[1200px] px-5 md:px-8";
 const sectionPad = "py-16 md:py-24";
 const h2 = "max-w-3xl text-3xl md:text-[2.6rem]";
 const textLink =

@@ -1,5 +1,5 @@
 import { Mail, Phone } from "lucide-react";
-import { useRouterState } from "@tanstack/react-router";
+import { Link, useRouterState } from "@tanstack/react-router";
 import {
   site,
   disclaimer,
@@ -32,6 +32,7 @@ const copy = {
     servicesTitle: "Servicii",
     services: [
       { label: "Desenare AutoCAD", href: "/autocad-dwg" },
+      { label: "PDF în DWG", href: "/pdf-in-dwg" },
       { label: "Revit MEP și instalații", href: "/revit-mep" },
       { label: "Modelare Revit", href: "/modelare-revit" },
       { label: "HVAC", href: "/hvac" },
@@ -91,7 +92,7 @@ export function Footer() {
   const message = quoteContextForPath(pathname)?.whatsappMessage ?? t.whatsapp;
   return (
     <footer className="border-t border-border-strong bg-graphite pb-[calc(3.5rem+env(safe-area-inset-bottom))] text-graphite-foreground lg:pb-0">
-      <div className="mx-auto max-w-[1400px] px-5 py-14 md:px-8 md:py-20">
+      <div className="mx-auto max-w-[1200px] px-5 py-14 md:px-8 md:py-20">
         <div className="grid gap-12 md:grid-cols-12">
           <div className="md:col-span-4">
             <p className="font-display text-3xl font-semibold tracking-tight md:text-4xl">
@@ -111,9 +112,9 @@ export function Footer() {
                   <ul className="mt-4 space-y-2.5 text-sm">
                     {t.services.map((l) => (
                       <li key={l.href}>
-                        <a href={l.href} className="hover:underline">
+                        <Link to={l.href} className="hover:underline">
                           {l.label}
-                        </a>
+                        </Link>
                       </li>
                     ))}
                   </ul>

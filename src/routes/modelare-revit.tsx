@@ -4,9 +4,9 @@ import { canonicalUrl } from "@/lib/site-config";
 import hero2d from "@/assets/hero-2d.webp";
 import projSheet from "@/assets/proj-sheet.webp";
 
-const title = "Modelare BIM în Revit: model 3D și planșe tehnice · NOD BIM";
+const title = "Modelare Revit: model 3D și planșe tehnice · NOD BIM";
 const description =
-  "Modelare Revit și desenare tehnică: model 3D, planuri, secțiuni și planșe organizate. Când merită modelarea BIM, ce trimiți și ce primești la final.";
+  "Modelez în Revit pentru arhitecți și birouri de proiectare: model 3D, planuri, secțiuni și planșe organizate. Ofertă în 1–2 zile lucrătoare.";
 const url = canonicalUrl("/modelare-revit");
 
 export const Route = createFileRoute("/modelare-revit")({
@@ -96,7 +96,7 @@ export const Route = createFileRoute("/modelare-revit")({
         ],
         [
           "Câte runde de modificări sunt incluse?",
-          "În general 1–2 runde normale de modificări, în funcție de lucrare. Scopul se stabilește înainte de începere.",
+          "Rundele de modificări incluse se stabilesc în ofertă, înainte de începere.",
         ],
       ]}
       related={["/revit-mep", "/hvac", "/autocad-dwg"]}

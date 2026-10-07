@@ -18,12 +18,13 @@ const LAST_MODIFIED = "2026-10-02";
 
 const entries: SitemapEntry[] = [
   { path: "/", lastmod: LAST_MODIFIED, changefreq: "weekly", priority: "1.0" },
-  { path: "/revit-mep", lastmod: LAST_MODIFIED, changefreq: "monthly", priority: "0.9" },
-  { path: "/modelare-revit", lastmod: LAST_MODIFIED, changefreq: "monthly", priority: "0.8" },
-  { path: "/hvac", lastmod: LAST_MODIFIED, changefreq: "monthly", priority: "0.8" },
-  { path: "/instalatii-termice", lastmod: LAST_MODIFIED, changefreq: "monthly", priority: "0.8" },
-  { path: "/instalatii-electrice", lastmod: LAST_MODIFIED, changefreq: "monthly", priority: "0.8" },
-  { path: "/autocad-dwg", lastmod: LAST_MODIFIED, changefreq: "monthly", priority: "0.7" },
+  { path: "/revit-mep", lastmod: "2026-10-07", changefreq: "monthly", priority: "0.9" },
+  { path: "/modelare-revit", lastmod: "2026-10-07", changefreq: "monthly", priority: "0.8" },
+  { path: "/hvac", lastmod: "2026-10-07", changefreq: "monthly", priority: "0.8" },
+  { path: "/instalatii-termice", lastmod: "2026-10-07", changefreq: "monthly", priority: "0.8" },
+  { path: "/instalatii-electrice", lastmod: "2026-10-07", changefreq: "monthly", priority: "0.8" },
+  { path: "/autocad-dwg", lastmod: "2026-10-07", changefreq: "monthly", priority: "0.7" },
+  { path: "/pdf-in-dwg", lastmod: "2026-10-07", changefreq: "monthly", priority: "0.7" },
   {
     path: "/en/revit-mep-outsourcing",
     lastmod: LAST_MODIFIED,
