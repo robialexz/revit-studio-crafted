@@ -48,7 +48,7 @@ export function estimate(
 }
 
 /** Separator de mii cu regex, nu toLocaleString: server și browser dau același text. */
-function formatLei(value: number): string {
+export function formatLei(value: number): string {
   return String(value).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 }
 
@@ -57,10 +57,14 @@ export function estimateLabel(type: JobType, sheets: number): string {
   return max === null ? `de la ${formatLei(min)} lei` : `${formatLei(min)} – ${formatLei(max)} lei`;
 }
 
-export function estimateWhatsappMessage(type: JobType, sheets: number): string {
+/** „1 planșă”, „3 planșe”, „20 de planșe”. */
+export function sheetsLabel(sheets: number): string {
   const n = clampSheets(sheets);
-  const noun = n === 1 ? "planșă" : n < 20 ? "planșe" : "de planșe";
-  return `Salut! Am găsit NOD BIM pe site. Am ${n} ${noun} ${jobRates[type].waName}. Pot trimite fișierele pentru o ofertă?`;
+  return `${n} ${n === 1 ? "planșă" : n < 20 ? "planșe" : "de planșe"}`;
+}
+
+export function estimateWhatsappMessage(type: JobType, sheets: number): string {
+  return `Salut! Am găsit NOD BIM pe site. Am ${sheetsLabel(sheets)} ${jobRates[type].waName}. Pot trimite fișierele pentru o ofertă?`;
 }
 
 /** Nod Offer pentru datele structurate; maxPrice apare doar când există. */

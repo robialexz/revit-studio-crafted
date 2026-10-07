@@ -4,9 +4,11 @@ import {
   estimate,
   estimateLabel,
   estimateWhatsappMessage,
+  formatLei,
   jobRates,
   offerSchema,
   packagePrice,
+  sheetsLabel,
 } from "../src/lib/pricing";
 
 test("tarifele din specificație", () => {
@@ -40,6 +42,16 @@ test("estimateLabel", () => {
   expect(estimateLabel("redesenare", 1)).toBe("350 – 800 lei");
   expect(estimateLabel("redesenare", 20)).toBe("7.000 – 16.000 lei");
   expect(estimateLabel("corectare", 1)).toBe("de la 250 lei");
+});
+
+test("sheetsLabel și formatLei", () => {
+  expect([1, 3, 20, 99].map(sheetsLabel)).toEqual([
+    "1 planșă",
+    "3 planșe",
+    "20 de planșe",
+    "20 de planșe",
+  ]);
+  expect(formatLei(packagePrice.min)).toBe("1.500");
 });
 
 test("mesajul WhatsApp: acord și formulare", () => {

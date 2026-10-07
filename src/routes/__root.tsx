@@ -150,18 +150,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         crossOrigin: "anonymous" as const,
       })),
     ],
-    scripts: [
-      {
-        type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "WebSite",
-          name: site.businessName,
-          inLanguage: ["ro-RO", "en"],
-          ...(site.siteUrl ? { url: site.siteUrl } : {}),
-        }),
-      },
-    ],
   }),
 
   shellComponent: RootShell,

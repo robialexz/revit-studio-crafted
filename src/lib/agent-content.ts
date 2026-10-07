@@ -5,8 +5,9 @@
  */
 import { articles } from "./blog";
 import { enAbout, enDrafting, enOutsourcing } from "./en-content";
-import { serviceHref, services } from "./home-content";
+import { faq, process, serviceHref, services } from "./home-content";
 import { enHomePath } from "./i18n";
+import { estimateLabel, formatLei, jobRates, packagePrice } from "./pricing";
 import { products } from "./products";
 import { site } from "./site-config";
 
@@ -122,40 +123,35 @@ function homeMarkdown(): string {
   return [
     `# ${site.businessName}`,
     ``,
-    `> ${site.tagline}. Servicii de modelare Revit MEP, BIM și documentație tehnică pentru instalații HVAC, termice și electrice, plus AutoCAD/DWG pentru corectări și conversii.`,
+    `> Desenare tehnică la comandă, online: planuri redesenate în AutoCAD, conversie PDF în DWG, corecturi pe planșe și planșe de instalații în AutoCAD și Revit MEP. Prețul se comunică în scris înainte de start.`,
     ``,
     `## Servicii`,
     ``,
+    `- [AutoCAD / DWG](${base()}/autocad-dwg): redesenare planuri din PDF, scanare sau schiță, conversie PDF în DWG, corecturi, pregătire pentru tipărit`,
     `- [Externalizare Revit MEP](${base()}/revit-mep): modelare și planșe de instalații pe tema biroului, export RVT/DWG/PDF`,
     `- [Instalații HVAC](${base()}/hvac): tubulaturi, echipamente, grile, anemostate, scheme`,
     `- [Instalații termice](${base()}/instalatii-termice): conducte, radiatoare, centrale, distribuitoare`,
     `- [Instalații electrice](${base()}/instalatii-electrice): iluminat, prize, circuite, trasee, tablouri`,
-    `- [AutoCAD / DWG](${base()}/autocad-dwg): curățare, layere, redesenare, pregătire print`,
     `- [Corectare & completare](${base()}/modelare-revit): preluare RVT/DWG existent, implementarea observațiilor`,
-    ``,
-    `## Proces`,
-    ``,
-    `1. Clientul trimite proiectul (DWG/PDF/RVT) și cerințele`,
-    `2. Primește estimarea — preț stabilit înainte de începere`,
-    `3. Se realizează modelul și planșele (Revit MEP, AutoCAD la nevoie)`,
-    `4. Se livrează fișierele finale: RVT · DWG · PDF`,
     ``,
     `## Prețuri orientative`,
     ``,
-    `- Modificare/corectare planșă: de la 250 lei`,
-    `- Redesenare/curățare plan: 350–800 lei`,
-    `- Planșă instalații: de la 300 lei`,
-    `- Pachet 5 planșe + suport tehnic: de la 1.500 lei`,
+    ...(["redesenare", "corectare", "instalatii"] as const).map(
+      (type) => `- ${jobRates[type].label}: ${estimateLabel(type, 1)} / ${jobRates[type].unit}`,
+    ),
+    `- Pachet ${packagePrice.sheets} planșe: de la ${formatLei(packagePrice.min)} lei`,
+    ``,
+    `## Proces`,
+    ``,
+    ...process.map((step, i) => `${i + 1}. ${step.title}: ${step.body}`),
     ``,
     `## Portofoliu`,
     ``,
-    `- [Portofoliu](${base()}/portofoliu): exemple de modelare și documentație`,
+    `- [Portofoliu](${base()}/portofoliu): exemple de planșe și modele`,
     ``,
     `## Întrebări frecvente`,
     ``,
-    `- Lucrezi în Revit? Da — Revit MEP e fluxul principal.`,
-    `- Livrezi și RVT editabil? Da, când face parte din scopul lucrării.`,
-    `- Poți prelua un proiect început de altcineva? Da.`,
+    ...faq.slice(0, 6).map(([q, a]) => `- ${q} ${a}`),
     ``,
     `## Contact`,
     ``,

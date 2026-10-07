@@ -1,0 +1,181 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 600" width="960" height="600" font-family="Arial, Helvetica, sans-serif" fill="#1a1f24">
+  <title>Plan apartament cu două camere · exemplu demonstrativ · scara 1:50</title>
+  <rect width="960" height="600" fill="#fff"/>
+  <g id="plan" fill="none" stroke="#1a1f24">
+    <!-- chenarul planșei -->
+    <rect x="10" y="10" width="940" height="580" stroke-width="1.2"/>
+
+    <!-- pereți: exteriori 30 cm, interiori 15 cm (70 px = 1 m) -->
+    <path fill="#cfd4d8" fill-rule="evenodd" stroke-width="1.6" stroke-linejoin="miter" d="M130 78H760V540H130Z M151 99H466V351H151Z M476.5 99H739V351H476.5Z M151 361.5H361V519H151Z M371.5 361.5H560.5V519H371.5Z M571 361.5H739V519H571Z"/>
+
+    <!-- ferestre -->
+    <g stroke-width="1.2">
+      <rect x="245.5" y="76" width="126" height="25" fill="#fff" stroke="none"/>
+      <rect x="245.5" y="78" width="126" height="21"/>
+      <path d="M245.5 88.5H371.5"/>
+      <rect x="555" y="76" width="105" height="25" fill="#fff" stroke="none"/>
+      <rect x="555" y="78" width="105" height="21"/>
+      <path d="M555 88.5H660"/>
+      <rect x="128" y="384" width="25" height="84" fill="#fff" stroke="none"/>
+      <rect x="130" y="384" width="21" height="84"/>
+      <path d="M140.5 384V468"/>
+      <rect x="737" y="419" width="25" height="42" fill="#fff" stroke="none"/>
+      <rect x="739" y="419" width="21" height="42"/>
+      <path d="M749.5 419V461"/>
+    </g>
+
+    <!-- goluri de uși -->
+    <g fill="#fff" stroke="none">
+      <rect x="434" y="517" width="63" height="25"/>
+      <rect x="392" y="349" width="56" height="14.5"/>
+      <rect x="490" y="349" width="56" height="14.5"/>
+      <rect x="359" y="380" width="14.5" height="56"/>
+      <rect x="558.5" y="380" width="14.5" height="49"/>
+    </g>
+    <g stroke-width="1.6">
+      <path d="M434 519V540M497 519V540"/>
+      <path d="M392 351V361.5M448 351V361.5"/>
+      <path d="M490 351V361.5M546 351V361.5"/>
+      <path d="M361 380H371.5M361 436H371.5"/>
+      <path d="M560.5 380H571M560.5 429H571"/>
+    </g>
+    <!-- foi de ușă și arce de deschidere -->
+    <g stroke-width="1.6">
+      <path d="M434 519V456"/>
+      <path d="M448 351V295"/>
+      <path d="M490 351V295"/>
+      <path d="M361 380H305"/>
+      <path d="M571 380H620"/>
+    </g>
+    <g stroke-width="0.8">
+      <path d="M434 456A63 63 0 0 1 497 519"/>
+      <path d="M448 295A56 56 0 0 0 392 351"/>
+      <path d="M490 295A56 56 0 0 1 546 351"/>
+      <path d="M305 380A56 56 0 0 0 361 436"/>
+      <path d="M620 380A49 49 0 0 1 571 429"/>
+      <path d="M434 540H497" stroke-dasharray="3 3"/>
+    </g>
+
+    <!-- obiecte fixe: bucătărie și baie -->
+    <g stroke-width="0.9">
+      <path d="M151 477H361"/>
+      <rect x="175" y="485" width="46" height="26" rx="3"/>
+      <circle cx="198" cy="498" r="2"/>
+      <rect x="268" y="484" width="50" height="28"/>
+      <circle cx="281" cy="492" r="4.5"/>
+      <circle cx="305" cy="492" r="4.5"/>
+      <circle cx="281" cy="505" r="4.5"/>
+      <circle cx="305" cy="505" r="4.5"/>
+      <rect x="620" y="470" width="119" height="49"/>
+      <rect x="625" y="475" width="109" height="39" rx="12"/>
+      <circle cx="722" cy="494.5" r="2"/>
+      <rect x="672" y="361.5" width="36" height="13"/>
+      <ellipse cx="690" cy="394" rx="13" ry="18"/>
+      <rect x="571" y="452" width="34" height="44"/>
+      <ellipse cx="589" cy="474" rx="11" ry="15"/>
+    </g>
+
+    <!-- cote: lanț parțial și cotă totală, sus și în stânga -->
+    <g stroke-width="0.8">
+      <path d="M124 30H766M124 54H766"/>
+      <path d="M130 22V72M760 22V72M151 46V72M466 46V72M476.5 46V72M739 46V72"/>
+      <path d="M82 72V546M106 72V546"/>
+      <path d="M74 78H124M74 540H124M98 99H124M98 351H124M98 361.5H124M98 519H124"/>
+    </g>
+    <g stroke-width="1.3">
+      <path d="M126 34l8-8M756 34l8-8"/>
+      <path d="M126 58l8-8M147 58l8-8M462 58l8-8M472.5 58l8-8M735 58l8-8M756 58l8-8"/>
+      <path d="M78 82l8-8M78 544l8-8"/>
+      <path d="M102 82l8-8M102 103l8-8M102 355l8-8M102 365.5l8-8M102 523l8-8M102 544l8-8"/>
+    </g>
+
+    <!-- marcajul intrării, scara grafică, nordul -->
+    <path d="M465.5 548l7 11h-14Z" fill="#1a1f24" stroke="none"/>
+    <g stroke-width="0.9">
+      <rect x="130" y="566" width="140" height="6"/>
+      <path d="M130 566h35v6h-35ZM200 566h35v6h-35Z" fill="#1a1f24"/>
+      <circle cx="870" cy="66" r="22"/>
+      <path d="M870 44l9 34-9-7-9 7Z" fill="#1a1f24"/>
+    </g>
+
+    <!-- tabel de suprafețe și indicator -->
+    <g stroke-width="0.8">
+      <path d="M800 140H940M800 250H940"/>
+    </g>
+    <g stroke-width="1.2">
+      <path d="M790 590V450H950M790 498H950M790 540H950M870 540V590"/>
+    </g>
+  </g>
+
+  <!-- denumiri de încăperi și suprafețe -->
+  <g text-anchor="middle">
+    <g font-size="15" font-weight="700">
+      <text x="308.5" y="212">Cameră de zi</text>
+      <text x="607.75" y="212">Dormitor</text>
+      <text x="240" y="424">Bucătărie</text>
+      <text x="466" y="408">Hol</text>
+      <text x="672" y="436">Baie</text>
+    </g>
+    <g font-size="13">
+      <text x="308.5" y="231">16,20 m²</text>
+      <text x="607.75" y="231">13,50 m²</text>
+      <text x="240" y="442">6,75 m²</text>
+      <text x="466" y="426">6,08 m²</text>
+      <text x="672" y="453">5,40 m²</text>
+    </g>
+
+    <!-- valorile cotelor, în centimetri: 30+450+15+375+30 = 900; 30+360+15+225+30 = 660 -->
+    <g font-size="13">
+      <text x="445" y="26">900</text>
+      <text x="140.5" y="50">30</text>
+      <text x="308.5" y="50">450</text>
+      <text x="471.25" y="43">15</text>
+      <text x="607.75" y="50">375</text>
+      <text x="749.5" y="50">30</text>
+      <text transform="rotate(-90 78 309)" x="78" y="309">660</text>
+      <text transform="rotate(-90 102 88.5)" x="102" y="88.5">30</text>
+      <text transform="rotate(-90 102 225)" x="102" y="225">360</text>
+      <text transform="rotate(-90 95 356.25)" x="95" y="356.25">15</text>
+      <text transform="rotate(-90 102 440.25)" x="102" y="440.25">225</text>
+      <text transform="rotate(-90 102 529.5)" x="102" y="529.5">30</text>
+    </g>
+    <text x="870" y="38" font-size="12" font-weight="700">N</text>
+    <g font-size="11">
+      <text x="130" y="562">0</text>
+      <text x="200" y="562">1</text>
+      <text x="270" y="562">2 m</text>
+    </g>
+  </g>
+  <text x="300" y="573" font-size="11">Cote în centimetri</text>
+
+  <g font-size="12">
+    <text x="800" y="132" font-weight="700">Suprafețe utile</text>
+    <text x="800" y="160">Cameră de zi</text>
+    <text x="800" y="180">Dormitor</text>
+    <text x="800" y="200">Bucătărie</text>
+    <text x="800" y="220">Hol</text>
+    <text x="800" y="240">Baie</text>
+    <text x="800" y="270" font-weight="700">Total</text>
+    <g text-anchor="end">
+      <text x="940" y="160">16,20 m²</text>
+      <text x="940" y="180">13,50 m²</text>
+      <text x="940" y="200">6,75 m²</text>
+      <text x="940" y="220">6,08 m²</text>
+      <text x="940" y="240">5,40 m²</text>
+      <text x="940" y="270" font-weight="700">47,93 m²</text>
+    </g>
+  </g>
+
+  <g>
+    <g font-size="9" letter-spacing="0.8">
+      <text x="798" y="465">PLANȘĂ</text>
+      <text x="798" y="513">CONȚINUT</text>
+      <text x="798" y="555">SCARA</text>
+      <text x="878" y="555">FORMAT</text>
+    </g>
+    <text x="798" y="486" font-size="15" font-weight="700">Plan apartament</text>
+    <text x="798" y="530" font-size="12">Exemplu demonstrativ</text>
+    <text x="798" y="578" font-size="16" font-weight="700">1:50</text>
+    <text x="878" y="578" font-size="16" font-weight="700">A3</text>
+  </g>
+</svg>
