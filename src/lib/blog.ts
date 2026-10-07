@@ -26,6 +26,151 @@ export type Article = {
 
 export const articles: Article[] = [
   {
+    slug: "liste-cantitati-revit-mep-campuri-filtre-verificare",
+    title: "Liste de cantități Revit MEP: ce ceri și cum le verifici",
+    metaTitle: "Liste de cantități Revit MEP: câmpuri și verificare",
+    description:
+      "Ce stabilești pentru listele dintr-un model Revit MEP: categorii, parametri, filtre, unități și modele legate, înainte de externalizarea documentației.",
+    date: "2026-10-07",
+    readingTime: 5,
+    tags: ["Revit MEP", "Liste de cantități", "Parametri", "Documentație"],
+    sections: [
+      {
+        paragraphs: [
+          "Ai nevoie ca modelul Revit MEP să vină și cu o listă de echipamente sau de cantități? Cererea «vreau toate cantitățile» nu precizează ce trebuie extras și cum vei verifica rezultatul. Un tabel poate fi lizibil și totuși să includă alte elemente decât cele așteptate.",
+          "Pentru un birou care externalizează modelarea HVAC, termică sau electrică, lista trebuie definită ca livrabil: categorii, informații, limite și format. Acest ghid explică ce merită stabilit înainte de lucru și ce verifici în tabelul primit.",
+        ],
+      },
+      {
+        heading: "Definește lista după scopul în care o vei folosi",
+        paragraphs: [
+          "O listă pentru identificarea echipamentelor are alte coloane decât una pentru totalizarea lungimilor. În Revit, crearea unui Schedule/Quantities presupune selectarea categoriei și a fazei, apoi configurarea câmpurilor, filtrelor și grupării.",
+          "Exemplele de mai jos sunt orientative; câmpurile disponibile depind de categoria și informațiile modelului.",
+        ],
+        table: {
+          head: ["Lista cerută", "Informații de precizat", "Control util"],
+          rows: [
+            [
+              "Echipamente",
+              "Cod, familie/tip, număr de instanțe",
+              "Identificarea elementelor din model",
+            ],
+            [
+              "Trasee",
+              "Categorie, tip/dimensiune, lungime și unitate",
+              "Separarea traseelor de alte componente",
+            ],
+            [
+              "Accesorii sau fitinguri",
+              "Categorie, tip și număr",
+              "Regulile de grupare și excluderile",
+            ],
+          ],
+        },
+        links: [
+          {
+            label: "Autodesk: crearea unui Schedule/Quantities",
+            href: "https://help.autodesk.com/cloudhelp/2026/ENU/Revit-DocumentPresent/files/GUID-6D4DBBDA-3611-40CD-9A45-BE40EB07188A.htm",
+          },
+        ],
+      },
+      {
+        heading: "Cere parametri care identifică elementul",
+        paragraphs: [
+          "Stabilește denumirea coloanelor și informația pe care trebuie să o conțină. Un cod intern de echipament, un tip și o denumire comercială nu sunt neapărat același parametru. O coloană intitulată convenabil nu demonstrează că valorile sale sunt completate corect.",
+          "Revit permite selectarea câmpurilor și folosirea parametrilor de tip sau de instanță. Transmite definițiile parametrilor folosiți de birou și indică ce valori lipsă trebuie raportate. Nu cere completarea lor prin presupuneri.",
+          "Documentația Autodesk avertizează că, atunci când introduci parametri partajați într-un tabel, categoriile care nu au parametrul selectat nu sunt afișate. Absența unui rând trebuie investigată înainte să concluzionezi că elementul nu există.",
+        ],
+        links: [
+          {
+            label: "Autodesk: selectarea câmpurilor unui tabel",
+            href: "https://help.autodesk.com/cloudhelp/2026/ENU/Revit-DocumentPresent/files/GUID-F7D48874-EDB0-454B-8E5B-19C551A78978.htm",
+          },
+          {
+            label: "Autodesk: categorii și parametri partajați",
+            href: "https://help.autodesk.com/cloudhelp/2026/ENU/Revit-DocumentPresent/files/GUID-6D4DBBDA-3611-40CD-9A45-BE40EB07188A.htm",
+          },
+        ],
+      },
+      {
+        heading: "Verifică filtrele și modelele din care se extrag datele",
+        paragraphs: [
+          "Un tabel poate afișa numai o parte din model. Notează faza, filtrele și eventualele limite de zonă sau sistem, folosind parametrii disponibili. Revit cere îndeplinirea tuturor filtrelor configurate pentru ca datele să fie afișate; filtrele de text sunt sensibile la litere mari și mici.",
+          "Un câmp poate fi ascuns în tabel și totuși folosit pentru filtrare. De aceea, verificarea coloanelor vizibile nu este suficientă pentru a înțelege ce a fost exclus.",
+          "Clarifică separat modelul gazdă și modelele legate. Pentru includerea elementelor din legături, Autodesk documentează opțiunea Include elements in links. Cere să fie consemnat dacă este folosită în tabelul respectiv și care sunt fișierele sursă, pentru a evita omisiuni sau includeri nedorite.",
+        ],
+        links: [
+          {
+            label: "Autodesk: filtrarea datelor dintr-un tabel",
+            href: "https://help.autodesk.com/cloudhelp/2026/ENU/Revit-DocumentPresent/files/GUID-C5140A8E-EDB3-4C99-84F0-9299D5136369.htm",
+          },
+          {
+            label: "Autodesk: includerea elementelor din modele legate",
+            href: "https://help.autodesk.com/cloudhelp/2026/ENU/Revit-DocumentPresent/files/GUID-F7D48874-EDB0-454B-8E5B-19C551A78978.htm",
+          },
+        ],
+      },
+      {
+        heading: "Un rând grupat poate reprezenta mai multe elemente",
+        paragraphs: [
+          "Cere explicit dacă vrei fiecare instanță pe un rând sau un sumar pe tipuri. Opțiunea Itemize every instance afișează instanțele individual; când este dezactivată, mai multe instanțe se pot reuni în același rând, potrivit câmpurilor de sortare.",
+          "Într-o listă grupată, numărul de rânduri nu este numărul de echipamente. Verifică valoarea Count și regulile grupării. Dacă elementele grupate au valori diferite pentru un parametru, afișarea depinde de setările pentru valori multiple.",
+          "Pentru control, poate fi util un tabel detaliat alături de sumar. Aceasta este o recomandare de organizare, nu o cerință obligatorie Autodesk.",
+        ],
+        links: [
+          {
+            label: "Autodesk: sortarea și gruparea câmpurilor",
+            href: "https://help.autodesk.com/cloudhelp/2026/ENU/Revit-DocumentPresent/files/GUID-3ED9C7F0-C340-4317-BCE6-327638ED4A39.htm",
+          },
+        ],
+      },
+      {
+        heading: "Unitățile și totalurile trebuie să fie explicite",
+        paragraphs: [
+          "Precizează unitatea și precizia de afișare pentru coloanele numerice. Revit permite formatarea câmpurilor numerice cu unități și ajustarea acesteia separat de setările proiectului.",
+          "Totalizarea este disponibilă pentru câmpurile care pot fi însumate și depinde de configurarea tabelului. Cere să fie indicat dacă primești valori pe element, subtotaluri ori un total general. Nu însuma manual o coloană fără să înțelegi ce reprezintă fiecare rând și ce categorii au fost excluse.",
+        ],
+        links: [
+          {
+            label: "Autodesk: formatarea câmpurilor și a totalurilor",
+            href: "https://help.autodesk.com/cloudhelp/2026/ENU/Revit-DocumentPresent/files/GUID-44DD5F85-F715-450B-B98D-1AB23D5F5074.htm",
+          },
+        ],
+      },
+      {
+        heading: "Checklist pentru primirea listei de cantități",
+        list: [
+          "Fișierul și data modelului sursă sunt identificate, împreună cu legăturile incluse.",
+          "Categoriile, faza, filtrele și excluderile corespund cererii de lucru.",
+          "Coloanele au parametri definiți, iar valorile lipsă sunt semnalate.",
+          "Instanțele individuale și rândurile grupate se pot distinge; Count este interpretat corect.",
+          "Unitățile, precizia și regulile totalurilor sunt explicite.",
+          "Câteva elemente selectate pot fi urmărite din tabel până la model.",
+          "Formatul primit și lista întrebărilor deschise corespund scopului convenit.",
+        ],
+      },
+      {
+        heading: "Cantitățile din model au limitele documentației modelate",
+        paragraphs: [
+          "Un tabel descrie elementele și informațiile pe care modelul le conține și pe care configurația le include. El nu stabilește singur că documentația este completă pentru achiziție sau că toate componentele necesare au fost modelate.",
+          "Orice adaosuri, rezerve sau elemente nemodelate trebuie definite separat de responsabilul documentației. Calculul soluției, verificarea și acceptarea tehnică rămân la proiectant. Lista extrasă nu înlocuiește acest control.",
+        ],
+      },
+      {
+        heading: "Pregătești externalizarea documentației Revit MEP?",
+        paragraphs: [
+          "NOD BIM realizează modelare și documentație HVAC, termică și electrică pe tema biroului de proiectare. Dacă ai nevoie și de tabele din model, include exemplul de listă, parametrii și regulile de extragere în cerere, pentru evaluare și stabilirea livrabilelor. Trimite fișierele și cerințele înainte de începerea lucrării.",
+        ],
+        links: [
+          {
+            label: "Externalizare Revit MEP pentru birouri de proiectare",
+            href: "/revit-mep",
+          },
+        ],
+      },
+    ],
+  },
+  {
     slug: "corecturi-dwg-pdf-redline-layout-predare",
     title: "Corecturi DWG după PDF redline: ce ceri înainte de predare",
     metaTitle: "Corecturi DWG după PDF redline: layout și predare",

@@ -34,7 +34,7 @@ const entries: SitemapEntry[] = [
   { path: "/en/about", lastmod: LAST_MODIFIED, changefreq: "monthly", priority: "0.6" },
   { path: "/portofoliu", lastmod: LAST_MODIFIED, changefreq: "monthly", priority: "0.8" },
   { path: "/magazin", lastmod: LAST_MODIFIED, changefreq: "weekly", priority: "0.7" },
-  { path: "/blog", lastmod: "2026-10-05", changefreq: "weekly", priority: "0.8" },
+  { path: "/blog", lastmod: "2026-10-07", changefreq: "weekly", priority: "0.8" },
   ...articles.map((a) => ({
     path: `/blog/${a.slug}`,
     lastmod: a.date,
