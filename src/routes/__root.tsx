@@ -21,7 +21,19 @@ import { MobileCta } from "../components/site/MobileCta";
 import { PhoneLink } from "../components/site/PhoneLink";
 import { useLocale } from "../lib/i18n";
 
-const gtmHeadScript = `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer',${JSON.stringify(site.gtmContainerId)});`;
+const tagScriptUrls = [
+  site.gaMeasurementId || site.adsConversionId
+    ? `https://www.googletagmanager.com/gtag/js?id=${site.gaMeasurementId || site.adsConversionId}`
+    : "",
+  site.gtmContainerId ? `https://www.googletagmanager.com/gtm.js?id=${site.gtmContainerId}` : "",
+].filter(Boolean);
+
+// Bibliotecile Google (~700 KB) se cer abia după `load` și după primul cadru
+// desenat, ca să nu concureze cu textul paginii pe conexiuni lente. Starea de
+// consimțământ și comenzile gtag() rămân în coadă în dataLayer până atunci.
+const deferredTagLoaderScript = `(function(){function l(){${
+  site.gtmContainerId ? "dataLayer.push({'gtm.start':Date.now(),event:'gtm.js'});" : ""
+}${JSON.stringify(tagScriptUrls)}.forEach(function(u){var s=document.createElement('script');s.async=true;s.src=u;document.head.appendChild(s)})}function d(){requestAnimationFrame(function(){setTimeout(l)})}if(document.readyState==='complete')d();else addEventListener('load',d)})();`;
 
 const gtagConfigScript = [
   'gtag("js",new Date());',
@@ -32,9 +44,11 @@ const gtagConfigScript = [
 // HeadContent gestionează bine JSON-LD, dar scripturile inline de tracking
 // dispar din DOM după hidratare. Le ținem în shell, unde rulează și rămân
 // disponibile pentru GTM pe toată durata paginii.
-const trackingInlineScript = [consentModeBootstrapScript(), gtagConfigScript, gtmHeadScript].join(
-  "",
-);
+const trackingInlineScript = [
+  consentModeBootstrapScript(),
+  gtagConfigScript,
+  deferredTagLoaderScript,
+].join("");
 
 function NotFoundComponent() {
   return (
@@ -175,18 +189,10 @@ function RootShell({ children }: { children: ReactNode }) {
       <head>
         <HeadContent />
         {hasTracking ? (
-          <>
-            {site.gaMeasurementId || site.adsConversionId ? (
-              <script
-                src={`https://www.googletagmanager.com/gtag/js?id=${site.gaMeasurementId || site.adsConversionId}`}
-                async
-              />
-            ) : null}
-            <script
-              dangerouslySetInnerHTML={{ __html: trackingInlineScript }}
-              suppressHydrationWarning
-            />
-          </>
+          <script
+            dangerouslySetInnerHTML={{ __html: trackingInlineScript }}
+            suppressHydrationWarning
+          />
         ) : null}
       </head>
       <body>
