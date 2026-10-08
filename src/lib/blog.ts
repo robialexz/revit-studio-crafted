@@ -26,6 +26,146 @@ export type Article = {
 
 export const articles: Article[] = [
   {
+    slug: "xref-lipsa-autocad-preluare-dwg",
+    title: "DWG cu Xref lipsă: ce verifici înainte de preluare",
+    metaTitle: "Xref lipsă în AutoCAD: preluarea corectă a DWG-ului",
+    description:
+      "Ai primit un DWG cu referințe externe lipsă? Vezi cum clarifici sursele, căile și poziționarea înainte de a cere continuarea desenării în AutoCAD.",
+    date: "2026-10-08",
+    readingTime: 5,
+    tags: ["AutoCAD", "Xref", "Preluare DWG", "Referințe externe"],
+    sections: [
+      {
+        paragraphs: [
+          "Ai primit un DWG care se deschide, dar lipsesc pereți, echipamente sau o parte din plan. Înainte să ceri redesenarea elementelor absente, verifică dacă desenul depinde de alte fișiere. Uneori, problema este o referință externă lipsă sau o legătură către un folder care exista numai pe calculatorul expeditorului.",
+          "Pentru continuarea desenării în AutoCAD, trebuie stabilit ce conține fișierul principal, ce vine din surse externe și unde sunt permise modificările. Această verificare ajută la definirea lucrării înainte de ofertă.",
+        ],
+      },
+      {
+        heading: "Un Xref păstrează legătura cu un alt DWG",
+        paragraphs: [
+          "În terminologia AutoCAD, un Xref este o referință externă către un fișier DWG. Desenul gazdă afișează conținutul din Model Space al sursei, printr-o legătură. Actualizările sursei salvate se reflectă la redeschiderea gazdei sau la reîncărcarea referinței.",
+          "Prin urmare, un plan vizibil în DWG-ul principal poate aparține altui fișier. Pentru o corectură, precizează dacă se schimbă desenul gazdă ori sursa referențiată. Cere păstrarea legăturilor dacă sursele trebuie actualizate ulterior; integrarea permanentă prin Bind este o decizie separată, de confirmat cu proprietarul documentației.",
+        ],
+        links: [
+          {
+            label: "Autodesk: legătura dintre desenul gazdă și Xref",
+            href: "https://help.autodesk.com/cloudhelp/2026/ENU/AutoCAD-Core/files/GUID-A987D2FF-45BD-474E-99C1-E6316A42F667.htm",
+          },
+        ],
+      },
+      {
+        heading: "Identifică fișierul de lucru și sursele acceptate",
+        paragraphs: [
+          "Mai multe DWG-uri cu nume asemănătoare nu explică automat care este versiunea acceptată pentru lucru. Indică desenul principal, emiterea folosită ca bază și responsabilul care confirmă sursele. Data salvării poate ajuta la identificare, însă nu înlocuiește această confirmare.",
+          "Trimite și un PDF de referință care arată configurația așteptată. Acesta permite compararea vizuală a planului deschis cu documentul transmis. Marchează separat sursele care trebuie doar afișate și fișierele în care sunt autorizate corecturi. Astfel, repararea unei legături nu se confundă cu modificarea desenului altui colaborator.",
+        ],
+      },
+      {
+        heading: "Starea referinței arată ce trebuie investigat",
+        paragraphs: [
+          "Paleta External References, deschisă și prin comanda EXTERNALREFERENCES, listează referințele și starea lor. Tree View arată și fișierele referențiate în interiorul altor surse. Nu trata toate elementele absente ca fișiere pierdute.",
+        ],
+        table: {
+          head: ["Stare", "Semnificație", "Ce clarifici înainte de lucru"],
+          rows: [
+            [
+              "Unloaded",
+              "Referința este neîncărcată temporar; legătura este păstrată.",
+              "Trebuia păstrată ascunsă sau trebuie reîncărcată?",
+            ],
+            [
+              "Not Found",
+              "Fișierul nu este găsit în căile de căutare valide.",
+              "Lipsește sursa sau trebuie corectată calea?",
+            ],
+            [
+              "Unresolved",
+              "Fișierul referențiat nu poate fi citit.",
+              "Este disponibilă o sursă care poate fi deschisă?",
+            ],
+            [
+              "Orphaned",
+              "Referința depinde de alta neîncărcată, negăsită sau necitibilă.",
+              "Care este problema referinței părinte?",
+            ],
+          ],
+        },
+        note: "Saved Path este calea memorată în desen; Found At este locația efectivă a fișierului găsit. Compară-le pentru a confirma că se folosește sursa dorită, mai ales când există copii cu același nume.",
+        links: [
+          {
+            label: "Autodesk: stările și căile din External References",
+            href: "https://help.autodesk.com/cloudhelp/2026/ENU/AutoCAD-Core/files/GUID-7947385D-1A5D-4474-9AB9-FD5E46ADEF53.htm",
+          },
+        ],
+      },
+      {
+        heading: "Păstrează structura folderelor la preluare",
+        paragraphs: [
+          "AutoCAD permite căi absolute, relative sau fără cale salvată. O cale relativă poate permite mutarea setului pe alt calculator dacă relația dintre foldere se păstrează. Mutarea numai a desenului principal poate rupe această relație.",
+          "Cere arhiva cu structura originală și evită reunirea arbitrară a tuturor fișierelor într-un singur folder. Înainte de schimbarea unei căi, identifică sursa corectă. Dacă două emiteri au același nume de fișier, o legătură reparată către copia greșită poate afișa un plan diferit de cel acceptat.",
+        ],
+        links: [
+          {
+            label: "Autodesk: căile către desenele referențiate",
+            href: "https://help.autodesk.com/cloudhelp/2026/ENU/AutoCAD-Core/files/GUID-164C2548-91E6-476D-AFDF-6257340C2EE2.htm",
+          },
+        ],
+      },
+      {
+        heading: "Attachment și Overlay controlează propagarea referinței",
+        paragraphs: [
+          "Referințele DWG pot fi atașate ca Attachment sau Overlay. Un Overlay este vizibil în gazda lui, dar nu este inclus când acea gazdă este referențiată într-un alt desen.",
+          "Exemplu ipotetic: instalatii.dwg afișează arhitectura.dwg, iar sinteza.dwg referențiază instalatii.dwg. Dacă arhitectura este Overlay în instalatii.dwg, nu se propagă prin această legătură în sinteza.dwg. Ca Attachment, poate apărea ca referință imbricată. Alegerea trebuie să corespundă organizării desenelor cerute de client; schimbarea tuturor referințelor în Attachment nu este o soluție universală pentru lipsurile din plan.",
+        ],
+        links: [
+          {
+            label: "Autodesk: referințe imbricate și Overlay",
+            href: "https://help.autodesk.com/cloudhelp/2026/ENU/AutoCAD-Core/files/GUID-0D7D1315-B58A-4BCD-9953-282FF578B144.htm",
+          },
+        ],
+      },
+      {
+        heading: "O sursă găsită trebuie verificată și în poziție",
+        paragraphs: [
+          "Dialogul de atașare permite stabilirea punctului de inserție, a factorilor de scară și a rotației. El afișează și informațiile despre unități și factorul de conversie calculat din acestea. Faptul că referința s-a încărcat nu confirmă singur alinierea.",
+          "Transmite unitățile, reperele comune și poziționarea cerută, dacă sunt cunoscute. Verifică o dimensiune și câteva repere convenite cu proiectantul. Dacă sursa apare deplasată, rotită sau la o dimensiune neașteptată, clarifică setările înainte să fie mutată manual pentru a semăna cu PDF-ul.",
+        ],
+        links: [
+          {
+            label: "Autodesk: inserție, scară, rotație și unități pentru Xref",
+            href: "https://help.autodesk.com/cloudhelp/2026/ENU/AutoCAD-Core/files/GUID-53030EDD-1D1D-40C4-922E-9B964A048ED9.htm",
+          },
+        ],
+      },
+      {
+        heading: "Checklist pentru continuarea desenării în AutoCAD",
+        list: [
+          "Desenul principal și sursele externe sunt identificate prin fișier și emitere.",
+          "Structura folderelor este păstrată, inclusiv dependențele imbricate.",
+          "Lipsurile și referințele neîncărcate intenționat sunt semnalate separat.",
+          "PDF-ul de referință permite verificarea configurației așteptate.",
+          "Unitățile și reperele de poziționare sunt confirmate sau marcate pentru clarificare.",
+          "Este precizat ce fișiere pot fi modificate și cine acceptă schimbările.",
+          "Lista intervențiilor și livrabilele DWG/PDF sunt definite.",
+        ],
+        note: "Checklistul este o propunere de organizare a preluării, adaptabilă procesului clientului.",
+      },
+      {
+        heading: "Ai nevoie de pregătirea unui DWG primit?",
+        paragraphs: [
+          "NOD BIM oferă corecturi AutoCAD, organizarea layerelor, blocurilor și referințelor externe, plus pregătirea documentelor DWG/PDF. Trimite fișierele și cerințele pentru evaluarea lucrării; costul se stabilește după verificarea documentației, înainte de începere. Calculele, soluțiile tehnice și semnătura de specialitate rămân la proiectanții responsabili.",
+        ],
+        links: [
+          {
+            label: "Servicii AutoCAD: pregătire DWG și referințe externe",
+            href: "/autocad-dwg",
+          },
+        ],
+      },
+    ],
+  },
+  {
     slug: "liste-cantitati-revit-mep-campuri-filtre-verificare",
     title: "Liste de cantități Revit MEP: ce ceri și cum le verifici",
     metaTitle: "Liste de cantități Revit MEP: câmpuri și verificare",

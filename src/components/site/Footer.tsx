@@ -45,6 +45,7 @@ const copy = {
       { label: "Exemple", href: "/portofoliu" },
       { label: "Jurnal tehnic", href: "/blog" },
       { label: "Magazin", href: "/magazin" },
+      { label: "Recomandări", href: "/recomandari" },
       { label: "Despre", href: "/despre" },
       { label: "Contact", href: "/contact" },
       { label: "Întrebări frecvente", href: "/#faq" },

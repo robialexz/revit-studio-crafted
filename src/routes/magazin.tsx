@@ -84,7 +84,7 @@ function shopSchema() {
         name: title,
         description,
         inLanguage: "ro-RO",
-        dateModified: "2026-08-31",
+        dateModified: "2026-10-08",
         mainEntity: { "@id": `${url}#catalog` },
       },
       {
@@ -244,6 +244,31 @@ function Magazin() {
               <ProductCard key={product.id} product={product} index={index} featured />
             ))}
           </div>
+          <aside
+            className="mt-10 border border-border-strong bg-sheet p-6 md:p-8"
+            aria-labelledby="recommendations-heading"
+          >
+            <div className="grid gap-8 lg:grid-cols-12 lg:items-end">
+              <div className="lg:col-span-8">
+                <p className="tech-label text-primary">Produse și software de la parteneri</p>
+                <h3 id="recommendations-heading" className="mt-4 text-3xl md:text-4xl">
+                  Recomandări separate de ofertele NOD BIM
+                </h3>
+                <p className="mt-4 max-w-3xl text-sm leading-relaxed text-muted-foreground md:text-base">
+                  Vezi software și produse oferite direct de parteneri, cu furnizorul și orice
+                  relație afiliată explicate pe pagina dedicată.
+                </p>
+              </div>
+              <div className="lg:col-span-4">
+                <Link
+                  to="/recomandari"
+                  className="tech-label inline-flex border border-foreground bg-foreground px-4 py-3 text-background transition-colors hover:border-primary hover:bg-primary"
+                >
+                  Deschide recomandările ↗
+                </Link>
+              </div>
+            </div>
+          </aside>
         </section>
 
         <section id="comenzi-speciale" className="border-y border-border-strong bg-sheet">

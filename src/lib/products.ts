@@ -4,6 +4,8 @@ import shopDidacticModel from "@/assets/shop-didactic-model.webp";
 import shopHealthCheck from "@/assets/shop-health-check.webp";
 import shopStarterKit from "@/assets/shop-starter-kit.webp";
 
+export const freeMaintAffiliateUrl = "https://freemaint.com/pricing?via=bsx7y7fx2v58";
+
 export type ShopProduct = {
   id: string;
   name: string;

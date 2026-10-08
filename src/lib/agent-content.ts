@@ -8,7 +8,7 @@ import { enAbout, enDrafting, enOutsourcing } from "./en-content";
 import { faq, process, serviceHref, services } from "./home-content";
 import { enHomePath } from "./i18n";
 import { estimateLabel, formatLei, jobRates, packagePrice } from "./pricing";
-import { products } from "./products";
+import { freeMaintAffiliateUrl, products } from "./products";
 import { site } from "./site-config";
 
 const base = () => site.siteUrl;
@@ -23,6 +23,7 @@ const staticPaths = new Set([
   "/en/cookies",
   "/contact",
   "/magazin",
+  "/recomandari",
   "/portofoliu",
   "/blog",
   "/revit-mep",
@@ -66,6 +67,7 @@ export function markdownResponseForPath(pathname: string): Response | null {
   if (clean === "/despre") return simpleMdResponse(aboutMarkdown());
   if (clean === "/contact") return simpleMdResponse(contactMarkdown());
   if (clean === "/magazin") return simpleMdResponse(shopMarkdown());
+  if (clean === "/recomandari") return simpleMdResponse(recommendationsMarkdown());
   if (clean === "/portofoliu") return simpleMdResponse(portfolioMarkdown());
   if (clean === "/blog") return simpleMdResponse(blogIndexMarkdown());
   if (clean === enHomePath) return simpleMdResponse(enOutsourcingMarkdown());
@@ -98,6 +100,7 @@ export function notFoundMarkdown(pathname: string): Response {
       `- [PDF în DWG](${base()}/pdf-in-dwg)`,
       `- [Exemple](${base()}/portofoliu)`,
       `- [Magazin](${base()}/magazin)`,
+      `- [Recomandări](${base()}/recomandari)`,
       `- [Jurnal tehnic](${base()}/blog)`,
       `- [Contact](${base()}/contact)`,
       ``,
@@ -223,7 +226,7 @@ function shopMarkdown(): string {
   return [
     `# Magazin — ${site.businessName}`,
     ``,
-    `> Resurse BIM pentru birouri din România: audituri RVT/DWG, kituri Revit MEP, automatizări Dynamo/pyRevit, capacitate externă și modele didactice MEP. Comenzi pe WhatsApp.`,
+    `> Resurse BIM și servicii la comandă pentru birouri din România: audituri RVT/DWG, kituri Revit MEP, automatizări Dynamo/pyRevit, capacitate externă și modele didactice MEP. Comenzile NOD BIM se confirmă pe WhatsApp.`,
     ``,
     `## Pentru birouri de proiectare`,
     ``,
@@ -243,9 +246,40 @@ function shopMarkdown(): string {
           `- **${p.name}** — ${p.price} (${p.availability}). Pentru ${p.audience}. Compatibilitate: ${p.compatibility}. Livrabile: ${p.deliverables.join("; ")}.`,
       ),
     ``,
+    `## Recomandări partenere`,
+    ``,
+    `- [Software și produse recomandate](${base()}/recomandari): produse oferite direct de parteneri, cu relațiile afiliate marcate transparent.`,
+    ``,
     `## Comandă`,
     ``,
     `Comanda se confirmă pe WhatsApp înainte de plată. Pachetele digitale se livrează online; modelele fizice se expediază prin curier în România.`,
+    ``,
+  ].join("\n");
+}
+
+function recommendationsMarkdown(): string {
+  return [
+    `# Recomandări de software și produse — ${site.businessName}`,
+    ``,
+    `> Recomandări de la furnizori parteneri. NOD BIM poate primi comision prin linkurile marcate ca afiliate; furnizorul gestionează contractul, plata, produsul și suportul.`,
+    ``,
+    `## FreeMaint CMMS`,
+    ``,
+    `Software CMMS pentru evidența activelor, ordine de lucru și mentenanță preventivă. Este oferit și facturat de FreeMaint; nu este un serviciu sau produs propriu NOD BIM.`,
+    ``,
+    `- Core: 0 USD; include active, ordine de lucru și mentenanță preventivă.`,
+    `- Planurile plătite încep de la 29 USD/lună per companie; taxele și funcțiile se verifică la furnizor.`,
+    `- FreeMaint declară o reducere de 10% pentru clienții care folosesc linkul și un comision recurent de 25% din plățile eligibile pentru NOD BIM.`,
+    ``,
+    `[Vezi planurile FreeMaint prin linkul afiliat](${freeMaintAffiliateUrl})`,
+    ``,
+    `Consultă și [termenii programului de afiliere](https://freemaint.com/affiliates/kit) și [pagina oficială de prețuri](https://freemaint.com/pricing). Informațiile despre preț și funcții pot fi actualizate de furnizor.`,
+    ``,
+    `În prezent, FreeMaint este singura recomandare afiliată publicată. Alte produse vor fi adăugate după verificarea furnizorului, a condițiilor comerciale și a livrării.`,
+    ``,
+    `## Oferte proprii NOD BIM`,
+    ``,
+    `Pentru audituri RVT/DWG, kituri Revit MEP și servicii la comandă, vezi [Magazinul NOD BIM](${base()}/magazin).`,
     ``,
   ].join("\n");
 }
@@ -410,14 +444,14 @@ function notFoundText(pathname: string): string {
 
 /** Ce pagini au variantă markdown — aceeași afirmație în llms.txt, agent.json și agent-instructions.txt. */
 const markdownClaim =
-  "Service, portfolio, shop, journal, about and contact pages are also available as Markdown at the same URL via `Accept: text/markdown` content negotiation. /modelare-revit and the legal pages are HTML only.";
+  "Service, portfolio, shop, partner-recommendation, journal, about and contact pages are also available as Markdown at the same URL via `Accept: text/markdown` content negotiation. /modelare-revit and the legal pages are HTML only.";
 
 /** /llms.txt conform spec-ului llmstxt.org (H1, blockquote, detalii, secțiuni cu linkuri). */
 export function llmsTxt(): string {
   return [
     `# ${site.businessName}`,
     ``,
-    `> ${site.tagline}. Desenare tehnică în AutoCAD și Revit: planuri redesenate, PDF în DWG, modelare Revit MEP și planșe de instalații HVAC, termice și electrice. Comandă de produse de nișă și jurnal tehnic pe aceeași platformă.`,
+    `> ${site.tagline}. Desenare tehnică în AutoCAD și Revit: planuri redesenate, PDF în DWG, modelare Revit MEP și planșe de instalații HVAC, termice și electrice. Oferte BIM, recomandări de produse partenere și jurnal tehnic pe aceeași platformă.`,
     ``,
     `## When to use this`,
     ``,
@@ -456,7 +490,11 @@ export function llmsTxt(): string {
     ``,
     `## Magazin`,
     ``,
-    `- [Magazin](${base()}/magazin): audit RVT/DWG, kituri Revit MEP, automatizări Dynamo/pyRevit, capacitate externă și modele didactice MEP`,
+    `- [Magazin](${base()}/magazin): audit RVT/DWG, kituri Revit MEP, automatizări Dynamo/pyRevit, capacitate externă și modele didactice NOD BIM`,
+    ``,
+    `## Recomandări de la parteneri`,
+    ``,
+    `- [Software și produse recomandate](${base()}/recomandari): FreeMaint CMMS, ofertă a furnizorului cu link afiliat declarat transparent`,
     ``,
     `## Despre`,
     ``,
