@@ -34,8 +34,9 @@ const entries: SitemapEntry[] = [
   { path: "/en/autocad-drafting", lastmod: LAST_MODIFIED, changefreq: "monthly", priority: "0.7" },
   { path: "/en/about", lastmod: LAST_MODIFIED, changefreq: "monthly", priority: "0.6" },
   { path: "/portofoliu", lastmod: LAST_MODIFIED, changefreq: "monthly", priority: "0.8" },
-  { path: "/magazin", lastmod: LAST_MODIFIED, changefreq: "weekly", priority: "0.7" },
-  { path: "/blog", lastmod: LAST_MODIFIED, changefreq: "weekly", priority: "0.8" },
+  { path: "/magazin", lastmod: "2026-10-08", changefreq: "weekly", priority: "0.7" },
+  { path: "/recomandari", lastmod: "2026-10-08", changefreq: "weekly", priority: "0.6" },
+  { path: "/blog", lastmod: "2026-10-08", changefreq: "weekly", priority: "0.8" },
   ...articles.map((a) => ({
     path: `/blog/${a.slug}`,
     lastmod: a.date,

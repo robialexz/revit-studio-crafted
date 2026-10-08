@@ -15,6 +15,7 @@ describe("agent-content — negotiere markdown", () => {
   test("sitemap known paths sunt recunoscute", () => {
     expect(isKnownPath("/")).toBe(true);
     expect(isKnownPath("/magazin")).toBe(true);
+    expect(isKnownPath("/recomandari")).toBe(true);
     expect(isKnownPath("/despre")).toBe(true);
     expect(isKnownPath("/en/about")).toBe(true);
     expect(isKnownPath("/en/privacy")).toBe(true);
@@ -80,6 +81,16 @@ describe("agent-content — negotiere markdown", () => {
     expect(txt).toContain("Do NOT use this site for");
     expect(txt).toContain("/sitemap.xml");
     expect(txt).toContain("Accept: text/markdown");
+  });
+
+  test("recomandările afiliate au pagină Markdown separată de magazin", async () => {
+    const markdown = await markdownResponseForPath("/recomandari")?.text();
+    const shop = await markdownResponseForPath("/magazin")?.text();
+    expect(markdown).toContain("FreeMaint CMMS");
+    expect(markdown).toContain("linkul afiliat");
+    expect(markdown).toContain("?via=bsx7y7fx2v58");
+    expect(shop).toContain("/recomandari");
+    expect(shop).not.toContain("?via=bsx7y7fx2v58");
   });
 
   test("agent-instructions.txt conține ghidul când/cum să folosești site-ul", () => {

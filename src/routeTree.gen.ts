@@ -27,6 +27,7 @@ import { Route as PdfInDwgRouteImport } from './routes/pdf-in-dwg'
 import { Route as PoliticaCookiesRouteImport } from './routes/politica-cookies'
 import { Route as PoliticaDeConfidentialitateRouteImport } from './routes/politica-de-confidentialitate'
 import { Route as PortofoliuRouteImport } from './routes/portofoliu'
+import { Route as RecomandariRouteImport } from './routes/recomandari'
 import { Route as RevitMepRouteImport } from './routes/revit-mep'
 import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
@@ -131,6 +132,11 @@ const PortofoliuRoute = PortofoliuRouteImport.update({
   path: '/portofoliu',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RecomandariRoute = RecomandariRouteImport.update({
+  id: '/recomandari',
+  path: '/recomandari',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RevitMepRoute = RevitMepRouteImport.update({
   id: '/revit-mep',
   path: '/revit-mep',
@@ -206,6 +212,7 @@ export interface FileRoutesByFullPath {
   '/politica-cookies': typeof PoliticaCookiesRoute
   '/politica-de-confidentialitate': typeof PoliticaDeConfidentialitateRoute
   '/portofoliu': typeof PortofoliuRoute
+  '/recomandari': typeof RecomandariRoute
   '/revit-mep': typeof RevitMepRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -237,6 +244,7 @@ export interface FileRoutesByTo {
   '/politica-cookies': typeof PoliticaCookiesRoute
   '/politica-de-confidentialitate': typeof PoliticaDeConfidentialitateRoute
   '/portofoliu': typeof PortofoliuRoute
+  '/recomandari': typeof RecomandariRoute
   '/revit-mep': typeof RevitMepRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -269,6 +277,7 @@ export interface FileRoutesById {
   '/politica-cookies': typeof PoliticaCookiesRoute
   '/politica-de-confidentialitate': typeof PoliticaDeConfidentialitateRoute
   '/portofoliu': typeof PortofoliuRoute
+  '/recomandari': typeof RecomandariRoute
   '/revit-mep': typeof RevitMepRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -302,6 +311,7 @@ export interface FileRouteTypes {
     | '/politica-cookies'
     | '/politica-de-confidentialitate'
     | '/portofoliu'
+    | '/recomandari'
     | '/revit-mep'
     | '/robots.txt'
     | '/sitemap.xml'
@@ -333,6 +343,7 @@ export interface FileRouteTypes {
     | '/politica-cookies'
     | '/politica-de-confidentialitate'
     | '/portofoliu'
+    | '/recomandari'
     | '/revit-mep'
     | '/robots.txt'
     | '/sitemap.xml'
@@ -364,6 +375,7 @@ export interface FileRouteTypes {
     | '/politica-cookies'
     | '/politica-de-confidentialitate'
     | '/portofoliu'
+    | '/recomandari'
     | '/revit-mep'
     | '/robots.txt'
     | '/sitemap.xml'
@@ -396,6 +408,7 @@ export interface RootRouteChildren {
   PoliticaCookiesRoute: typeof PoliticaCookiesRoute
   PoliticaDeConfidentialitateRoute: typeof PoliticaDeConfidentialitateRoute
   PortofoliuRoute: typeof PortofoliuRoute
+  RecomandariRoute: typeof RecomandariRoute
   RevitMepRoute: typeof RevitMepRoute
   RobotsDottxtRoute: typeof RobotsDottxtRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
@@ -537,6 +550,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PortofoliuRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/recomandari': {
+      id: '/recomandari'
+      path: '/recomandari'
+      fullPath: '/recomandari'
+      preLoaderRoute: typeof RecomandariRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/revit-mep': {
       id: '/revit-mep'
       path: '/revit-mep'
@@ -637,6 +657,7 @@ const rootRouteChildren: RootRouteChildren = {
   PoliticaCookiesRoute: PoliticaCookiesRoute,
   PoliticaDeConfidentialitateRoute: PoliticaDeConfidentialitateRoute,
   PortofoliuRoute: PortofoliuRoute,
+  RecomandariRoute: RecomandariRoute,
   RevitMepRoute: RevitMepRoute,
   RobotsDottxtRoute: RobotsDottxtRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
